@@ -1,0 +1,21 @@
+{
+  "name": "webpack-config",
+  "version": "1.0.0",
+  "description": "Basic webpack config",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "build": "node_modules/.bin/webpack",
+    "start": "node_modules/.bin/webpack-dev-server"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^6.21.0",
+    "babel-loader": "^6.2.10",
+    "babel-preset-env": "^1.1.4",
+    "html-webpack-plugin": "^2.24.1",
+    "webpack": "^1.14.0",
+    "webpack-dev-server": "^1.16.2"
+  }
+}
