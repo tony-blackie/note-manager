@@ -5,8 +5,8 @@ module.exports = {
     devtool: 'cheap-module-eval-source-map',
     context: path.join(__dirname, 'src'),
     entry: {
-        app: './app/app.js',
-        about: './about/about.js'
+        components: './components/importComponents.js',
+        routes: './app/routes.js'
     },
     output: {
         path: path.join(__dirname, 'dist'),
@@ -33,18 +33,18 @@ module.exports = {
                 inject: 'body', //this is default, but can be injected elsewhere
                 hash: true, //add random hash to every bundle on rebuild
                 filename: 'index.html',
-                chunks: ['app']
-            }
-        ),
-
-        new htmlWebpackPlugin(
-            {
-                template: path.join(__dirname, 'src', 'index.html'),
-                inject: 'body',
-                hash: true,
-                filename: 'about.html',
-                chunks: ['about']
+                chunks: ['components', 'routes']
             }
         )
+
+        //new htmlWebpackPlugin(
+        //    {
+        //        template: path.join(__dirname, 'src', 'index.html'),
+        //        inject: 'body',
+        //        hash: true,
+        //        filename: 'about.html',
+        //        chunks: ['routes']
+        //    }
+        //)
     ]
 };
