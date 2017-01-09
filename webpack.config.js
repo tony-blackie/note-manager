@@ -5,8 +5,7 @@ module.exports = {
     devtool: 'cheap-module-eval-source-map',
     context: path.join(__dirname, 'src'),
     entry: {
-        components: './components/importComponents.js',
-        routes: './app/routes.js'
+        app: './app/app.js'
     },
     output: {
         path: path.join(__dirname, 'dist'),
@@ -33,7 +32,7 @@ module.exports = {
                 inject: 'body', //this is default, but can be injected elsewhere
                 hash: true, //add random hash to every bundle on rebuild
                 filename: 'index.html',
-                chunks: ['components', 'routes']
+                chunks: ['app']
             }
         )
 
