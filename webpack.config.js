@@ -5,7 +5,7 @@ module.exports = {
     devtool: 'cheap-module-eval-source-map',
     context: path.join(__dirname, 'src'),
     entry: {
-        app: './app/app.js'
+        app: './app/app.jsx'
     },
     output: {
         path: path.join(__dirname, 'dist'),
@@ -14,7 +14,7 @@ module.exports = {
     module: {
         loaders: [
             {
-                test: /\.js$/,
+                test: /\.jsx$/,
                 loader: 'babel-loader',
                 include: path.join(__dirname, 'src')
             }
