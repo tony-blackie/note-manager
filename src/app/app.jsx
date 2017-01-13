@@ -7,9 +7,8 @@ import Note from '../components/NoteComponent.jsx';
 
 ReactDOM.render((
    <Router history={hashHistory}>
-    <Route path='/' component={App}>
-      <Route path='/note' component={Note} />
-      <Route path='*' component={NoMatch} />
-    </Route>
+    <Route path='/' component={App} />
+    <Route path='/note' component={Note} />
+    <Route path='*' component={NoMatch} />
    </Router>
 ), document.getElementById('root'));
