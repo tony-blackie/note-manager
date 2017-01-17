@@ -35,7 +35,7 @@ export default class App extends Component {
         };
         this.listItems = this.state.objects.map((object) => {
             return (
-                <li key={object.id}>{object.name}</li>
+                <li key={object.id.toString()}>{object.name}</li>
             );
         });
     }
