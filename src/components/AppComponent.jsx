@@ -33,7 +33,11 @@ export default class App extends Component {
                     name: 'str4'
                 }
             ],
-            name: ''
+            name: '',
+            valueToMultiply: 0,
+            multiplier: 0,
+            valueToDivide: 0,
+            divisor: 0
         };
 
         this.listItems = this.state.objects.map((object) => {
@@ -43,10 +47,20 @@ export default class App extends Component {
         });
 
         this.handleChange = this.handleChange.bind(this);
+        this.multiplyNumber = this.multiplyNumber.bind(this);
+        this.divideNumber = this.divideNumber.bind(this);
     }
 
     handleChange(event) {
         this.setState({name: event.target.value})
+    }
+
+    multiplyNumber(number, multiplier) {
+        this.setState({valueToMultiply: number, multiplier: multiplier});
+    }
+
+    divideNumber(number, divisor) {
+        this.setState({valueToDivide: number, divisor: divisor})
     }
 
     render() {
@@ -65,7 +79,17 @@ export default class App extends Component {
                     ? <div>Hey, {this.state.name}!</div>
                     : ''
                 }
-
+                <br/>
+                <Multiplier
+                    onChange={this.multiplyNumber}
+                    type="multiply"
+                    params={{value: this.valueToMultiply, operand: this.multiplier}}
+                />
+                <Multiplier
+                    onChange={this.divideNumber}
+                    type="divide"
+                    params={{value: this.valueToDivide, operand: this.divisor}}
+                />
             </div>
         );
     }
