@@ -9,6 +9,7 @@ import NotePanel from './NotePanel.jsx';
 export default class App extends Component {
     constructor(props) {
         super(props);
+
         this.state = {
             objects: [
                 {
@@ -31,16 +32,22 @@ export default class App extends Component {
                     id: 4,
                     name: 'str4'
                 }
-            ]
+            ],
+            name: null
         };
+
         this.listItems = this.state.objects.map((object) => {
             return (
                 <li key={object.id.toString()}>{object.name}</li>
             );
         });
+
+        this.handleChange = this.handleChange.bind(this);
     }
 
-
+    handleChange(event) {
+        this.setState({name: event.target.value})
+    }
 
     render() {
         return (
@@ -50,6 +57,15 @@ export default class App extends Component {
                 <FolderTree />
                 <NotePanel />
                 <ul>{this.listItems}</ul>
+                <br/>
+                <label>Name:</label>
+                <input type="text" value={this.state.name} onChange={this.handleChange} />
+                {
+                    this.state.name
+                    ? <div>Hey, {this.state.name}!</div>
+                    : null
+                }
+
             </div>
         );
     }
