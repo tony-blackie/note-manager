@@ -70,7 +70,7 @@ export default class App extends Component {
 
         if (!config.isMultiply && config.isOperand) {
             this.setState(
-                {divisor: number, multiplier: number, valueToMultiply: this.state.valueToDivide / this.state.divisor}
+                {divisor: number, multiplier: number, valueToMultiply: this.state.valueToDivide / number}
             );
             return;
         }
