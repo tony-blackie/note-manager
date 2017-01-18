@@ -12,17 +12,17 @@ export default class Multiplier extends Component {
 
     onValueChange(event) {
         if (this.isMultiply) {
-            this.props.onChange(event.target.value, {isMultiply: true, isOperand: false})
+            this.props.onChange(Number(event.target.value), {isMultiply: true, isOperand: false})
         } else {
-            this.props.onChange(event.target.value, {isMultiply: false, isOperand: false})
+            this.props.onChange(Number(event.target.value), {isMultiply: false, isOperand: false})
         }
     }
 
     onOperandChange(event) {
         if (this.isMultiply) {
-            this.props.onChange(event.target.value, {isMultiply: true, isOperand: true});
+            this.props.onChange(Number(event.target.value), {isMultiply: true, isOperand: true});
         } else {
-            this.props.onChange(event.target.value, {isMultiply: false, isOperand: true});
+            this.props.onChange(Number(event.target.value), {isMultiply: false, isOperand: true});
         }
 
     }
@@ -31,10 +31,12 @@ export default class Multiplier extends Component {
     render() {
         return (
             <div>
-                <label>Value</label>
-                <input type="text" value={this.props.value} onChange={this.onValueChange} />
-                <label>Operand</label>
-                <input type="text" value={this.props.operand} onChange={this.onOperandChange} />
+                <br/>
+                {this.isMultiply ? <label>Operand to multiply:</label> : <label>Operand to divide:</label>}
+                <input type="text" value={this.props.params.value} onChange={this.onValueChange} />
+                {this.isMultiply ? <label>Multiplier</label> : <label>Divisor</label>}
+                <input type="text" value={this.props.params.operand} onChange={this.onOperandChange} />
+                <br/>
             </div>
         );
     }

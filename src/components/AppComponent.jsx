@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import ControlPanel from './ControlPanel.jsx';
 import FolderTree from './FolderTree.jsx';
 import NotePanel from './NotePanel.jsx';
+import Multiplier from './Multiplier.jsx';
 
 
 export default class App extends Component {
@@ -34,10 +35,10 @@ export default class App extends Component {
                 }
             ],
             name: '',
-            valueToMultiply: 0,
-            multiplier: 0,
-            valueToDivide: 0,
-            divisor: 0
+            valueToMultiply: 5,
+            multiplier: 1,
+            valueToDivide: 5,
+            divisor: 1
         };
 
         this.listItems = this.state.objects.map((object) => {
@@ -49,24 +50,34 @@ export default class App extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.multiplyNumber = this.multiplyNumber.bind(this);
         this.divideNumber = this.divideNumber.bind(this);
+        this.changeValues = this.changeValues.bind(this);
     }
 
-    handleChange(number, config) {
+    handleChange(event) {
+        this.setState({name: event.target.value})
+    }
+
+    changeValues(number, config) {
         if (config.isMultiply && config.isOperand) {
-            this.setState({multiply: number});
+            this.setState({multiplier: number, divisor: number, valueToDivide: number * this.state.valueToMultiply});
             return;
         }
 
         if (config.isMultiply && !config.isOperand) {
-            this.setState({valueToMultiply: number});
+            this.setState({valueToMultiply: number, valueToDivide: number * this.state.multiplier});
+            return;
         }
 
         if (!config.isMultiply && config.isOperand) {
-            this.setState({divisor: number});
+            this.setState(
+                {divisor: number, multiplier: number, valueToMultiply: this.state.valueToDivide / this.state.divisor}
+            );
+            return;
         }
 
         if (!config.isMultiply && !config.isOperand) {
-            this.setState({valueToDivide: number});
+            this.setState({valueToDivide: number, valueToMultiply: number / this.state.divisor});
+            return;
         }
     }
 
@@ -96,14 +107,14 @@ export default class App extends Component {
                 }
                 <br/>
                 <Multiplier
-                    onChange={this.multiplyNumber}
+                    onChange={this.changeValues}
                     type="multiply"
-                    params={{value: this.valueToMultiply, operand: this.multiplier}}
+                    params={{value: this.state.valueToMultiply, operand: this.state.multiplier}}
                 />
                 <Multiplier
-                    onChange={this.divideNumber}
+                    onChange={this.changeValues}
                     type="divide"
-                    params={{value: this.valueToDivide, operand: this.divisor}}
+                    params={{value: this.state.valueToDivide, operand: this.state.divisor}}
                 />
             </div>
         );
