@@ -51,8 +51,23 @@ export default class App extends Component {
         this.divideNumber = this.divideNumber.bind(this);
     }
 
-    handleChange(event) {
-        this.setState({name: event.target.value})
+    handleChange(number, config) {
+        if (config.isMultiply && config.isOperand) {
+            this.setState({multiply: number});
+            return;
+        }
+
+        if (config.isMultiply && !config.isOperand) {
+            this.setState({valueToMultiply: number});
+        }
+
+        if (!config.isMultiply && config.isOperand) {
+            this.setState({divisor: number});
+        }
+
+        if (!config.isMultiply && !config.isOperand) {
+            this.setState({valueToDivide: number});
+        }
     }
 
     multiplyNumber(number, multiplier) {

@@ -11,16 +11,18 @@ export default class Multiplier extends Component {
     }
 
     onValueChange(event) {
-        //if (this.isMultiply) {
-        //    this.props.onChange({})
-        //}
+        if (this.isMultiply) {
+            this.props.onChange(event.target.value, {isMultiply: true, isOperand: false})
+        } else {
+            this.props.onChange(event.target.value, {isMultiply: false, isOperand: false})
+        }
     }
 
     onOperandChange(event) {
         if (this.isMultiply) {
-            this.props.onChange({multiply: event.target.value});
+            this.props.onChange(event.target.value, {isMultiply: true, isOperand: true});
         } else {
-            this.props.onChange({divisor: event.target.value});
+            this.props.onChange(event.target.value, {isMultiply: false, isOperand: true});
         }
 
     }
