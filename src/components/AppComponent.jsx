@@ -33,7 +33,7 @@ export default class App extends Component {
                     name: 'str4'
                 }
             ],
-            name: null
+            name: ''
         };
 
         this.listItems = this.state.objects.map((object) => {
@@ -63,7 +63,7 @@ export default class App extends Component {
                 {
                     this.state.name
                     ? <div>Hey, {this.state.name}!</div>
-                    : null
+                    : ''
                 }
 
             </div>
