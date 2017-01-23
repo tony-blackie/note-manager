@@ -6,17 +6,17 @@ var mysql = require('mysql');
 app.use(express.static('dist'));
 
 var connection = mysql.createConnection({
+    database: 'users_db',
     host: 'localhost',
     user: 'root',
+    port: '3306',
     password: ''
 });
 
 app.get('/users', function(req, res) {
     connection.connect();
 
-    res.send('works');
-
-    connection.query('SELECT * FROM users', function (err, results, fields) {
+    connection.query('SELECT * FROM user', function (err, results, fields) {
         if (err) throw err;
 
         res.send(results);
