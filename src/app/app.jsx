@@ -5,6 +5,11 @@ import App from '../components/AppComponent.jsx';
 import NoMatch from '../components/NoMatchComponent.jsx';
 import Note from '../components/NoteComponent.jsx';
 
+$.ajax('/users').then(function(response) {
+    debugger;
+    console.log(response);
+});
+
 ReactDOM.render((
    <Router history={hashHistory}>
     <Route path='/' component={App} />
