@@ -6,7 +6,7 @@ var mysql = require('mysql');
 app.use(express.static('dist'));
 
 var connection = mysql.createConnection({
-    database: 'users_db',
+    database: 'notes_db',
     host: 'localhost',
     user: 'root',
     port: '3306',
@@ -20,8 +20,6 @@ app.get('/notes', function(req, res) {
         if (err) throw err;
 
         res.send(results);
-
-        console.log('The solution is: ', rows[0].solution)
     });
 
     connection.end();
