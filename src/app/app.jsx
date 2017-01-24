@@ -5,7 +5,7 @@ import App from '../components/AppComponent.jsx';
 import NoMatch from '../components/NoMatchComponent.jsx';
 import Note from '../components/NoteComponent.jsx';
 
-$.ajax('/users').then(function(response) {
+$.ajax('/notes').then(function(response) {
     debugger;
     console.log(response);
 });

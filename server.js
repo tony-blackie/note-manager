@@ -13,10 +13,10 @@ var connection = mysql.createConnection({
     password: ''
 });
 
-app.get('/users', function(req, res) {
+app.get('/notes', function(req, res) {
     connection.connect();
 
-    connection.query('SELECT * FROM user', function (err, results, fields) {
+    connection.query('SELECT * FROM note', function (err, results, fields) {
         if (err) throw err;
 
         res.send(results);
