@@ -105,17 +105,6 @@ export default class App extends Component {
                     ? <div>Hey, {this.state.name}!</div>
                     : ''
                 }
-                <br/>
-                <Multiplier
-                    onChange={this.changeValues}
-                    type="multiply"
-                    params={{value: this.state.valueToMultiply, operand: this.state.multiplier}}
-                />
-                <Multiplier
-                    onChange={this.changeValues}
-                    type="divide"
-                    params={{value: this.state.valueToDivide, operand: this.state.divisor}}
-                />
             </div>
         );
     }
