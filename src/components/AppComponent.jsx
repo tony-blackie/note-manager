@@ -4,7 +4,6 @@ import { Link } from 'react-router';
 import ControlPanel from './ControlPanel.jsx';
 import FolderTree from './FolderTree.jsx';
 import NotePanel from './NotePanel.jsx';
-import Multiplier from './Multiplier.jsx';
 
 
 export default class App extends Component {
@@ -34,11 +33,7 @@ export default class App extends Component {
                     name: 'str4'
                 }
             ],
-            name: '',
-            valueToMultiply: 5,
-            multiplier: 1,
-            valueToDivide: 5,
-            divisor: 1
+            name: ''
         };
 
         this.listItems = this.state.objects.map((object) => {
@@ -48,8 +43,6 @@ export default class App extends Component {
         });
 
         this.handleChange = this.handleChange.bind(this);
-        this.multiplyNumber = this.multiplyNumber.bind(this);
-        this.divideNumber = this.divideNumber.bind(this);
         this.changeValues = this.changeValues.bind(this);
     }
 
@@ -79,14 +72,6 @@ export default class App extends Component {
             this.setState({valueToDivide: number, valueToMultiply: number / this.state.divisor});
             return;
         }
-    }
-
-    multiplyNumber(number, multiplier) {
-        this.setState({valueToMultiply: number, multiplier: multiplier});
-    }
-
-    divideNumber(number, divisor) {
-        this.setState({valueToDivide: number, divisor: divisor})
     }
 
     render() {
