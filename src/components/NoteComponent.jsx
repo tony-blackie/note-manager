@@ -4,7 +4,13 @@ import ReactDOM, { render } from 'react-dom';
 export default class Note extends Component {
     render() {
         return (
-            <div>Note Component</div>
+            <div>
+                <h2>{this.props.note.header}</h2>
+
+                <div>
+                    <p>{this.props.note.text}</p>
+                </div>
+            </div>
         );
     }
 }
