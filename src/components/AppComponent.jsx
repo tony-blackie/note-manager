@@ -4,6 +4,8 @@ import { Link } from 'react-router';
 import ControlPanel from './ControlPanel.jsx';
 import FolderTree from './FolderTree.jsx';
 import NotePanel from './NotePanel.jsx';
+import Note from './Note.jsx';
+import Folder from './Folder.jsx';
 
 
 export default class App extends Component {
@@ -51,27 +53,7 @@ export default class App extends Component {
     }
 
     changeValues(number, config) {
-        if (config.isMultiply && config.isOperand) {
-            this.setState({multiplier: number, divisor: number, valueToDivide: number * this.state.valueToMultiply});
-            return;
-        }
 
-        if (config.isMultiply && !config.isOperand) {
-            this.setState({valueToMultiply: number, valueToDivide: number * this.state.multiplier});
-            return;
-        }
-
-        if (!config.isMultiply && config.isOperand) {
-            this.setState(
-                {divisor: number, multiplier: number, valueToMultiply: this.state.valueToDivide / number}
-            );
-            return;
-        }
-
-        if (!config.isMultiply && !config.isOperand) {
-            this.setState({valueToDivide: number, valueToMultiply: number / this.state.divisor});
-            return;
-        }
     }
 
     render() {

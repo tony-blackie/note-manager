@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
-import ReactDOM, { render } from 'react-dom';
 
 export default class Note extends Component {
+    constructor(props) {
+        super(props);
+    }
+
     render() {
+        debugger;
         return (
             <div>
                 <h2>{this.props.note.header}</h2>
