@@ -3,11 +3,13 @@ import Note from './Note.jsx';
 
 export default class Folder extends Component {
     render() {
-        const note = {header: 'header', text: 'text'};
+        const note = {name: 'someName'};
 
         return (
             <div>
-                <Note note={note} />
+                <NoteIcon note={note} />
+                <NoteIcon note={note} />
+                <NoteIcon note={note} />
             </div>
         );
     }
