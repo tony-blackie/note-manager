@@ -11,7 +11,7 @@ export default class NoteIcon extends Component {
             <div>
                 <img/>
                 <div>{this.props.name}</div>
-            </figcaption>
+            </div>
         );
     }
 }

@@ -3,7 +3,7 @@ import ReactDOM, { render } from 'react-dom';
 import { Router, Route, Link, browserHistory, hashHistory } from 'react-router';
 import App from '../components/AppComponent.jsx';
 import NoMatch from '../components/NoMatchComponent.jsx';
-import Note from '../components/Note.jsx';
+import Note from '../components/NoteIcon.jsx';
 
 $.ajax('/notes').then(function(response) {
     console.log(response);

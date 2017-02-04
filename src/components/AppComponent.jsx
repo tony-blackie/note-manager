@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import ControlPanel from './ControlPanel.jsx';
 import FolderTree from './FolderTree.jsx';
 import NotePanel from './NotePanel.jsx';
-import Note from './Note.jsx';
+import Note from './NoteIcon.jsx';
 import Folder from './Folder.jsx';
 
 
