@@ -6,7 +6,6 @@ export default class NoteIcon extends Component {
     }
 
     render() {
-        debugger;
         return (
             <div>
                 <img/>

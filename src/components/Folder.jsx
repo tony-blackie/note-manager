@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Note from './NoteIcon.jsx';
+import NoteIcon from './NoteIcon.jsx';
 
 export default class Folder extends Component {
     render() {
