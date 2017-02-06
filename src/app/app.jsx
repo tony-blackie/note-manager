@@ -12,7 +12,11 @@ $.ajax('/notes').then(function(response) {
     console.log(response);
 });
 
-let store = createStore();
+let reducer = (action) => {
+    return action;
+};
+
+let store = createStore(reducer);
 
 ReactDOM.render((
     <Provider store={store}>

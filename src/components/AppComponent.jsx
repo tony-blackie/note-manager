@@ -9,13 +9,16 @@ import Folder from './Folder.jsx';
 
 export default class App extends Component {
     constructor(props) {
-        super(props);a
+        super(props);
     }
 
     render() {
 
         return (
-            <div></div>
+            <div>
+                <ControlPanel />
+                <FolderTree />
+            </div>
         );
     }
 }
