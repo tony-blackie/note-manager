@@ -4,9 +4,19 @@ export default class ControlPanel extends Component {
     render() {
         return (
             <div>
-                <div>Control Item</div>
-                <div>Control Item</div>
-                <div>Control Item</div>
+                <div className="control">
+                    <i className="fa fa-plus fa-2x control__icon"></i>
+                    <div className="control__text">Add Folder</div>
+                </div>
+                <div className="control">
+                    <i className="fa fa-pencil fa-2x control__icon"></i>
+                    <div className="control__text">Add Note</div>
+                </div>
+                <div className="control">
+                    <i className="fa fa-remove fa-2x control__icon"></i>
+                    <div className="control__text">Remove</div>
+                </div>
+                <div>=====</div>
             </div>
         );
     }
