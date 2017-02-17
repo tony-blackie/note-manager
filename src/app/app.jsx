@@ -4,13 +4,15 @@ import { Router, Route, Link, browserHistory, hashHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
+import Styles from '../sass/index.scss';
+
 import App from '../components/AppComponent.jsx';
 import NoMatch from '../components/NoMatchComponent.jsx';
 import Note from '../components/NoteIcon.jsx';
 
-$.ajax('/notes').then(function(response) {
-    console.log(response);
-});
+//$.ajax('/notes').then(function(response) {
+//    console.log(response);
+//});
 
 let reducer = (action) => {
     return action;

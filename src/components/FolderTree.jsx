@@ -4,9 +4,9 @@ import Folder from './Folder.jsx';
 export default class FolderTree extends Component {
     render() {
         return (
-            <div>
-                <Folder folderIcon="closed"/>
-                <Folder folderIcon="open"/>
+            <div className="folder-tree">
+                <Folder folderIcon="closed" selected="true"/>
+                <Folder folderIcon="open" selected="false"/>
             </div>
         );
     }
