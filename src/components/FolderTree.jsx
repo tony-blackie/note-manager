@@ -5,7 +5,8 @@ export default class FolderTree extends Component {
     render() {
         return (
             <div>
-                <Folder/>
+                <Folder folderIcon="closed"/>
+                <Folder folderIcon="open"/>
             </div>
         );
     }

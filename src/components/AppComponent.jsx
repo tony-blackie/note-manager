@@ -18,6 +18,7 @@ export default class App extends Component {
             <div>
                 <ControlPanel />
                 <FolderTree />
+                <NotePanel />
             </div>
         );
     }

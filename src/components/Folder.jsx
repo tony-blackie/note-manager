@@ -1,15 +1,19 @@
 import React, { Component } from 'react';
-import NoteIcon from './NoteIcon.jsx';
 
 export default class Folder extends Component {
+    constructor(props) {
+        super(props);
+    }
+
     render() {
         const note = {name: 'someName'};
+        const folder = this.props.folderIcon === 'open' ? 'folder-open': 'folder';
 
         return (
             <div>
-                <NoteIcon note={note} />
-                <NoteIcon note={note} />
-                <NoteIcon note={note} />
+                <div>
+                    <i className={`fa fa-${folder} fa-lg`}></i>
+                </div>
             </div>
         );
     }
