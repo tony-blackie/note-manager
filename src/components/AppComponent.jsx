@@ -35,6 +35,31 @@ const reducer = (state, action) => {
         return initialState;
     }
 
+    switch(action.type) {
+        case MAKE_FOLDER_ACTIVE:
+            let newFoldersArray = state.folders.slice();
+
+            newFoldersArray = newFoldersArray
+                .slice(0, action.payload.index)
+                .concat(
+                    {
+                        id: action.payload.index,
+                        children: newFoldersArray.folder[action.payload.index].children,
+                        isActive: !newFoldersArray.folder[action.payload.index].isActive,
+                        isOpen: newFoldersArray.folder[action.payload.index].isOpen
+                    }
+                )
+                .concat(newFoldersArray.slice(action.payload.index + 1));
+
+
+            return (Object.assign({}, state,
+                {
+                    ...state,
+                    folders: newFoldersArray
+                }
+            );
+    }
+
     return state;
 };
 
