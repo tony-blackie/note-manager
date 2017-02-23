@@ -9,12 +9,37 @@
     "start:dev": "node_modules/.bin/webpack-dev-server --inline --content-base dist --history-api-fallback",
     "start:prod": "node_modules/.bin/webpack && node server.js",
     "build": "node_modules/.bin/webpack",
-    "test": "node_modules/.bin/mocha -w src/test/helpers/browser.js src/test/*.spec.js"
+    "test": "jest",
+    "jest": {
+      "globals": {
+        "NODE_ENV": "test"
+      },
+      "collectCoverage": true,
+      "coverageThreshold": {
+        "global": {
+          "branches": 100,
+          "functions": 100,
+          "lines": 100,
+          "statements": 100
+        }
+      },
+      "testPathDirs": [
+        "<rootDir>/src/components/"
+      ],
+      "modulePaths": [
+        "<rootDir>/src/components/"
+      ],
+      "moduleNameMapper": {
+        "^.+\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+        "^.+\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js"
+      }
+    }
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "babel-core": "^6.21.0",
+    "babel-jest": "^19.0.0",
     "babel-loader": "^6.2.10",
     "babel-plugin-transform-object-rest-spread": "^6.22.0",
     "babel-preset-env": "^1.1.4",
@@ -23,11 +48,13 @@
     "enzyme": "^2.7.1",
     "extract-text-webpack-plugin": "^1.0.1",
     "html-webpack-plugin": "^2.24.1",
+    "jest": "^19.0.1",
     "jsdom": "^9.9.1",
     "json-loader": "^0.5.4",
     "mocha": "^3.2.0",
     "node-sass": "^4.4.0",
     "react-addons-test-utils": "^15.4.2",
+    "react-test-renderer": "^15.4.2",
     "redux-devtools": "^3.3.2",
     "sass-loader": "^4.1.1",
     "sinon": "^1.17.7",
