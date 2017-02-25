@@ -93,4 +93,5 @@ const mapDispatchToProps = () => {
 
 };
 
+//TODO: Check if it needs to be exported
 const connection = connect(mapStateToProps, mapDispatchToProps)(App);
