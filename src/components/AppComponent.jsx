@@ -6,6 +6,7 @@ import FolderTree from './FolderTree.jsx';
 import NotePanel from './NotePanel.jsx';
 import Folder from './Folder.jsx';
 import { createStore } from 'redux';
+import { connect } from 'react-redux';
 import { MAKE_FOLDER_ACTIVE } from '../actions/actionTypes.jsx';
 
 let initialState = {
@@ -83,3 +84,13 @@ export default class App extends Component {
         );
     }
 }
+
+const mapStateToProps = () => {
+
+};
+
+const mapDispatchToProps = () => {
+
+};
+
+const connection = connect(mapStateToProps, mapDispatchToProps)(App);
