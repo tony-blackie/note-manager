@@ -6,6 +6,7 @@ import FolderTree from './FolderTree.jsx';
 import NotePanel from './NotePanel.jsx';
 import Folder from './Folder.jsx';
 import { createStore } from 'redux';
+import { MAKE_FOLDER_ACTIVE } from '../actions/actionTypes.jsx';
 
 let initialState = {
     folders: [
