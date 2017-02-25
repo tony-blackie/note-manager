@@ -57,7 +57,7 @@ const reducer = (state, action) => {
                     ...state,
                     folders: newFoldersArray
                 }
-            );
+            ));
     }
 
     return state;
