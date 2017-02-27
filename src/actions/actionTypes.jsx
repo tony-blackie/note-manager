@@ -1,0 +1,3 @@
+const MAKE_FOLDER_ACTIVE = 'MAKE_FOLDER_ACTIVE';
+
+export default MAKE_FOLDER_ACTIVE;
