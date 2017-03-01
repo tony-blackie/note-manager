@@ -9,7 +9,7 @@
     "start:dev": "node_modules/.bin/webpack-dev-server --inline --content-base dist --history-api-fallback",
     "start:prod": "node_modules/.bin/webpack && node server.js",
     "build": "node_modules/.bin/webpack",
-    "test": "jest",
+    "test": "node_modules/.bin/jest",
     "jest": {
       "globals": {
         "NODE_ENV": "test"
