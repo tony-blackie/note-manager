@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Note from './Note.jsx';
 
 export default class NoteComponent extends Component {
     constructor(props) {
@@ -11,24 +12,9 @@ export default class NoteComponent extends Component {
                 <div className="note-search">
                     <input type="text" placeholder="search" />
                 </div>
-                <div className="note">
-                    <i className="fa fa-file-text-o fa-3x"></i>
-                    <div className="note-text">
-                        <span></span>
-                    </div>
-                </div>
-                <div className="note">
-                    <i className="fa fa-file-text-o fa-3x"></i>
-                    <div className="note-text">
-                        <span></span>
-                    </div>
-                </div>
-                <div className="note">
-                    <i className="fa fa-file-text-o fa-3x"></i>
-                    <div className="note-text">
-                        <span></span>
-                    </div>
-                </div>
+                <Note />
+                <Note />
+                <Note />
             </div>
         );
     }

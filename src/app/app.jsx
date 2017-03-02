@@ -8,7 +8,7 @@ import Styles from '../sass/index.scss';
 
 import App from '../components/AppComponent.jsx';
 import NoMatch from '../components/NoMatchComponent.jsx';
-import Note from '../components/NoteIcon.jsx';
+import Note from '../components/Note.jsx';
 
 //$.ajax('/notes').then(function(response) {
 //    console.log(response);
