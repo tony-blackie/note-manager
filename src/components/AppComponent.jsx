@@ -29,7 +29,11 @@ let initialState = {
             isActive: false,
             isOpen: false
         }
-    ]
+    ],
+    note: {
+        name: 'someName',
+        text: 'someText'
+    }
 };
 
 const reducer = (state, action) => {

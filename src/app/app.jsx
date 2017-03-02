@@ -8,7 +8,7 @@ import Styles from '../sass/index.scss';
 
 import App from '../components/AppComponent.jsx';
 import NoMatch from '../components/NoMatchComponent.jsx';
-import Note from '../components/Note.jsx';
+import EditNote from '../components/EditNote.jsx';
 
 //$.ajax('/notes').then(function(response) {
 //    console.log(response);
@@ -24,7 +24,7 @@ ReactDOM.render((
     <Provider store={store}>
         <Router history={hashHistory}>
             <Route path='/' component={App} />
-            <Route path="/note" component={Note} />
+            <Route path="/note" component={EditNote} />
             <Route path='*' component={NoMatch} />
         </Router>
     </Provider>
