@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
 import Note from './Note.jsx';
 
-export default class NoteComponent extends Component {
+export default class NotePanel extends Component {
     constructor(props) {
         super(props);
+    }
+
+    mapNotes() {
+        this.props.notes.map((note) => {
+            return <Note />
+        });
     }
 
     render() {

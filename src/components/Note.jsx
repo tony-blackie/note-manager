@@ -7,7 +7,7 @@ export default class Note extends Component {
 
     render() {
         return (
-            <div className="note">
+            <div className="note" onClick={this.props.editNote}>
                 <i className="fa fa-file-text-o fa-3x"></i>
                 <div className="note-text">
                     <span>{this.props.noteText}</span>

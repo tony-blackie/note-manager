@@ -24,7 +24,7 @@ ReactDOM.render((
     <Provider store={store}>
         <Router history={hashHistory}>
             <Route path='/' component={App} />
-            <Route path="/note" component={EditNote} />
+            <Route path="note/:noteId" component={EditNote} />
             <Route path='*' component={NoMatch} />
         </Router>
     </Provider>
