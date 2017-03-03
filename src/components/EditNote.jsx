@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import {
-    connect,
-    mapStateToProps,
-    mapDispatchToProps
+    connect
 } from 'react-redux';
 
 export class EditNote extends Component {
@@ -39,6 +37,10 @@ export class EditNote extends Component {
 
 const mapStateToProps = state => ({
     params: state.note
+});
+
+const mapDispatchToProps = dispatch => ({
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditNote);
