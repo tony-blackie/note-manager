@@ -2,36 +2,57 @@ import React, { Component } from 'react';
 import {
     connect
 } from 'react-redux';
+import { Link } from 'react-router';
 
 export class EditNote extends Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+          id: null,
+          name: '',
+          textFieldValue: '',
+          textFieldPlaceholder: ''
+        }
+    }
+
+    componentDidMount() {
+        $.get(`/notes/${this.props.routeParams.noteId}`).then((response) => {
+            this.setState({name: response.name});
+            this.setState({textFieldValue: response.text});
+            this.setState({id: response.id})
+        });
     }
 
     render() {
-        const name = this.props.params.name ? this.props.params.name : 'New Note';
-        const textFieldValue = this.props.params.text ? this.props.params.text: '';
-        const textFieldPlaceholder = this.props.params.text ? '' : 'Enter text here:';
+        return (
+            <div>
+                <nav>
+                    <button>
+                        <Link to="/"> Go Back</Link>
+                    </button>
+                </nav>
+                <form>
+                    <fieldset>
+                        <div>
+                            <label>Note #{this.state.id}</label>
+                        </div>
+                        <div>
+                            <label>Name:</label>
+                        </div>
+                        <input type="text" value={this.state.name} />
+                    </fieldset>
+                    <fieldset>
+                        <input
+                            type="text"
+                            value={this.state.textFieldValue}
+                            placeholder={this.state.textFieldPlaceholder}
+                        />
+                    </fieldset>
+                </form>
+            </div>
+        );
 
-        <div>
-            <nav>
-                <button>Save</button>
-                <button>Cancel</button>
-            </nav>
-            <form>
-                <fieldset>
-                    <label>Name</label>
-                    <input type="text" value={name} />
-                </fieldset>
-                <fieldset>
-                    <input
-                        type="text"
-                        value={textFieldValue}
-                        placeholder={textFieldPlaceholder}
-                    />
-                </fieldset>
-            </form>
-        </div>
     }
 }
 

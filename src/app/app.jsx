@@ -95,7 +95,7 @@ ReactDOM.render((
         <Router history={hashHistory}>
             <Route path='/' component={App} />
             {/*<Route path='*' component={NoMatch} />*/}
-            <Route path="note/:noteId" component={EditNote} />
+            <Route path="/notes/:noteId" component={EditNote} />
         </Router>
     </Provider>
 ), document.getElementById('root'));

@@ -26,15 +26,32 @@ app.get('/notes', function(req, res) {
 });
 
 app.get('/notes/:id', (request, response) => {
-
     const id = request.params.id;
-    const name = request.params.name;
-    const text = request.params.text;
+    let name, text;
+
+    switch(id) {
+        case '0':
+          name = 'Name 1';
+          text = 'This is a text of the first note';
+          break;
+        case '1':
+          name = 'Name 2';
+          text = 'Text of the second note is very different';
+          break;
+        case '2':
+          name = 'Name 3';
+          text = 'Very original text';
+          break;
+        default:
+          console.log('fail');
+          return;
+    }
+
     response.send(
         {
             id: id,
-            name: 'someName',
-            text: 'someText'
+            name: name,
+            text: text
         }
     );
 });
