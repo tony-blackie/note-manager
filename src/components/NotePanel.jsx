@@ -6,10 +6,16 @@ export default class NotePanel extends Component {
         super(props);
     }
 
-    mapNotes() {
-        this.props.notes.map((note) => {
-            return <Note />
-        });
+    mapNotes(notes) {
+      debugger;
+      return (
+        <div>
+          {
+            notes.map((note) => {
+              return <Note key={note.id} name={note.name} text={note.text} />
+            })
+          }
+        </div>);
     }
 
     render() {
@@ -18,9 +24,7 @@ export default class NotePanel extends Component {
                 <div className="note-search">
                     <input type="text" placeholder="search" />
                 </div>
-                <Note />
-                <Note />
-                <Note />
+                {this.mapNotes(this.props.notes)}
             </div>
         );
     }
