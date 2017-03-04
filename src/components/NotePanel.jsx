@@ -7,12 +7,16 @@ export default class NotePanel extends Component {
     }
 
     mapNotes(notes) {
-      debugger;
       return (
         <div>
           {
             notes.map((note) => {
-              return <Note key={note.id} name={note.name} text={note.text} />
+              return <Note
+                        key={note.id}
+                        id={note.id}
+                        name={note.name}
+                        text={note.text}
+                     />
             })
           }
         </div>);
