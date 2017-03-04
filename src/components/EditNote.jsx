@@ -27,7 +27,7 @@ export class EditNote extends Component {
     render() {
         return (
             <div>
-                <nav>
+                <nav className="edit-note__nav">
                     <button>
                         <Link to="/"> Go Back</Link>
                     </button>
