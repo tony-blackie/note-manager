@@ -40,14 +40,19 @@ export class EditNote extends Component {
                         <div>
                             <label>Name:</label>
                         </div>
-                        <input type="text" value={this.state.name} />
+                        <input
+                            className="edit-note__name"
+                            type="text"
+                            value={this.state.name}
+                        />
                     </fieldset>
                     <fieldset>
-                        <input
+                        <textarea
+                            className="edit-note__text"
                             type="text"
                             value={this.state.textFieldValue}
-                            placeholder={this.state.textFieldPlaceholder}
-                        />
+                            placeholder={this.state.textFieldPlaceholder}>
+                        </textarea>
                     </fieldset>
                 </form>
             </div>
