@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 
 export default class Note extends Component {
     constructor(props) {
@@ -10,7 +11,7 @@ export default class Note extends Component {
             <div className="note" onClick={this.props.editNote}>
                 <i className="fa fa-file-text-o fa-3x"></i>
                 <div className="note-text">
-                    <span>{this.props.noteText}</span>
+                    <span>{this.props.name}</span>
                 </div>
             </div>
         );
