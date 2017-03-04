@@ -25,5 +25,19 @@ app.get('/notes', function(req, res) {
     connection.end();
 });
 
+app.get('/notes/:id', (request, response) => {
+
+    const id = request.params.id;
+    const name = request.params.name;
+    const text = request.params.text;
+    response.send(
+        {
+            id: id,
+            name: 'someName',
+            text: 'someText'
+        }
+    );
+});
+
 app.listen(8080);
 console.log('Server is running on localhost:8080');
