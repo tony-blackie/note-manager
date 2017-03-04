@@ -8,7 +8,7 @@ export default class Note extends Component {
 
     render() {
         return (
-            <Link className="note" to={`/notes/${this.props.id}`}>
+            <Link className="note" to={`notes/${this.props.id}`}>
                 <i className="fa fa-file-text-o fa-3x"></i>
                 <div className="note-text">
                     <span>{this.props.name}</span>
