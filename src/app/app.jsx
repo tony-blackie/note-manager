@@ -38,17 +38,17 @@ let initialState = {
     ],
     notes: [
         {
-            id: 0,
+            id: 1,
             name: 'firstNote',
             text: 'This is a very nice text'
         },
         {
-            id: 1,
+            id: 2,
             name: 'secondNote',
             text: 'The text is very different from the first one'
         },
         {
-            id: 2,
+            id: 3,
             name: 'thirdNote',
             text: 'How come the text is different every time?...'
         }
