@@ -46,6 +46,10 @@ export class EditNote extends Component {
     }
 
     render() {
+        if (this.props.isNoteCreationMode) {
+            //TODO: Use this for input values
+        }
+
         return (
             <div>
                 <nav className="edit-note__nav">
@@ -88,7 +92,8 @@ export class EditNote extends Component {
 }
 
 const mapStateToProps = state => ({
-    params: state.note
+    params: state.note,
+    isNoteCreationMode: state.isNoteCreationMode
 });
 
 const mapDispatchToProps = dispatch => ({

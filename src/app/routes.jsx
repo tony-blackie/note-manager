@@ -12,7 +12,7 @@ import EditNote from '../components/EditNote.jsx';
 
 import {
   ADD_NOTE,
-  MAKE_FOLDER_ACTIVE 
+  MAKE_FOLDER_ACTIVE
 } from '../actions/actionTypes.jsx';
 
 let initialState = {
@@ -53,8 +53,7 @@ let initialState = {
             text: 'How come the text is different every time?...'
         }
     ],
-    isNoteAddMode: false,
-    isNoteEditMode: true
+    isNoteCreationMode: false
 };
 
 const reducer = (state, action) => {
@@ -86,8 +85,10 @@ const reducer = (state, action) => {
                 }
             ));
         case ADD_NOTE:
-            debugger;
-            return state;
+            return {
+                ...state,
+                isNoteCreationMode: !state.isNoteCreationMode
+            };
     }
 
     return state;
