@@ -10,11 +10,6 @@ import App from '../components/AppComponent.jsx';
 import NoMatch from '../components/NoMatchComponent.jsx';
 import EditNote from '../components/EditNote.jsx';
 
-//$.ajax('/notes').then(function(response) {
-//    console.log(response);
-//});
-
-
 let initialState = {
     folders: [
         {
