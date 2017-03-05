@@ -39,7 +39,7 @@ app.put('/notes/:id', (req, res) => {
     const text = req.body.text;
     const name = req.body.name;
 
-    connection.query(`UPDATE note SET text='${text}' WHERE id=${id}`, (err, results, fields) => {
+    connection.query(`UPDATE note SET text='${text}', name='${name}' WHERE id=${id}`, (err, results, fields) => {
         if (err) throw err;
 
         res.send(results);
