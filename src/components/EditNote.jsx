@@ -16,6 +16,7 @@ export class EditNote extends Component {
         }
         this.handleSaveClick = this.handleSaveClick.bind(this);
         this.handleTextFieldChange = this.handleTextFieldChange.bind(this);
+        this.handleNameChange = this.handleNameChange.bind(this);
     }
 
     handleSaveClick() {
@@ -30,6 +31,10 @@ export class EditNote extends Component {
 
     handleTextFieldChange(event) {
         this.setState({textFieldValue: event.target.value});
+    }
+
+    handleNameChange(event) {
+        this.setState({name: event.target.value});
     }
 
     componentDidMount() {
@@ -60,6 +65,7 @@ export class EditNote extends Component {
                             <label>Name:</label>
                         </div>
                         <input
+                            onChange={this.handleNameChange}
                             className="edit-note__name"
                             type="text"
                             value={this.state.name}
