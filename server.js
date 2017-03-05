@@ -1,8 +1,9 @@
 var express = require('express');
 var app = express();
-
+var bodyParser = require('body-parser');
 var mysql = require('mysql');
 
+app.use(bodyParser.json())
 app.use(express.static('dist'));
 
 var connection = mysql.createConnection({
@@ -30,6 +31,19 @@ app.get('/notes/:id', (request, response) => {
         if (err) throw err;
 
         response.send(results[0]);
+    });
+});
+
+app.put('/notes/:id', (req, res) => {
+    const id = req.body.id;
+    const text = req.body.text;
+    const name = req.body.name;
+    console.log(`${id} ${text} ${name}`);
+
+    connection.query(`UPDATE note SET text=${text} WHERE id=${id}`, (err, results, fields) => {
+        if (err) throw err;
+
+        res.send(results);
     });
 });
 
