@@ -3,7 +3,10 @@ import React, { Component } from 'react';
 export default class ControlPanel extends Component {
     render() {
         return (
-            <div className="control-panel">
+            <div
+                className="control-panel"
+                onClick={this.props.addNote}
+            >
                 <div className="control">
                     <i className="fa fa-plus fa-2x control__icon"></i>
                     <div className="control__text">Add Folder</div>
