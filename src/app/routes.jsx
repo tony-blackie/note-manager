@@ -10,6 +10,11 @@ import App from '../components/AppComponent.jsx';
 import NoMatch from '../components/NoMatchComponent.jsx';
 import EditNote from '../components/EditNote.jsx';
 
+import {
+  ADD_NOTE,
+  MAKE_FOLDER_ACTIVE 
+} from '../actions/actionTypes.jsx';
+
 let initialState = {
     folders: [
         {
@@ -47,7 +52,9 @@ let initialState = {
             name: 'thirdNote',
             text: 'How come the text is different every time?...'
         }
-    ]
+    ],
+    isNoteAddMode: false,
+    isNoteEditMode: true
 };
 
 const reducer = (state, action) => {
@@ -78,6 +85,9 @@ const reducer = (state, action) => {
                     folders: newFoldersArray
                 }
             ));
+        case ADD_NOTE:
+            debugger;
+            return state;
     }
 
     return state;
