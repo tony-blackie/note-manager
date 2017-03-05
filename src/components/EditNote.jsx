@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import {
-    connect
-} from 'react-redux';
+import { connect } from 'react-redux';
 import { Link } from 'react-router';
+
+import { updateNote } from '../actions/EditNote.actions.jsx';
 
 export class EditNote extends Component {
     constructor(props) {
@@ -14,6 +14,22 @@ export class EditNote extends Component {
           textFieldValue: '',
           textFieldPlaceholder: ''
         }
+        this.handleSaveClick = this.handleSaveClick.bind(this);
+        this.handleTextFieldChange = this.handleTextFieldChange.bind(this);
+    }
+
+    handleSaveClick() {
+        this.props.updateNote(
+            {
+                id: this.state.id,
+                name: this.state.name,
+                text: this.state.textFieldValue
+            }
+        )
+    }
+
+    handleTextFieldChange(event) {
+        this.setState({textFieldValue: event.target.value});
     }
 
     componentDidMount() {
@@ -31,6 +47,9 @@ export class EditNote extends Component {
                     <button>
                         <Link to="/"> Go Back</Link>
                     </button>
+                    <button onClick={this.handleSaveClick}>
+                        Save changes
+                    </button>
                 </nav>
                 <form>
                     <fieldset>
@@ -47,12 +66,13 @@ export class EditNote extends Component {
                         />
                     </fieldset>
                     <fieldset>
-                        <textarea
+                        <input
+                            onChange={this.handleTextFieldChange}
                             className="edit-note__text"
                             type="text"
                             value={this.state.textFieldValue}
-                            placeholder={this.state.textFieldPlaceholder}>
-                        </textarea>
+                            placeholder={this.state.textFieldPlaceholder}
+                        />
                     </fieldset>
                 </form>
             </div>
@@ -66,7 +86,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-
+    updateNote: updateNote
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditNote);
