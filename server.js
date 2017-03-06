@@ -46,5 +46,14 @@ app.put('/notes/:id', (req, res) => {
     });
 });
 
+app.post('/notes/:id', (req, res) => {
+    const name = req.body.name;
+    const text = req.body.text;
+
+    connection.query(`INSERT INTO note(name, text) values('${name}', '${text}')`, response => {
+        res.send(response);
+    });
+});
+
 app.listen(8080);
 console.log('Server is running on localhost:8080');
