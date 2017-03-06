@@ -7,7 +7,10 @@ import Folder from './Folder.jsx';
 
 import { connect } from 'react-redux';
 
-import { addNote } from '../actions/AppComponent.actions.jsx';
+import {
+  addNote,
+  getAllNotes
+} from '../actions/AppComponent.actions.jsx';
 
 export class App extends Component {
     constructor(props) {
@@ -32,8 +35,10 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-    addNote: () => dispatch(addNote())
+    addNote: () => dispatch(addNote()),
+    getAllNotes: getAllNotes().then(response => {
+        dispatch(response);
+      })
 });
 
-//TODO: Check if it needs to be exported
 export default connect(mapStateToProps, mapDispatchToProps)(App);

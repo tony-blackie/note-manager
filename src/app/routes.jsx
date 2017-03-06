@@ -12,7 +12,8 @@ import EditNote from '../components/EditNote.jsx';
 
 import {
   ADD_NOTE,
-  MAKE_FOLDER_ACTIVE
+  MAKE_FOLDER_ACTIVE,
+  GET_ALL_NOTES
 } from '../actions/actionTypes.jsx';
 
 let initialState = {
@@ -41,16 +42,6 @@ let initialState = {
             id: 1,
             name: 'firstNote',
             text: 'This is a very nice text'
-        },
-        {
-            id: 2,
-            name: 'secondNote',
-            text: 'The text is very different from the first one'
-        },
-        {
-            id: 3,
-            name: 'thirdNote',
-            text: 'How come the text is different every time?...'
         }
     ],
     isNoteCreationMode: false
@@ -89,9 +80,14 @@ const reducer = (state, action) => {
                 ...state,
                 isNoteCreationMode: !state.isNoteCreationMode
             };
+        case GET_ALL_NOTES:
+            return {
+                ...state,
+                notes: action.payload
+            };
+        default:
+            return state;
     }
-
-    return state;
 };
 
 let store = createStore(reducer);
