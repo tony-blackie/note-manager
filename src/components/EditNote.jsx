@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
-import { updateNote } from '../actions/EditNote.actions.jsx';
+import {
+  updateNote,
+  addNote
+ } from '../actions/EditNote.actions.jsx';
 
 export class EditNote extends Component {
     constructor(props) {
@@ -20,13 +23,18 @@ export class EditNote extends Component {
     }
 
     handleSaveClick() {
-        this.props.updateNote(
-            {
-                id: this.state.id,
-                name: this.state.name,
-                text: this.state.textFieldValue
-            }
-        )
+      if (this.props.isNoteCreationMode) {
+          this.props.addNote({
+              name: this.state.name,
+              text:this.state.textFieldValue
+          });
+      } else {
+          this.props.updateNote({
+              id: this.state.id,
+              name: this.state.name,
+              text: this.state.textFieldValue
+          });
+      }
     }
 
     handleTextFieldChange(event) {
@@ -38,11 +46,16 @@ export class EditNote extends Component {
     }
 
     componentDidMount() {
-        $.get(`/notes/${this.props.routeParams.noteId}`).then((response) => {
-            this.setState({name: response.name});
-            this.setState({textFieldValue: response.text});
-            this.setState({id: response.id})
-        });
+        if (this.props.isNoteCreationMode) {
+          return;
+        } else {
+          $.get(`/notes/${this.props.routeParams.noteId}`).then((response) => {
+              this.setState({name: response.name});
+              this.setState({textFieldValue: response.text});
+              this.setState({id: response.id})
+          });
+        }
+
     }
 
     render() {
@@ -97,7 +110,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    updateNote: updateNote
+    updateNote: updateNote,
+    addNote: addNote
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditNote);

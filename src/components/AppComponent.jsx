@@ -6,6 +6,7 @@ import NotePanel from './NotePanel.jsx';
 import Folder from './Folder.jsx';
 
 import { connect } from 'react-redux';
+import { hashHistory } from 'react-router';
 
 import {
   addNote,
@@ -35,7 +36,10 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-    addNote: () => dispatch(addNote()),
+    addNote: () => {
+        dispatch(addNote());
+        hashHistory.push('/notes/new');
+    },
     getAllNotes: getAllNotes().then(response => {
         dispatch(response);
       })

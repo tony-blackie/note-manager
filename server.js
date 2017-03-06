@@ -46,9 +46,10 @@ app.put('/notes/:id', (req, res) => {
     });
 });
 
-app.post('/notes/:id', (req, res) => {
+app.post('/notes/new', (req, res) => {
     const name = req.body.name;
     const text = req.body.text;
+    console.log(`name: ${name}, text: ${text}`);
 
     connection.query(`INSERT INTO note(name, text) values('${name}', '${text}')`, response => {
         res.send(response);

@@ -11,9 +11,10 @@ import NoMatch from '../components/NoMatchComponent.jsx';
 import EditNote from '../components/EditNote.jsx';
 
 import {
-  ADD_NOTE,
+  ADD_NEW_NOTE,
   MAKE_FOLDER_ACTIVE,
-  GET_ALL_NOTES
+  GET_ALL_NOTES,
+  EDIT_NOTE
 } from '../actions/actionTypes.jsx';
 
 let initialState = {
@@ -75,11 +76,16 @@ const reducer = (state, action) => {
                     folders: newFoldersArray
                 }
             ));
-        case ADD_NOTE:
+        case ADD_NEW_NOTE:
             return {
                 ...state,
-                isNoteCreationMode: !state.isNoteCreationMode
+                isNoteCreationMode: true
             };
+        case EDIT_NOTE:
+            return {
+                ...state,
+                isNoteCreationMode: false
+            }
         case GET_ALL_NOTES:
             return {
                 ...state,
@@ -98,6 +104,7 @@ ReactDOM.render((
             <Route path='/' component={App} />
             {/*<Route path='*' component={NoMatch} />*/}
             <Route path="/notes/:noteId" component={EditNote} />
+            <Route path="/notes/new" component={EditNote} />
         </Router>
     </Provider>
 ), document.getElementById('root'));
