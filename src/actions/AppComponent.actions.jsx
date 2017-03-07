@@ -19,13 +19,13 @@ export const getAllNotes = dispatch => () => {
     }));
 };
 
-export const goToNoteEdit = id => {
+export const goToNoteEdit = id => dispatch => {
     dispatch({type: GO_TO_NOTE_EDIT});
 
     hashHistory.push(`/notes/:${id}`);
 };
 
-export const goToNoteCreation = id => {
+export const goToNoteCreation = id => dispatch => {
     dispatch({ type: GO_TO_NOTE_CREATION });
 
     hashHistory.push(`/notes/:${id}`);

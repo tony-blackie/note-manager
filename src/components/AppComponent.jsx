@@ -6,6 +6,7 @@ import NotePanel from './NotePanel.jsx';
 import Folder from './Folder.jsx';
 
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { hashHistory } from 'react-router';
 
 import {
@@ -37,11 +38,11 @@ const mapStateToProps = state => {
     }
 };
 
-const mapDispatchToProps = dispatch => ({
-    addNote: dispatch(addNote()),
-    getAllNotes: getAllNotes(dispatch),
+const mapDispatchToProps = dispatch => bindActionCreators({
+    addNote: addNote,
+    getAllNotes: getAllNotes,
     goToNoteCreation: goToNoteCreation,
     goToNoteEdit: goToNoteEdit
-});
+}, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

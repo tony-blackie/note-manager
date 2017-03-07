@@ -2,7 +2,12 @@ import React, { Component } from 'react';
 import ReactDOM, { render } from 'react-dom';
 import { Router, Route, Link, browserHistory, hashHistory } from 'react-router';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import {
+  createStore,
+  applyMiddleware
+ } from 'redux';
+
+import thunk from 'redux-thunk';
 
 import Styles from '../sass/index.scss';
 
@@ -96,7 +101,10 @@ const reducer = (state, action) => {
     }
 };
 
-let store = createStore(reducer);
+let store = createStore(
+  reducer,
+  applyMiddleware(thunk)
+);
 
 ReactDOM.render((
     <Provider store={store}>
