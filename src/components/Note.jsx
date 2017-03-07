@@ -6,16 +6,17 @@ import { editNote } from '../actions/EditNote.actions.jsx';
 export default class Note extends Component {
     constructor(props) {
         super(props);
+        this.goToNoteEdit = this.goToNoteEdit.bind(this);
     }
 
-    goToNote() {
-        dispatch(editNote);
-        hashHistory.push(`/notes/${this.props.id}`);
+    goToNoteEdit(event) {
+        this.props.goToNoteEdit(this.props.id);
     }
 
     render() {
+      debugger;
         return (
-            <Link className="note" onClick={this.goToNote}>
+            <Link className="note" onClick={this.goToNoteEdit}>
                 <i className="fa fa-file-text-o fa-3x"></i>
                 <div className="note-text">
                     <span>{this.props.name}</span>

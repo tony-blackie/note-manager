@@ -5,7 +5,7 @@ export default class ControlPanel extends Component {
         return (
             <div
                 className="control-panel"
-                onClick={this.props.addNote}
+                onClick={this.props.goToNoteCreation}
             >
                 <div className="control">
                     <i className="fa fa-plus fa-2x control__icon"></i>

@@ -81,7 +81,7 @@ const reducer = (state, action) => {
                 ...state,
                 isNoteCreationMode: true
             };
-        case EDIT_NOTE:
+        case GO_TO_NOTE:
             return {
                 ...state,
                 isNoteCreationMode: false

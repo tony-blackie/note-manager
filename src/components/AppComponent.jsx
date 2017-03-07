@@ -10,7 +10,9 @@ import { hashHistory } from 'react-router';
 
 import {
   addNote,
-  getAllNotes
+  getAllNotes,
+  goToNoteCreation,
+  goToNoteEdit
 } from '../actions/AppComponent.actions.jsx';
 
 export class App extends Component {
@@ -21,9 +23,9 @@ export class App extends Component {
     render() {
         return (
             <div>
-                <ControlPanel addNote={this.props.addNote} />
+                <ControlPanel goToNoteCreation={this.props.goToNoteCreation} />
                 <FolderTree />
-                <NotePanel notes={this.props.notes}  />
+                <NotePanel notes={this.props.notes} goToNoteEdit={this.props.goToNoteEdit}  />
             </div>
         );
     }
@@ -36,13 +38,10 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-    addNote: () => {
-        dispatch(addNote());
-        hashHistory.push('/notes/new');
-    },
-    getAllNotes: getAllNotes().then(response => {
-        dispatch(response);
-      })
+    addNote: dispatch(addNote()),
+    getAllNotes: getAllNotes(dispatch),
+    goToNoteCreation: goToNoteCreation,
+    goToNoteEdit: goToNoteEdit
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
 import {
-  updateNote,
-  addNote
+  updateNoteRequest,
+  addNoteRequest
  } from '../actions/EditNote.actions.jsx';
 
 export class EditNote extends Component {
@@ -24,12 +24,12 @@ export class EditNote extends Component {
 
     handleSaveClick() {
       if (this.props.isNoteCreationMode) {
-          this.props.addNote({
+          this.props.addNoteRequest({
               name: this.state.name,
               text:this.state.textFieldValue
           });
       } else {
-          this.props.updateNote({
+          this.props.updateNoteRequest({
               id: this.state.id,
               name: this.state.name,
               text: this.state.textFieldValue

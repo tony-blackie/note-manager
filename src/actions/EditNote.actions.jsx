@@ -1,7 +1,6 @@
 import { hashHistory } from 'react-router';
-import { EDIT_NOTE } from './actionTypes.jsx';
 
-export function updateNote(note) {
+export function updateNoteRequest(note) {
     $.ajax({
       url: `/notes/${note.id}`,
       data: JSON.stringify(note),
@@ -12,7 +11,7 @@ export function updateNote(note) {
     });
 }
 
-export function addNote(note) {
+export function addNoteRequest(note) {
     $.ajax({
       url: `/notes/new`,
       data: JSON.stringify(note),
@@ -21,10 +20,4 @@ export function addNote(note) {
     }).then(response => {
         hashHistory.push('/');
     });
-}
-
-export function editNote() {
-    return {
-        type: EDIT_NOTE
-    }
 }
