@@ -20,7 +20,11 @@ import {
   ADD_NEW_NOTE,
   GET_ALL_NOTES,
   GET_ALL_NOTES_SUCCESS,
-  GO_TO_NOTE_EDIT
+  GO_TO_NOTE_EDIT,
+  EDIT_EXISTING_NOTE,
+  EDIT_EXISTING_NOTE_SUCCESS,
+  CREATE_NEW_NOTE,
+  CREATE_NEW_NOTE_SUCCESS
 } from '../actions/actionTypes.jsx';
 
 let initialState = {
@@ -99,6 +103,10 @@ const reducer = (state, action) => {
                 ...state,
                 notes: action.payload
             };
+        case EDIT_EXISTING_NOTE:
+            return state;
+        case EDIT_EXISTING_NOTE_SUCCESS:
+            return state;
         default:
             return state;
     }

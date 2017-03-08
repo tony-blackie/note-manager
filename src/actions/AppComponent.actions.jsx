@@ -1,9 +1,11 @@
 import {
-    ADD_NEW_NOTE,
     GET_ALL_NOTES,
     GET_ALL_NOTES_SUCCESS,
-    GO_TO_NOTE_CREATION
+    GO_TO_NOTE_CREATION,
+    GO_TO_NOTE_EDIT
 } from './actionTypes.jsx';
+
+import { hashHistory } from 'react-router';
 
 export const addNote = () => ({
     type: ADD_NEW_NOTE
@@ -23,11 +25,11 @@ export const getAllNotes = () => dispatch => {
 export const goToNoteEdit = id => dispatch => {
     dispatch({type: GO_TO_NOTE_EDIT});
 
-    hashHistory.push(`/notes/:${id}`);
+    hashHistory.push(`/notes/${id}`);
 };
 
-export const goToNoteCreation = id => dispatch => {
+export const goToNoteCreation = () => dispatch => {
     dispatch({ type: GO_TO_NOTE_CREATION });
 
-    hashHistory.push(`/notes/:${id}`);
+    hashHistory.push(`/notes/new`);
 }

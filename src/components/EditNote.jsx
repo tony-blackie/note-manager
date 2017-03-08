@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
+import { bindActionCreators } from 'redux';
 
 import {
-  updateNoteRequest,
-  addNoteRequest
+  editNoteRequest,
+  createNoteRequest
  } from '../actions/EditNote.actions.jsx';
 
 export class EditNote extends Component {
@@ -23,18 +24,18 @@ export class EditNote extends Component {
     }
 
     handleSaveClick() {
-      if (this.props.isNoteCreationMode) {
-          this.props.addNoteRequest({
-              name: this.state.name,
-              text:this.state.textFieldValue
-          });
-      } else {
-          this.props.updateNoteRequest({
-              id: this.state.id,
-              name: this.state.name,
-              text: this.state.textFieldValue
-          });
-      }
+        if (this.props.isNoteCreationMode) {
+            this.props.createNoteRequest({
+                name: this.state.name,
+                text: this.state.textFieldValue
+            });
+        } else {
+            this.props.editNoteRequest({
+                id: this.state.id,
+                name: this.state.name,
+                text:this.state.textFieldValue
+            });
+        }
     }
 
     handleTextFieldChange(event) {
@@ -109,9 +110,9 @@ const mapStateToProps = state => ({
     isNoteCreationMode: state.isNoteCreationMode
 });
 
-const mapDispatchToProps = dispatch => ({
-    updateNote: updateNote,
-    addNote: addNote
-});
+const mapDispatchToProps = dispatch => bindActionCreators({
+    editNoteRequest,
+    createNoteRequest
+}, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditNote);

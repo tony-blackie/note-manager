@@ -9,7 +9,7 @@ export default class Note extends Component {
         this.goToNoteEdit = this.goToNoteEdit.bind(this);
     }
 
-    goToNoteEdit(event) {
+    goToNoteEdit() {
         this.props.goToNoteEdit(this.props.id);
     }
 
