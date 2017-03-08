@@ -60,10 +60,6 @@ export class EditNote extends Component {
     }
 
     render() {
-        if (this.props.isNoteCreationMode) {
-            //TODO: Use this for input values
-        }
-
         return (
             <div>
                 <nav className="edit-note__nav">
