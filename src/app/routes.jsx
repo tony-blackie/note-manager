@@ -123,7 +123,7 @@ ReactDOM.render((
             <Route path='/' component={App} />
             {/*<Route path='*' component={NoMatch} />*/}
             <Route path="/notes/:noteId" component={EditNote} />
-            <Route path="/notes/new" component={EditNote} />
+            <Route path="/note" component={EditNote} />
         </Router>
     </Provider>
 ), document.getElementById('root'));

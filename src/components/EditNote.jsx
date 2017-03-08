@@ -24,7 +24,7 @@ export class EditNote extends Component {
     }
 
     handleSaveClick() {
-        if (this.props.isNoteCreationMode) {
+        if (!this.props.routeParams.id) {
             this.props.createNoteRequest({
                 name: this.state.name,
                 text: this.state.textFieldValue
@@ -47,14 +47,14 @@ export class EditNote extends Component {
     }
 
     componentDidMount() {
-        if (this.props.isNoteCreationMode) {
-          return;
+        if (this.props.routeParams.noteId) {
+            $.get(`/notes/${this.props.routeParams.noteId}`).then((response) => {
+                this.setState({name: response.name});
+                this.setState({textFieldValue: response.text});
+                this.setState({id: response.id})
+            });
         } else {
-          $.get(`/notes/${this.props.routeParams.noteId}`).then((response) => {
-              this.setState({name: response.name});
-              this.setState({textFieldValue: response.text});
-              this.setState({id: response.id})
-          });
+            return;
         }
 
     }

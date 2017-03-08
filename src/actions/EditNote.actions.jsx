@@ -26,7 +26,7 @@ export const createNoteRequest = note => dispatch => {
     dispatch({type: CREATE_NEW_NOTE});
 
     return $.ajax({
-      url: `/notes/new`,
+      url: '/note',
       data: JSON.stringify(note),
       contentType: 'application/json',
       type: 'POST'

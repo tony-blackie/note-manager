@@ -31,5 +31,5 @@ export const goToNoteEdit = id => dispatch => {
 export const goToNoteCreation = () => dispatch => {
     dispatch({ type: GO_TO_NOTE_CREATION });
 
-    hashHistory.push(`/notes/new`);
+    hashHistory.push(`/note`);
 }
