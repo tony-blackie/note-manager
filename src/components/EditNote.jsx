@@ -24,7 +24,7 @@ export class EditNote extends Component {
     }
 
     handleSaveClick() {
-        if (!this.props.routeParams.id) {
+        if (!this.props.routeParams.noteId) {
             this.props.createNoteRequest({
                 name: this.state.name,
                 text: this.state.textFieldValue
