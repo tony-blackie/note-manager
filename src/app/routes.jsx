@@ -16,10 +16,11 @@ import NoMatch from '../components/NoMatchComponent.jsx';
 import EditNote from '../components/EditNote.jsx';
 
 import {
-  ADD_NEW_NOTE,
   MAKE_FOLDER_ACTIVE,
+  ADD_NEW_NOTE,
   GET_ALL_NOTES,
-  EDIT_NOTE
+  GET_ALL_NOTES_SUCCESS,
+  GO_TO_NOTE_EDIT
 } from '../actions/actionTypes.jsx';
 
 let initialState = {
@@ -86,12 +87,14 @@ const reducer = (state, action) => {
                 ...state,
                 isNoteCreationMode: true
             };
-        case GO_TO_NOTE:
+        case GO_TO_NOTE_EDIT:
             return {
                 ...state,
                 isNoteCreationMode: false
             }
         case GET_ALL_NOTES:
+            return state;
+        case GET_ALL_NOTES_SUCCESS:
             return {
                 ...state,
                 notes: action.payload

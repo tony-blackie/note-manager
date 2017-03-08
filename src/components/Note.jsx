@@ -14,7 +14,6 @@ export default class Note extends Component {
     }
 
     render() {
-      debugger;
         return (
             <Link className="note" onClick={this.goToNoteEdit}>
                 <i className="fa fa-file-text-o fa-3x"></i>
