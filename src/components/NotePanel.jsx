@@ -17,6 +17,7 @@ export default class NotePanel extends Component {
                         name={note.name}
                         text={note.text}
                         goToNoteEdit={this.props.goToNoteEdit}
+                        removeNote={this.props.removeNote}
                      />
             })
           }

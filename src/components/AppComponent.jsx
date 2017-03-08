@@ -13,7 +13,8 @@ import {
   addNote,
   getAllNotes,
   goToNoteCreation,
-  goToNoteEdit
+  goToNoteEdit,
+  removeNote
 } from '../actions/AppComponent.actions.jsx';
 
 export class App extends Component {
@@ -30,7 +31,10 @@ export class App extends Component {
             <div>
                 <ControlPanel goToNoteCreation={this.props.goToNoteCreation} />
                 <FolderTree />
-                <NotePanel notes={this.props.notes} goToNoteEdit={this.props.goToNoteEdit}  />
+                <NotePanel
+                    notes={this.props.notes}
+                    goToNoteEdit={this.props.goToNoteEdit}
+                    removeNote={this.props.removeNote}  />
             </div>
         );
     }
@@ -43,10 +47,11 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-    addNote: addNote,
-    getAllNotes: getAllNotes,
-    goToNoteCreation: goToNoteCreation,
-    goToNoteEdit: goToNoteEdit
+    addNote,
+    getAllNotes,
+    goToNoteCreation,
+    goToNoteEdit,
+    removeNote
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
