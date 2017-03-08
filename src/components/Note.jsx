@@ -16,6 +16,7 @@ export default class Note extends Component {
     render() {
         return (
             <Link className="note" onClick={this.goToNoteEdit}>
+                <div className="note__remove">X</div>
                 <i className="fa fa-file-text-o fa-3x"></i>
                 <div className="note-text">
                     <span>{this.props.name}</span>

@@ -1,6 +1,17 @@
 .note {
-  width: 100px;
+  width: 72px;
   height: 100px;
   float: left;
   padding: 10px;
+  position: relative;
+  margin-right: 15px;
+
+  &__remove {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 10px;
+    height: 10px;
+    cursor: pointer;
+  }
 }
