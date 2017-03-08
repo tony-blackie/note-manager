@@ -46,6 +46,16 @@ app.put('/notes/:id', (req, res) => {
     });
 });
 
+app.delete('/notes/:id', (req, res) => {
+    const id = req.body.id;
+
+    connection.query(`DELETE FROM note WHERE id='${id}';`, (err, results, fields) => {
+        if (err) throw err;
+
+        res.send(results);
+    });
+});
+
 app.post('/note', (req, res) => {
     const name = req.body.name;
     const text = req.body.text;
