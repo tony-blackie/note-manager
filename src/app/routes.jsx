@@ -24,7 +24,9 @@ import {
   EDIT_EXISTING_NOTE,
   EDIT_EXISTING_NOTE_SUCCESS,
   CREATE_NEW_NOTE,
-  CREATE_NEW_NOTE_SUCCESS
+  CREATE_NEW_NOTE_SUCCESS,
+  REMOVE_NOTE,
+  REMOVE_NOTE_SUCCESS
 } from '../actions/actionTypes.jsx';
 
 let initialState = {
@@ -107,6 +109,21 @@ const reducer = (state, action) => {
             return state;
         case EDIT_EXISTING_NOTE_SUCCESS:
             return state;
+        case REMOVE_NOTE_SUCCESS:
+            let indexOfNoteInState;
+            state.notes.map((note, index) => {
+                if(note.id === action.payload) {
+                    indexOfNoteInState = index;
+                }
+            });
+            let newNotes = state.notes.slice(0, indexOfNoteInState - 1);
+            if (state.notes[indexOfNoteInState + 1]) {
+                newNotes.concat(state.notes.slice(indexOfNoteInState + 1));
+            }
+            return {
+                ...state,
+                notes: newNotes
+            }
         default:
             return state;
     }

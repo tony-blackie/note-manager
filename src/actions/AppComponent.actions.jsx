@@ -3,7 +3,8 @@ import {
     GET_ALL_NOTES_SUCCESS,
     GO_TO_NOTE_CREATION,
     GO_TO_NOTE_EDIT,
-    REMOVE_NOTE
+    REMOVE_NOTE,
+    REMOVE_NOTE_SUCCESS
 } from './actionTypes.jsx';
 
 import { hashHistory } from 'react-router';
@@ -42,6 +43,6 @@ export const removeNote = id => dispatch => {
         url: `/notes/${id}`,
         type: 'DELETE'
     })).then(response => {
-        console.log(response);
+        dispatch({type: REMOVE_NOTE_SUCCESS, payload: id});
     })
 }
