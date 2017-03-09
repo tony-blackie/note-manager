@@ -116,9 +116,9 @@ const reducer = (state, action) => {
                     indexOfNoteInState = index;
                 }
             });
-            let newNotes = state.notes.slice(0, indexOfNoteInState - 1);
+            let newNotes = state.notes.slice(0, indexOfNoteInState);
             if (state.notes[indexOfNoteInState + 1]) {
-                newNotes.concat(state.notes.slice(indexOfNoteInState + 1));
+                newNotes = newNotes.concat(state.notes.slice(indexOfNoteInState + 1, state.notes.length));
             }
             return {
                 ...state,
