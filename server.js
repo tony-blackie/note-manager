@@ -48,7 +48,6 @@ app.put('/notes/:id', (req, res) => {
 
 app.delete('/notes/:id', (req, res) => {
     const id = req.params.id;
-    console.log(id);
 
     connection.query(`DELETE FROM note WHERE id='${id}';`, (err, results, fields) => {
         if (err) throw err;
