@@ -4,6 +4,9 @@
   "version": "1.0.0",
   "description": "App for form generation",
   "main": "app.jsx",
+  "engines": {
+      "node": "6.9.3"
+  },
   "scripts": {
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
     "start:dev": "node_modules/.bin/webpack-dev-server --inline --content-base dist --history-api-fallback",
