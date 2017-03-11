@@ -10,6 +10,7 @@
     "start:prod": "node_modules/.bin/webpack && node server.js",
     "build": "node_modules/.bin/webpack",
     "test": "node_modules/.bin/jest",
+    "postinstall": "npm install && npm run start:prod",
     "jest": {
       "globals": {
         "NODE_ENV": "production"
