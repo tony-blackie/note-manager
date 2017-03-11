@@ -5,13 +5,15 @@ export default class ControlPanel extends Component {
         return (
             <div
                 className="control-panel"
-                onClick={this.props.goToNoteCreation}
             >
                 <div className="control">
                     <i className="fa fa-plus fa-2x control__icon"></i>
                     <div className="control__text">Add Folder</div>
                 </div>
-                <div className="control">
+                <div
+                    className="control"
+                    onClick={this.props.goToNoteCreation}
+                >
                     <i className="fa fa-pencil fa-2x control__icon"></i>
                     <div className="control__text">Add Note</div>
                 </div>
