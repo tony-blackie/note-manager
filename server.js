@@ -6,11 +6,19 @@ var mysql = require('mysql');
 app.use(bodyParser.json())
 app.use(express.static('dist'));
 
+/* HEROKU DB CONFIG */
+// var connection = mysql.createConnection({
+//     database: 'heroku_d3e4e3664844155',
+//     host: 'us-cdbr-iron-east-03.cleardb.net',
+//     user: 'b0f240f41f3bea',
+//     password: '02ebad9a'
+// });
+
 var connection = mysql.createConnection({
-    database: 'heroku_d3e4e3664844155',
-    host: 'us-cdbr-iron-east-03.cleardb.net',
-    user: 'b0f240f41f3bea',
-    password: '02ebad9a'
+    database: 'notes_db',
+    host: 'localhost',
+    user: 'root',
+    password: ''
 });
 
 app.get('/', () => connection.connect());
