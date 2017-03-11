@@ -7,11 +7,10 @@ app.use(bodyParser.json())
 app.use(express.static('dist'));
 
 var connection = mysql.createConnection({
-    database: 'notes_db',
-    host: 'localhost',
-    user: 'root',
-    port: '3306',
-    password: ''
+    database: 'heroku_d3e4e3664844155',
+    host: 'us-cdbr-iron-east-03.cleardb.net',
+    user: 'b0f240f41f3bea',
+    password: '02ebad9a'
 });
 
 app.get('/', () => connection.connect());
