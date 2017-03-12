@@ -5,6 +5,7 @@
   padding: 10px;
   position: relative;
   margin-right: 15px;
+  cursor: pointer;
 
   &__remove {
     position: absolute;
@@ -12,6 +13,21 @@
     right: 0;
     width: 10px;
     height: 10px;
+    cursor: pointer;
+  }
+
+  &__item {
+      transition-property: transform;
+      transition-duration: 0.3s;
+      transition-timing-function: ease-out;
+      cursor: pointer;
+
+    &:hover {
+      transform: translateY(-3px) scale(0.98);
+    }
+  }
+
+  &__text {
     cursor: pointer;
   }
 }

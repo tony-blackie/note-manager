@@ -2,3 +2,22 @@
   width: 100px;
   float: left;
 }
+
+.control {
+  cursor: pointer;
+
+  &__icon {
+      transition-property: transform;
+      transition-duration: 0.3s;
+      transition-timing-function: ease-out;
+      cursor: pointer;
+
+    &:hover {
+      transform: translateY(-3px) scale(0.98);
+    }
+  }
+
+  &__text {
+    cursor: pointer;
+  }
+}

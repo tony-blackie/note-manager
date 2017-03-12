@@ -23,8 +23,8 @@ export default class Note extends Component {
             <div className="note">
                 <div className="note__remove" onClick={this.removeNote}>X</div>
                 <div onClick={this.goToNoteEdit}>
-                    <i className="fa fa-file-text-o fa-3x"></i>
-                    <div className="note-text">
+                    <i className="fa fa-file-text-o fa-3x note__item"></i>
+                    <div className="note__text">
                         <span>{this.props.name}</span>
                     </div>
                 </div>
