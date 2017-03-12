@@ -1,6 +1,10 @@
 .control-panel {
   width: 100px;
   float: left;
+
+  &__underline {
+    text-align: center;
+  }
 }
 
 .control {

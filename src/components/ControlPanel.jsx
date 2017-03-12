@@ -21,7 +21,7 @@ export default class ControlPanel extends Component {
                     <i className="fa fa-remove fa-2x control__icon"></i>
                     <div className="control__text">Remove</div>
                 </div>
-                <div>=====</div>
+                <div className="control-panel__underline">=====</div>
             </div>
         );
     }

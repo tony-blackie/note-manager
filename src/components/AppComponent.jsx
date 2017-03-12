@@ -30,11 +30,14 @@ export class App extends Component {
         return (
             <div>
                 <ControlPanel goToNoteCreation={this.props.goToNoteCreation} />
-                <FolderTree />
-                <NotePanel
-                    notes={this.props.notes}
-                    goToNoteEdit={this.props.goToNoteEdit}
-                    removeNote={this.props.removeNote}  />
+                <div className="content">
+                    <FolderTree />
+                    <NotePanel
+                        notes={this.props.notes}
+                        goToNoteEdit={this.props.goToNoteEdit}
+                        removeNote={this.props.removeNote}
+                    />
+                </div>
             </div>
         );
     }
