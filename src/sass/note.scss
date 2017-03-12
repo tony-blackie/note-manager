@@ -16,11 +16,19 @@
     cursor: pointer;
   }
 
+  &__icon-wrapper {
+    position: relative;
+  }
+
   &__item {
       transition-property: transform;
       transition-duration: 0.3s;
       transition-timing-function: ease-out;
       cursor: pointer;
+      position: absolute;
+      bottom: 0px;
+      height: 68px;
+      width: 68px;
 
     &:hover {
       transform: translateY(-3px) scale(0.98);
@@ -29,5 +37,6 @@
 
   &__text {
     cursor: pointer;
+    margin-top: 50px;
   }
 }
