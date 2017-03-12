@@ -14,6 +14,9 @@ export default class Folder extends Component {
                 <div>
                     <i className={`fa fa-${folder} fa-lg`}></i>
                 </div>
+                {
+                    this.props.children
+                }
             </div>
         );
     }

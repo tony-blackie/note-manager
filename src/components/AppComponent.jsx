@@ -31,7 +31,7 @@ export class App extends Component {
             <div>
                 <ControlPanel goToNoteCreation={this.props.goToNoteCreation} />
                 <div className="content">
-                    <FolderTree />
+                    <FolderTree folders={this.props.folders} />
                     <NotePanel
                         notes={this.props.notes}
                         goToNoteEdit={this.props.goToNoteEdit}
@@ -45,7 +45,8 @@ export class App extends Component {
 
 const mapStateToProps = state => {
     return {
-        notes: state.notes
+        notes: state.notes,
+        folders: state.folders
     }
 };
 
