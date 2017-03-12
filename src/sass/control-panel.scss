@@ -6,10 +6,10 @@
 .control {
   cursor: pointer;
   position: relative;
-  margin-bottom: 20px;
+  padding-bottom: 20px;
 
   &:first-child {
-    margin-top: 25px;
+    margin-top: 35px;
   }
 
   &:last-child {
@@ -22,9 +22,10 @@
       transition-timing-function: ease-out;
       cursor: pointer;
       position: absolute;
-      height: 46px;
-      top: -32px;
+      height: 50px;
+      top: -36px;
       width: 72px;
+      padding-left: 37px;
 
     &:hover {
       transform: translateY(-3px) scale(0.98);
@@ -34,5 +35,6 @@
   &__text {
     cursor: pointer;
     margin-top: 30px;
+    text-align: center;
   }
 }
