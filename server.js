@@ -7,20 +7,20 @@ app.use(bodyParser.json())
 app.use(express.static('dist'));
 
 /* HEROKU DB CONFIG */
-var connection = mysql.createConnection({
-    database: 'heroku_d3e4e3664844155',
-    host: 'us-cdbr-iron-east-03.cleardb.net',
-    user: 'b0f240f41f3bea',
-    password: '02ebad9a'
-});
+// var connection = mysql.createConnection({
+//     database: 'heroku_d3e4e3664844155',
+//     host: 'us-cdbr-iron-east-03.cleardb.net',
+//     user: 'b0f240f41f3bea',
+//     password: '02ebad9a'
+// });
 
 /* LOCAL DB CONFIG */
-// var connection = mysql.createConnection({
-//     database: 'notes_db',
-//     host: 'localhost',
-//     user: 'root',
-//     password: ''
-// });
+var connection = mysql.createConnection({
+    database: 'notes_db',
+    host: 'localhost',
+    user: 'root',
+    password: ''
+});
 
 app.get('/', () => connection.connect());
 
@@ -73,5 +73,5 @@ app.post('/note', (req, res) => {
     });
 });
 app.listen(process.env.PORT || 8080, function(){
-  console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+  console.log("Express server listening on port %d", this.address().port);
 });
