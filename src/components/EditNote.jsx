@@ -73,9 +73,6 @@ export class EditNote extends Component {
                 <form>
                     <fieldset>
                         <div>
-                            <label>Note #{this.state.id}</label>
-                        </div>
-                        <div>
                             <label>Name:</label>
                         </div>
                         <input
