@@ -17,6 +17,24 @@ const initialState = {
             parent: 1,
             isActive: false,
             isOpen: false
+        },
+        {
+            id: 3,
+            parent: 1,
+            isActive: false,
+            isOpen: false
+        },
+        {
+            id: 4,
+            parent: 2,
+            isActive: false,
+            isOpen: false
+        },
+        {
+            id: 5,
+            parent: 3,
+            isActive: false,
+            isOpen: false
         }
     ],
     notes: [
