@@ -18,14 +18,15 @@ export default class Folder extends Component {
     render() {
         const note = {name: 'someName'};
         const folderIcon = this.state.isOpen ? 'folder-open': 'folder';
+        const className = this.state.isOpen ? 'open' : 'closed';
 
         return (
             <div
                 isOpen={this.state.isOpen}
                 selected={this.props.selected}
-                onClick={this.openFolder}
+                className={className}
             >
-                <div>
+                <div onClick={this.openFolder}>
                     <i className={`fa fa-${folderIcon} fa-lg`}></i>
                 </div>
                 {

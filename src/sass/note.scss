@@ -40,3 +40,15 @@
     margin-top: 50px;
   }
 }
+
+.closed {
+  .open, .closed {
+    display: none;
+  }
+}
+
+.open {
+  .closed, .open {
+    padding-left: 5px;
+  }
+}
