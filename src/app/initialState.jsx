@@ -3,7 +3,7 @@ const initialState = {
         {
             id: 0,
             parent: null,
-            isActive: false,
+            isActive: true,
             isOpen: false
         },
         {

@@ -22,25 +22,27 @@ const reducer = (state, action) => {
         case MAKE_FOLDER_ACTIVE:
             let newFoldersArray = state.folders.slice();
 
+            newFoldersArray.map((folder, index) => {
+                folder.isActive = false;
+            });
+
             newFoldersArray = newFoldersArray
-                .slice(0, action.payload.index)
+                .slice(0, action.id)
                 .concat(
                     {
-                        id: action.payload.index,
-                        children: newFoldersArray.folder[action.payload.index].children,
-                        isActive: !newFoldersArray.folder[action.payload.index].isActive,
-                        isOpen: newFoldersArray.folder[action.payload.index].isOpen
+                        id: newFoldersArray[action.id].id,
+                        parent: newFoldersArray[action.id].parent,
+                        isActive: true,
+                        isOpen: newFoldersArray[action.id].isOpen
                     }
                 )
-                .concat(newFoldersArray.slice(action.payload.index + 1));
+                .concat(newFoldersArray.slice(action.id + 1));
 
+            return {
+                ...state,
+                folders: newFoldersArray
+            };
 
-            return (Object.assign({}, state,
-                {
-                    ...state,
-                    folders: newFoldersArray
-                }
-            ));
         case ADD_NEW_NOTE:
             return {
                 ...state,

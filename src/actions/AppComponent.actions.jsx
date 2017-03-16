@@ -4,7 +4,8 @@ import {
     GO_TO_NOTE_CREATION,
     GO_TO_NOTE_EDIT,
     REMOVE_NOTE,
-    REMOVE_NOTE_SUCCESS
+    REMOVE_NOTE_SUCCESS,
+    MAKE_FOLDER_ACTIVE
 } from './actionTypes.jsx';
 
 import { hashHistory } from 'react-router';
@@ -45,4 +46,8 @@ export const removeNote = id => dispatch => {
     })).then(response => {
         dispatch({type: REMOVE_NOTE_SUCCESS, payload: id});
     })
+}
+
+export const makeFolderActive = id => dispatch => {
+    dispatch({ type: MAKE_FOLDER_ACTIVE, id });
 }

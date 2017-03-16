@@ -9,24 +9,31 @@ export default class Folder extends Component {
         }
 
         this.openFolder = this.openFolder.bind(this);
+        this.handleFolderClick = this.handleFolderClick.bind(this);
     }
 
-    openFolder(event) {
+    openFolder() {
         this.setState({isOpen: !this.state.isOpen})
+    }
+
+    handleFolderClick() {
+        this.openFolder();
+        if (!this.props.isActive) {
+            this.props.makeFolderActive(this.props.id);
+        }
     }
 
     render() {
         const note = {name: 'someName'};
-        const folderIcon = this.state.isOpen ? 'folder-open': 'folder';
+        const folderIcon = this.state.isOpen ? 'folder-open' : 'folder';
         const className = this.state.isOpen ? 'open' : 'closed';
 
         return (
             <div
                 isOpen={this.state.isOpen}
-                selected={this.props.selected}
                 className={className}
             >
-                <div onClick={this.openFolder}>
+                <div onClick={this.handleFolderClick}>
                     <i className={`fa fa-${folderIcon} fa-lg`}></i>
                 </div>
                 {

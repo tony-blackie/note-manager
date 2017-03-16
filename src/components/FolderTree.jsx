@@ -17,9 +17,11 @@ export default class FolderTree extends Component {
         return (
           <Folder
               folderIcon={folder.isOpen ? 'open' : 'closed'}
-              selected={folder.isActive}
+              isActive={folder.isActive}
               key={folderId}
+              id={folderId}
               onClick={this.openFolder}
+              makeFolderActive={this.props.makeFolderActive}
           >
               {
                   this.props.folders.map(folder => {
