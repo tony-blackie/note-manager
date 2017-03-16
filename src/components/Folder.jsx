@@ -27,14 +27,15 @@ export default class Folder extends Component {
         const note = {name: 'someName'};
         const folderIcon = this.state.isOpen ? 'folder-open' : 'folder';
         const className = this.state.isOpen ? 'open' : 'closed';
+        const isActiveClass = this.props.isActive ? 'folder_active': '';
 
         return (
             <div
                 isOpen={this.state.isOpen}
                 className={className}
             >
-                <div onClick={this.handleFolderClick}>
-                    <i className={`fa fa-${folderIcon} fa-lg`}></i>
+                <div onClick={this.handleFolderClick} className={isActiveClass}>
+                    <i className={`folder__icon fa fa-${folderIcon} fa-lg`}></i>
                 </div>
                 {
                     this.props.children
