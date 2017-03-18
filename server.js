@@ -74,8 +74,8 @@ app.post('/note', (req, res) => {
 });
 
 app.get('/folders', (req, res) => {
-    connection.query(`SELECT * FROM folders;`, response => {
-        res.send(response);
+    connection.query(`SELECT * FROM folders;`, (err, results, fields) => {
+        res.send(results);
     });
 });
 

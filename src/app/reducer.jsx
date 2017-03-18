@@ -81,9 +81,19 @@ const reducer = (state, action) => {
                 notes: newNotes
             }
         case REQUEST_ALL_FOLDERS_SUCCESS:
+            let newFolders = [];
+            action.payload.map((folder, index) => {
+                newFolders.push({
+                    isOpen: false,
+                    isActive: false,
+                    parent: action.payload[index].parent_id,
+                    id: action.payload[index].id
+                });
+            });
+
             return {
                 ...state,
-                folders: action.payload
+                folders: newFolders
             }
         default:
             return state;
