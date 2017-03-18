@@ -25,7 +25,7 @@ var connection = mysql.createConnection({
 app.get('/', () => connection.connect());
 
 app.get('/notes', function(req, res) {
-    connection.query('SELECT * FROM note', function (err, results, fields) {
+    connection.query('SELECT * FROM notes', function (err, results, fields) {
         if (err) throw err;
 
         res.send(results);
@@ -35,7 +35,7 @@ app.get('/notes', function(req, res) {
 app.get('/notes/:id', (request, response) => {
     const id = request.params.id;
 
-    connection.query(`SELECT * FROM note WHERE id=${id}`, function (err, results, fields) {
+    connection.query(`SELECT * FROM notes WHERE id=${id}`, function (err, results, fields) {
         if (err) throw err;
 
         response.send(results[0]);
@@ -47,7 +47,7 @@ app.put('/notes/:id', (req, res) => {
     const text = req.body.text;
     const name = req.body.name;
 
-    connection.query(`UPDATE note SET text='${text}', name='${name}' WHERE id=${id}`, (err, results, fields) => {
+    connection.query(`UPDATE notes SET text='${text}', name='${name}' WHERE id=${id}`, (err, results, fields) => {
         if (err) throw err;
 
         res.send(results);
@@ -57,7 +57,7 @@ app.put('/notes/:id', (req, res) => {
 app.delete('/notes/:id', (req, res) => {
     const id = req.params.id;
 
-    connection.query(`DELETE FROM note WHERE id='${id}';`, (err, results, fields) => {
+    connection.query(`DELETE FROM notes WHERE id='${id}';`, (err, results, fields) => {
         if (err) throw err;
 
         res.send(results);
@@ -68,7 +68,7 @@ app.post('/note', (req, res) => {
     const name = req.body.name;
     const text = req.body.text;
 
-    connection.query(`INSERT INTO note(name, text) values('${name}', '${text}');`, response => {
+    connection.query(`INSERT INTO notes(name, text) values('${name}', '${text}');`, response => {
         res.send(response);
     });
 });
