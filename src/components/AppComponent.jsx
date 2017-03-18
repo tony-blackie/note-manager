@@ -15,7 +15,8 @@ import {
   goToNoteCreation,
   goToNoteEdit,
   removeNote,
-  makeFolderActive
+  makeFolderActive,
+  getAllFolders
 } from '../actions/AppComponent.actions.jsx';
 
 export class App extends Component {
@@ -25,6 +26,7 @@ export class App extends Component {
 
     componentDidMount() {
         this.props.getAllNotes();
+        this.props.getAllFolders();
     }
 
     render() {
@@ -60,7 +62,8 @@ const mapDispatchToProps = dispatch => bindActionCreators({
     goToNoteCreation,
     goToNoteEdit,
     removeNote,
-    makeFolderActive
+    makeFolderActive,
+    getAllFolders
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -72,6 +72,13 @@ app.post('/note', (req, res) => {
         res.send(response);
     });
 });
+
+app.get('/folders', (req, res) => {
+    connection.query(`SELECT * FROM folders;`, response => {
+        res.send(response);
+    });
+});
+
 app.listen(process.env.PORT || 8080, function(){
   console.log("Express server listening on port %d", this.address().port);
 });

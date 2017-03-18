@@ -10,7 +10,8 @@ import {
   CREATE_NEW_NOTE,
   CREATE_NEW_NOTE_SUCCESS,
   REMOVE_NOTE,
-  REMOVE_NOTE_SUCCESS
+  REMOVE_NOTE_SUCCESS,
+  REQUEST_ALL_FOLDERS_SUCCESS
 } from '../actions/actionTypes.jsx';
 
 const reducer = (state, action) => {
@@ -78,6 +79,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 notes: newNotes
+            }
+        case REQUEST_ALL_FOLDERS_SUCCESS:
+            return {
+                ...state,
+                folders: action.payload
             }
         default:
             return state;
