@@ -6,31 +6,30 @@ export default class NotePanel extends Component {
         super(props);
     }
 
-    mapNotes(notes) {
-      return (
-        <div>
-          {
-            notes.map((note) => {
-              return <Note
-                        key={note.id}
-                        id={note.id}
-                        name={note.name}
-                        text={note.text}
-                        goToNoteEdit={this.props.goToNoteEdit}
-                        removeNote={this.props.removeNote}
-                     />
-            })
-          }
-        </div>);
-    }
-
     render() {
         return (
             <div className="note-panel">
                 <div className="note-search">
                     <input type="text" placeholder="search" />
                 </div>
-                {this.mapNotes(this.props.notes)}
+                <div>
+                    {
+                        this.props.notes.map((note) => {
+                            if (note.parent_id === this.props.activeFolderId) {
+                                return (
+                                  <Note
+                                      key={note.id}
+                                      id={note.id}
+                                      name={note.name}
+                                      text={note.text}
+                                      goToNoteEdit={this.props.goToNoteEdit}
+                                      removeNote={this.props.removeNote}
+                                  />
+                                );
+                            }
+                        }, this)
+                    }
+                </div>
             </div>
         );
     }

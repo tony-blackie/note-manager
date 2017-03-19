@@ -41,7 +41,8 @@ const reducer = (state, action) => {
 
             return {
                 ...state,
-                folders: newFoldersArray
+                folders: newFoldersArray,
+                activeFolderId: action.id
             };
 
         case ADD_NEW_NOTE:
@@ -82,10 +83,11 @@ const reducer = (state, action) => {
             }
         case REQUEST_ALL_FOLDERS_SUCCESS:
             let newFolders = [];
+            let firstFolderId = action.payload[0].id;
             action.payload.map((folder, index) => {
                 newFolders.push({
                     isOpen: false,
-                    isActive: false,
+                    isActive: index === 0,
                     parent: action.payload[index].parent_id,
                     id: action.payload[index].id
                 });
@@ -93,7 +95,8 @@ const reducer = (state, action) => {
 
             return {
                 ...state,
-                folders: newFolders
+                folders: newFolders,
+                activeFolderId: firstFolderId
             }
         default:
             return state;

@@ -31,7 +31,6 @@ export default class Folder extends Component {
 
         return (
             <div
-                isOpen={this.state.isOpen}
                 className={className}
             >
                 <div onClick={this.handleFolderClick} className={isActiveClass}>

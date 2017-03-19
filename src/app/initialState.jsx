@@ -57,7 +57,8 @@ const initialState = {
             text: 'This is a very nice text'
         }
     ],
-    isNoteCreationMode: false
+    isNoteCreationMode: false,
+    activeFolderId: null
 };
 
 export default initialState;

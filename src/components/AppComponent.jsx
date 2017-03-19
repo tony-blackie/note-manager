@@ -42,6 +42,7 @@ export class App extends Component {
                         notes={this.props.notes}
                         goToNoteEdit={this.props.goToNoteEdit}
                         removeNote={this.props.removeNote}
+                        activeFolderId={this.props.activeFolderId}
                     />
                 </div>
             </div>
@@ -49,12 +50,11 @@ export class App extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
+const mapStateToProps = state => ({
         notes: state.notes,
-        folders: state.folders
-    }
-};
+        folders: state.folders,
+        activeFolderId: state.activeFolderId
+});
 
 const mapDispatchToProps = dispatch => bindActionCreators({
     addNote,
