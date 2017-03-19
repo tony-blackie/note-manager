@@ -82,11 +82,19 @@ app.get('/folders', (req, res) => {
 
 app.delete('/folders/:id', (req, res) => {
     const id = req.params.id;
-    
+
     connection.query(`DELETE FROM folders WHERE id='${id}';`, (err, results, fields) => {
         if (err) throw err;
 
         res.send(results);
+    });
+});
+
+app.post('/folder', (req, res) => {
+    const name = req.body.name;
+
+    connection.query(`INSERT INTO folders(user_id, name, parent_id) values(1, '${name}', NULL);`, response => {
+        res.send(response);
     });
 });
 
