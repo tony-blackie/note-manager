@@ -7,7 +7,8 @@ import {
     REMOVE_NOTE_SUCCESS,
     MAKE_FOLDER_ACTIVE,
     REQUEST_ALL_FOLDERS,
-    REQUEST_ALL_FOLDERS_SUCCESS
+    REQUEST_ALL_FOLDERS_SUCCESS,
+    REMOVE_FOLDER
 } from './actionTypes.jsx';
 
 import { hashHistory } from 'react-router';
@@ -63,4 +64,13 @@ export const getAllFolders = () => dispatch => {
           payload: response
         });
     }));
+}
+
+export const removeFolder = id => dispatch => {
+    return($.ajax({
+        url: `/folders/${id}`,
+        type: 'DELETE'
+    })).then(response => {
+        dispatch({ type: REMOVE_FOLDER, id });
+    });
 }

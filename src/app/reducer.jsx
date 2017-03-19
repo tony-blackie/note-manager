@@ -11,7 +11,8 @@ import {
   CREATE_NEW_NOTE_SUCCESS,
   REMOVE_NOTE,
   REMOVE_NOTE_SUCCESS,
-  REQUEST_ALL_FOLDERS_SUCCESS
+  REQUEST_ALL_FOLDERS_SUCCESS,
+  REMOVE_FOLDER
 } from '../actions/actionTypes.jsx';
 
 const reducer = (state, action) => {
@@ -98,6 +99,21 @@ const reducer = (state, action) => {
                 ...state,
                 folders: newFolders,
                 activeFolderId: firstFolderId
+            }
+        case REMOVE_FOLDER:
+            let indexOfFolderInState;
+            state.folders.map((folder, index) => {
+                if(folder.id === action.id) {
+                    indexOfFolderInState = index;
+                }
+            });
+            newFolders = state.folders.slice(0, indexOfFolderInState);
+            if (state.folders[indexOfFolderInState + 1]) {
+                newFolders = newFolders.concat(state.folders.slice(indexOfFolderInState + 1, state.folders.length));
+            }
+            return {
+                ...state,
+                folders: newFolders
             }
         default:
             return state;

@@ -80,6 +80,16 @@ app.get('/folders', (req, res) => {
     });
 });
 
+app.delete('/folders/:id', (req, res) => {
+    const id = req.params.id;
+    
+    connection.query(`DELETE FROM folders WHERE id='${id}';`, (err, results, fields) => {
+        if (err) throw err;
+
+        res.send(results);
+    });
+});
+
 app.listen(process.env.PORT || 8080, function(){
   console.log("Express server listening on port %d", this.address().port);
 });
