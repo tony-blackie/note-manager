@@ -22,22 +22,22 @@ const reducer = (state, action) => {
     switch(action.type) {
         case MAKE_FOLDER_ACTIVE:
             let newFoldersArray = state.folders.slice();
+            let clickedFolder,
+                clickedFolderIndex;
+                
+            state.folders.map((folder, index) => {
+                if(folder.id === action.id) {
+                    clickedFolder = folder;
+                    clickedFolderIndex = index;
+                }
+            });
 
             newFoldersArray.map((folder, index) => {
                 folder.isActive = false;
             });
 
-            newFoldersArray = newFoldersArray
-                .slice(0, action.id)
-                .concat(
-                    {
-                        id: newFoldersArray[action.id].id,
-                        parent: newFoldersArray[action.id].parent,
-                        isActive: true,
-                        isOpen: newFoldersArray[action.id].isOpen
-                    }
-                )
-                .concat(newFoldersArray.slice(action.id + 1));
+            newFoldersArray[clickedFolderIndex] = clickedFolder;
+            newFoldersArray[clickedFolderIndex].isActive = true;
 
             return {
                 ...state,
