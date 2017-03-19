@@ -27,7 +27,8 @@ export class EditNote extends Component {
         if (!this.props.routeParams.noteId) {
             this.props.createNoteRequest({
                 name: this.state.name,
-                text: this.state.textFieldValue
+                text: this.state.textFieldValue,
+                activeFolderId: this.props.activeFolderId
             });
         } else {
             this.props.editNoteRequest({
@@ -100,7 +101,8 @@ export class EditNote extends Component {
 
 const mapStateToProps = state => ({
     params: state.note,
-    isNoteCreationMode: state.isNoteCreationMode
+    isNoteCreationMode: state.isNoteCreationMode,
+    activeFolderId: state.activeFolderId
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({

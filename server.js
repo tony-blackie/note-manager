@@ -67,8 +67,9 @@ app.delete('/notes/:id', (req, res) => {
 app.post('/note', (req, res) => {
     const name = req.body.name;
     const text = req.body.text;
+    const parent = req.body.activeFolderId;
 
-    connection.query(`INSERT INTO notes(name, text) values('${name}', '${text}');`, response => {
+    connection.query(`INSERT INTO notes(name, text, parent_id) values('${name}', '${text}', '${parent}');`, response => {
         res.send(response);
     });
 });
