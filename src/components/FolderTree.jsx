@@ -6,11 +6,6 @@ export default class FolderTree extends Component {
         super(props);
 
         this.renderFolder = this.renderFolder.bind(this);
-        this.openFolder = this.openFolder.bind(this);
-    }
-
-    openFolder(event, folderId) {
-
     }
 
     renderFolder(folder, folderId) {
@@ -22,6 +17,7 @@ export default class FolderTree extends Component {
               id={folderId}
               onClick={this.openFolder}
               makeFolderActive={this.props.makeFolderActive}
+              folderName={folder.name}
           >
               {
                   this.props.folders.map(folder => {

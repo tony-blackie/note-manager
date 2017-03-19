@@ -24,7 +24,7 @@ const reducer = (state, action) => {
             let newFoldersArray = state.folders.slice();
             let clickedFolder,
                 clickedFolderIndex;
-                
+
             state.folders.map((folder, index) => {
                 if(folder.id === action.id) {
                     clickedFolder = folder;
@@ -89,7 +89,8 @@ const reducer = (state, action) => {
                     isOpen: false,
                     isActive: index === 0,
                     parent: action.payload[index].parent_id,
-                    id: action.payload[index].id
+                    id: action.payload[index].id,
+                    name: action.payload[index].name
                 });
             });
 

@@ -4,37 +4,43 @@ const initialState = {
             id: 0,
             parent: null,
             isActive: true,
-            isOpen: false
+            isOpen: false,
+            name: 'someName'
         },
         {
             id: 1,
             parent: null,
             isActive: false,
-            isOpen: false
+            isOpen: false,
+            name: 'someName'
         },
         {
             id: 2,
             parent: 1,
             isActive: false,
-            isOpen: false
+            isOpen: false,
+            name: 'someName'
         },
         {
             id: 3,
             parent: 1,
             isActive: false,
-            isOpen: false
+            isOpen: false,
+            name: 'someName'
         },
         {
             id: 4,
             parent: 2,
             isActive: false,
-            isOpen: false
+            isOpen: false,
+            name: 'someName'
         },
         {
             id: 5,
             parent: 3,
             isActive: false,
-            isOpen: false
+            isOpen: false,
+            name: 'someName'
         }
     ],
     notes: [
