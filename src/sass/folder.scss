@@ -6,9 +6,11 @@
 
   &__icon {
       color: black;
+      cursor:pointer;
   }
 
   &__name {
     margin-left: 5px;
+    cursor: pointer;
   }
 }
