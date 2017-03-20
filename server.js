@@ -90,6 +90,17 @@ app.delete('/folders/:id', (req, res) => {
     });
 });
 
+app.get('/folders/:id', (req, res) => {
+    const id = req.params.id;
+    console.log(id);
+
+    connection.query(`SELECT * FROM folders WHERE id='${id}';`, (err, results, fields) => {
+        if (err) throw err;
+        console.log(results);
+        res.send(results);
+    });
+});
+
 app.post('/folder', (req, res) => {
     const name = req.body.name;
 
