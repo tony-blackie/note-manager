@@ -76,8 +76,8 @@ export const removeFolder = id => dispatch => {
     });
 }
 
-export const goToEditFolder = id => {
-    dispatch({type: GO_TO_RENAME_FOLDER});
-    
+export const goToEditFolder = id => dispatch => {
+    dispatch({type: GO_TO_EDIT_FOLDER});
+
     hashHistory.push(`/folder/${id}`);
 };

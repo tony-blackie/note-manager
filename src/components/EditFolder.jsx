@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 export class EditFolder extends Component {
     render() {
@@ -9,8 +10,8 @@ export class EditFolder extends Component {
     }
 }
 
-export const mapStateToProps = () => ({});
+export const mapStateToProps = state => ({});
 
-export const mapDispatchToProps = () => ({});
+export const mapDispatchToProps = dispatch => bindActionCreators({});
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditFolder);
