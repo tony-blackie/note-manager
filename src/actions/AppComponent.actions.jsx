@@ -3,12 +3,13 @@ import {
     GET_ALL_NOTES_SUCCESS,
     GO_TO_NOTE_CREATION,
     GO_TO_NOTE_EDIT,
+    GO_TO_EDIT_FOLDER,
     REMOVE_NOTE,
     REMOVE_NOTE_SUCCESS,
     MAKE_FOLDER_ACTIVE,
     REQUEST_ALL_FOLDERS,
     REQUEST_ALL_FOLDERS_SUCCESS,
-    REMOVE_FOLDER
+    REMOVE_FOLDER,
 } from './actionTypes.jsx';
 
 import { hashHistory } from 'react-router';
@@ -74,3 +75,9 @@ export const removeFolder = id => dispatch => {
         dispatch({ type: REMOVE_FOLDER, id });
     });
 }
+
+export const goToEditFolder = id => {
+    dispatch({type: GO_TO_RENAME_FOLDER});
+    
+    hashHistory.push(`/folder/${id}`);
+};

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-export EditFolder extends Component {
+export class EditFolder extends Component {
     render() {
         return (
             <div>Edit Folder Page</div>

@@ -17,7 +17,8 @@ import {
   removeNote,
   makeFolderActive,
   getAllFolders,
-  removeFolder
+  removeFolder,
+  goToEditFolder
 } from '../actions/AppComponent.actions.jsx';
 
 export class App extends Component {
@@ -36,7 +37,9 @@ export class App extends Component {
                 <ControlPanel
                     goToNoteCreation={this.props.goToNoteCreation}
                     removeFolder={this.props.removeFolder}
-                    activeFolderId={this.props.activeFolderId} />
+                    activeFolderId={this.props.activeFolderId}
+                    goToEditFolder={this.props.goToEditFolder}
+                />
                 <div className="content">
                     <FolderTree
                       folders={this.props.folders}
@@ -68,7 +71,8 @@ const mapDispatchToProps = dispatch => bindActionCreators({
     removeNote,
     makeFolderActive,
     getAllFolders,
-    removeFolder
+    removeFolder,
+    goToEditFolder
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
