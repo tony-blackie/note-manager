@@ -24,7 +24,7 @@ ReactDOM.render((
             {/*<Route path='*' component={NoMatch} />*/}
             <Route path="/notes/:noteId" component={EditNote} />
             <Route path="/note" component={EditNote} />
-            <Route path="/edit-folder" component={EditFolder} />
+            <Route path="/folder/:id" component={EditFolder} />
         </Router>
     </Provider>
 ), document.getElementById('root'));

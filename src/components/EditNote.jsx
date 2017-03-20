@@ -99,13 +99,13 @@ export class EditNote extends Component {
     }
 }
 
-const mapStateToProps = state => ({
+export const mapStateToProps = state => ({
     params: state.note,
     isNoteCreationMode: state.isNoteCreationMode,
     activeFolderId: state.activeFolderId
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({
+export const mapDispatchToProps = dispatch => bindActionCreators({
     editNoteRequest,
     createNoteRequest
 }, dispatch);
