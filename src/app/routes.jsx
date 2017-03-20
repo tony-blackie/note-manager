@@ -8,6 +8,7 @@ import Styles from '../sass/index.scss';
 import App from '../components/AppComponent.jsx';
 import NoMatch from '../components/NoMatchComponent.jsx';
 import EditNote from '../components/EditNote.jsx';
+import EditFolder from '../components/EditFolder.jsx';
 import reducer from './reducer.jsx';
 
 
@@ -23,6 +24,7 @@ ReactDOM.render((
             {/*<Route path='*' component={NoMatch} />*/}
             <Route path="/notes/:noteId" component={EditNote} />
             <Route path="/note" component={EditNote} />
+            <Route path="/edit-folder" component={EditFolder} />
         </Router>
     </Provider>
 ), document.getElementById('root'));
