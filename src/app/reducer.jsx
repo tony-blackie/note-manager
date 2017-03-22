@@ -12,8 +12,7 @@ import {
   REMOVE_NOTE,
   REMOVE_NOTE_SUCCESS,
   REQUEST_ALL_FOLDERS_SUCCESS,
-  REMOVE_FOLDER,
-  GET_FOLDER_SUCCESS
+  REMOVE_FOLDER
 } from '../actions/actionTypes.jsx';
 
 const reducer = (state, action) => {
@@ -116,9 +115,6 @@ const reducer = (state, action) => {
                 ...state,
                 folders: newFolders
             }
-        case GET_FOLDER_SUCCESS:
-            debugger;
-            return state;
         default:
             return state;
     }

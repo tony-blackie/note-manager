@@ -6,9 +6,8 @@ import {
 } from '../actions/EditFolder.actions.jsx';
 
 export const getFolder = id => dispatch => {
-    return $.ajax(`/folders/${id}`, {
+    $.ajax(`/folders/${id}`, {
         type: 'GET'
-    }).then(folder => {
-      dispatch({ type: GET_FOLDER_SUCCESS, folder })
-    });
+    }).then(folder => dispatch({ type: GET_FOLDER_SUCCESS, folder }))
+    .catch(error => dispatch({ type: GET_FOLDER_FAIL, error }))
 }
