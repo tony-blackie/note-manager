@@ -1,6 +1,7 @@
 import initialState from './initialState.jsx';
 import {
   MAKE_FOLDER_ACTIVE,
+  MAKE_FOLDER_INACTIVE,
   ADD_NEW_NOTE,
   GET_ALL_NOTES,
   GET_ALL_NOTES_SUCCESS,
@@ -17,15 +18,17 @@ import {
 } from '../actions/actionTypes.jsx';
 
 const reducer = (state, action) => {
+    let newFoldersArray,
+        clickedFolder,
+        clickedFolderIndex;
+
     if (typeof state === 'undefined') {
         return initialState;
     }
 
     switch(action.type) {
         case MAKE_FOLDER_ACTIVE:
-            let newFoldersArray = state.folders.slice();
-            let clickedFolder,
-                clickedFolderIndex;
+            newFoldersArray = state.folders.slice();
 
             state.folders.map((folder, index) => {
                 if(folder.id === action.id) {
@@ -35,16 +38,42 @@ const reducer = (state, action) => {
             });
 
             newFoldersArray.map((folder, index) => {
-                folder.isActive = false;
+                if(folder.id !== action.id) {
+                    folder.isActive = false;
+                }
             });
 
             newFoldersArray[clickedFolderIndex] = clickedFolder;
-            newFoldersArray[clickedFolderIndex].isActive = true;
+            newFoldersArray[clickedFolderIndex].isActive = !newFoldersArray[clickedFolderIndex].isActive;
 
             return {
                 ...state,
                 folders: newFoldersArray,
                 activeFolderId: action.id
+            };
+        case MAKE_FOLDER_INACTIVE:
+            newFoldersArray = state.folders.slice();
+
+            state.folders.map((folder, index) => {
+                if(folder.id === action.id) {
+                    clickedFolder = folder;
+                    clickedFolderIndex = index;
+                }
+            });
+
+            newFoldersArray.map((folder, index) => {
+                if(folder.id !== action.id) {
+                    folder.isActive = false;
+                }
+            });
+
+            newFoldersArray[clickedFolderIndex] = clickedFolder;
+            newFoldersArray[clickedFolderIndex].isActive = !newFoldersArray[clickedFolderIndex].isActive;
+
+            return {
+                ...state,
+                folders: newFoldersArray,
+                activeFolderId: null
             };
 
         case ADD_NEW_NOTE:

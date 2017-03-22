@@ -7,6 +7,7 @@ import {
     REMOVE_NOTE,
     REMOVE_NOTE_SUCCESS,
     MAKE_FOLDER_ACTIVE,
+    MAKE_FOLDER_INACTIVE,
     REQUEST_ALL_FOLDERS,
     REQUEST_ALL_FOLDERS_SUCCESS,
     REMOVE_FOLDER,
@@ -54,6 +55,10 @@ export const removeNote = id => dispatch => {
 
 export const makeFolderActive = id => dispatch => {
     dispatch({ type: MAKE_FOLDER_ACTIVE, id });
+}
+
+export const makeFolderInactive = id => dispatch => {
+    dispatch({ type: MAKE_FOLDER_INACTIVE, id });
 }
 
 export const getAllFolders = () => dispatch => {

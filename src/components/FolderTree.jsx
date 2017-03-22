@@ -17,6 +17,7 @@ export default class FolderTree extends Component {
               id={folderId}
               onClick={this.openFolder}
               makeFolderActive={this.props.makeFolderActive}
+              makeFolderInactive={this.props.makeFolderInactive}
               folderName={folder.name}
           >
               {

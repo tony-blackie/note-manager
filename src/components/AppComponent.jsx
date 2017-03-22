@@ -16,6 +16,7 @@ import {
   goToNoteEdit,
   removeNote,
   makeFolderActive,
+  makeFolderInactive,
   getAllFolders,
   removeFolder,
   goToEditFolder
@@ -44,6 +45,7 @@ export class App extends Component {
                     <FolderTree
                       folders={this.props.folders}
                       makeFolderActive={this.props.makeFolderActive}
+                      makeFolderInactive={this.props.makeFolderInactive}
                     />
                     <NotePanel
                         notes={this.props.notes}
@@ -70,6 +72,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
     goToNoteEdit,
     removeNote,
     makeFolderActive,
+    makeFolderInactive,
     getAllFolders,
     removeFolder,
     goToEditFolder

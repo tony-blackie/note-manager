@@ -18,7 +18,9 @@ export default class Folder extends Component {
 
     handleFolderClick() {
         this.openFolder();
-        if (!this.props.isActive) {
+        if (this.props.isActive) {
+            this.props.makeFolderInactive(this.props.id);
+        } else {
             this.props.makeFolderActive(this.props.id);
         }
     }
