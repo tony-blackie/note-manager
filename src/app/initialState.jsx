@@ -64,7 +64,8 @@ const initialState = {
         }
     ],
     isNoteCreationMode: false,
-    activeFolderId: null
+    activeFolderId: null,
+    folderName: null
 };
 
 export default initialState;
