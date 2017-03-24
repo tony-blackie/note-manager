@@ -2,11 +2,35 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
-import { getFolder } from '../actions/EditFolder.actions.jsx';
+import {
+  getFolder,
+  saveEditedFolder,
+  handleFolderNameChange,
+  requestFolderEdit
+} from '../actions/EditFolder.actions.jsx';
 
 export class EditFolder extends Component {
     componentDidMount() {
         this.props.getFolder(this.props.routeParams.id);
+    }
+
+    saveEditedFolder = () => {
+        if (!this.props.routeParams.noteId) {
+            // this.props.requestFolderCreation({
+            //     name: this.state.name,
+            //     text: this.state.textFieldValue,
+            //     activeFolderId: this.props.activeFolderId
+            // });
+        } else {
+            this.props.requestFolderEdit({
+                id: this.props.routeParams.id,
+                name: this.props.folderName
+            });
+        }
+    }
+
+    handleNameChange = event => {
+        this.props.handleFolderNameChange(event.target.value);
     }
 
     render() {
@@ -16,7 +40,7 @@ export class EditFolder extends Component {
                     <button>
                         <Link to="/"> Go Back</Link>
                     </button>
-                    <button onClick={this.handleSaveClick}>
+                    <button onClick={this.saveEditedFolder}>
                         Save changes
                     </button>
                 </nav>
@@ -38,10 +62,14 @@ export class EditFolder extends Component {
     }
 }
 
-export const mapStateToProps = state => ({});
+export const mapStateToProps = state => ({
+    folderName
+});
 
 export const mapDispatchToProps = dispatch => bindActionCreators({
-    getFolder
+    getFolder,
+    saveEditedFolder,
+    handleFolderNameChange
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditFolder);

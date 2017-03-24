@@ -14,7 +14,9 @@ import {
   REMOVE_NOTE_SUCCESS,
   REQUEST_ALL_FOLDERS_SUCCESS,
   REMOVE_FOLDER,
-  GET_FOLDER_SUCCESS
+  GET_FOLDER_SUCCESS,
+  CHANGE_FOLDER_NAME,
+  SAVE_EDITED_FOLDER
 } from '../actions/actionTypes.jsx';
 
 const reducer = (state, action) => {
@@ -146,8 +148,24 @@ const reducer = (state, action) => {
                 folders: newFolders
             }
         case GET_FOLDER_SUCCESS:
-            debugger;
             return state;
+        case CHANGE_FOLDER_NAME:
+            return {
+                ...state,
+                folderName: action.text
+            }
+        case SAVE_EDITED_FOLDER:
+            let newFolderArray = state.folders.slice();
+            newFolderArray.map((folder, index) => {
+                if(folder.id === action.folder.id) {
+                    newFolderArray[index].name = state.folderName;
+                }
+            });
+            return {
+                ...state,
+                folderName: null,
+                folders: newFolderArray
+            }
         default:
             return state;
     }
