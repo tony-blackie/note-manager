@@ -29,7 +29,7 @@ export class EditFolder extends Component {
             // });
         } else {
             this.props.requestFolderEdit({
-                id: this.props.routeParams.id,
+                id: parseInt(this.props.routeParams.id, 10),
                 name: this.props.folderName
             });
         }

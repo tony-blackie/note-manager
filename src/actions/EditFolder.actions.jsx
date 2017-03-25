@@ -7,6 +7,7 @@ import {
     SAVE_EDITED_FOLDER,
     HANDLE_FOLDER_EDIT_ERROR
 } from './actionTypes.jsx';
+import { hashHistory } from 'react-router';
 
 export const handleSuccessfulGetFolder = folder => {
     return {type: GET_FOLDER_SUCCESS, folder};
@@ -40,6 +41,8 @@ export const requestFolderEdit = folder => dispatch => {
     })
     .then(response => {
         dispatch( { type: SAVE_EDITED_FOLDER, folder } )
+
+        hashHistory.push('/');
     })
     .catch(error => {
         dispatch( { type: HANDLE_FOLDER_EDIT_ERROR, error } )

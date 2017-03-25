@@ -161,7 +161,7 @@ const reducer = (state, action) => {
             let newFolderArray = state.folders.slice();
             newFolderArray.map((folder, index) => {
                 if(folder.id === action.folder.id) {
-                    newFolderArray[index].name = state.folderName;
+                    folder.name = state.folderName;
                 }
             });
             return {
