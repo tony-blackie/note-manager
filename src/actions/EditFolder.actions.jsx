@@ -31,11 +31,10 @@ export const requestFolderEdit = folder => dispatch => {
       type: 'PUT'
     })
     .then(response => {
-        dispatch( { type: SAVE_EDITED_FOLDER, folder } );
+        dispatch( { type: SAVE_EDITED_FOLDER, folder } )
     })
     .catch(error => {
-        dispatch( { type: HANDLE_FOLDER_EDIT_ERROR, error } );
-    })
-  );
+        dispatch( { type: HANDLE_FOLDER_EDIT_ERROR, error } )
+    });
 
 }

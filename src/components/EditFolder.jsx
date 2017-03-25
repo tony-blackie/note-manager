@@ -10,11 +10,17 @@ import {
 } from '../actions/EditFolder.actions.jsx';
 
 export class EditFolder extends Component {
+    constructor(props) {
+        super(props);
+
+        this.saveEditedFolder = this.saveEditedFolder.bind(this);
+        this.handleNameChange = this.handleNameChange.bind(this);
+    }
     componentDidMount() {
         this.props.getFolder(this.props.routeParams.id);
     }
 
-    saveEditedFolder = () => {
+    saveEditedFolder() {
         if (!this.props.routeParams.noteId) {
             // this.props.requestFolderCreation({
             //     name: this.state.name,
@@ -29,7 +35,7 @@ export class EditFolder extends Component {
         }
     }
 
-    handleNameChange = event => {
+    handleNameChange(event) {
         this.props.handleFolderNameChange(event.target.value);
     }
 
