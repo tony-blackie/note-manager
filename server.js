@@ -101,6 +101,17 @@ app.get('/folders/:id', (req, res) => {
     });
 });
 
+app.put('/folders/:id', (req, res) => {
+    const id = req.body.id;
+    const name = req.body.name;
+
+    connection.query(`UPDATE folders SET name='${name}' WHERE id=${id}`, (err, results, fields) => {
+        if (err) throw err;
+
+        res.send(results);
+    });
+});
+
 app.post('/folder', (req, res) => {
     const name = req.body.name;
 
