@@ -148,7 +148,10 @@ const reducer = (state, action) => {
                 folders: newFolders
             }
         case GET_FOLDER_SUCCESS:
-            return state;
+            return {
+                ...state,
+                folderName: action.folder.name
+            };
         case CHANGE_FOLDER_NAME:
             return {
                 ...state,

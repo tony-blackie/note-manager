@@ -96,8 +96,8 @@ app.get('/folders/:id', (req, res) => {
 
     connection.query(`SELECT * FROM folders WHERE id='${id}';`, (err, results, fields) => {
         if (err) throw err;
-        console.log(results);
-        res.send(results);
+
+        res.send(results[0]);
     });
 });
 

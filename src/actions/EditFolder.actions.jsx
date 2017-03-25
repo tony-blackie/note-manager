@@ -6,14 +6,22 @@ import {
     CHANGE_FOLDER_NAME,
     SAVE_EDITED_FOLDER,
     HANDLE_FOLDER_EDIT_ERROR
-} from '../actions/EditFolder.actions.jsx';
+} from './actionTypes.jsx';
+
+export const handleSuccessfulGetFolder = folder => {
+    return {type: GET_FOLDER_SUCCESS, folder};
+};
+
+export const handleFailedGetFolder = error => ({
+    type: GET_FOLDER_FAIL, error
+});
 
 export const getFolder = id => dispatch => {
-    return $.ajax(`/folders/${id}`, {
+    $.ajax(`/folders/${id}`, {
         type: 'GET'
-    }).then(folder => {
-      dispatch({ type: GET_FOLDER_SUCCESS, folder })
-    });
+    })
+    .then(folder => dispatch(handleSuccessfulGetFolder(folder)))
+    .catch(error => dispatch(handleFailedGetFolder(error)));
 }
 
 export const saveEditedFolder = id => dispatch => {

@@ -59,7 +59,7 @@ export class EditFolder extends Component {
                             onChange={this.handleNameChange}
                             className="edit-note__name"
                             type="text"
-                            value={this.props.name}
+                            value={this.props.folderName}
                         />
                     </fieldset>
                 </form>
@@ -69,7 +69,7 @@ export class EditFolder extends Component {
 }
 
 export const mapStateToProps = state => ({
-    folderName
+    folderName: state.folderName
 });
 
 export const mapDispatchToProps = dispatch => bindActionCreators({
