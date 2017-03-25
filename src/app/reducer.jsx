@@ -166,7 +166,7 @@ const reducer = (state, action) => {
             });
             return {
                 ...state,
-                folderName: null,
+                folderName: '',
                 folders: newFolderArray
             }
         default:

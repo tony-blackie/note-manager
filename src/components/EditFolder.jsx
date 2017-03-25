@@ -21,7 +21,7 @@ export class EditFolder extends Component {
     }
 
     saveEditedFolder() {
-        if (!this.props.routeParams.noteId) {
+        if (!this.props.routeParams.id) {
             // this.props.requestFolderCreation({
             //     name: this.state.name,
             //     text: this.state.textFieldValue,
@@ -75,7 +75,8 @@ export const mapStateToProps = state => ({
 export const mapDispatchToProps = dispatch => bindActionCreators({
     getFolder,
     saveEditedFolder,
-    handleFolderNameChange
+    handleFolderNameChange,
+    requestFolderEdit
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditFolder);
