@@ -23,7 +23,7 @@ export default class ControlPanel extends Component {
             <div
                 className="control-panel"
             >
-                <div className="control">
+                <div className="control" onClick={this.props.goToFolderCreation}>
                     <i className="fa fa-plus fa-2x control__icon"></i>
                     <div className="control__text">Add Folder</div>
                 </div>

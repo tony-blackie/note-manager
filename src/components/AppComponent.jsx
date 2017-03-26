@@ -19,7 +19,8 @@ import {
   makeFolderInactive,
   getAllFolders,
   removeFolder,
-  goToEditFolder
+  goToEditFolder,
+  goToFolderCreation
 } from '../actions/AppComponent.actions.jsx';
 
 export class App extends Component {
@@ -40,6 +41,7 @@ export class App extends Component {
                     removeFolder={this.props.removeFolder}
                     activeFolderId={this.props.activeFolderId}
                     goToEditFolder={this.props.goToEditFolder}
+                    goToFolderCreation={this.props.goToFolderCreation}
                 />
                 <div className="content">
                     <FolderTree
@@ -75,7 +77,8 @@ const mapDispatchToProps = dispatch => bindActionCreators({
     makeFolderInactive,
     getAllFolders,
     removeFolder,
-    goToEditFolder
+    goToEditFolder,
+    goToFolderCreation
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

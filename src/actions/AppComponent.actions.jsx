@@ -11,6 +11,7 @@ import {
     REQUEST_ALL_FOLDERS,
     REQUEST_ALL_FOLDERS_SUCCESS,
     REMOVE_FOLDER,
+    GO_TO_FOLDER_CREATION
 } from './actionTypes.jsx';
 
 import { hashHistory } from 'react-router';
@@ -86,3 +87,9 @@ export const goToEditFolder = id => dispatch => {
 
     hashHistory.push(`/folder/${id}`);
 };
+
+export const goToFolderCreation = () => dispatch => {
+    dispatch({ type: GO_TO_FOLDER_CREATION });
+
+    hashHistory.push('/folder');
+}

@@ -6,27 +6,24 @@ import {
   getFolder,
   saveEditedFolder,
   handleFolderNameChange,
-  requestFolderEdit
+  requestFolderEdit,
+  createNewFolder
 } from '../actions/EditFolder.actions.jsx';
 
 export class EditFolder extends Component {
     constructor(props) {
         super(props);
 
-        this.saveEditedFolder = this.saveEditedFolder.bind(this);
+        this.handleFolderSave = this.handleFolderSave.bind(this);
         this.handleNameChange = this.handleNameChange.bind(this);
     }
     componentDidMount() {
         this.props.getFolder(this.props.routeParams.id);
     }
 
-    saveEditedFolder() {
+    handleFolderSave() {
         if (!this.props.routeParams.id) {
-            // this.props.requestFolderCreation({
-            //     name: this.state.name,
-            //     text: this.state.textFieldValue,
-            //     activeFolderId: this.props.activeFolderId
-            // });
+            this.props.createNewFolder({ name: this.props.folderName });
         } else {
             this.props.requestFolderEdit({
                 id: parseInt(this.props.routeParams.id, 10),
@@ -46,7 +43,7 @@ export class EditFolder extends Component {
                     <button>
                         <Link to="/"> Go Back</Link>
                     </button>
-                    <button onClick={this.saveEditedFolder}>
+                    <button onClick={this.handleFolderSave}>
                         Save changes
                     </button>
                 </nav>
@@ -76,7 +73,8 @@ export const mapDispatchToProps = dispatch => bindActionCreators({
     getFolder,
     saveEditedFolder,
     handleFolderNameChange,
-    requestFolderEdit
+    requestFolderEdit,
+    createNewFolder
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditFolder);
