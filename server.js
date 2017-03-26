@@ -114,7 +114,7 @@ app.put('/folders/:id', (req, res) => {
 app.post('/folder', (req, res) => {
     const name = req.body.name;
 
-    connection.query(`INSERT INTO folders(user_id, name, parent_id) values(1, '${name}', NULL);`, response => {
+    connection.query(`INSERT INTO folders(user_id, name, parent_id) values(1, '${name}', NULL);`, (err, response, fields) => {
         res.send(response);
     });
 });
