@@ -20,7 +20,7 @@ describe('Note component', () => {
             component = mount(<Note {...mockProps} />);
         });
 
-        it('should call #goToNoteEdit', () => {
+        it('should find component with goToNoteEdit event handler', () => {
             let wrapper = component.find('.note__icon-wrapper');
 
             expect(wrapper.length).toEqual(1);
@@ -31,6 +31,36 @@ describe('Note component', () => {
             wrapper.simulate('click');
 
             expect(mockProps.goToNoteEdit).toHaveBeenCalled();
+        });
+    });
+
+    describe('#removeNote', () => {
+        let mockProps,
+            component;
+
+        beforeEach(() => {
+            mockProps = {
+                goToNoteEdit: jest.fn(),
+                removeNote: jest.fn(),
+                name: 'someName',
+                id: 5,
+                text: 'someText'
+            };
+
+            component = mount(<Note {...mockProps} />);
+        });
+
+        it('should find component with removeNote event handler', () => {
+            let wrapper = component.find('.note__remove');
+
+            expect(wrapper.length).toEqual(1);
+        });
+
+        it('should call #removeNote', () => {
+            let wrapper = component.find('.note__remove');
+            wrapper.simulate('click');
+
+            expect(mockProps.removeNote).toHaveBeenCalled();
         });
     });
 
