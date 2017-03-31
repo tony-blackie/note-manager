@@ -13,11 +13,6 @@ Application for creating small notes, customized to your own liking.
 8. Links to personal notes for other users
 9. Customizable design and layout
 
-Built with: Webpack
-Front-end: React, Redux, ES6, Babel
-Back-end: Express, mySql
-Tests: Jest, Enzyme
-
 ### Install:
 ```
 npm install
@@ -43,3 +38,12 @@ npm test -- FileName.spec.js
 ```
 npm run coverage
 ```
+
+=====
+```
+Built with: Webpack
+Front-end: React, Redux, ES6, Babel
+Back-end: Express, mySql
+Tests: Jest, Enzyme
+```
+=====
