@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
-
-import { editNote } from '../actions/EditNote.actions.jsx';
 
 export default class Note extends Component {
     constructor(props) {
