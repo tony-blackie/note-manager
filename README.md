@@ -1,4 +1,4 @@
-##Note Manager
+## Note Manager
 
 Application for creating small notes, customized to your own liking.
 
@@ -25,7 +25,7 @@ npm install babel-preset-es2015
 npm start
 ```
 
-### Test:
+### Tests:
 ##### All tests:
 ```
 npm test
@@ -39,11 +39,10 @@ npm test -- FileName.spec.js
 npm run coverage
 ```
 
-=====
+### About
 ```
 Built with: Webpack
 Front-end: React, Redux, ES6, Babel
-Back-end: Express, mySql
+Back-end: Express, mySQL
 Tests: Jest, Enzyme
 ```
-=====
