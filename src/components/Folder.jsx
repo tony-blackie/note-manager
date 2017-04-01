@@ -35,7 +35,7 @@ export default class Folder extends Component {
             <div
                 className={className}
             >
-                <div onClick={this.handleFolderClick} className={isActiveClass}>
+                <div onClick={this.handleFolderClick} className={`folder ${isActiveClass}`}>
                     <i className={`folder__icon fa fa-${folderIcon} fa-lg`}></i>
                     <span className="folder__name">{this.props.folderName}</span>
                 </div>
