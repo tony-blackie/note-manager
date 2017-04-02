@@ -33,7 +33,7 @@ export default class Folder extends Component {
 
         return (
             <div
-                className={className}
+                className={`folder-container ${className}`}
             >
                 <div onClick={this.handleFolderClick} className={`folder ${isActiveClass}`}>
                     <i className={`folder__icon fa fa-${folderIcon} fa-lg`}></i>
