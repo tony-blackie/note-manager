@@ -21,7 +21,8 @@ export class EditFolder extends Component {
         this.props.getFolder(this.props.routeParams.id);
     }
 
-    handleFolderSave() {
+    handleFolderSave(event) {
+        event.preventDefault();
         if (!this.props.routeParams.id) {
             this.props.createNewFolder({ name: this.props.folderName });
         } else {
@@ -43,7 +44,9 @@ export class EditFolder extends Component {
                     <button>
                         <Link to="/"> Go Back</Link>
                     </button>
-                    <button onClick={this.handleFolderSave}>
+                    <button
+                      className="edit-note__save-button"
+                      onClick={this.handleFolderSave}>
                         Save changes
                     </button>
                 </nav>
