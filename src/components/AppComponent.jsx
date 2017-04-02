@@ -7,7 +7,6 @@ import Folder from './Folder.jsx';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { hashHistory } from 'react-router';
 
 import {
   addNote,
@@ -61,13 +60,13 @@ export class App extends Component {
     }
 }
 
-const mapStateToProps = state => ({
+export const mapStateToProps = state => ({
         notes: state.notes,
         folders: state.folders,
         activeFolderId: state.activeFolderId
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({
+export const mapDispatchToProps = dispatch => bindActionCreators({
     addNote,
     getAllNotes,
     goToNoteCreation,
