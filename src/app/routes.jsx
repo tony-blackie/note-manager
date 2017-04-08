@@ -5,10 +5,10 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import Styles from '../sass/index.scss';
-import App from '../components/AppComponent.jsx';
-import NoMatch from '../components/NoMatchComponent.jsx';
-import EditNote from '../components/EditNote.jsx';
-import EditFolder from '../components/EditFolder.jsx';
+import App from '../views/App/AppComponent.jsx';
+import NoMatch from '../views/NoMatchComponent/NoMatchComponent.jsx';
+import EditNote from '../views/EditNote/EditNote.jsx';
+import EditFolder from '../views/EditFolder/EditFolder.jsx';
 import reducer from './reducer.jsx';
 
 
