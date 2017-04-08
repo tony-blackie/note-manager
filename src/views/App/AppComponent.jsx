@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
-import ControlPanel from './ControlPanel.jsx';
-import FolderTree from './FolderTree.jsx';
-import NotePanel from './NotePanel.jsx';
-import Folder from './Folder.jsx';
+import ControlPanel from './components/ControlPanel.jsx';
+import FolderTree from './components/FolderTree.jsx';
+import NotePanel from './components/NotePanel.jsx';
+import Folder from './components/Folder.jsx';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -20,7 +20,7 @@ import {
   removeFolder,
   goToEditFolder,
   goToFolderCreation
-} from '../actions/AppComponent.actions.jsx';
+} from './actions/AppComponent.actions.jsx';
 
 export class App extends Component {
     constructor(props) {

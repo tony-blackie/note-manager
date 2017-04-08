@@ -12,7 +12,7 @@ import {
     REQUEST_ALL_FOLDERS_SUCCESS,
     REMOVE_FOLDER,
     GO_TO_FOLDER_CREATION
-} from './actionTypes.jsx';
+} from '../../actionTypes.jsx';
 
 import { hashHistory } from 'react-router';
 

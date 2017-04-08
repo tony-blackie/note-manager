@@ -19,7 +19,7 @@ import {
   SAVE_EDITED_FOLDER,
   FOLDER_CREATION_SUCCESS,
   FOLDER_CREATION_FAIL
-} from '../actions/actionTypes.jsx';
+} from '../views/actionTypes.jsx';
 
 const reducer = (state, action) => {
     let newFoldersArray,

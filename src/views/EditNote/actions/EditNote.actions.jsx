@@ -5,7 +5,7 @@ import {
   EDIT_EXISTING_NOTE_SUCCESS,
   CREATE_NEW_NOTE,
   CREATE_NEW_NOTE_SUCCESS
-} from './actionTypes.jsx';
+} from '../../actionTypes.jsx';
 
 export const editNoteRequest = note => dispatch => {
     dispatch({type: EDIT_EXISTING_NOTE});

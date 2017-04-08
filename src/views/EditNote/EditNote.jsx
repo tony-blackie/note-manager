@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import {
   editNoteRequest,
   createNoteRequest
- } from '../actions/EditNote.actions.jsx';
+ } from './actions/EditNote.actions.jsx';
 
 export class EditNote extends Component {
     constructor(props) {
@@ -40,6 +40,7 @@ export class EditNote extends Component {
     }
 
     handleTextFieldChange(event) {
+
         this.setState({textFieldValue: event.target.value});
     }
 

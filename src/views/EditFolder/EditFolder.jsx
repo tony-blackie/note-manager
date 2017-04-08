@@ -8,7 +8,7 @@ import {
   handleFolderNameChange,
   requestFolderEdit,
   createNewFolder
-} from '../actions/EditFolder.actions.jsx';
+} from './actions/EditFolder.actions.jsx';
 
 export class EditFolder extends Component {
     constructor(props) {
