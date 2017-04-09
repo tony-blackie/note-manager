@@ -5,7 +5,8 @@ import {
   EDIT_EXISTING_NOTE_SUCCESS,
   EDIT_EXISTING_NOTE_FAIL,
   CREATE_NEW_NOTE,
-  CREATE_NEW_NOTE_SUCCESS
+  CREATE_NEW_NOTE_SUCCESS,
+  CREATE_NEW_NOTE_FAIL
 } from '../../actionTypes.jsx';
 
 export const handleEditNoteSuccess = response => {
@@ -35,6 +36,18 @@ export const editNoteRequest = note => dispatch => {
     .catch(error => dispatch(handleEditNoteFail(error)));
 }
 
+export const handleSuccessfulNoteCreation = response => {
+    hashHistory.push('/');
+
+    return ({ type: CREATE_NEW_NOTE_SUCCESS, payload: response });
+};
+
+export const handleFailedNoteCreation = error => {
+    hashHistory.push('/');
+
+    return ({ type: CREATE_NEW_NOTE_FAIL, payload: error });
+};
+
 export const createNoteRequest = note => dispatch => {
     dispatch({type: CREATE_NEW_NOTE});
 
@@ -46,12 +59,6 @@ export const createNoteRequest = note => dispatch => {
             'Content-Type': 'application/json'
         }
     })
-    .then(response => {
-        dispatch({type: EDIT_EXISTING_NOTE_SUCCESS, payload: response});
-
-        hashHistory.push('/');
-    })
-    .catch(error => {
-        //dispatch error
-    });
+    .then(response => dispatch(handleSuccessfulNoteCreation(response)))
+    .catch(error => dispatch(handleFailedNoteCreation(error)));
 }
