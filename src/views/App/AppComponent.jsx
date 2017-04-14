@@ -23,10 +23,6 @@ import {
 } from './actions/AppComponent.actions.jsx';
 
 export class App extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     componentDidMount() {
         this.props.getAllNotes();
         this.props.getAllFolders();
