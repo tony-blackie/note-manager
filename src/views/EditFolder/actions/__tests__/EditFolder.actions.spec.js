@@ -13,8 +13,7 @@ import * as actions from '../EditFolder.actions.jsx';
 describe('EditFolder actions', () => {
     describe('#requestFolderCreation', () => {
         it('should return an object with proper type', () => {
-            expect(actions.requestFolderCreation())
-              .toEqual({ type: REQUEST_FOLDER_CREATION });
+            expect(actions.requestFolderCreation().type).toEqual(REQUEST_FOLDER_CREATION);
         });
     });
 
