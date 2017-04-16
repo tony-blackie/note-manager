@@ -37,7 +37,7 @@ describe('EditFolder tests', () => {
                 folderName: 'someName',
                 getFolder: jest.fn(),
                 createNewFolder: jest.fn(),
-                requestFolderEdit: jest.fn()
+                editFolder: jest.fn()
             };
 
             let component = mount(<EditFolder {...mockProps} />);
@@ -47,21 +47,21 @@ describe('EditFolder tests', () => {
             expect(mockProps.createNewFolder).toHaveBeenCalledWith({ name: 'someName' });
         });
 
-        it('should call #requestFolderEdit if id is present', () => {
+        it('should call #editFolder if id is present', () => {
             let mockProps = {
                 handleFolderNameChange: jest.fn(),
                 routeParams: { id: '3' },
                 folderName: 'someName',
                 getFolder: jest.fn(),
                 createNewFolder: jest.fn(),
-                requestFolderEdit: jest.fn()
+                editFolder: jest.fn()
             };
 
             let component = mount(<EditFolder {...mockProps} />);
 
             component.find('.edit-note__save-button').simulate('click');
 
-            expect(mockProps.requestFolderEdit).toHaveBeenCalledWith({ id: 3, name: 'someName' });
+            expect(mockProps.editFolder).toHaveBeenCalledWith({ id: 3, name: 'someName' });
         });
     });
 

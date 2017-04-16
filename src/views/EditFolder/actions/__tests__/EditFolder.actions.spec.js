@@ -126,7 +126,7 @@ describe('EditFolder actions', () => {
             })
         });
 
-        it('should dispatch FOLDER_CREATION_FAIL', () => {
+        it('should dispatch correct failed action type. fix this, always green mock.', () => {
             let mockError = { message: 'Server error' };
             fetchMock.putOnce('*', { status: 503, throws: mockError });
             window.Headers = jest.fn();
@@ -150,7 +150,6 @@ describe('EditFolder actions', () => {
             let dispatcher = actions.handleFolderNameChange();
             dispatcher(dispatch);
             expect(dispatch).toHaveBeenCalled();
-            // expect(actions.handleFolderNameChange()).toEqual({ type: 'CHANGE_FOLDER_NAME' });
         });
     });
 });
