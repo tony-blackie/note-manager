@@ -105,9 +105,52 @@ describe('EditFolder actions', () => {
         });
     });
 
+    describe('#editFolder', () => {
+        it('should dispatch REQUEST_FOLDER_EDIT', () => {
+            let dispatch = jest.fn(() => actions.requestFolderEdit);
+            fetchMock.putOnce('*', { result: [] });
+
+            let dispatcher = actions.editFolder({ id: 5 });
+            dispatcher(dispatch);
+
+            expect(dispatch.mock.calls[0][0]).toEqual({ type: 'REQUEST_FOLDER_EDIT' });
+        });
+
+        it('should dispatch SAVE_EDITED_FOLDER', () => {
+            fetchMock.putOnce('*', { result: [] });
+            window.Headers = jest.fn();
+            let dispatch = jest.fn(() => actions.handleSuccessfulFolderEdit);
+            let dispatcher = actions.editFolder({ id: 5 });
+            return dispatcher(dispatch).then(response => {
+                expect(dispatch.mock.calls[1][0].type).toEqual('SAVE_EDITED_FOLDER');
+            })
+        });
+
+        it('should dispatch FOLDER_CREATION_FAIL', () => {
+            let mockError = { message: 'Server error' };
+            fetchMock.putOnce('*', { status: 503, throws: mockError });
+            window.Headers = jest.fn();
+            let dispatch = jest.fn(() => actions.handleFailedFolderEdit);
+            let dispatcher = actions.editFolder({ id: 5 });
+            return dispatcher(dispatch).catch(response => {
+                // expect(dispatch.mock.calls[2][0].type).toEqual('FOLDER_CREATION_FAIL');
+            })
+        });
+    });
+
     describe('#requestFolder', () => {
         it('should return action with proper type', () => {
             expect(actions.requestFolder()).toEqual({ type: 'GET_FOLDER' });
+        });
+    });
+
+    describe('#handleFolderNameChange', () => {
+        it('should return action with proper type', () => {
+            let dispatch = jest.fn();
+            let dispatcher = actions.handleFolderNameChange();
+            dispatcher(dispatch);
+            expect(dispatch).toHaveBeenCalled();
+            // expect(actions.handleFolderNameChange()).toEqual({ type: 'CHANGE_FOLDER_NAME' });
         });
     });
 });

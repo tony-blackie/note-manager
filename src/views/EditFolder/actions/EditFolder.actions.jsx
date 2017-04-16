@@ -7,6 +7,7 @@ import {
     SAVE_EDITED_FOLDER,
     HANDLE_FOLDER_EDIT_ERROR,
     REQUEST_FOLDER_CREATION,
+    REQUEST_FOLDER_EDIT,
     FOLDER_CREATION_SUCCESS,
     FOLDER_CREATION_FAIL
 } from '../../actionTypes.jsx';
@@ -52,10 +53,26 @@ export const getFolder = id => dispatch => {
 }
 
 export const handleFolderNameChange = text => dispatch => {
-    dispatch( { type: CHANGE_FOLDER_NAME, text } );
+    dispatch({ type: CHANGE_FOLDER_NAME, text });
 }
 
-export const requestFolderEdit = folder => dispatch => {
+export const handleSuccessfulFolderEdit = folder => ({
+    type: SAVE_EDITED_FOLDER,
+    folder
+});
+
+export const handleFailedFolderEdit = error => ({
+    type: HANDLE_FOLDER_EDIT_ERROR,
+    error
+});
+
+export const requestFolderEdit = () => ({
+    type: REQUEST_FOLDER_EDIT
+});
+
+export const editFolder = folder => dispatch => {
+    dispatch(requestFolderEdit());
+
     return fetch(`/folders/${folder.id}`, {
         method: 'PUT',
         body: JSON.stringify(folder),
@@ -65,12 +82,12 @@ export const requestFolderEdit = folder => dispatch => {
         }
     })
     .then(response => {
-        dispatch( { type: SAVE_EDITED_FOLDER, folder } );
+        dispatch(handleSuccessfulFolderEdit(response));
 
         hashHistory.push('/');
     })
     .catch(error => {
-        dispatch( { type: HANDLE_FOLDER_EDIT_ERROR, error } );
+        dispatch(handleFailedFolderEdit(error));
 
         hashHistory.push('/');
     });

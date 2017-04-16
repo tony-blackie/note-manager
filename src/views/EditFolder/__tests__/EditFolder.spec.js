@@ -6,7 +6,7 @@ import {
   getFolder,
   saveEditedFolder,
   handleFolderNameChange,
-  requestFolderEdit,
+  editFolder,
   createNewFolder
 } from '../actions/EditFolder.actions.jsx';
 import * as redux from 'redux';
@@ -84,7 +84,7 @@ describe('EditFolder tests', () => {
               getFolder,
               saveEditedFolder,
               handleFolderNameChange,
-              requestFolderEdit,
+              editFolder,
               createNewFolder
             };
 

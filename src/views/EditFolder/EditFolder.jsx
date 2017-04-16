@@ -6,7 +6,7 @@ import {
   getFolder,
   saveEditedFolder,
   handleFolderNameChange,
-  requestFolderEdit,
+  editFolder,
   createNewFolder
 } from './actions/EditFolder.actions.jsx';
 
@@ -26,7 +26,7 @@ export class EditFolder extends Component {
         if (!this.props.routeParams.id) {
             this.props.createNewFolder({ name: this.props.folderName });
         } else {
-            this.props.requestFolderEdit({
+            this.props.editFolder({
                 id: parseInt(this.props.routeParams.id, 10),
                 name: this.props.folderName
             });
@@ -76,7 +76,7 @@ export const mapDispatchToProps = dispatch => bindActionCreators({
     getFolder,
     saveEditedFolder,
     handleFolderNameChange,
-    requestFolderEdit,
+    editFolder,
     createNewFolder
 }, dispatch);
 
