@@ -33,16 +33,25 @@ export const handleFailedGetFolder = error => ({
     type: GET_FOLDER_FAIL, error
 });
 
+export const requestFolder = () => ({
+    type: GET_FOLDER
+});
+
 export const getFolder = id => dispatch => {
-    $.ajax(`/folders/${id}`, {
-        type: 'GET'
+    // $.ajax(`/folders/${id}`, {
+    //     type: 'GET'
+    // })
+    dispatch(requestFolder());
+
+    return fetch(`/folders/${id}`, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
     })
     .then(folder => dispatch(handleSuccessfulGetFolder(folder)))
     .catch(error => dispatch(handleFailedGetFolder(error)));
-}
-
-export const saveEditedFolder = id => dispatch => {
-
 }
 
 export const handleFolderNameChange = text => dispatch => {
@@ -50,10 +59,18 @@ export const handleFolderNameChange = text => dispatch => {
 }
 
 export const requestFolderEdit = folder => dispatch => {
-    return $.ajax(`/folders/${folder.id}`, {
-      data: JSON.stringify(folder),
-      contentType: 'application/json',
-      type: 'PUT'
+    // return $.ajax(`/folders/${folder.id}`, {
+    //   data: JSON.stringify(folder),
+    //   contentType: 'application/json',
+    //   type: 'PUT'
+    // })
+    return fetch(`/folders/${folder.id}`, {
+        method: 'PUT',
+        body: JSON.stringify(folder),
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
     })
     .then(response => {
         dispatch( { type: SAVE_EDITED_FOLDER, folder } );
@@ -70,11 +87,19 @@ export const requestFolderEdit = folder => dispatch => {
 export const createNewFolder = folder => dispatch => {
     dispatch(requestFolderCreation());
 
-    return $.ajax({
-        url: '/folder',
-        data: JSON.stringify(folder),
-        contentType: 'application/json',
-        type: 'POST'
+    // return $.ajax({
+    //     url: '/folder',
+    //     data: JSON.stringify(folder),
+    //     contentType: 'application/json',
+    //     type: 'POST'
+    // })
+    return fetch(`/folder`, {
+        method: 'PUT',
+        body: JSON.stringify(folder),
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
     })
     .then(response => {
         dispatch(handleSuccessfulFolderCreation(folder));
