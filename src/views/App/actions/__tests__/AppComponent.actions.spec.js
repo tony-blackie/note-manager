@@ -30,4 +30,18 @@ describe('AppComponent actions tests', () => {
             expect(dispatch).toHaveBeenCalledWith({ id: 3, type: MAKE_FOLDER_ACTIVE });
         });
     });
+
+    describe('#makeFolderInactive', () => {
+        it('should return a thunk', () => {
+            expect(isFunction(actions.makeFolderInactive())).toEqual(true);
+        });
+
+        it('should return a specific action', () => {
+            let thunk = actions.makeFolderInactive(5);
+            let dispatch = jest.fn();
+            thunk(dispatch);
+
+            expect(dispatch).toHaveBeenCalledWith({ id: 5, type: MAKE_FOLDER_INACTIVE });
+        });
+    });
 });
