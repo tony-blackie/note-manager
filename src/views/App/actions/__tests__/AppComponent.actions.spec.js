@@ -97,4 +97,56 @@ describe('AppComponent actions tests', () => {
             expect(router.hashHistory.push).toHaveBeenCalledWith("/folder");
         });
     });
+
+    describe('#goToNoteCreation', () => {
+        it('should return a thunk', () => {
+            expect(isFunction(actions.goToNoteCreation())).toEqual(true);
+        });
+
+        it('should dispatch with specific action', () => {
+            let thunk = actions.goToNoteCreation();
+            let dispatch = jest.fn();
+            thunk(dispatch);
+
+            expect(dispatch).toHaveBeenCalledWith({ type: GO_TO_NOTE_CREATION });
+        });
+
+        it('should dispatch with specific action', () => {
+            let dispatch = jest.fn();
+            router.hashHistory = {
+                    push: jest.fn()
+            };
+
+            let thunk = actions.goToNoteCreation();
+            thunk(dispatch);
+
+            expect(router.hashHistory.push).toHaveBeenCalledWith("/note");
+        });
+    });
+
+    describe('#goToNoteEdit', () => {
+        it('should return a thunk', () => {
+            expect(isFunction(actions.goToNoteEdit())).toEqual(true);
+        });
+
+        it('should dispatch with specific action', () => {
+            let thunk = actions.goToNoteEdit(4);
+            let dispatch = jest.fn();
+            thunk(dispatch);
+
+            expect(dispatch).toHaveBeenCalledWith({ type: GO_TO_NOTE_EDIT });
+        });
+
+        it('should dispatch with specific action', () => {
+            let dispatch = jest.fn();
+            router.hashHistory = {
+                    push: jest.fn()
+            };
+
+            let thunk = actions.goToNoteEdit(4);
+            thunk(dispatch);
+
+            expect(router.hashHistory.push).toHaveBeenCalledWith("/notes/4");
+        });
+    });
 });
