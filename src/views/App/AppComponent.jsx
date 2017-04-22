@@ -9,7 +9,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import {
-  addNote,
   getAllNotes,
   goToNoteCreation,
   goToNoteEdit,
@@ -63,7 +62,6 @@ export const mapStateToProps = state => ({
 });
 
 export const mapDispatchToProps = dispatch => bindActionCreators({
-    addNote,
     getAllNotes,
     goToNoteCreation,
     goToNoteEdit,

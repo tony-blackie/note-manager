@@ -13,12 +13,7 @@ import {
     REMOVE_FOLDER,
     GO_TO_FOLDER_CREATION
 } from '../../actionTypes.jsx';
-
 import { hashHistory } from 'react-router';
-
-export const addNote = () => ({
-    type: ADD_NEW_NOTE
-});
 
 export const getAllNotes = () => dispatch => {
     dispatch({type: GET_ALL_NOTES})
