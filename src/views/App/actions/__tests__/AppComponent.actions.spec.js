@@ -4,6 +4,7 @@ import * as router from 'react-router';
 import {
   GET_ALL_NOTES,
   GET_ALL_NOTES_SUCCESS,
+  GET_ALL_NOTES_FAIL,
   GO_TO_NOTE_CREATION,
   GO_TO_NOTE_EDIT,
   GO_TO_EDIT_FOLDER,
@@ -153,6 +154,22 @@ describe('AppComponent actions tests', () => {
     describe('#requestAllNotes', () => {
         it('should return a specific action', () => {
             expect(actions.requestAllNotes()).toEqual({ type: 'GET_ALL_NOTES' });
+        });
+    });
+
+    describe('#handleSuccessfulGetAllNotes', () => {
+        it('should return a specific action', () => {
+            let notes = [{ id: 0, name: '1337' }];
+            expect(actions.handleSuccessfulGetAllNotes(notes))
+              .toEqual({ type: 'GET_ALL_NOTES_SUCCESS', payload: notes });
+        });
+    });
+
+    describe('#handleFailedGetAllNotes', () => {
+        it('should return a specific action', () => {
+            let error = { message: 'error' };
+            expect(actions.handleFailedGetAllNotes(error))
+              .toEqual({ type: 'GET_ALL_NOTES_FAIL', payload: error });
         });
     });
 });
