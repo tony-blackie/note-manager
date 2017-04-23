@@ -15,15 +15,40 @@ import {
 } from '../../actionTypes.jsx';
 import { hashHistory } from 'react-router';
 
-export const getAllNotes = () => dispatch => {
-    dispatch({type: GET_ALL_NOTES})
+export const handleSuccessfulGetAllNotes = response => ({
+    type: GET_ALL_NOTES_SUCCESS,
+    payload: response
+});
 
-    return ($.get('/notes').then(response => {
-        dispatch({
-          type: GET_ALL_NOTES_SUCCESS,
-          payload: response
-        });
-    }));
+export const handleFailedGetAllNotes = error => ({
+    type: GET_ALL_NOTES_FAIL,
+    payload: error
+});
+
+export const requestAllNotes = () => ({
+    type: GET_ALL_NOTES
+});
+
+export const getAllNotes = () => dispatch => {
+    dispatch(requestAllNotes());
+
+    return fetch(`/notes/`, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(json => dispatch(handleSuccessfulGetAllNotes(json)))
+    .catch(error => dispatch(handleFailedGetAllNotes(error)));
+
+    // return ($.get('/notes').then(response => {
+    //     dispatch({
+    //       type: GET_ALL_NOTES_SUCCESS,
+    //       payload: response
+    //     });
+    // }));
 };
 
 export const goToNoteEdit = id => dispatch => {
