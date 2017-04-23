@@ -149,4 +149,10 @@ describe('AppComponent actions tests', () => {
             expect(router.hashHistory.push).toHaveBeenCalledWith("/notes/4");
         });
     });
+
+    describe('#requestAllNotes', () => {
+        it('should return a specific action', () => {
+            expect(actions.requestAllNotes()).toEqual({ type: 'GET_ALL_NOTES' });
+        });
+    });
 });
