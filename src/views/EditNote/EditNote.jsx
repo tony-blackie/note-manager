@@ -18,9 +18,6 @@ export class EditNote extends Component {
           textFieldValue: '',
           textFieldPlaceholder: ''
         }
-        this.handleSaveClick = this.handleSaveClick.bind(this);
-        this.handleTextFieldChange = this.handleTextFieldChange.bind(this);
-        this.handleNameChange = this.handleNameChange.bind(this);
     }
 
     handleSaveClick() {
@@ -64,7 +61,7 @@ export class EditNote extends Component {
                     <button>
                         <Link to="/"> Go Back</Link>
                     </button>
-                    <button onClick={this.handleSaveClick}>
+                    <button onClick={() => this.handleSaveClick()}>
                         Save changes
                     </button>
                 </nav>
@@ -74,7 +71,7 @@ export class EditNote extends Component {
                             <label>Name:</label>
                         </div>
                         <input
-                            onChange={this.handleNameChange}
+                            onChange={event => this.handleNameChange(event)}
                             className="edit-note__name"
                             type="text"
                             value={this.state.name}
@@ -82,7 +79,7 @@ export class EditNote extends Component {
                     </fieldset>
                     <fieldset>
                         <input
-                            onChange={this.handleTextFieldChange}
+                            onChange={event => this.handleTextFieldChange(event)}
                             className="edit-note__text"
                             type="text"
                             value={this.state.textFieldValue}
