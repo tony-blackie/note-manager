@@ -76,7 +76,8 @@ describe('EditNote actions', () => {
 
             dispatcher(dispatch);
 
-            expect(dispatch).toHaveBeenCalled();
+            expect(dispatch)
+              .toHaveBeenCalledWith({ type: 'CHANGE_TEXT_FIELD_VALUE', textFieldValue: 'newValueOfInput' });
         });
     });
 });

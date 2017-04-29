@@ -7,7 +7,8 @@ import {
   CREATE_NEW_NOTE,
   CREATE_NEW_NOTE_SUCCESS,
   CREATE_NEW_NOTE_FAIL,
-  CHANGE_TEXT_FIELD_VALUE
+  CHANGE_TEXT_FIELD_VALUE,
+  CHANGE_NOTE_NAME
 } from '../../actionTypes.jsx';
 
 export const handleEditNoteSuccess = response => {
@@ -66,4 +67,8 @@ export const createNoteRequest = note => dispatch => {
 
 export const changeTextFieldValue = value => dispatch => (
     dispatch({ type: CHANGE_TEXT_FIELD_VALUE, textFieldValue: value })
+);
+
+export const changeNoteName = name => dispatch => (
+    dispatch({ type: CHANGE_NOTE_NAME, name })
 );
