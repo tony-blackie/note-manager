@@ -80,4 +80,16 @@ describe('EditNote actions', () => {
               .toHaveBeenCalledWith({ type: 'CHANGE_TEXT_FIELD_VALUE', textFieldValue: 'newValueOfInput' });
         });
     });
+
+    describe('#changeNoteName', () => {
+        it('should dispatch correct action type and value', () => {
+            let dispatch = jest.fn();
+            let dispatcher = actions.changeNoteName('newName');
+
+            dispatcher(dispatch);
+
+            expect(dispatch)
+              .toHaveBeenCalledWith({ type: 'CHANGE_NOTE_NAME', name: 'newName' });
+        });
+    });
 });
