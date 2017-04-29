@@ -63,6 +63,12 @@ const initialState = {
             text: 'This is a very nice text'
         }
     ],
+    editedNote: {
+        id: null,
+        name: '',
+        textFieldValue: '',
+        textFieldPlaceholder: ''
+    },
     isNoteCreationMode: false,
     activeFolderId: null,
     folderName: ''

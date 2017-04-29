@@ -68,4 +68,15 @@ describe('EditNote actions', () => {
             })
         });
     });
+
+    describe('#changeTextFieldValue', () => {
+        it('should dispatch correct action type and value', () => {
+            let dispatch = jest.fn();
+            let dispatcher = actions.changeTextFieldValue('newValueOfInput');
+
+            dispatcher(dispatch);
+
+            expect(dispatch).toHaveBeenCalled();
+        });
+    });
 });

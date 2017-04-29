@@ -5,21 +5,11 @@ import { bindActionCreators } from 'redux';
 
 import {
   editNoteRequest,
-  createNoteRequest
+  createNoteRequest,
+  changeTextFieldValue
  } from './actions/EditNote.actions.jsx';
 
 export class EditNote extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-          id: null,
-          name: '',
-          textFieldValue: '',
-          textFieldPlaceholder: ''
-        }
-    }
-
     handleSaveClick() {
         if (!this.props.routeParams.noteId) {
             this.props.createNoteRequest({
@@ -37,7 +27,9 @@ export class EditNote extends Component {
     }
 
     handleTextFieldChange(event) {
-        this.setState({textFieldValue: event.target.value});
+        // this.setState({textFieldValue: event.target.value});
+
+        this.props.changeTextFieldValue(event.target.value);
     }
 
     handleNameChange(event) {
@@ -101,7 +93,8 @@ export const mapStateToProps = state => ({
 
 export const mapDispatchToProps = dispatch => bindActionCreators({
     editNoteRequest,
-    createNoteRequest
+    createNoteRequest,
+    changeTextFieldValue
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditNote);
