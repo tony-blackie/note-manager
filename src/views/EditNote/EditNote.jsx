@@ -7,7 +7,8 @@ import {
   editNoteRequest,
   createNoteRequest,
   changeTextFieldValue,
-  changeNoteName
+  changeNoteName,
+  fetchNote
  } from './actions/EditNote.actions.jsx';
 
 export class EditNote extends Component {
@@ -41,11 +42,13 @@ export class EditNote extends Component {
 
     componentDidMount() {
         if (this.props.routeParams.noteId) {
-            $.get(`/notes/${this.props.routeParams.noteId}`).then((response) => {
-                this.setState({name: response.name});
-                this.setState({textFieldValue: response.text});
-                this.setState({id: response.id})
-            });
+            // $.get(`/notes/${this.props.routeParams.noteId}`).then((response) => {
+            //     this.setState({name: response.name});
+            //     this.setState({textFieldValue: response.text});
+            //     this.setState({id: response.id})
+            // });
+
+            this.fetchNote(this.props.routeParams.noteId);
         }
     }
 
@@ -69,7 +72,7 @@ export class EditNote extends Component {
                             onChange={event => this.handleNameChange(event)}
                             className="edit-note__name"
                             type="text"
-                            value={this.state.name}
+                            value={this.props.name}
                         />
                     </fieldset>
                     <fieldset>
@@ -77,8 +80,8 @@ export class EditNote extends Component {
                             onChange={event => this.handleTextFieldChange(event)}
                             className="edit-note__text"
                             type="text"
-                            value={this.state.textFieldValue}
-                            placeholder={this.state.textFieldPlaceholder}
+                            value={this.props.textFieldValue}
+                            placeholder={this.props.textFieldPlaceholder}
                         />
                     </fieldset>
                 </form>
@@ -91,14 +94,18 @@ export class EditNote extends Component {
 export const mapStateToProps = state => ({
     params: state.note,
     isNoteCreationMode: state.isNoteCreationMode,
-    activeFolderId: state.activeFolderId
+    activeFolderId: state.activeFolderId,
+    textFieldValue: state.editedNote.textFieldValue,
+    textFieldPlaceholder: state.editedNote.textFieldPlaceholder,
+    name: state.editedNote.name
 });
 
 export const mapDispatchToProps = dispatch => bindActionCreators({
     editNoteRequest,
     createNoteRequest,
     changeTextFieldValue,
-    changeNoteName
+    changeNoteName,
+    fetchNote
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditNote);

@@ -92,4 +92,18 @@ describe('EditNote actions', () => {
               .toHaveBeenCalledWith({ type: 'CHANGE_NOTE_NAME', name: 'newName' });
         });
     });
+
+    describe('#handleSuccessfulNoteResponse', () => {
+        it('should return an action object', () => {
+            expect(actions.handleSuccessfulNoteResponse({}))
+              .toEqual({ type: 'GET_NOTE_SUCCESS', note: {} });
+        });
+    });
+
+    describe('#handleFailedNoteResponse', () => {
+        it('should return an action object', () => {
+            expect(actions.handleFailedNoteResponse({}))
+              .toEqual({ type: 'GET_NOTE_FAIL', error: {} });
+        });
+    });
 });
