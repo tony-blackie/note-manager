@@ -19,7 +19,7 @@ var connection = mysql.createConnection({
     database: 'notes_db',
     host: 'localhost',
     user: 'root',
-    password: ''
+    password: '123'
 });
 
 app.get('/', () => connection.connect());
