@@ -40,7 +40,6 @@ export class EditNote extends Component {
     }
 
     handleTextFieldChange(event) {
-
         this.setState({textFieldValue: event.target.value});
     }
 
@@ -55,10 +54,7 @@ export class EditNote extends Component {
                 this.setState({textFieldValue: response.text});
                 this.setState({id: response.id})
             });
-        } else {
-            return;
         }
-
     }
 
     render() {
