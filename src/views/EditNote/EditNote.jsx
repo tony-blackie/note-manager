@@ -29,14 +29,10 @@ export class EditNote extends Component {
     }
 
     handleTextFieldChange(event) {
-        // this.setState({textFieldValue: event.target.value});
-
         this.props.changeTextFieldValue(event.target.value);
     }
 
     handleNameChange(event) {
-        // this.setState({name: event.target.value});
-
         this.props.changeNoteName(event.target.value);
     }
 
