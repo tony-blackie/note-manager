@@ -4,7 +4,10 @@ import { shallow, mount } from 'enzyme';
 import { EditNote, mapStateToProps, mapDispatchToProps } from '../EditNote.jsx';
 import {
   editNoteRequest,
-  createNoteRequest
+  createNoteRequest,
+  changeTextFieldValue,
+  changeNoteName,
+  fetchNote
 } from '../actions/EditNote.actions.jsx';
 import * as redux from 'redux';
 
@@ -27,7 +30,10 @@ describe('EditNote tests', () => {
             const dispatch = jest.fn();
             const actionCreators = {
               editNoteRequest,
-              createNoteRequest
+              createNoteRequest,
+              changeTextFieldValue,
+              changeNoteName,
+              fetchNote
             };
 
             const mappedDispatch = mapDispatchToProps(dispatch);
