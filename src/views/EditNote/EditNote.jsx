@@ -15,15 +15,15 @@ export class EditNote extends Component {
     handleSaveClick() {
         if (!this.props.routeParams.noteId) {
             this.props.createNoteRequest({
-                name: this.state.name,
-                text: this.state.textFieldValue,
+                name: this.props.name,
+                text: this.props.textFieldValue,
                 activeFolderId: this.props.activeFolderId
             });
         } else {
             this.props.editNoteRequest({
-                id: this.state.id,
-                name: this.state.name,
-                text:this.state.textFieldValue
+                id: this.props.id,
+                name: this.props.name,
+                text:this.props.textFieldValue
             });
         }
     }
@@ -44,7 +44,7 @@ export class EditNote extends Component {
             //     this.setState({id: response.id})
             // });
 
-            this.fetchNote(this.props.routeParams.noteId);
+            this.props.fetchNote(this.props.routeParams.noteId);
         }
     }
 

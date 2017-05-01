@@ -96,6 +96,7 @@ export const fetchNote = id => dispatch => {
             'Content-Type': 'application/json'
         }
     })
+    .then(response => response.json())
     .then(response => dispatch(handleSuccessfulNoteResponse(response)))
     .catch(error => dispatch(handleFailedNoteResponse(error)));
 };

@@ -67,7 +67,8 @@ const initialState = {
         id: null,
         name: '',
         textFieldValue: '',
-        textFieldPlaceholder: ''
+        textFieldPlaceholder: '',
+        folderId: null
     },
     isNoteCreationMode: false,
     activeFolderId: null,

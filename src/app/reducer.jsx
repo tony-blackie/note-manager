@@ -18,7 +18,11 @@ import {
   CHANGE_FOLDER_NAME,
   SAVE_EDITED_FOLDER,
   FOLDER_CREATION_SUCCESS,
-  FOLDER_CREATION_FAIL
+  FOLDER_CREATION_FAIL,
+  CHANGE_TEXT_FIELD_VALUE,
+  CHANGE_NOTE_NAME,
+  GET_NOTE_SUCCESS,
+  GET_NOTE_FAIL
 } from '../views/actionTypes.jsx';
 
 const reducer = (state, action) => {
@@ -185,6 +189,18 @@ const reducer = (state, action) => {
                 editedNote: {
                     ...state.editedNote,
                     name: action.name
+                }
+            };
+        case GET_NOTE_SUCCESS:
+            debugger;
+            return {
+                ...state,
+                editedNote: {
+                    ...state.editedNote,
+                    name: action.note.name,
+                    id: action.note.id,
+                    text: action.note.text,
+                    folderId: action.note.parent_id                    
                 }
             };
         default:
