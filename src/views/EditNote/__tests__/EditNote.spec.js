@@ -15,7 +15,16 @@ import * as redux from 'redux';
 describe('EditNote tests', () => {
     describe('#mapStateToProps', () => {
         it('should populate props from state', () => {
-            const state = { params: {}, isNoteCreationMode: true, activeFolderId: 0 };
+            const state = {
+                params: {},
+                isNoteCreationMode: true,
+                activeFolderId: 0,
+                editedNote: {
+                    id: null,
+                    name: '',
+                    textFieldValue: ''
+                }
+            };
             const props = {};
 
             const mappedProps = mapStateToProps(state, props);
