@@ -158,7 +158,7 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 folderName: action.text
-            }
+            };
         case SAVE_EDITED_FOLDER:
             let newFolderArray = state.folders.slice();
             newFolderArray.map((folder, index) => {
@@ -170,7 +170,23 @@ const reducer = (state, action) => {
                 ...state,
                 folderName: '',
                 folders: newFolderArray
-            }
+            };
+        case CHANGE_TEXT_FIELD_VALUE:
+            return {
+                ...state,
+                editedNote: {
+                    ...state.editedNote,
+                    textFieldValue: action.textFieldValue
+                }
+            };
+        case CHANGE_NOTE_NAME:
+            return {
+                ...state,
+                editedNote: {
+                    ...state.editedNote,
+                    name: action.name
+                }
+            };
         default:
             return state;
     }
