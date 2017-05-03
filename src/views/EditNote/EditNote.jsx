@@ -21,9 +21,9 @@ export class EditNote extends Component {
             });
         } else {
             this.props.editNoteRequest({
-                id: this.props.id,
+                id: this.props.routeParams.noteId,
                 name: this.props.name,
-                text:this.props.textFieldValue
+                text: this.props.textFieldValue
             });
         }
     }

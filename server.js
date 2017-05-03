@@ -46,6 +46,7 @@ app.put('/notes/:id', (req, res) => {
     const id = req.body.id;
     const text = req.body.text;
     const name = req.body.name;
+    console.log(`name ${name}, id: ${id}, text: ${text}`);
 
     connection.query(`UPDATE notes SET text='${text}', name='${name}' WHERE id=${id}`, (err, results, fields) => {
         if (err) throw err;
