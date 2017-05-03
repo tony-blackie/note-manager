@@ -192,7 +192,6 @@ const reducer = (state, action) => {
                 }
             };
         case GET_NOTE_SUCCESS:
-            debugger;
             return {
                 ...state,
                 editedNote: {
