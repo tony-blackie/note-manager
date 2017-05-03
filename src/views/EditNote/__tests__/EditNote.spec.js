@@ -93,4 +93,28 @@ describe('EditNote tests', () => {
             expect(component.instance().handleTextFieldChange).toHaveBeenCalledWith({ target: { value: 'abc' }});
         });
     });
+
+    describe('#componentDidMount', () => {
+        it('should call #fetchNote if url has the note id in it', () => {
+            let mockProps = {
+                routeParams: {
+                    noteId: 2
+                },
+                fetchNote: jest.fn()
+            };
+            let component = mount(<EditNote {...mockProps} />);
+
+            expect(mockProps.fetchNote).toHaveBeenCalled();
+        });
+
+        it('should call #fetchNote if url has the note id in it', () => {
+            let mockProps = {
+                routeParams: {},
+                clearNoteData: jest.fn()
+            };
+            let component = mount(<EditNote {...mockProps} />);
+
+            expect(mockProps.clearNoteData).toHaveBeenCalled();
+        });
+    });
 });
