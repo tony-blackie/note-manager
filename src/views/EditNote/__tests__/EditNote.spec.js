@@ -104,7 +104,7 @@ describe('EditNote tests', () => {
             };
             let component = mount(<EditNote {...mockProps} />);
 
-            expect(mockProps.fetchNote).toHaveBeenCalled();
+            expect(mockProps.fetchNote).toHaveBeenCalledWith(2);
         });
 
         it('should call #fetchNote if url has the note id in it', () => {
@@ -115,6 +115,19 @@ describe('EditNote tests', () => {
             let component = mount(<EditNote {...mockProps} />);
 
             expect(mockProps.clearNoteData).toHaveBeenCalled();
+        });
+    });
+
+    describe('#handleTextFieldChange', () => {
+        it('should call #changeTextFieldValue', () => {
+            let mockProps = {
+                changeTextFieldValue: jest.fn()
+            };
+            let component = shallow(<EditNote {...mockProps} />);
+
+            component.instance().handleTextFieldChange({target: {value: 'someVal'}});
+
+            expect(mockProps.changeTextFieldValue).toHaveBeenCalledWith('someVal');
         });
     });
 });
