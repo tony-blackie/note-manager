@@ -92,6 +92,22 @@ describe('EditNote tests', () => {
 
             expect(component.instance().handleTextFieldChange).toHaveBeenCalledWith({ target: { value: 'abc' }});
         });
+
+        it('should call #handleSaveClick', () => {
+            let mockProps = {
+                routeParams: {
+                    noteId: 2
+                },
+                editNoteRequest: jest.fn()
+            };
+            let component = shallow(<EditNote {...mockProps} />);
+
+            component.instance().handleSaveClick = jest.fn();
+
+            component.find('.edit-note__save').simulate('click');
+
+            expect(component.instance().handleSaveClick).toHaveBeenCalled();
+        });
     });
 
     describe('#componentDidMount', () => {
@@ -128,6 +144,67 @@ describe('EditNote tests', () => {
             component.instance().handleTextFieldChange({target: {value: 'someVal'}});
 
             expect(mockProps.changeTextFieldValue).toHaveBeenCalledWith('someVal');
+        });
+    });
+
+    describe('#handleTextFieldChange', () => {
+        it('should call #changeTextFieldValue', () => {
+            let mockProps = {
+                changeNoteName: jest.fn()
+            };
+            let component = shallow(<EditNote {...mockProps} />);
+
+            component.instance().handleNameChange({target: {value: 'someVal'}});
+
+            expect(mockProps.changeNoteName).toHaveBeenCalledWith('someVal');
+        });
+    });
+
+    describe('#handleSaveClick', () => {
+        it('should call #createNoteRequest', () => {
+            let mockProps = {
+                createNoteRequest: jest.fn(),
+                routeParams: {},
+                name: 'Note 1',
+                textFieldValue: 'Text of note 1',
+                activeFolderId: 3
+            };
+
+            let component = shallow(<EditNote {...mockProps} />);
+
+            component.instance().handleSaveClick();
+
+            expect(mockProps.createNoteRequest).toHaveBeenCalledWith(
+                {
+                    name: 'Note 1',
+                    text: 'Text of note 1',
+                    activeFolderId: 3
+                }
+            );
+        });
+
+        it('should call #editNoteRequest', () => {
+            let mockProps = {
+                editNoteRequest: jest.fn(),
+                routeParams: {
+                    noteId: 3
+                },
+                name: 'Note 1',
+                textFieldValue: 'Text of note 1',
+                activeFolderId: 3
+            };
+
+            let component = shallow(<EditNote {...mockProps} />);
+
+            component.instance().handleSaveClick();
+
+            expect(mockProps.editNoteRequest).toHaveBeenCalledWith(
+                {
+                    id: 3,
+                    name: 'Note 1',
+                    text: 'Text of note 1'
+                }
+            );
         });
     });
 });

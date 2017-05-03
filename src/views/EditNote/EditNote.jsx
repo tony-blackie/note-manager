@@ -52,7 +52,7 @@ export class EditNote extends Component {
                     <button>
                         <Link to="/"> Go Back</Link>
                     </button>
-                    <button onClick={() => this.handleSaveClick()}>
+                    <button className="edit-note__save" onClick={() => this.handleSaveClick()}>
                         Save changes
                     </button>
                 </nav>
