@@ -7,7 +7,8 @@ import {
   createNoteRequest,
   changeTextFieldValue,
   changeNoteName,
-  fetchNote
+  fetchNote,
+  clearNoteData
 } from '../actions/EditNote.actions.jsx';
 import * as redux from 'redux';
 
@@ -42,7 +43,8 @@ describe('EditNote tests', () => {
               createNoteRequest,
               changeTextFieldValue,
               changeNoteName,
-              fetchNote
+              fetchNote,
+              clearNoteData
             };
 
             const mappedDispatch = mapDispatchToProps(dispatch);
