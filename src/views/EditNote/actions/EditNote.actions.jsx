@@ -11,7 +11,8 @@ import {
   CHANGE_NOTE_NAME,
   REQUEST_NOTE_FETCH,
   GET_NOTE_SUCCESS,
-  GET_NOTE_FAIL
+  GET_NOTE_FAIL,
+  CLEAR_NOTE_DATA
 } from '../../actionTypes.jsx';
 
 export const handleEditNoteSuccess = response => {
@@ -100,3 +101,7 @@ export const fetchNote = id => dispatch => {
     .then(response => dispatch(handleSuccessfulNoteResponse(response)))
     .catch(error => dispatch(handleFailedNoteResponse(error)));
 };
+
+export const clearNoteData = () => dispatch => (
+    dispatch({ type: CLEAR_NOTE_DATA })
+);

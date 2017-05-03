@@ -22,7 +22,8 @@ import {
   CHANGE_TEXT_FIELD_VALUE,
   CHANGE_NOTE_NAME,
   GET_NOTE_SUCCESS,
-  GET_NOTE_FAIL
+  GET_NOTE_FAIL,
+  CLEAR_NOTE_DATA
 } from '../views/actionTypes.jsx';
 
 const reducer = (state, action) => {
@@ -200,6 +201,16 @@ const reducer = (state, action) => {
                     id: action.note.id,
                     textFieldValue: action.note.text,
                     folderId: action.note.parent_id
+                }
+            };
+        case CLEAR_NOTE_DATA:
+            return {
+                ...state,
+                editedNote: {
+                    id: null,
+                    name: '',
+                    textFieldValue: '',
+                    folderId: null
                 }
             };
         default:

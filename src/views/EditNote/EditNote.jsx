@@ -8,7 +8,8 @@ import {
   createNoteRequest,
   changeTextFieldValue,
   changeNoteName,
-  fetchNote
+  fetchNote,
+  clearNoteData
  } from './actions/EditNote.actions.jsx';
 
 export class EditNote extends Component {
@@ -38,13 +39,9 @@ export class EditNote extends Component {
 
     componentDidMount() {
         if (this.props.routeParams.noteId) {
-            // $.get(`/notes/${this.props.routeParams.noteId}`).then((response) => {
-            //     this.setState({name: response.name});
-            //     this.setState({textFieldValue: response.text});
-            //     this.setState({id: response.id})
-            // });
-
             this.props.fetchNote(this.props.routeParams.noteId);
+        } else {
+            this.props.clearNoteData();
         }
     }
 
@@ -101,7 +98,8 @@ export const mapDispatchToProps = dispatch => bindActionCreators({
     createNoteRequest,
     changeTextFieldValue,
     changeNoteName,
-    fetchNote
+    fetchNote,
+    clearNoteData
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditNote);
