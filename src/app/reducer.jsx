@@ -199,8 +199,8 @@ const reducer = (state, action) => {
                     ...state.editedNote,
                     name: action.note.name,
                     id: action.note.id,
-                    text: action.note.text,
-                    folderId: action.note.parent_id                    
+                    textFieldValue: action.note.text,
+                    folderId: action.note.parent_id
                 }
             };
         default:
