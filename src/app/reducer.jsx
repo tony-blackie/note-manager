@@ -13,7 +13,8 @@ import {
   REMOVE_NOTE,
   REMOVE_NOTE_SUCCESS,
   REQUEST_ALL_FOLDERS_SUCCESS,
-  REMOVE_FOLDER,
+  REMOVE_FOLDER_SUCCESS,
+  REMOVE_FOLDER_FAIL,
   GET_FOLDER_SUCCESS,
   CHANGE_FOLDER_NAME,
   SAVE_EDITED_FOLDER,
@@ -139,7 +140,8 @@ const reducer = (state, action) => {
                 folders: newFolders,
                 activeFolderId: firstFolderId
             }
-        case REMOVE_FOLDER:
+        case REMOVE_FOLDER_SUCCESS:
+            debugger;
             let indexOfFolderInState;
             state.folders.map((folder, index) => {
                 if(folder.id === action.id) {

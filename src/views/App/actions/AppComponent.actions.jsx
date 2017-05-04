@@ -11,7 +11,8 @@ import {
     MAKE_FOLDER_INACTIVE,
     REQUEST_ALL_FOLDERS,
     REQUEST_ALL_FOLDERS_SUCCESS,
-    REMOVE_FOLDER,
+    REMOVE_FOLDER_SUCCESS,
+    REMOVE_FOLDER_FAIL,
     GO_TO_FOLDER_CREATION
 } from '../../actionTypes.jsx';
 import { hashHistory } from 'react-router';
@@ -94,13 +95,34 @@ export const getAllFolders = () => dispatch => {
     }));
 }
 
+export const handleSuccessfulDeleteFolder = id => ({
+    type: REMOVE_FOLDER_SUCCESS,
+    id
+});
+
+export const handleFailedDeleteFolder = error => ({
+    type: REMOVE_FOLDER_FAIL,
+    error
+});
+
 export const removeFolder = id => dispatch => {
-    return($.ajax({
-        url: `/folders/${id}`,
-        type: 'DELETE'
-    })).then(response => {
-        dispatch({ type: REMOVE_FOLDER, id });
-    });
+    // return($.ajax({
+    //     url: `/folders/${id}`,
+    //     type: 'DELETE'
+    // })).then(response => {
+    //     dispatch({ type: REMOVE_FOLDER, id });
+    // });
+
+    return fetch(`/folders/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(() => dispatch(handleSuccessfulDeleteFolder(id)))
+    .catch(error => dispatch(handleFailedDeleteFolder(error)));
 }
 
 export const goToEditFolder = id => dispatch => {
