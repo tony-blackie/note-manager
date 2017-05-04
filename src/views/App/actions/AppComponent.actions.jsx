@@ -106,13 +106,6 @@ export const handleFailedGetAllFolders = error => ({
 export const getAllFolders = () => dispatch => {
     dispatch({type: REQUEST_ALL_FOLDERS})
 
-    // return ($.get('/folders').then(response => {
-    //     dispatch({
-    //       type: REQUEST_ALL_FOLDERS_SUCCESS,
-    //       payload: response
-    //     });
-    // }));
-
     return fetch(`/folders`, {
         method: 'GET',
         headers: {

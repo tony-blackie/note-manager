@@ -229,4 +229,19 @@ describe('AppComponent actions tests', () => {
               .toEqual({ type: 'REMOVE_NOTE_FAIL', error: error });
         });
     });
+
+    describe('#handleSuccessfulGetAllFolders', () => {
+        it('should return a specific action', () => {
+            expect(actions.handleSuccessfulGetAllFolders([]))
+              .toEqual({ type: 'REQUEST_ALL_FOLDERS_SUCCESS', payload: [] });
+        });
+    });
+
+    describe('#handleFailedGetAllFolders', () => {
+        it('should return a specific action', () => {
+            let error = { message: 'error' };
+            expect(actions.handleFailedGetAllFolders(error))
+              .toEqual({ type: 'REQUEST_ALL_FOLDERS_FAIL', error: error });
+        });
+    });
 });
