@@ -1,6 +1,7 @@
 import * as actions from '../AppComponent.actions.jsx';
 import { isFunction } from 'lodash';
 import * as router from 'react-router';
+import fetchMock from 'fetch-mock';
 import {
   GET_ALL_NOTES,
   GET_ALL_NOTES_SUCCESS,
@@ -187,5 +188,41 @@ describe('AppComponent actions tests', () => {
             expect(actions.handleFailedDeleteFolder(error))
               .toEqual({ type: 'REMOVE_FOLDER_FAIL', error: error });
         });
+    });
+
+    describe('#removeFolder', () => {
+        it('should dispatch REMOVE_FOLDER_SUCCESS', () => {
+            fetchMock.deleteOnce('*', { result: [] });
+            window.Headers = jest.fn();
+
+            let dispatch = jest.fn(() => actions.handleSuccessfulDeleteFolder);
+            let dispatcher = actions.removeFolder(5);
+
+            return dispatcher(dispatch).then(response => {
+                expect(dispatch.mock.calls[0][0]).toEqual({ type: 'REMOVE_FOLDER_SUCCESS', id: 5 });
+            });
+        });
+
+        // it('should dispatch CREATE_NEW_NOTE_SUCCESS', () => {
+        //     fetchMock.postOnce('*', { result: [] });
+        //     window.Headers = jest.fn();
+        //     let dispatch = jest.fn(() => actions.handleSuccessfulNoteCreation);
+        //     let dispatcher = actions.createNoteRequest({id: 5});
+        //     return dispatcher(dispatch).then(response => {
+        //         expect(dispatch.mock.calls[1][0].type).toEqual('CREATE_NEW_NOTE_SUCCESS');
+        //     })
+        // });
+        //
+        // it('should dispatch CREATE_NEW_NOTE_FAIL', () => {
+        //     let mockError = { message: 'Server error' };
+        //     fetchMock.deleteOnce('*', { status: 503, throws: mockError });
+        //     window.Headers = jest.fn();
+        //     let dispatch = jest.fn(() => actions.handleFailedNoteCreation);
+        //     let dispatcher = actions.createNoteRequest({id: 5});
+        //     return dispatcher(dispatch).catch(response => {
+        //         return console.log(dispatch.mock.calls[1][0].type);
+        //         expect(dispatch.mock.calls[1][0].type).toEqual('CREATE_NEW_NOTE_FAIL');
+        //     })
+        // });
     });
 });
