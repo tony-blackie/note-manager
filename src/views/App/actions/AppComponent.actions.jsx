@@ -12,6 +12,7 @@ import {
     MAKE_FOLDER_INACTIVE,
     REQUEST_ALL_FOLDERS,
     REQUEST_ALL_FOLDERS_SUCCESS,
+    REQUEST_ALL_FOLDERS_FAIL,
     REMOVE_FOLDER_SUCCESS,
     REMOVE_FOLDER_FAIL,
     GO_TO_FOLDER_CREATION
@@ -72,13 +73,6 @@ export const handleFailedDeleteNote = error => ({
 export const removeNote = id => dispatch => {
     dispatch({ type: REMOVE_NOTE });
 
-    // return($.ajax({
-    //     url: `/notes/${id}`,
-    //     type: 'DELETE'
-    // })).then(response => {
-    //     dispatch({type: REMOVE_NOTE_SUCCESS, payload: id});
-    // })
-
     return fetch(`/notes/${id}`, {
         method: 'DELETE',
         headers: {
@@ -99,15 +93,36 @@ export const makeFolderInactive = id => dispatch => {
     dispatch({ type: MAKE_FOLDER_INACTIVE, id });
 }
 
+export const handleSuccessfulGetAllFolders = folders => ({
+    type: REQUEST_ALL_FOLDERS_SUCCESS,
+    payload: folders
+});
+
+export const handleFailedGetAllFolders = error => ({
+    type: REQUEST_ALL_FOLDERS_FAIL,
+    error
+});
+
 export const getAllFolders = () => dispatch => {
     dispatch({type: REQUEST_ALL_FOLDERS})
 
-    return ($.get('/folders').then(response => {
-        dispatch({
-          type: REQUEST_ALL_FOLDERS_SUCCESS,
-          payload: response
-        });
-    }));
+    // return ($.get('/folders').then(response => {
+    //     dispatch({
+    //       type: REQUEST_ALL_FOLDERS_SUCCESS,
+    //       payload: response
+    //     });
+    // }));
+
+    return fetch(`/folders`, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(json => dispatch(handleSuccessfulGetAllFolders(json)))
+    .catch(error => dispatch(handleFailedGetAllFolders(error)));
 }
 
 export const handleSuccessfulDeleteFolder = id => ({
