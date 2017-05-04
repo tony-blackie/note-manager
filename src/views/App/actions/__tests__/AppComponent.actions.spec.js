@@ -14,7 +14,8 @@ import {
   MAKE_FOLDER_INACTIVE,
   REQUEST_ALL_FOLDERS,
   REQUEST_ALL_FOLDERS_SUCCESS,
-  REMOVE_FOLDER,
+  REMOVE_FOLDER_SUCCESS,
+  REMOVE_FOLDER_FAIL,
   GO_TO_FOLDER_CREATION
 } from '../../../actionTypes.jsx';
 
@@ -170,6 +171,21 @@ describe('AppComponent actions tests', () => {
             let error = { message: 'error' };
             expect(actions.handleFailedGetAllNotes(error))
               .toEqual({ type: 'GET_ALL_NOTES_FAIL', payload: error });
+        });
+    });
+
+    describe('#handleSuccessfulDeleteFolder', () => {
+        it('should return a specific action', () => {
+            expect(actions.handleSuccessfulDeleteFolder(5))
+              .toEqual({ type: 'REMOVE_FOLDER_SUCCESS', id: 5 });
+        });
+    });
+
+    describe('#handleFailedDeleteFolder', () => {
+        it('should return a specific action', () => {
+            let error = { message: 'error' };
+            expect(actions.handleFailedDeleteFolder(error))
+              .toEqual({ type: 'REMOVE_FOLDER_FAIL', error: error });
         });
     });
 });

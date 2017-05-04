@@ -106,13 +106,6 @@ export const handleFailedDeleteFolder = error => ({
 });
 
 export const removeFolder = id => dispatch => {
-    // return($.ajax({
-    //     url: `/folders/${id}`,
-    //     type: 'DELETE'
-    // })).then(response => {
-    //     dispatch({ type: REMOVE_FOLDER, id });
-    // });
-
     return fetch(`/folders/${id}`, {
         method: 'DELETE',
         headers: {
