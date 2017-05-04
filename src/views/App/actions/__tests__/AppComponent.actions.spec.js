@@ -244,4 +244,73 @@ describe('AppComponent actions tests', () => {
               .toEqual({ type: 'REQUEST_ALL_FOLDERS_FAIL', error: error });
         });
     });
+
+    describe('#getAllFolders', () => {
+        it('should dispatch REQUEST_ALL_FOLDERS_SUCCESS', () => {
+            fetchMock.getOnce('*', { result: [] });
+            window.Headers = jest.fn();
+            let dispatch = jest.fn(() => actions.handleSuccessfulGetAllFolders);
+            let dispatcher = actions.getAllFolders([]);
+            return dispatcher(dispatch).then(response => {
+                expect(dispatch.mock.calls[1][0]).toEqual({ type: 'REQUEST_ALL_FOLDERS_SUCCESS', payload: { result: [] } });
+            })
+        });
+
+        it('should dispatch REQUEST_ALL_FOLDERS_FAIL', () => {
+            let mockError = { message: 'Server error' };
+            fetchMock.getOnce('*', { status: 503, throws: mockError });
+            window.Headers = jest.fn();
+            let dispatch = jest.fn(() => actions.handleFailedGetAllFolders);
+            let dispatcher = actions.getAllFolders([]);
+            return dispatcher(dispatch).catch(response => {
+                expect(dispatch.mock.calls[1][0].type).toEqual('');
+            })
+        });
+    });
+
+    describe('#getAllNotes', () => {
+        it('should dispatch GET_ALL_NOTES_SUCCESS', () => {
+            fetchMock.getOnce('*', { result: [] });
+            window.Headers = jest.fn();
+            let dispatch = jest.fn(() => actions.handleSuccessfulGetAllNotes);
+            let dispatcher = actions.getAllNotes();
+            return dispatcher(dispatch).then(response => {
+                expect(dispatch.mock.calls[1][0]).toEqual({ type: 'GET_ALL_NOTES_SUCCESS', payload: { result: [] } });
+            })
+        });
+
+        it('should dispatch GET_ALL_NOTES_FAIL', () => {
+            let mockError = { message: 'Server error' };
+            fetchMock.getOnce('*', { status: 503, throws: mockError });
+            window.Headers = jest.fn();
+            let dispatch = jest.fn(() => actions.handleFailedGetAllNotes);
+            let dispatcher = actions.getAllNotes();
+            return dispatcher(dispatch).catch(response => {
+                expect(dispatch.mock.calls[1][0].type).toEqual('');
+            })
+        });
+    });
+
+    describe('#removeNote', () => {
+        it('should dispatch REMOVE_NOTE_SUCCESS', () => {
+            fetchMock.deleteOnce('*', { result: [] });
+            window.Headers = jest.fn();
+            let dispatch = jest.fn(() => actions.handleSuccessfulDeleteNote);
+            let dispatcher = actions.removeNote(5);
+            return dispatcher(dispatch).then(response => {
+                expect(dispatch.mock.calls[1][0]).toEqual({ type: 'REMOVE_NOTE_SUCCESS', payload: 5 });
+            })
+        });
+
+        it('should dispatch REQUEST_ALL_FOLDERS_FAIL', () => {
+            let mockError = { message: 'Server error' };
+            fetchMock.deleteOnce('*', { status: 503, throws: mockError });
+            window.Headers = jest.fn();
+            let dispatch = jest.fn(() => actions.handleFailedDeleteNote);
+            let dispatcher = actions.removeNote(5);
+            return dispatcher(dispatch).catch(response => {
+                expect(dispatch.mock.calls[1][0].type).toEqual('');
+            })
+        });
+    });
 });
