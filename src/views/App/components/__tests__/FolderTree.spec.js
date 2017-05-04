@@ -74,4 +74,32 @@ describe('FolderTree tests', () => {
             expect(allFolders.length).toEqual(0);
         });
     });
+
+    describe('#renderFolder', () => {
+        it('should return Folder component', () => {
+            let mockProps = {
+                folders: {
+                    map: jest.fn()
+                }
+            };
+            let component = shallow(<FolderTree {...mockProps} />);
+            let folder = component.instance().renderFolder({parent: 1, isOpen: false}, 2);
+
+            expect(mockProps.folders.map).toHaveBeenCalled();
+        });
+    });
+
+    describe('#renderFolder', () => {
+        it('should return Folder component', () => {
+            let mockProps = {
+                folders: {
+                    map: jest.fn()
+                }
+            };
+            let component = shallow(<FolderTree {...mockProps} />);
+            let folder = component.instance().renderFolder({isOpen: true}, 2);
+
+            expect(mockProps.folders.map).toHaveBeenCalled();
+        });
+    });
 });
