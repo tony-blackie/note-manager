@@ -214,4 +214,19 @@ describe('AppComponent actions tests', () => {
             })
         });
     });
+
+    describe('#handleSuccessfulDeleteNote', () => {
+        it('should return a specific action', () => {
+            expect(actions.handleSuccessfulDeleteNote(5))
+              .toEqual({ type: 'REMOVE_NOTE_SUCCESS', payload: 5 });
+        });
+    });
+
+    describe('#handleFailedDeleteNote', () => {
+        it('should return a specific action', () => {
+            let error = { message: 'error' };
+            expect(actions.handleFailedDeleteNote(error))
+              .toEqual({ type: 'REMOVE_NOTE_FAIL', error: error });
+        });
+    });
 });

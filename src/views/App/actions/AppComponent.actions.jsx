@@ -7,6 +7,7 @@ import {
     GO_TO_EDIT_FOLDER,
     REMOVE_NOTE,
     REMOVE_NOTE_SUCCESS,
+    REMOVE_NOTE_FAIL,
     MAKE_FOLDER_ACTIVE,
     MAKE_FOLDER_INACTIVE,
     REQUEST_ALL_FOLDERS,
@@ -44,13 +45,6 @@ export const getAllNotes = () => dispatch => {
     .then(response => response.json())
     .then(json => dispatch(handleSuccessfulGetAllNotes(json)))
     .catch(error => dispatch(handleFailedGetAllNotes(error)));
-
-    // return ($.get('/notes').then(response => {
-    //     dispatch({
-    //       type: GET_ALL_NOTES_SUCCESS,
-    //       payload: response
-    //     });
-    // }));
 };
 
 export const goToNoteEdit = id => dispatch => {
@@ -65,15 +59,36 @@ export const goToNoteCreation = () => dispatch => {
     hashHistory.push(`/note`);
 }
 
+export const handleSuccessfulDeleteNote = id => ({
+    type: REMOVE_NOTE_SUCCESS,
+    payload: id
+});
+
+export const handleFailedDeleteNote = error => ({
+    type: REMOVE_NOTE_FAIL,
+    error
+});
+
 export const removeNote = id => dispatch => {
     dispatch({ type: REMOVE_NOTE });
 
-    return($.ajax({
-        url: `/notes/${id}`,
-        type: 'DELETE'
-    })).then(response => {
-        dispatch({type: REMOVE_NOTE_SUCCESS, payload: id});
+    // return($.ajax({
+    //     url: `/notes/${id}`,
+    //     type: 'DELETE'
+    // })).then(response => {
+    //     dispatch({type: REMOVE_NOTE_SUCCESS, payload: id});
+    // })
+
+    return fetch(`/notes/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
     })
+    .then(response => response.json())
+    .then(() => dispatch(handleSuccessfulDeleteNote(id)))
+    .catch(error => dispatch(handleFailedDeleteNote(error)));
 }
 
 export const makeFolderActive = id => dispatch => {
