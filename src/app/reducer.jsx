@@ -141,7 +141,6 @@ const reducer = (state, action) => {
                 activeFolderId: firstFolderId
             }
         case REMOVE_FOLDER_SUCCESS:
-            debugger;
             let indexOfFolderInState;
             state.folders.map((folder, index) => {
                 if(folder.id === action.id) {
