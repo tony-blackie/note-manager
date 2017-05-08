@@ -4,7 +4,7 @@ import ControlPanel from './components/ControlPanel.jsx';
 import FolderTree from './components/FolderTree.jsx';
 import NotePanel from './components/NotePanel.jsx';
 import Folder from './components/Folder.jsx';
-import filterNotes from 'queries/filterNotes.js';
+import { default as filterNotes } from './queries/filterNotes.js';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
