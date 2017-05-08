@@ -63,7 +63,6 @@ describe('EditNote actions', () => {
             let dispatch = jest.fn(() => actions.handleFailedNoteCreation);
             let dispatcher = actions.createNoteRequest({id: 5});
             return dispatcher(dispatch).catch(response => {
-                return console.log(dispatch.mock.calls[1][0].type);
                 expect(dispatch.mock.calls[1][0].type).toEqual('CREATE_NEW_NOTE_FAIL');
             })
         });
@@ -145,7 +144,6 @@ describe('EditNote actions', () => {
             let dispatch = jest.fn(() => actions.handleFailedNoteResponse);
             let dispatcher = actions.fetchNote(5);
             return dispatcher(dispatch).catch(response => {
-                return console.log(dispatch.mock.calls[1][0].type);
                 expect(dispatch.mock.calls[1][0].type).toEqual('CREATE_NEW_NOTE_FAIL');
             })
         });
