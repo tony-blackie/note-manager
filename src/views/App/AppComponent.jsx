@@ -4,6 +4,7 @@ import ControlPanel from './components/ControlPanel.jsx';
 import FolderTree from './components/FolderTree.jsx';
 import NotePanel from './components/NotePanel.jsx';
 import Folder from './components/Folder.jsx';
+import filterNotes from 'queries/filterNotes.js';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -56,9 +57,10 @@ export class App extends Component {
 }
 
 export const mapStateToProps = state => ({
-        notes: state.notes,
-        folders: state.folders,
-        activeFolderId: state.activeFolderId
+    notes: filterNotes(state),
+    allNotes: state.notes,
+    folders: state.folders,
+    activeFolderId: state.activeFolderId
 });
 
 export const mapDispatchToProps = dispatch => bindActionCreators({

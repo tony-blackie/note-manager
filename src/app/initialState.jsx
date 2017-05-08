@@ -72,7 +72,8 @@ const initialState = {
     },
     isNoteCreationMode: false,
     activeFolderId: null,
-    folderName: ''
+    folderName: '',
+    notesQuery: ''
 };
 
 export default initialState;
