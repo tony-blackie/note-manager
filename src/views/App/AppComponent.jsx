@@ -57,8 +57,8 @@ export class App extends Component {
 }
 
 export const mapStateToProps = state => ({
-    notes: filterNotes(state),
-    allNotes: state.notes,
+    notes: state.notes,
+    filteredNotes: filterNotes(state),
     folders: state.folders,
     activeFolderId: state.activeFolderId
 });
