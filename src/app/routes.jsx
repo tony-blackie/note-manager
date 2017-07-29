@@ -11,7 +11,6 @@ import EditNote from '../views/EditNote/EditNote.jsx';
 import EditFolder from '../views/EditFolder/EditFolder.jsx';
 import reducer from './reducer.jsx';
 
-
 let store = createStore(
   reducer,
   applyMiddleware(thunk)
