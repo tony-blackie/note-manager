@@ -36,8 +36,9 @@ export const requestAllNotes = () => ({
 export const getAllNotes = () => dispatch => {
     dispatch(requestAllNotes());
 
-    return fetch(`/notes/`, {
+    return fetch(`http://localhost:8000/notes/`, {
         method: 'GET',
+        credentials: 'same-origin',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -106,7 +107,7 @@ export const handleFailedGetAllFolders = error => ({
 export const getAllFolders = () => dispatch => {
     dispatch({type: REQUEST_ALL_FOLDERS})
 
-    return fetch(`/folders`, {
+    return fetch(`http://localhost:8000/folders`, {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
