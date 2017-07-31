@@ -22,7 +22,18 @@ npm install babel-preset-es2015
 
 ### Run:
 ```
+Frontend:
 npm start
+Go to localhost:8080
+
+Backend:
+(Make sure you have python, pip, virtual_env installed)
+create new virtual_env
+. <your virtual_env>/bin/activate
+pip install -r requirements.txt
+cd exampleapp
+python manage.py migrate
+python manage.py runserver
 ```
 
 ### Tests:
@@ -43,6 +54,6 @@ npm run coverage
 ```
 Built with: Webpack
 Front-end: React, Redux, ES6, Babel
-Back-end: Express, mySQL
+Back-end: Python, Django, SQLite
 Tests: Jest, Enzyme
 ```
