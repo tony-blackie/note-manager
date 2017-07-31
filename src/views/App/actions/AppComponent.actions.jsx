@@ -58,7 +58,7 @@ export const goToNoteEdit = id => dispatch => {
 export const goToNoteCreation = () => dispatch => {
     dispatch({ type: GO_TO_NOTE_CREATION });
 
-    hashHistory.push(`/note`);
+    hashHistory.push(`/notes`);
 }
 
 export const handleSuccessfulDeleteNote = id => ({
@@ -130,7 +130,7 @@ export const handleFailedDeleteFolder = error => ({
 });
 
 export const removeFolder = id => dispatch => {
-    return fetch(`/folders/${id}`, {
+    return fetch(`http://localhost:8000/folders/${id}`, {
         method: 'DELETE',
         headers: {
             'Accept': 'application/json',
