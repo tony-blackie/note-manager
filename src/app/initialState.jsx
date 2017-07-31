@@ -1,22 +1,15 @@
 const initialState = {
     folders: [
         {
-            id: 0,
-            parent: null,
+            id: 1,
+            parent: 0,
             isActive: true,
             isOpen: false,
             name: 'someName'
         },
         {
-            id: 1,
-            parent: null,
-            isActive: false,
-            isOpen: false,
-            name: 'someName'
-        },
-        {
             id: 2,
-            parent: 1,
+            parent: 0,
             isActive: false,
             isOpen: false,
             name: 'someName'
@@ -30,13 +23,20 @@ const initialState = {
         },
         {
             id: 4,
-            parent: 2,
+            parent: 1,
             isActive: false,
             isOpen: false,
             name: 'someName'
         },
         {
             id: 5,
+            parent: 2,
+            isActive: false,
+            isOpen: false,
+            name: 'someName'
+        },
+        {
+            id: 6,
             parent: 3,
             isActive: false,
             isOpen: false,

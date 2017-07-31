@@ -36,7 +36,7 @@ export default class FolderTree extends Component {
             <div className="folder-tree">
                 {
                     this.props.folders.map((folder, index) => {
-                        if (folder.parent === null) {
+                        if (folder.parent === 0) {
                             return this.renderFolder(folder, folder.id)
                         };
                     })

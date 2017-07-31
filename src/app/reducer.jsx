@@ -129,7 +129,7 @@ const reducer = (state, action) => {
                 newFolders.push({
                     isOpen: false,
                     isActive: index === 0,
-                    parent: action.payload[index].parent_id,
+                    parent: action.payload[index].parent,
                     id: action.payload[index].id,
                     name: action.payload[index].name
                 });

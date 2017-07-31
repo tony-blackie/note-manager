@@ -47,7 +47,7 @@ module.exports = {
             {
                 template: path.join(__dirname, 'src', 'index.html'),
                 inject: 'body', //this is default, but can be injected elsewhere
-                hash: false, //add random hash to every bundle on rebuild
+                hash: true, //add random hash to every bundle on rebuild
                 filename: 'index.html',
                 chunks: ['app']
             }
