@@ -10,11 +10,12 @@ class User(models.Model):
     email = models.TextField()
     age = models.TextField()
 
+class Folder(models.Model):
+    name = models.TextField()
+    parent = models.IntegerField(null=True)
+
 class Note(models.Model):
     parent = models.IntegerField(null=True)
     name = models.TextField()
     text = models.TextField()
-
-class Folder(models.Model):
-    name = models.TextField()
-    parent = models.IntegerField(null=True)
+    folder = models.ForeignKey(Folder)
