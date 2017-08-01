@@ -11,7 +11,7 @@ export default class NotePanel extends Component {
                 <div>
                     {
                         this.props.notes.map((note) => {
-                            if (note.parent_id === this.props.activeFolderId) {
+                            if ((note.parent === this.props.activeFolderId) || (note.parent === 0 && this.props.activeFolderId === null)) {
                                 return (
                                   <Note
                                       key={note.id}
