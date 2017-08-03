@@ -128,7 +128,7 @@ const reducer = (state, action) => {
             action.payload.map((folder, index) => {
                 newFolders.push({
                     isOpen: false,
-                    isActive: index === 0,
+                    isActive: false,
                     parent: action.payload[index].parent,
                     id: action.payload[index].id,
                     name: action.payload[index].name
@@ -138,7 +138,7 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 folders: newFolders,
-                activeFolderId: firstFolderId
+                activeFolderId: null
             }
         case REMOVE_FOLDER_SUCCESS:
             let indexOfFolderInState;
