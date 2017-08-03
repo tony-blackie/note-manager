@@ -30,7 +30,7 @@ export const handleEditNoteFail = error => {
 export const editNoteRequest = note => dispatch => {
     dispatch({type: EDIT_EXISTING_NOTE});
 
-    return fetch(`/notes/${note.id}`, {
+    return fetch(`${window.baseName}/notes/${note.id}`, {
         method: 'PUT',
         body: JSON.stringify(note),
         headers: {
@@ -57,7 +57,7 @@ export const handleFailedNoteCreation = error => {
 export const createNoteRequest = note => dispatch => {
     dispatch({type: CREATE_NEW_NOTE});
 
-    return fetch(`/note`, {
+    return fetch(`${window.baseName}/note`, {
         method: 'POST',
         body: JSON.stringify(note),
         headers: {
@@ -90,8 +90,9 @@ export const handleFailedNoteResponse = error => ({
 export const fetchNote = id => dispatch => {
     dispatch({ type: REQUEST_NOTE_FETCH });
 
-    return fetch(`/notes/${id}`, {
+    return fetch(`${window.baseName}/notes/${id}/`, {
         method: 'GET',
+        credentials: 'same-origin',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'

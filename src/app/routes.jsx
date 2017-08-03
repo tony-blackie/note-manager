@@ -11,6 +11,8 @@ import EditNote from '../views/EditNote/EditNote.jsx';
 import EditFolder from '../views/EditFolder/EditFolder.jsx';
 import reducer from './reducer.jsx';
 
+window.baseName = 'http://localhost:8000';
+
 let store = createStore(
   reducer,
   applyMiddleware(thunk)

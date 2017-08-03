@@ -41,8 +41,9 @@ export const requestFolder = () => ({
 export const getFolder = id => dispatch => {
     dispatch(requestFolder());
 
-    return fetch(`/folders/${id}`, {
+    return fetch(`${window.baseName}/folders/${id}/`, {
         method: 'GET',
+        credentials: 'same-origin',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -73,8 +74,9 @@ export const requestFolderEdit = () => ({
 export const editFolder = folder => dispatch => {
     dispatch(requestFolderEdit());
 
-    return fetch(`/folders/${folder.id}`, {
+    return fetch(`${window.baseName}/folders/${folder.id}/`, {
         method: 'PUT',
+        credentials: 'same-origin',
         body: JSON.stringify(folder),
         headers: {
             'Accept': 'application/json',
@@ -96,8 +98,9 @@ export const editFolder = folder => dispatch => {
 export const createNewFolder = folder => dispatch => {
     dispatch(requestFolderCreation());
 
-    return fetch(`/folder`, {
+    return fetch(`${window.baseName}/folder`, {
         method: 'PUT',
+        credentials: 'same-origin',
         body: JSON.stringify(folder),
         headers: {
             'Accept': 'application/json',

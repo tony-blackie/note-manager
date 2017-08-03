@@ -36,7 +36,7 @@ export const requestAllNotes = () => ({
 export const getAllNotes = () => dispatch => {
     dispatch(requestAllNotes());
 
-    return fetch(`http://localhost:8000/notes/`, {
+    return fetch(`${window.baseName}/notes/`, {
         method: 'GET',
         credentials: 'same-origin',
         headers: {
@@ -52,7 +52,7 @@ export const getAllNotes = () => dispatch => {
 export const goToNoteEdit = id => dispatch => {
     dispatch({type: GO_TO_NOTE_EDIT});
 
-    hashHistory.push(`/notes/${id}`);
+    hashHistory.push(`/notes/${id}/`);
 };
 
 export const goToNoteCreation = () => dispatch => {
@@ -74,8 +74,9 @@ export const handleFailedDeleteNote = error => ({
 export const removeNote = id => dispatch => {
     dispatch({ type: REMOVE_NOTE });
 
-    return fetch(`/notes/${id}`, {
+    return fetch(`${window.baseName}/notes/${id}`, {
         method: 'DELETE',
+        credentials: 'same-origin',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -107,8 +108,9 @@ export const handleFailedGetAllFolders = error => ({
 export const getAllFolders = () => dispatch => {
     dispatch({type: REQUEST_ALL_FOLDERS})
 
-    return fetch(`http://localhost:8000/folders`, {
+    return fetch(`${window.baseName}/folders`, {
         method: 'GET',
+        credentials: 'same-origin',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -130,8 +132,9 @@ export const handleFailedDeleteFolder = error => ({
 });
 
 export const removeFolder = id => dispatch => {
-    return fetch(`http://localhost:8000/folders/${id}`, {
+    return fetch(`${window.baseName}/folders/${id}`, {
         method: 'DELETE',
+        credentials: 'same-origin',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
