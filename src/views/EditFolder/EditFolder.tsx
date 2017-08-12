@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
@@ -8,9 +8,9 @@ import {
   handleFolderNameChange,
   editFolder,
   createNewFolder
-} from './actions/EditFolder.actions.jsx';
+} from './actions/EditFolder.actions';
 
-export class EditFolder extends Component {
+export class EditFolder extends React.Component {
     constructor(props) {
         super(props);
 

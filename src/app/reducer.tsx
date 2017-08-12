@@ -1,4 +1,4 @@
-import initialState from './initialState.jsx';
+import initialState from './initialState';
 import {
   MAKE_FOLDER_ACTIVE,
   MAKE_FOLDER_INACTIVE,
@@ -25,7 +25,7 @@ import {
   GET_NOTE_SUCCESS,
   GET_NOTE_FAIL,
   CLEAR_NOTE_DATA
-} from '../views/actionTypes.jsx';
+} from '../views/actionTypes';
 
 const reducer = (state, action) => {
     let newFoldersArray,

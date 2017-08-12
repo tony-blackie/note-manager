@@ -10,7 +10,7 @@ import {
     REQUEST_FOLDER_EDIT,
     FOLDER_CREATION_SUCCESS,
     FOLDER_CREATION_FAIL
-} from '../../actionTypes.jsx';
+} from '../../actionTypes';
 import { hashHistory } from 'react-router';
 
 

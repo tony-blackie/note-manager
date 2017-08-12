@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { shallow, mount } from 'enzyme';
-import NoMatchComponent from '../NoMatchComponent.jsx';
+import NoMatchComponent from '../NoMatchComponent';
 
 describe('NoMatchComponent tests', () => {
     it('should render single div', () => {

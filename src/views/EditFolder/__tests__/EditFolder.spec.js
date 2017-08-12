@@ -1,14 +1,14 @@
-jest.mock('../actions/EditFolder.actions.jsx');
+jest.mock('../actions/EditFolder.actions');
 import React, { Component } from 'react';
 import { shallow, mount } from 'enzyme';
-import { EditFolder, mapStateToProps, mapDispatchToProps } from '../EditFolder.jsx';
+import { EditFolder, mapStateToProps, mapDispatchToProps } from '../EditFolder';
 import {
   getFolder,
   saveEditedFolder,
   handleFolderNameChange,
   editFolder,
   createNewFolder
-} from '../actions/EditFolder.actions.jsx';
+} from '../actions/EditFolder.actions';
 import * as redux from 'redux';
 
 describe('EditFolder tests', () => {

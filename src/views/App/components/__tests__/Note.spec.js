@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Note from '../Note.jsx';
+import Note from '../Note';
 import { mount, shallow } from 'enzyme';
 import sinon from 'sinon';
 

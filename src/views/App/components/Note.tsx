@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 
-export default class Note extends Component {
+export default class Note extends React.Component {
     constructor(props) {
         super(props);
         this.goToNoteEdit = this.goToNoteEdit.bind(this);

@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import { Router, Route, hashHistory } from 'react-router';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import { Router as Router, Route, hashHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import Styles from '../sass/index.scss';
-import App from '../views/App/AppComponent.jsx';
-import NoMatch from '../views/NoMatchComponent/NoMatchComponent.jsx';
-import EditNote from '../views/EditNote/EditNote.jsx';
-import EditFolder from '../views/EditFolder/EditFolder.jsx';
-import reducer from './reducer.jsx';
+import '../sass/index.scss';
+import App from '../views/App/AppComponent';
+import NoMatch from '../views/NoMatchComponent/NoMatchComponent';
+import EditNote from '../views/EditNote/EditNote';
+import EditFolder from '../views/EditFolder/EditFolder';
+import reducer from './reducer';
 
 window.baseName = 'http://localhost:8000';
 

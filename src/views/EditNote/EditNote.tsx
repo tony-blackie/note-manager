@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
@@ -10,9 +10,9 @@ import {
   changeNoteName,
   fetchNote,
   clearNoteData
- } from './actions/EditNote.actions.jsx';
+ } from './actions/EditNote.actions';
 
-export class EditNote extends Component {
+export class EditNote extends React.Component {
     handleSaveClick() {
         if (!this.props.routeParams.noteId) {
             this.props.createNoteRequest({

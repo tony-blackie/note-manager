@@ -13,7 +13,7 @@ import {
   GET_NOTE_SUCCESS,
   GET_NOTE_FAIL,
   CLEAR_NOTE_DATA
-} from '../../actionTypes.jsx';
+} from '../../actionTypes';
 
 export const handleEditNoteSuccess = response => {
     hashHistory.push('/');

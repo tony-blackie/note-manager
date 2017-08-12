@@ -1,7 +1,7 @@
-jest.mock('../actions/EditNote.actions.jsx');
+jest.mock('../actions/EditNote.actions');
 import React, { Component } from 'react';
 import { shallow, mount } from 'enzyme';
-import { EditNote, mapStateToProps, mapDispatchToProps } from '../EditNote.jsx';
+import { EditNote, mapStateToProps, mapDispatchToProps } from '../EditNote';
 import {
   editNoteRequest,
   createNoteRequest,
@@ -9,7 +9,7 @@ import {
   changeNoteName,
   fetchNote,
   clearNoteData
-} from '../actions/EditNote.actions.jsx';
+} from '../actions/EditNote.actions';
 import * as redux from 'redux';
 
 

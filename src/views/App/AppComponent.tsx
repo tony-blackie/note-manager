@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 
-import ControlPanel from './components/ControlPanel.jsx';
-import FolderTree from './components/FolderTree.jsx';
-import NotePanel from './components/NotePanel.jsx';
-import Folder from './components/Folder.jsx';
-import { default as filterNotes } from './queries/filterNotes.js';
+import ControlPanel from './components/ControlPanel';
+import FolderTree from './components/FolderTree';
+import NotePanel from './components/NotePanel';
+import Folder from './components/Folder';
+import { default as filterNotes } from './queries/filterNotes';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -20,9 +20,9 @@ import {
   removeFolder,
   goToEditFolder,
   goToFolderCreation
-} from './actions/AppComponent.actions.jsx';
+} from './actions/AppComponent.actions';
 
-export class App extends Component {
+export class App extends React.Component {
     componentDidMount() {
         this.props.getAllNotes();
         this.props.getAllFolders();

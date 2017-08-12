@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import Note from './Note.jsx';
+import * as React from 'react';
+import Note from './Note';
 
-export default class NotePanel extends Component {
+export default class NotePanel extends React.Component {
     render() {
         return (
             <div className="note-panel">

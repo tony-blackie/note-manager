@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { shallow, mount } from 'enzyme';
-import FolderTree from '../FolderTree.jsx';
+import FolderTree from '../FolderTree';
 
 describe('FolderTree tests', () => {
     describe('#renderFolder', () => {

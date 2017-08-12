@@ -16,7 +16,7 @@ import {
     REMOVE_FOLDER_SUCCESS,
     REMOVE_FOLDER_FAIL,
     GO_TO_FOLDER_CREATION
-} from '../../actionTypes.jsx';
+} from '../../actionTypes';
 import { hashHistory } from 'react-router';
 
 export const handleSuccessfulGetAllNotes = response => ({

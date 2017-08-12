@@ -1,7 +1,7 @@
-jest.mock('../actions/AppComponent.actions.jsx');
+jest.mock('../actions/AppComponent.actions');
 import React, { Component } from 'react';
 import { shallow, mount } from 'enzyme';
-import { App, mapStateToProps, mapDispatchToProps } from '../AppComponent.jsx';
+import { App, mapStateToProps, mapDispatchToProps } from '../AppComponent';
 import {
   addNote,
   getAllNotes,
@@ -14,7 +14,7 @@ import {
   removeFolder,
   goToEditFolder,
   goToFolderCreation
-} from '../actions/AppComponent.actions.jsx';
+} from '../actions/AppComponent.actions';
 import * as redux from 'redux';
 
 describe('App component tests', () => {

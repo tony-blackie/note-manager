@@ -6,9 +6,9 @@ import {
   GET_FOLDER_SUCCESS,
   GET_FOLDER_FAIL,
   GET_FOLDER
-} from '../../../actionTypes.jsx';
+} from '../../../actionTypes';
 import { shallow, mount } from 'enzyme';
-import * as actions from '../EditFolder.actions.jsx';
+import * as actions from '../EditFolder.actions';
 
 describe('EditFolder actions', () => {
     describe('#requestFolderCreation', () => {

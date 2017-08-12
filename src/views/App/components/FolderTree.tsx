@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import Folder from './Folder.jsx';
+import * as React from 'react';
+import Folder from './Folder';
 
-export default class FolderTree extends Component {
+export default class FolderTree extends React.Component {
     constructor(props) {
         super(props);
 

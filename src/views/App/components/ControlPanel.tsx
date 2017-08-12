@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 
-export default class ControlPanel extends Component {
+export default class ControlPanel extends React.Component {
     constructor(props) {
       super(props);
 

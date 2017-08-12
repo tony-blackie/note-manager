@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 
-export default class Folder extends Component {
+export default class Folder extends React.Component {
     constructor(props) {
         super(props);
 

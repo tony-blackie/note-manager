@@ -1,4 +1,4 @@
-import * as actions from '../AppComponent.actions.jsx';
+import * as actions from '../AppComponent.actions';
 import { isFunction } from 'lodash';
 import * as router from 'react-router';
 import fetchMock from 'fetch-mock';
@@ -18,7 +18,7 @@ import {
   REMOVE_FOLDER_SUCCESS,
   REMOVE_FOLDER_FAIL,
   GO_TO_FOLDER_CREATION
-} from '../../../actionTypes.jsx';
+} from '../../../actionTypes';
 
 describe('AppComponent actions tests', () => {
     describe('#makeFolderActive', () => {

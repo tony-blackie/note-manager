@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { shallow, mount } from 'enzyme';
-import NotePanel from '../NotePanel.jsx';
+import NotePanel from '../NotePanel';
 
 describe('NotePanel', () => {
     describe('#render', () => {

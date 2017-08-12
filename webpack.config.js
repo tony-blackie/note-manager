@@ -4,17 +4,24 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var eslint = require('eslint');
 
 module.exports = {
-    devtool: 'cheap-module-eval-source-map',
+    devtool: 'source-map',
     context: path.join(__dirname, 'src'),
     entry: {
-        app: './app/routes.jsx'
+        app: './app/routes.tsx'
     },
     output: {
         path: path.join(__dirname, 'dist'),
         filename: '[name].bundle.js'
     },
+    resolve: {
+        extensions: ['', '.js', '.jsx', '.ts', '.tsx', '.scss']
+    },
     module: {
         loaders: [
+            {
+                test: /\.tsx?$/, 
+                loader: 'ts-loader'
+            },
             {
                 test: /\.jsx$|\.js$/,
                 loader: 'babel-loader',

@@ -1,4 +1,4 @@
-import * as actions from '../EditNote.actions.jsx';
+import * as actions from '../EditNote.actions';
 import fetchMock from 'fetch-mock';
 
 describe('EditNote actions', () => {

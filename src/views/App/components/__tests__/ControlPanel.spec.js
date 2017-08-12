@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { shallow, mount } from 'enzyme';
-import ControlPanel from '../ControlPanel.jsx';
+import ControlPanel from '../ControlPanel';
 
 describe('ControlPanel tests', () => {
     describe('#goToEditFolder', () => {

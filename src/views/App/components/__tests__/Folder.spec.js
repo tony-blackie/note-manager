@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { shallow, mount } from 'enzyme';
-import Folder from '../Folder.jsx';
+import Folder from '../Folder';
 
 describe('Folder Component tests', () => {
     describe('#openFolder', () => {
