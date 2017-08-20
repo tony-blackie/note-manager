@@ -30,7 +30,7 @@ export const handleEditNoteFail = error => {
 export const editNoteRequest = note => dispatch => {
     dispatch({type: EDIT_EXISTING_NOTE});
 
-    return fetch(`${window.baseName}/notes/${note.id}`, {
+    return fetch(`${window.baseName}/notes/${note.id}/`, {
         method: 'PUT',
         body: JSON.stringify(note),
         headers: {
