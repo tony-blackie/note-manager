@@ -29,26 +29,40 @@ export class App extends React.Component {
     }
 
     render() {
+        const {
+            goToNoteCreation,
+            removeFolder,
+            activeFolderId,
+            goToEditFolder,
+            goToFolderCreation,
+            folders,
+            makeFolderActive,
+            makeFolderInactive,
+            notes,
+            goToNoteEdit,
+            removeNote
+        } = this.props;
+
         return (
             <div>
                 <ControlPanel
-                    goToNoteCreation={this.props.goToNoteCreation}
-                    removeFolder={this.props.removeFolder}
-                    activeFolderId={this.props.activeFolderId}
-                    goToEditFolder={this.props.goToEditFolder}
-                    goToFolderCreation={this.props.goToFolderCreation}
+                    goToNoteCreation={goToNoteCreation}
+                    removeFolder={removeFolder}
+                    activeFolderId={activeFolderId}
+                    goToEditFolder={goToEditFolder}
+                    goToFolderCreation={goToFolderCreation}
                 />
                 <div className="content">
                     <FolderTree
-                      folders={this.props.folders}
-                      makeFolderActive={this.props.makeFolderActive}
-                      makeFolderInactive={this.props.makeFolderInactive}
+                      folders={folders}
+                      makeFolderActive={makeFolderActive}
+                      makeFolderInactive={makeFolderInactive}
                     />
                     <NotePanel
-                        notes={this.props.notes}
-                        goToNoteEdit={this.props.goToNoteEdit}
-                        removeNote={this.props.removeNote}
-                        activeFolderId={this.props.activeFolderId}
+                        notes={notes}
+                        goToNoteEdit={goToNoteEdit}
+                        removeNote={removeNote}
+                        activeFolderId={activeFolderId}
                     />
                 </div>
             </div>
