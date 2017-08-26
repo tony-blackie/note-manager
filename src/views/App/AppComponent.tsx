@@ -19,7 +19,8 @@ import {
   getAllFolders,
   removeFolder,
   goToEditFolder,
-  goToFolderCreation
+  goToFolderCreation,
+  updateNoteFilterQuery
 } from './actions/AppComponent.actions';
 
 export class App extends React.Component {
@@ -63,6 +64,7 @@ export class App extends React.Component {
                         goToNoteEdit={goToNoteEdit}
                         removeNote={removeNote}
                         activeFolderId={activeFolderId}
+                        updateNoteFilterQuery={updateNoteFilterQuery}
                     />
                 </div>
             </div>
@@ -87,7 +89,8 @@ export const mapDispatchToProps = dispatch => bindActionCreators({
     getAllFolders,
     removeFolder,
     goToEditFolder,
-    goToFolderCreation
+    goToFolderCreation,
+    updateNoteFilterQuery
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -15,7 +15,8 @@ import {
     REQUEST_ALL_FOLDERS_FAIL,
     REMOVE_FOLDER_SUCCESS,
     REMOVE_FOLDER_FAIL,
-    GO_TO_FOLDER_CREATION
+    GO_TO_FOLDER_CREATION,
+    UPDATE_NOTE_FILTER_QUERY
 } from '../../actionTypes';
 import { hashHistory } from 'react-router';
 
@@ -155,4 +156,9 @@ export const goToFolderCreation = () => dispatch => {
     dispatch({ type: GO_TO_FOLDER_CREATION });
 
     hashHistory.push('/folder');
-}
+};
+
+export const updateNoteFilterQuery = (query) => ({
+    type: UPDATE_NOTE_FILTER_QUERY,
+    query
+});
