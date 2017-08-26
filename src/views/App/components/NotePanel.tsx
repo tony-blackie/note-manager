@@ -6,7 +6,7 @@ export default class NotePanel extends React.Component {
         return (
             <div className="note-panel">
                 <div className="note-search">
-                    <input type="text" placeholder="search" />
+                    <input type="text" placeholder="search"/>
                 </div>
                 <div>
                     {
