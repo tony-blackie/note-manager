@@ -11,7 +11,13 @@ import EditNote from '../views/EditNote/EditNote';
 import EditFolder from '../views/EditFolder/EditFolder';
 import reducer from './reducer';
 
-window.baseName = 'http://localhost:8000';
+interface WindowType {
+    baseName: string;
+}
+
+const window: WindowType = {
+    baseName: 'http://localhost:8000'
+}
 
 let store = createStore(
   reducer,

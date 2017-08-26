@@ -2,7 +2,7 @@ import initialState from './initialState';
 import {
   MAKE_FOLDER_ACTIVE,
   MAKE_FOLDER_INACTIVE,
-  ADD_NEW_NOTE,
+//   ADD_NEW_NOTE,
   GET_ALL_NOTES,
   GET_ALL_NOTES_SUCCESS,
   GO_TO_NOTE_EDIT,
@@ -24,7 +24,8 @@ import {
   CHANGE_NOTE_NAME,
   GET_NOTE_SUCCESS,
   GET_NOTE_FAIL,
-  CLEAR_NOTE_DATA
+  CLEAR_NOTE_DATA,
+  UPDATE_NOTE_FILTER_QUERY
 } from '../views/actionTypes';
 
 const reducer = (state, action) => {
@@ -86,11 +87,11 @@ const reducer = (state, action) => {
                 activeFolderId: null
             };
 
-        case ADD_NEW_NOTE:
-            return {
-                ...state,
-                isNoteCreationMode: true
-            };
+        // case ADD_NEW_NOTE:
+        //     return {
+        //         ...state,
+        //         isNoteCreationMode: true
+        //     };
         case GO_TO_NOTE_EDIT:
             return {
                 ...state,
@@ -214,6 +215,12 @@ const reducer = (state, action) => {
                     folderId: null
                 }
             };
+        case UPDATE_NOTE_FILTER_QUERY:
+            debugger;
+            return {
+                ...state,
+                notesQuery: action.query
+            }
         default:
             return state;
     }
