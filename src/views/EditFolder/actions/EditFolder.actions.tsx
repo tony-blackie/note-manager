@@ -12,7 +12,7 @@ import {
     FOLDER_CREATION_FAIL
 } from '../../actionTypes';
 import { hashHistory } from 'react-router';
-
+import { baseName } from '../../../app/config';
 
 export const requestFolderCreation = () => ({
     type: REQUEST_FOLDER_CREATION
@@ -41,7 +41,7 @@ export const requestFolder = () => ({
 export const getFolder = id => dispatch => {
     dispatch(requestFolder());
 
-    return fetch(`${window.baseName}/folders/${id}/`, {
+    return fetch(`${baseName}/folders/${id}/`, {
         method: 'GET',
         credentials: 'same-origin',
         headers: {
@@ -74,7 +74,7 @@ export const requestFolderEdit = () => ({
 export const editFolder = folder => dispatch => {
     dispatch(requestFolderEdit());
 
-    return fetch(`${window.baseName}/folders/${folder.id}/`, {
+    return fetch(`${baseName}/folders/${folder.id}/`, {
         method: 'PUT',
         credentials: 'same-origin',
         body: JSON.stringify(folder),
@@ -98,7 +98,7 @@ export const editFolder = folder => dispatch => {
 export const createNewFolder = folder => dispatch => {
     dispatch(requestFolderCreation());
 
-    return fetch(`${window.baseName}/folder`, {
+    return fetch(`${baseName}/folder`, {
         method: 'PUT',
         credentials: 'same-origin',
         body: JSON.stringify(folder),
