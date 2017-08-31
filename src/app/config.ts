@@ -1,0 +1,1 @@
+export const baseName = 'http://localhost:8000';

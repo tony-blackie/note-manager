@@ -19,6 +19,7 @@ import {
     UPDATE_NOTE_FILTER_QUERY
 } from '../../actionTypes';
 import { hashHistory } from 'react-router';
+import { baseName } from '../../../app/config';
 
 export const handleSuccessfulGetAllNotes = response => ({
     type: GET_ALL_NOTES_SUCCESS,
@@ -37,7 +38,7 @@ export const requestAllNotes = () => ({
 export const getAllNotes = () => dispatch => {
     dispatch(requestAllNotes());
 
-    return fetch(`${window.baseName}/notes/`, {
+    return fetch(`${baseName}/notes/`, {
         method: 'GET',
         credentials: 'same-origin',
         headers: {
@@ -75,7 +76,7 @@ export const handleFailedDeleteNote = error => ({
 export const removeNote = id => dispatch => {
     dispatch({ type: REMOVE_NOTE });
 
-    return fetch(`${window.baseName}/notes/${id}`, {
+    return fetch(`${baseName}/notes/${id}`, {
         method: 'DELETE',
         credentials: 'same-origin',
         headers: {
@@ -109,7 +110,7 @@ export const handleFailedGetAllFolders = error => ({
 export const getAllFolders = () => dispatch => {
     dispatch({type: REQUEST_ALL_FOLDERS})
 
-    return fetch(`${window.baseName}/folders`, {
+    return fetch(`${baseName}/folders`, {
         method: 'GET',
         credentials: 'same-origin',
         headers: {
@@ -133,7 +134,7 @@ export const handleFailedDeleteFolder = error => ({
 });
 
 export const removeFolder = id => dispatch => {
-    return fetch(`${window.baseName}/folders/${id}`, {
+    return fetch(`${baseName}/folders/${id}`, {
         method: 'DELETE',
         credentials: 'same-origin',
         headers: {
