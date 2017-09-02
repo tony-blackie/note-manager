@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Router as Router, Route, hashHistory } from 'react-router';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import '../sass/index.scss';
 import App from '../views/App/AppComponent';
@@ -11,10 +11,10 @@ import EditNote from '../views/EditNote/EditNote';
 import EditFolder from '../views/EditFolder/EditFolder';
 import reducer from './reducer';
 
-let store = createStore(
-  reducer,
-  applyMiddleware(thunk)
-);
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(reducer, /* preloadedState, */ composeEnhancers(
+    applyMiddleware(thunk)
+));
 
 ReactDOM.render((
     <Provider store={store}>
