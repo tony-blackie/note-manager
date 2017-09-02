@@ -1,229 +1,242 @@
-import initialState from './initialState';
-import {
-  MAKE_FOLDER_ACTIVE,
-  MAKE_FOLDER_INACTIVE,
-//   ADD_NEW_NOTE,
-  GET_ALL_NOTES,
-  GET_ALL_NOTES_SUCCESS,
-  GO_TO_NOTE_EDIT,
-  EDIT_EXISTING_NOTE,
-  EDIT_EXISTING_NOTE_SUCCESS,
-  CREATE_NEW_NOTE,
-  CREATE_NEW_NOTE_SUCCESS,
-  REMOVE_NOTE,
-  REMOVE_NOTE_SUCCESS,
-  REQUEST_ALL_FOLDERS_SUCCESS,
-  REMOVE_FOLDER_SUCCESS,
-  REMOVE_FOLDER_FAIL,
-  GET_FOLDER_SUCCESS,
-  CHANGE_FOLDER_NAME,
-  SAVE_EDITED_FOLDER,
-  FOLDER_CREATION_SUCCESS,
-  FOLDER_CREATION_FAIL,
-  CHANGE_TEXT_FIELD_VALUE,
-  CHANGE_NOTE_NAME,
-  GET_NOTE_SUCCESS,
-  GET_NOTE_FAIL,
-  CLEAR_NOTE_DATA,
-  UPDATE_NOTE_FILTER_QUERY
-} from '../views/actionTypes';
+import { combineReducers } from 'redux';
+import editNoteReducer from '../views/EditNote/reducer';
+import editFolderReducer from '../views/EditFolder/reducer';
+import appReducer from '../views/App/reducer';
 
-const reducer = (state, action) => {
-    let newFoldersArray,
-        clickedFolder,
-        clickedFolderIndex;
+const rootReducer = combineReducers({
+    editNote: editNoteReducer,
+    editFolder: editFolderReducer,
+    app: appReducer
+});
 
-    if (typeof state === 'undefined') {
-        return initialState;
-    }
+export default rootReducer;
 
-    switch(action.type) {
-        case MAKE_FOLDER_ACTIVE:
-            newFoldersArray = state.folders.slice();
+// import initialState from './initialState';
+// import {
+//   MAKE_FOLDER_ACTIVE,
+//   MAKE_FOLDER_INACTIVE,
+// //   ADD_NEW_NOTE,
+//   GET_ALL_NOTES,
+//   GET_ALL_NOTES_SUCCESS,
+//   GO_TO_NOTE_EDIT,
+//   EDIT_EXISTING_NOTE,
+//   EDIT_EXISTING_NOTE_SUCCESS,
+//   CREATE_NEW_NOTE,
+//   CREATE_NEW_NOTE_SUCCESS,
+//   REMOVE_NOTE,
+//   REMOVE_NOTE_SUCCESS,
+//   REQUEST_ALL_FOLDERS_SUCCESS,
+//   REMOVE_FOLDER_SUCCESS,
+//   REMOVE_FOLDER_FAIL,
+//   GET_FOLDER_SUCCESS,
+//   CHANGE_FOLDER_NAME,
+//   SAVE_EDITED_FOLDER,
+//   FOLDER_CREATION_SUCCESS,
+//   FOLDER_CREATION_FAIL,
+//   CHANGE_TEXT_FIELD_VALUE,
+//   CHANGE_NOTE_NAME,
+//   GET_NOTE_SUCCESS,
+//   GET_NOTE_FAIL,
+//   CLEAR_NOTE_DATA,
+//   UPDATE_NOTE_FILTER_QUERY
+// } from '../views/actionTypes';
 
-            state.folders.map((folder, index) => {
-                if(folder.id === action.id) {
-                    clickedFolder = folder;
-                    clickedFolderIndex = index;
-                }
-            });
+// const reducer = (state, action) => {
+//     let newFoldersArray,
+//         clickedFolder,
+//         clickedFolderIndex;
 
-            newFoldersArray.map((folder, index) => {
-                if(folder.id !== action.id) {
-                    folder.isActive = false;
-                }
-            });
+//     if (typeof state === 'undefined') {
+//         return initialState;
+//     }
 
-            newFoldersArray[clickedFolderIndex] = clickedFolder;
-            newFoldersArray[clickedFolderIndex].isActive = !newFoldersArray[clickedFolderIndex].isActive;
+//     switch(action.type) {
+//         case MAKE_FOLDER_ACTIVE:
+//             newFoldersArray = state.folders.slice();
 
-            return {
-                ...state,
-                folders: newFoldersArray,
-                activeFolderId: action.id
-            };
-        case MAKE_FOLDER_INACTIVE:
-            newFoldersArray = state.folders.slice();
+//             state.folders.map((folder, index) => {
+//                 if(folder.id === action.id) {
+//                     clickedFolder = folder;
+//                     clickedFolderIndex = index;
+//                 }
+//             });
 
-            state.folders.map((folder, index) => {
-                if(folder.id === action.id) {
-                    clickedFolder = folder;
-                    clickedFolderIndex = index;
-                }
-            });
+//             newFoldersArray.map((folder, index) => {
+//                 if(folder.id !== action.id) {
+//                     folder.isActive = false;
+//                 }
+//             });
 
-            newFoldersArray.map((folder, index) => {
-                if(folder.id !== action.id) {
-                    folder.isActive = false;
-                }
-            });
+//             newFoldersArray[clickedFolderIndex] = clickedFolder;
+//             newFoldersArray[clickedFolderIndex].isActive = !newFoldersArray[clickedFolderIndex].isActive;
 
-            newFoldersArray[clickedFolderIndex] = clickedFolder;
-            newFoldersArray[clickedFolderIndex].isActive = !newFoldersArray[clickedFolderIndex].isActive;
+//             return {
+//                 ...state,
+//                 folders: newFoldersArray,
+//                 activeFolderId: action.id
+//             };
+//         case MAKE_FOLDER_INACTIVE:
+//             newFoldersArray = state.folders.slice();
 
-            return {
-                ...state,
-                folders: newFoldersArray,
-                activeFolderId: null
-            };
+//             state.folders.map((folder, index) => {
+//                 if(folder.id === action.id) {
+//                     clickedFolder = folder;
+//                     clickedFolderIndex = index;
+//                 }
+//             });
 
-        // case ADD_NEW_NOTE:
-        //     return {
-        //         ...state,
-        //         isNoteCreationMode: true
-        //     };
-        case GO_TO_NOTE_EDIT:
-            return {
-                ...state,
-                isNoteCreationMode: false
-            }
-        case GET_ALL_NOTES:
-            return state;
-        case GET_ALL_NOTES_SUCCESS:
-            return {
-                ...state,
-                notes: action.payload
-            };
-        case EDIT_EXISTING_NOTE:
-            return state;
-        case EDIT_EXISTING_NOTE_SUCCESS:
-            return state;
-        case REMOVE_NOTE_SUCCESS:
-            let indexOfNoteInState;
-            state.notes.map((note, index) => {
-                if(note.id === action.payload) {
-                    indexOfNoteInState = index;
-                }
-            });
-            let newNotes = state.notes.slice(0, indexOfNoteInState);
-            if (state.notes[indexOfNoteInState + 1]) {
-                newNotes = newNotes.concat(state.notes.slice(indexOfNoteInState + 1, state.notes.length));
-            }
-            return {
-                ...state,
-                notes: newNotes
-            }
-        case REQUEST_ALL_FOLDERS_SUCCESS:
-            let newFolders = [];
-            let firstFolderId = action.payload[0].id;
-            action.payload.map((folder, index) => {
-                newFolders.push({
-                    isOpen: false,
-                    isActive: false,
-                    parent: action.payload[index].parent,
-                    id: action.payload[index].id,
-                    name: action.payload[index].name
-                });
-            });
+//             newFoldersArray.map((folder, index) => {
+//                 if(folder.id !== action.id) {
+//                     folder.isActive = false;
+//                 }
+//             });
 
-            return {
-                ...state,
-                folders: newFolders,
-                activeFolderId: null
-            }
-        case REMOVE_FOLDER_SUCCESS:
-            let indexOfFolderInState;
-            state.folders.map((folder, index) => {
-                if(folder.id === action.id) {
-                    indexOfFolderInState = index;
-                }
-            });
-            newFolders = state.folders.slice(0, indexOfFolderInState);
-            if (state.folders[indexOfFolderInState + 1]) {
-                newFolders = newFolders.concat(state.folders.slice(indexOfFolderInState + 1, state.folders.length));
-            }
-            return {
-                ...state,
-                folders: newFolders
-            }
-        case GET_FOLDER_SUCCESS:
-            return {
-                ...state,
-                folderName: action.folder.name
-            };
-        case CHANGE_FOLDER_NAME:
-            return {
-                ...state,
-                folderName: action.text
-            };
-        case SAVE_EDITED_FOLDER:
-            let newFolderArray = state.folders.slice();
-            newFolderArray.map((folder, index) => {
-                if(folder.id === action.folder.id) {
-                    folder.name = state.folderName;
-                }
-            });
-            return {
-                ...state,
-                folderName: '',
-                folders: newFolderArray
-            };
-        case CHANGE_TEXT_FIELD_VALUE:
-            return {
-                ...state,
-                editedNote: {
-                    ...state.editedNote,
-                    textFieldValue: action.textFieldValue
-                }
-            };
-        case CHANGE_NOTE_NAME:
-            return {
-                ...state,
-                editedNote: {
-                    ...state.editedNote,
-                    name: action.name
-                }
-            };
-        case GET_NOTE_SUCCESS:
-            return {
-                ...state,
-                editedNote: {
-                    ...state.editedNote,
-                    name: action.note.name,
-                    id: action.note.id,
-                    textFieldValue: action.note.text,
-                    folderId: action.note.parent_id
-                }
-            };
-        case CLEAR_NOTE_DATA:
-            return {
-                ...state,
-                editedNote: {
-                    id: null,
-                    name: '',
-                    textFieldValue: '',
-                    folderId: null
-                }
-            };
-        case UPDATE_NOTE_FILTER_QUERY:
-            debugger;
-            return {
-                ...state,
-                notesQuery: action.query
-            }
-        default:
-            return state;
-    }
-};
+//             newFoldersArray[clickedFolderIndex] = clickedFolder;
+//             newFoldersArray[clickedFolderIndex].isActive = !newFoldersArray[clickedFolderIndex].isActive;
 
-export default reducer;
+//             return {
+//                 ...state,
+//                 folders: newFoldersArray,
+//                 activeFolderId: null
+//             };
+
+//         // case ADD_NEW_NOTE:
+//         //     return {
+//         //         ...state,
+//         //         isNoteCreationMode: true
+//         //     };
+//         case GO_TO_NOTE_EDIT:
+//             return {
+//                 ...state,
+//                 isNoteCreationMode: false
+//             }
+//         case GET_ALL_NOTES:
+//             return state;
+//         case GET_ALL_NOTES_SUCCESS:
+//             return {
+//                 ...state,
+//                 notes: action.payload
+//             };
+//         case EDIT_EXISTING_NOTE:
+//             return state;
+//         case EDIT_EXISTING_NOTE_SUCCESS:
+//             return state;
+//         case REMOVE_NOTE_SUCCESS:
+//             let indexOfNoteInState;
+//             state.notes.map((note, index) => {
+//                 if(note.id === action.payload) {
+//                     indexOfNoteInState = index;
+//                 }
+//             });
+//             let newNotes = state.notes.slice(0, indexOfNoteInState);
+//             if (state.notes[indexOfNoteInState + 1]) {
+//                 newNotes = newNotes.concat(state.notes.slice(indexOfNoteInState + 1, state.notes.length));
+//             }
+//             return {
+//                 ...state,
+//                 notes: newNotes
+//             }
+//         case REQUEST_ALL_FOLDERS_SUCCESS:
+//             let newFolders = [];
+//             let firstFolderId = action.payload[0].id;
+//             action.payload.map((folder, index) => {
+//                 newFolders.push({
+//                     isOpen: false,
+//                     isActive: false,
+//                     parent: action.payload[index].parent,
+//                     id: action.payload[index].id,
+//                     name: action.payload[index].name
+//                 });
+//             });
+
+//             return {
+//                 ...state,
+//                 folders: newFolders,
+//                 activeFolderId: null
+//             }
+//         case REMOVE_FOLDER_SUCCESS:
+//             let indexOfFolderInState;
+//             state.folders.map((folder, index) => {
+//                 if(folder.id === action.id) {
+//                     indexOfFolderInState = index;
+//                 }
+//             });
+//             newFolders = state.folders.slice(0, indexOfFolderInState);
+//             if (state.folders[indexOfFolderInState + 1]) {
+//                 newFolders = newFolders.concat(state.folders.slice(indexOfFolderInState + 1, state.folders.length));
+//             }
+//             return {
+//                 ...state,
+//                 folders: newFolders
+//             }
+//         case GET_FOLDER_SUCCESS:
+//             return {
+//                 ...state,
+//                 folderName: action.folder.name
+//             };
+//         case CHANGE_FOLDER_NAME:
+//             return {
+//                 ...state,
+//                 folderName: action.text
+//             };
+//         case SAVE_EDITED_FOLDER:
+//             let newFolderArray = state.folders.slice();
+//             newFolderArray.map((folder, index) => {
+//                 if(folder.id === action.folder.id) {
+//                     folder.name = state.folderName;
+//                 }
+//             });
+//             return {
+//                 ...state,
+//                 folderName: '',
+//                 folders: newFolderArray
+//             };
+//         case CHANGE_TEXT_FIELD_VALUE:
+//             return {
+//                 ...state,
+//                 editedNote: {
+//                     ...state.editedNote,
+//                     textFieldValue: action.textFieldValue
+//                 }
+//             };
+//         case CHANGE_NOTE_NAME:
+//             return {
+//                 ...state,
+//                 editedNote: {
+//                     ...state.editedNote,
+//                     name: action.name
+//                 }
+//             };
+//         case GET_NOTE_SUCCESS:
+//             return {
+//                 ...state,
+//                 editedNote: {
+//                     ...state.editedNote,
+//                     name: action.note.name,
+//                     id: action.note.id,
+//                     textFieldValue: action.note.text,
+//                     folderId: action.note.parent_id
+//                 }
+//             };
+//         case CLEAR_NOTE_DATA:
+//             return {
+//                 ...state,
+//                 editedNote: {
+//                     id: null,
+//                     name: '',
+//                     textFieldValue: '',
+//                     folderId: null
+//                 }
+//             };
+//         case UPDATE_NOTE_FILTER_QUERY:
+//             debugger;
+//             return {
+//                 ...state,
+//                 notesQuery: action.query
+//             }
+//         default:
+//             return state;
+//     }
+// };
+
+// export default reducer;

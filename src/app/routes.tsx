@@ -9,10 +9,10 @@ import App from '../views/App/AppComponent';
 import NoMatch from '../views/NoMatchComponent/NoMatchComponent';
 import EditNote from '../views/EditNote/EditNote';
 import EditFolder from '../views/EditFolder/EditFolder';
-import reducer from './reducer';
+import rootReducer from './reducer';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(reducer, /* preloadedState, */ composeEnhancers(
+const store = createStore(rootReducer, /* preloadedState, */ composeEnhancers(
     applyMiddleware(thunk)
 ));
 

@@ -85,12 +85,12 @@ export class EditNote extends React.Component {
 }
 
 export const mapStateToProps = state => ({
-    params: state.note,
-    isNoteCreationMode: state.isNoteCreationMode,
-    activeFolderId: state.activeFolderId,
-    textFieldValue: state.editedNote.textFieldValue,
-    textFieldPlaceholder: state.editedNote.textFieldPlaceholder,
-    name: state.editedNote.name
+    params: state.editNote.note,
+    isNoteCreationMode: state.editNote.isNoteCreationMode,
+    activeFolderId: state.editNote.activeFolderId,
+    textFieldValue: state.editNote.editedNote.textFieldValue,
+    textFieldPlaceholder: state.editNote.editedNote.textFieldPlaceholder,
+    name: state.editNote.editedNote.name
 });
 
 export const mapDispatchToProps = dispatch => bindActionCreators({

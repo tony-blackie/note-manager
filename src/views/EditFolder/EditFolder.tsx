@@ -69,7 +69,7 @@ export class EditFolder extends React.Component {
 }
 
 export const mapStateToProps = state => ({
-    folderName: state.folderName
+    folderName: state.editFolder.folderName
 });
 
 export const mapDispatchToProps = dispatch => bindActionCreators({

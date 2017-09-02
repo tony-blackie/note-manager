@@ -73,10 +73,10 @@ export class App extends React.Component {
 }
 
 export const mapStateToProps = state => ({
-    notes: state.notes,
+    notes: state.app.notes,
     filteredNotes: filterNotes(state),
-    folders: state.folders,
-    activeFolderId: state.activeFolderId
+    folders: state.app.folders,
+    activeFolderId: state.app.activeFolderId
 });
 
 export const mapDispatchToProps = dispatch => bindActionCreators({
