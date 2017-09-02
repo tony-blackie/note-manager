@@ -12,7 +12,31 @@ import {
   clearNoteData
  } from './actions/EditNote.actions';
 
-export class EditNote extends React.Component {
+interface MappedProps {
+
+}
+
+interface Note {
+    name: string;
+    text: string;
+    activeFolderId: number | null;
+}
+
+interface MappedActions {
+    createNoteRequest: (note: Note) => void;
+}
+
+interface RouteParams {
+    noteId: string;
+}
+
+type Props = MappedActions & MappedProps;
+
+export class EditNote extends React.Component<Props> {
+    constructor(props: Props) {
+        super(props);
+    }
+
     handleSaveClick() {
         if (!this.props.routeParams.noteId) {
             this.props.createNoteRequest({
@@ -102,4 +126,4 @@ export const mapDispatchToProps = dispatch => bindActionCreators({
     clearNoteData
 }, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditNote);
+export default connect<MappedProps, MappedActions, {}>(mapStateToProps, mapDispatchToProps)(EditNote);
