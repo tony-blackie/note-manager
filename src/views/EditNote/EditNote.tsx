@@ -12,25 +12,38 @@ import {
   clearNoteData
  } from './actions/EditNote.actions';
 
-interface MappedProps {
+ interface RouteParams {
+     noteId: string;
+ }
 
+ interface OwnProps {
+     routeParams: RouteParams
+ }
+
+interface MappedProps {
+    name: string;
+    textFieldValue: string;
+    activeFolderId: number;
+    textFieldPlaceholder: string;
 }
 
 interface Note {
+    id?: string;
     name: string;
     text: string;
-    activeFolderId: number | null;
+    activeFolderId?: number | null;
 }
 
 interface MappedActions {
     createNoteRequest: (note: Note) => void;
+    editNoteRequest: (note: Note) => void;
+    changeTextFieldValue: (value: string) => void;
+    changeNoteName: (value: string) => void;
+    fetchNote: (noteId: string) => void;
+    clearNoteData: () => void;
 }
 
-interface RouteParams {
-    noteId: string;
-}
-
-type Props = MappedActions & MappedProps;
+type Props = OwnProps & MappedActions & MappedProps;
 
 export class EditNote extends React.Component<Props> {
     constructor(props: Props) {
