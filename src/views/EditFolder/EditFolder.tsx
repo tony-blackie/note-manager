@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
-import { GetFolderFn, CreateNewFolderFn, EditFolderFn } from './types';
+import { GetFolderFn, CreateNewFolderFn, EditFolderFn, HandleFolderNameChangeFn } from './types';
 import {
   getFolder,
   handleFolderNameChange,
@@ -26,7 +26,7 @@ interface MappedActions {
     getFolder: GetFolderFn;
     createNewFolder: CreateNewFolderFn;
     editFolder: EditFolderFn;
-    
+    handleFolderNameChange: HandleFolderNameChangeFn;
 }
 
 type Props = OwnProps & MappedProps & MappedActions;
@@ -39,11 +39,13 @@ export class EditFolder extends React.Component<Props> {
     handleFolderSave = (event) => {
         event.preventDefault();
 
-        if (!this.props.routeParams.id) {
-            this.props.createNewFolder(this.props.folderName);
+        const { folderName, routeParams } = this.props;
+
+        if (!routeParams.id) {
+            this.props.createNewFolder(folderName);
         } else {
-            const id: number = parseInt(this.props.routeParams.id, 10);
-            const name: string = this.props.folderName;
+            const id: number = parseInt(routeParams.id, 10);
+            const name: string = folderName;
 
             this.props.editFolder(id, name);
         }
@@ -54,6 +56,8 @@ export class EditFolder extends React.Component<Props> {
     }
 
     render() {
+        const { folderName } = this.props;
+
         return (
             <div>
                 <nav className="edit-note__nav">
@@ -75,7 +79,7 @@ export class EditFolder extends React.Component<Props> {
                             onChange={this.handleNameChange}
                             className="edit-note__name"
                             type="text"
-                            value={this.props.folderName}
+                            value={folderName}
                         />
                     </fieldset>
                 </form>
@@ -95,4 +99,4 @@ export const mapDispatchToProps = dispatch => bindActionCreators({
     createNewFolder
 }, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditFolder);
+export default connect<MappedProps, MappedActions, OwnProps>(mapStateToProps, mapDispatchToProps)(EditFolder);
