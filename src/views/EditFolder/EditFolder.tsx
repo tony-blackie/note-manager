@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
-import { GetFolderFn, CreateNewFolderFn } from './types';
+import { GetFolderFn, CreateNewFolderFn, EditFolderFn } from './types';
 import {
   getFolder,
   handleFolderNameChange,
@@ -11,7 +11,7 @@ import {
 } from './actions/EditFolder.actions';
 
 interface RouteParams {
-    id: number;
+    id: string;
 }
 
 interface OwnProps {
@@ -25,6 +25,8 @@ interface MappedProps {
 interface MappedActions {
     getFolder: GetFolderFn;
     createNewFolder: CreateNewFolderFn;
+    editFolder: EditFolderFn;
+    
 }
 
 type Props = OwnProps & MappedProps & MappedActions;
@@ -35,20 +37,19 @@ export class EditFolder extends React.Component<Props> {
     }
 
     handleFolderSave = (event) => {
-        debugger;
         event.preventDefault();
+
         if (!this.props.routeParams.id) {
             this.props.createNewFolder(this.props.folderName);
         } else {
-            this.props.editFolder({
-                id: parseInt(this.props.routeParams.id, 10),
-                name: this.props.folderName
-            });
+            const id: number = parseInt(this.props.routeParams.id, 10);
+            const name: string = this.props.folderName;
+
+            this.props.editFolder(id, name);
         }
     }
 
     handleNameChange = (event) => {
-        debugger;
         this.props.handleFolderNameChange(event.target.value);
     }
 

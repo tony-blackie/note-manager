@@ -11,6 +11,7 @@ import {
     FOLDER_CREATION_SUCCESS,
     FOLDER_CREATION_FAIL
 } from '../../actionTypes';
+import { EditFolderFn } from '../types';
 import { hashHistory } from 'react-router';
 import { baseName } from '../../../app/config';
 
@@ -71,13 +72,13 @@ export const requestFolderEdit = () => ({
     type: REQUEST_FOLDER_EDIT
 });
 
-export const editFolder = folder => dispatch => {
+export const editFolder: EditFolderFn = (id, name) => dispatch => {
     dispatch(requestFolderEdit());
 
-    return fetch(`${baseName}/folders/${folder.id}/`, {
+    return fetch(`${baseName}/folders/${id}/`, {
         method: 'PUT',
         credentials: 'same-origin',
-        body: JSON.stringify(folder),
+        body: JSON.stringify({ id, name }),
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
