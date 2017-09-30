@@ -1,7 +1,21 @@
 import * as React from 'react';
 import Note from './Note';
+import {
+    UpdateNoteFilterQueryFn, 
+    NoteType, 
+    GoToNoteEditFn, 
+    RemoveNoteFn
+} from '../types';
 
-export default class NotePanel extends React.Component {
+interface Props {
+    notes: NoteType[];
+    activeFolderId: number;
+    updateNoteFilterQuery: UpdateNoteFilterQueryFn;
+    goToNoteEdit: GoToNoteEditFn;
+    removeNote: RemoveNoteFn;
+}
+
+export default class NotePanel extends React.Component<Props> {
     updateNoteFilterQuery = (event) => {
         const text = event.target.value;
 
@@ -9,6 +23,8 @@ export default class NotePanel extends React.Component {
     }
 
     render() {
+        const { notes, activeFolderId } = this.props;
+
         return (
             <div className="note-panel">
                 <div className="note-search">
@@ -16,8 +32,8 @@ export default class NotePanel extends React.Component {
                 </div>
                 <div>
                     {
-                        this.props.notes.map((note) => {
-                            if ((note.parent === this.props.activeFolderId) || (note.parent === 0 && this.props.activeFolderId === null)) {
+                        notes.map(note => {
+                            if ((note.parent === activeFolderId) || (note.parent === 0 && activeFolderId === null)) {
                                 return (
                                   <Note
                                       key={note.id}
