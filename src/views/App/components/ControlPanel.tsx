@@ -1,21 +1,27 @@
 import * as React from 'react';
+import { GoToEditFolderFn, RemoveFolderFn, GoToFolderCreationFn, GoToNoteCreationFn } from '../types';
 
-export default class ControlPanel extends React.Component {
-    constructor(props) {
-      super(props);
+interface Props {
+    activeFolderId: number;
+    goToEditFolder: GoToEditFolderFn;
+    removeFolder: RemoveFolderFn;
+    goToFolderCreation: GoToFolderCreationFn;
+    goToNoteCreation: GoToNoteCreationFn;
+}
 
-      this.removeFolder = this.removeFolder.bind(this);
-      this.goToEditFolder = this.goToEditFolder.bind(this);
-    }
+export default class ControlPanel extends React.Component<Props> {
+    goToEditFolder = () => {
+        const { activeFolderId } = this.props;
 
-    goToEditFolder() {
-        if (this.props.activeFolderId) {
-            this.props.goToEditFolder(this.props.activeFolderId);
+        if (activeFolderId) {
+            this.props.goToEditFolder(activeFolderId);
         }
     }
 
-    removeFolder() {
-        this.props.removeFolder(this.props.activeFolderId);
+    removeFolder = () => {
+        const { activeFolderId } = this.props;
+
+        this.props.removeFolder(activeFolderId);
     }
 
     render() {

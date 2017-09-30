@@ -14,3 +14,11 @@ export type RemoveNoteFn = (id: number) => void;
 export type MakeFolderActiveFn = (id: number) => void;
 
 export type MakeFolderInactiveFn = (id: number) => void;
+
+export type GoToEditFolderFn = (id: number) => void;
+
+export type RemoveFolderFn = (id: number) => void;
+
+export type GoToFolderCreationFn = () => void;
+
+export type GoToNoteCreationFn = () => void;
