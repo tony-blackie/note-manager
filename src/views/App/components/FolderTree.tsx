@@ -1,13 +1,17 @@
 import * as React from 'react';
 import Folder from './Folder';
-import { FolderType } from '../types';
+import { FolderType, MakeFolderActiveFn, MakeFolderInactiveFn } from '../types';
 
 interface Props {
     folders: FolderType[];
+    makeFolderActive: MakeFolderActiveFn;
+    makeFolderInactive: MakeFolderInactiveFn;
 }
 
 export default class FolderTree extends React.Component<Props> {
     renderFolder = (folder, folderId) => {
+        const { folders } = this.props;
+
         return (
           <Folder
               isActive={folder.isActive}
@@ -18,7 +22,7 @@ export default class FolderTree extends React.Component<Props> {
               folderName={folder.name}
           >
               {
-                  this.props.folders.map(folder => {
+                  folders.map(folder => {
                         if(folder.parent && folder.parent === folderId) {
                             return this.renderFolder(folder, folder.id);
                         }
@@ -29,10 +33,11 @@ export default class FolderTree extends React.Component<Props> {
     }
 
     render() {
+        const { folders } = this.props;
         return (
             <div className="folder-tree">
                 {
-                    this.props.folders.map((folder, index) => {
+                    folders.map((folder, index) => {
                         if (folder.parent === 0) {
                             return this.renderFolder(folder, folder.id)
                         };
