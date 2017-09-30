@@ -11,6 +11,12 @@ import EditNote from '../views/EditNote/EditNote';
 import EditFolder from '../views/EditFolder/EditFolder';
 import rootReducer from './reducer';
 
+declare global {
+    interface Window {
+        __REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    }
+}
+
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(rootReducer, /* preloadedState, */ composeEnhancers(
     applyMiddleware(thunk)
