@@ -2,16 +2,9 @@ import * as React from 'react';
 import Note from './Note';
 
 export default class NotePanel extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.updateNoteFilterQuery = this.updateNoteFilterQuery.bind(this);
-    }
-
-    updateNoteFilterQuery(event) {
+    updateNoteFilterQuery = (event) => {
         const text = event.target.value;
 
-        // debugger;
         this.props.updateNoteFilterQuery(text);
     }
 
