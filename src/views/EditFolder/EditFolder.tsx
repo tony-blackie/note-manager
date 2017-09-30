@@ -2,6 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
+import { GetFolderFn, CreateNewFolderFn } from './types';
 import {
   getFolder,
   handleFolderNameChange,
@@ -9,21 +10,35 @@ import {
   createNewFolder
 } from './actions/EditFolder.actions';
 
-export class EditFolder extends React.Component {
-    constructor(props) {
-        super(props);
+interface RouteParams {
+    id: number;
+}
 
-        this.handleFolderSave = this.handleFolderSave.bind(this);
-        this.handleNameChange = this.handleNameChange.bind(this);
-    }
+interface OwnProps {
+    routeParams: RouteParams;
+}
+
+interface MappedProps {
+    folderName: string;
+}
+
+interface MappedActions {
+    getFolder: GetFolderFn;
+    createNewFolder: CreateNewFolderFn;
+}
+
+type Props = OwnProps & MappedProps & MappedActions;
+
+export class EditFolder extends React.Component<Props> {
     componentDidMount() {
         this.props.getFolder(this.props.routeParams.id);
     }
 
-    handleFolderSave(event) {
+    handleFolderSave = (event) => {
+        debugger;
         event.preventDefault();
         if (!this.props.routeParams.id) {
-            this.props.createNewFolder({ name: this.props.folderName });
+            this.props.createNewFolder(this.props.folderName);
         } else {
             this.props.editFolder({
                 id: parseInt(this.props.routeParams.id, 10),
@@ -32,7 +47,8 @@ export class EditFolder extends React.Component {
         }
     }
 
-    handleNameChange(event) {
+    handleNameChange = (event) => {
+        debugger;
         this.props.handleFolderNameChange(event.target.value);
     }
 

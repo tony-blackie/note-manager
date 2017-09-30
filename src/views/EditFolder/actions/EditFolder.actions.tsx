@@ -95,20 +95,20 @@ export const editFolder = folder => dispatch => {
     });
 }
 
-export const createNewFolder = folder => dispatch => {
+export const createNewFolder = folderName => dispatch => {
     dispatch(requestFolderCreation());
 
     return fetch(`${baseName}/folder`, {
         method: 'PUT',
         credentials: 'same-origin',
-        body: JSON.stringify(folder),
+        body: JSON.stringify({ name: folderName }),
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         }
     })
     .then(response => {
-        dispatch(handleSuccessfulFolderCreation(folder));
+        dispatch(handleSuccessfulFolderCreation(folderName));
 
         hashHistory.push('/');
     })
