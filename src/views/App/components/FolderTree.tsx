@@ -1,21 +1,18 @@
 import * as React from 'react';
 import Folder from './Folder';
+import { FolderType } from '../types';
 
-export default class FolderTree extends React.Component {
-    constructor(props) {
-        super(props);
+interface Props {
+    folders: FolderType[];
+}
 
-        this.renderFolder = this.renderFolder.bind(this);
-    }
-
-    renderFolder(folder, folderId) {
+export default class FolderTree extends React.Component<Props> {
+    renderFolder = (folder, folderId) => {
         return (
           <Folder
-              folderIcon={folder.isOpen ? 'open' : 'closed'}
               isActive={folder.isActive}
               key={folderId}
               id={folderId}
-              onClick={this.openFolder}
               makeFolderActive={this.props.makeFolderActive}
               makeFolderInactive={this.props.makeFolderInactive}
               folderName={folder.name}

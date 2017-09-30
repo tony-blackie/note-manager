@@ -5,6 +5,14 @@ export interface NoteType {
     text: string;
 }
 
+export interface FolderType {
+    id: number;
+    parent: number;
+    isActive: boolean;
+    isOpen: boolean;
+    name: string;
+}
+
 export type UpdateNoteFilterQueryFn = (text: string) => void;
 
 export type GoToNoteEditFn = (id: number) => void;
