@@ -1,35 +1,46 @@
 import * as React from 'react';
+import { MakeFolderActiveFn, MakeFolderInactiveFn } from '../types';
 
-export default class Folder extends React.Component {
-    constructor(props) {
-        super(props);
+interface State {
+    isOpen: boolean;
+}
 
-        this.state = {
-            isOpen: false
-        }
+interface Props {
+    isActive: boolean;
+    id: number;
+    folderName: string;
+    makeFolderActive: MakeFolderActiveFn;
+    makeFolderInactive: MakeFolderInactiveFn;
+}
 
-        this.openFolder = this.openFolder.bind(this);
-        this.handleFolderClick = this.handleFolderClick.bind(this);
-    }
+export default class Folder extends React.Component<Props, State> {
+    state: State = {
+        isOpen: false
+    };
 
-    openFolder() {
+    openFolder = () => {
         this.setState({isOpen: !this.state.isOpen})
     }
 
-    handleFolderClick() {
+    handleFolderClick = () => {
         this.openFolder();
-        if (this.props.isActive) {
-            this.props.makeFolderInactive(this.props.id);
+
+        const { id, isActive } = this.props;
+
+        if (isActive) {
+            this.props.makeFolderInactive(id);
         } else {
-            this.props.makeFolderActive(this.props.id);
+            this.props.makeFolderActive(id);
         }
     }
 
     render() {
-        const note = {name: 'someName'};
-        const folderIcon = this.state.isOpen ? 'folder-open' : 'folder';
-        const className = this.state.isOpen ? 'open' : 'closed';
-        const isActiveClass = this.props.isActive ? 'folder_active': '';
+        const { folderName, children, isActive } = this.props;
+        const { isOpen } = this.state;
+
+        const folderIcon = isOpen ? 'folder-open' : 'folder';
+        const className = isOpen ? 'open' : 'closed';
+        const isActiveClass = isActive ? 'folder_active': '';
 
         return (
             <div
@@ -37,11 +48,9 @@ export default class Folder extends React.Component {
             >
                 <div onClick={this.handleFolderClick} className={`folder ${isActiveClass}`}>
                     <i className={`folder__icon fa fa-${folderIcon} fa-lg`}></i>
-                    <span className="folder__name">{this.props.folderName}</span>
+                    <span className="folder__name">{folderName}</span>
                 </div>
-                {
-                    this.props.children
-                }
+                {children}
             </div>
         );
     }
