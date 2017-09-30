@@ -30,3 +30,7 @@ export type RemoveFolderFn = (id: number) => void;
 export type GoToFolderCreationFn = () => void;
 
 export type GoToNoteCreationFn = () => void;
+
+export type GetAllNotesFn = () => void;
+
+export type GetAllFoldersFn = () => void;

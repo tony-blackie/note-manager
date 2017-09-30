@@ -23,7 +23,44 @@ import {
   updateNoteFilterQuery
 } from './actions/AppComponent.actions';
 
-export class App extends React.Component {
+import {
+    GetAllNotesFn,
+    GetAllFoldersFn,
+    NoteType,
+    FolderType,
+    GoToNoteEditFn,
+    GoToEditFolderFn,
+    MakeFolderActiveFn,
+    MakeFolderInactiveFn,
+    GoToNoteCreationFn,
+    GoToFolderCreationFn,
+    RemoveFolderFn,
+    RemoveNoteFn
+} from './types';
+
+interface MappedProps {
+    notes: NoteType[];
+    filteredNotes: NoteType[];
+    folders: FolderType[];
+    activeFolderId: number;
+}
+
+interface MappedActions {
+    getAllNotes: GetAllNotesFn;
+    getAllFolders: GetAllFoldersFn;
+    goToNoteEdit: GoToNoteEditFn;
+    goToEditFolder: GoToEditFolderFn;
+    makeFolderActive: MakeFolderActiveFn;
+    makeFolderInactive: MakeFolderInactiveFn;
+    goToNoteCreation: GoToNoteCreationFn;
+    goToFolderCreation: GoToFolderCreationFn;
+    removeFolder: RemoveFolderFn;
+    removeNote: RemoveNoteFn;
+}
+
+type Props = MappedProps & MappedActions;
+
+export class App extends React.Component<Props> {
     componentDidMount() {
         this.props.getAllNotes();
         this.props.getAllFolders();
@@ -93,4 +130,4 @@ export const mapDispatchToProps = dispatch => bindActionCreators({
     updateNoteFilterQuery
 }, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect<MappedProps, MappedActions, {}>(mapStateToProps, mapDispatchToProps)(App);
