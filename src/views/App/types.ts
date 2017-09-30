@@ -7,6 +7,6 @@ export interface NoteType {
 
 export type UpdateNoteFilterQueryFn = (text: string) => void;
 
-export type GoToNoteEditFn = () => void;
+export type GoToNoteEditFn = (id: number) => void;
 
-export type RemoveNoteFn = () => void;
+export type RemoveNoteFn = (id: number) => void;

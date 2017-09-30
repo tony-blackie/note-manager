@@ -39,7 +39,6 @@ export default class NotePanel extends React.Component<Props> {
                                       key={note.id}
                                       id={note.id}
                                       name={note.name}
-                                      text={note.text}
                                       goToNoteEdit={this.props.goToNoteEdit}
                                       removeNote={this.props.removeNote}
                                   />

@@ -1,28 +1,36 @@
 import * as React from 'react';
+import { GoToNoteEditFn, RemoveNoteFn } from '../types';
 
-export default class Note extends React.Component {
-    constructor(props) {
-        super(props);
-        this.goToNoteEdit = this.goToNoteEdit.bind(this);
-        this.removeNote = this.removeNote.bind(this);
+interface Props {
+    name: string;
+    id: number;
+    goToNoteEdit: GoToNoteEditFn;
+    removeNote: RemoveNoteFn;
+}
+
+export default class Note extends React.Component<Props> {
+    goToNoteEdit = () => {
+        const { id } = this.props;
+
+        this.props.goToNoteEdit(id);
     }
 
-    goToNoteEdit() {
-        this.props.goToNoteEdit(this.props.id);
-    }
+    removeNote = () => {
+        const { id } = this.props;
 
-    removeNote() {
-        this.props.removeNote(this.props.id);
+        this.props.removeNote(id);
     }
 
     render() {
+        const { name } = this.props;
+
         return (
             <div className="note">
                 <div className="note__remove" onClick={this.removeNote}>X</div>
                 <div onClick={this.goToNoteEdit} className="note__icon-wrapper">
                     <i className="fa fa-file-text-o fa-3x note__item"></i>
                     <div className="note__text">
-                        <span>{this.props.name}</span>
+                        <span>{name}</span>
                     </div>
                 </div>
             </div>
