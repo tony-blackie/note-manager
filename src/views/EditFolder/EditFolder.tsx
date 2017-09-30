@@ -4,7 +4,6 @@ import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 import {
   getFolder,
-  saveEditedFolder,
   handleFolderNameChange,
   editFolder,
   createNewFolder
@@ -74,7 +73,6 @@ export const mapStateToProps = state => ({
 
 export const mapDispatchToProps = dispatch => bindActionCreators({
     getFolder,
-    saveEditedFolder,
     handleFolderNameChange,
     editFolder,
     createNewFolder
