@@ -13,24 +13,47 @@ export interface FolderType {
     name: string;
 }
 
-export type UpdateNoteFilterQueryFn = (text: string) => void;
+export interface TypedAction {
+    type: string;
+    payload?: any;
+}
 
-export type GoToNoteEditFn = (id: number) => void;
+export type GoToNoteEditFn = (id: number) => (dispatch: (obj: any) => void) => void;
 
-export type RemoveNoteFn = (id: number) => void;
+export type MakeFolderActiveFn = (id: number) => (dispatch: (obj: TypedAction) => void) => void;
 
-export type MakeFolderActiveFn = (id: number) => void;
+export type MakeFolderInactiveFn = (id: number) => (dispatch: (obj: TypedAction) => void) => void;
 
-export type MakeFolderInactiveFn = (id: number) => void;
+export type GoToEditFolderFn = (id: number) => (dispatch: (obj: TypedAction) => void) => void;
 
-export type GoToEditFolderFn = (id: number) => void;
+export type RemoveFolderFn = (id: number) => (dispatch: (obj: TypedAction) => void) => void;
 
-export type RemoveFolderFn = (id: number) => void;
+export type GoToFolderCreationFn = () => (dispatch: (obj: TypedAction) => void) => void;
 
-export type GoToFolderCreationFn = () => void;
+export type GoToNoteCreationFn = () => (dispatch: (obj: any) => void) => void;
 
-export type GoToNoteCreationFn = () => void;
+export type GetAllFoldersFn = () => (dispatch: (obj: TypedAction) => void) => void;
 
-export type GetAllNotesFn = () => void;
+export type HandleSuccessfulGetAllNotesFn = (response: NoteType[]) => TypedAction;
 
-export type GetAllFoldersFn = () => void;
+export type HandleFailedGetAllNotesFn = (error: any) => TypedAction;
+
+export type RequestAllNotesFn = () => TypedAction;
+
+export type GetAllNotesFn = () => (dispatch: (callback: any) => void) => void;
+
+export type HandleSuccessfulDeleteNoteFn = (id: number) => TypedAction;
+
+export type HandleFailedDeleteNoteFn = (error: any) => TypedAction;
+
+export type RemoveNoteFn = (id: number) => (dispatch: (callback: any) => void) => void;
+
+export type HandleSuccessfulGetAllFoldersFn = (response: FolderType[]) => TypedAction;
+
+export type HandleFailedGetAllFoldersFn = (error: any) => TypedAction;
+
+export type HandleSuccessfulDeleteFolderFn = (id: number) => TypedAction;
+
+export type HandleFailedDeleteFolderFn = (error: any) => TypedAction;
+
+export type UpdateNoteFilterQueryFn = (query: string) => (dispatch: (obj: TypedAction) => void) => void;

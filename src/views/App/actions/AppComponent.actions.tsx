@@ -18,24 +18,49 @@ import {
     GO_TO_FOLDER_CREATION,
     UPDATE_NOTE_FILTER_QUERY
 } from '../../actionTypes';
+import {
+    NoteType, 
+    GoToNoteEditFn, 
+    GoToNoteCreationFn,
+    MakeFolderActiveFn,
+    MakeFolderInactiveFn,
+    TypedAction,
+    FolderType,
+    GetAllFoldersFn,
+    RemoveFolderFn,
+    GoToEditFolderFn,
+    GoToFolderCreationFn,
+    HandleSuccessfulGetAllNotesFn,
+    HandleFailedGetAllNotesFn,
+    RequestAllNotesFn,
+    GetAllNotesFn,
+    HandleSuccessfulDeleteFolderFn,
+    HandleSuccessfulDeleteNoteFn,
+    HandleFailedDeleteNoteFn,
+    RemoveNoteFn,
+    HandleSuccessfulGetAllFoldersFn,
+    HandleFailedGetAllFoldersFn,
+    HandleFailedDeleteFolderFn,
+    UpdateNoteFilterQueryFn
+} from '../types';
 import { hashHistory } from 'react-router';
 import { baseName } from '../../../app/config';
 
-export const handleSuccessfulGetAllNotes = response => ({
+export const handleSuccessfulGetAllNotes: HandleSuccessfulGetAllNotesFn = response => ({
     type: GET_ALL_NOTES_SUCCESS,
     payload: response
 });
 
-export const handleFailedGetAllNotes = error => ({
+export const handleFailedGetAllNotes: HandleFailedGetAllNotesFn = error => ({
     type: GET_ALL_NOTES_FAIL,
     payload: error
 });
 
-export const requestAllNotes = () => ({
+export const requestAllNotes: RequestAllNotesFn = () => ({
     type: GET_ALL_NOTES
 });
 
-export const getAllNotes = () => dispatch => {
+export const getAllNotes: GetAllNotesFn = () => dispatch => {
     dispatch(requestAllNotes());
 
     return fetch(`${baseName}/notes/`, {
@@ -51,29 +76,29 @@ export const getAllNotes = () => dispatch => {
     .catch(error => dispatch(handleFailedGetAllNotes(error)));
 };
 
-export const goToNoteEdit = id => dispatch => {
+export const goToNoteEdit: GoToNoteEditFn = id => dispatch => {
     dispatch({type: GO_TO_NOTE_EDIT});
 
     hashHistory.push(`/notes/${id}/`);
 };
 
-export const goToNoteCreation = () => dispatch => {
+export const goToNoteCreation: GoToNoteCreationFn = () => dispatch => {
     dispatch({ type: GO_TO_NOTE_CREATION });
 
     hashHistory.push(`/notes`);
 }
 
-export const handleSuccessfulDeleteNote = id => ({
+export const handleSuccessfulDeleteNote: HandleSuccessfulDeleteNoteFn = id => ({
     type: REMOVE_NOTE_SUCCESS,
-    payload: id
+    payload: { id }
 });
 
-export const handleFailedDeleteNote = error => ({
+export const handleFailedDeleteNote: HandleFailedDeleteNoteFn = error => ({
     type: REMOVE_NOTE_FAIL,
-    error
+    payload: { error }
 });
 
-export const removeNote = id => dispatch => {
+export const removeNote: RemoveNoteFn = id => dispatch => {
     dispatch({ type: REMOVE_NOTE });
 
     return fetch(`${baseName}/notes/${id}`, {
@@ -89,25 +114,25 @@ export const removeNote = id => dispatch => {
     .catch(error => dispatch(handleFailedDeleteNote(error)));
 }
 
-export const makeFolderActive = id => dispatch => {
-    dispatch({ type: MAKE_FOLDER_ACTIVE, id });
+export const makeFolderActive: MakeFolderActiveFn = id => dispatch => {
+    dispatch({ type: MAKE_FOLDER_ACTIVE, payload: { id } });
 }
 
-export const makeFolderInactive = id => dispatch => {
-    dispatch({ type: MAKE_FOLDER_INACTIVE, id });
+export const makeFolderInactive: MakeFolderInactiveFn = id => dispatch => {
+    dispatch({ type: MAKE_FOLDER_INACTIVE, payload: { id } });
 }
 
-export const handleSuccessfulGetAllFolders = folders => ({
+export const handleSuccessfulGetAllFolders: HandleSuccessfulGetAllFoldersFn = folders => ({
     type: REQUEST_ALL_FOLDERS_SUCCESS,
     payload: folders
 });
 
-export const handleFailedGetAllFolders = error => ({
+export const handleFailedGetAllFolders: HandleFailedGetAllFoldersFn = error => ({
     type: REQUEST_ALL_FOLDERS_FAIL,
-    error
+    payload: { error }
 });
 
-export const getAllFolders = () => dispatch => {
+export const getAllFolders: GetAllFoldersFn = () => dispatch => {
     dispatch({type: REQUEST_ALL_FOLDERS})
 
     return fetch(`${baseName}/folders`, {
@@ -123,17 +148,17 @@ export const getAllFolders = () => dispatch => {
     .catch(error => dispatch(handleFailedGetAllFolders(error)));
 }
 
-export const handleSuccessfulDeleteFolder = id => ({
+export const handleSuccessfulDeleteFolder: HandleSuccessfulDeleteFolderFn = id => ({
     type: REMOVE_FOLDER_SUCCESS,
-    id
+    payload: { id }
 });
 
-export const handleFailedDeleteFolder = error => ({
+export const handleFailedDeleteFolder: HandleFailedDeleteFolderFn = error => ({
     type: REMOVE_FOLDER_FAIL,
-    error
+    payload: { error }
 });
 
-export const removeFolder = id => dispatch => {
+export const removeFolder: RemoveFolderFn = id => dispatch => {
     return fetch(`${baseName}/folders/${id}`, {
         method: 'DELETE',
         credentials: 'same-origin',
@@ -147,19 +172,18 @@ export const removeFolder = id => dispatch => {
     .catch(error => dispatch(handleFailedDeleteFolder(error)));
 }
 
-export const goToEditFolder = id => dispatch => {
+export const goToEditFolder: GoToEditFolderFn = id => dispatch => {
     dispatch({type: GO_TO_EDIT_FOLDER});
 
     hashHistory.push(`/folder/${id}`);
 };
 
-export const goToFolderCreation = () => dispatch => {
+export const goToFolderCreation: GoToFolderCreationFn = () => dispatch => {
     dispatch({ type: GO_TO_FOLDER_CREATION });
 
     hashHistory.push('/folder');
 };
 
-export const updateNoteFilterQuery = query => dispatch => {
-    debugger;
-    dispatch({ type: UPDATE_NOTE_FILTER_QUERY, query });
+export const updateNoteFilterQuery: UpdateNoteFilterQueryFn = query => dispatch => {
+    dispatch({ type: UPDATE_NOTE_FILTER_QUERY, payload: { query } });
 };

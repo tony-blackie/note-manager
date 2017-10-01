@@ -27,14 +27,14 @@ const appReducer = (state, action) => {
             newFoldersArray = state.folders.slice();
 
             state.folders.map((folder, index) => {
-                if(folder.id === action.id) {
+                if(folder.id === action.payload.id) {
                     clickedFolder = folder;
                     clickedFolderIndex = index;
                 }
             });
 
             newFoldersArray.map((folder, index) => {
-                if(folder.id !== action.id) {
+                if(folder.id !== action.padyload.id) {
                     folder.isActive = false;
                 }
             });
@@ -45,20 +45,20 @@ const appReducer = (state, action) => {
             return {
                 ...state,
                 folders: newFoldersArray,
-                activeFolderId: action.id
+                activeFolderId: action.payload.id
             };
         case MAKE_FOLDER_INACTIVE:
             newFoldersArray = state.folders.slice();
 
             state.folders.map((folder, index) => {
-                if(folder.id === action.id) {
+                if(folder.id === action.payload.id) {
                     clickedFolder = folder;
                     clickedFolderIndex = index;
                 }
             });
 
             newFoldersArray.map((folder, index) => {
-                if(folder.id !== action.id) {
+                if(folder.id !== action.payload.id) {
                     folder.isActive = false;
                 }
             });
@@ -85,8 +85,9 @@ const appReducer = (state, action) => {
             };
         case REMOVE_NOTE_SUCCESS:
             let indexOfNoteInState;
+
             state.notes.map((note, index) => {
-                if(note.id === action.payload) {
+                if(note.id === action.payload.id) {
                     indexOfNoteInState = index;
                 }
             });
@@ -119,7 +120,7 @@ const appReducer = (state, action) => {
         case REMOVE_FOLDER_SUCCESS:
             let indexOfFolderInState;
             state.folders.map((folder, index) => {
-                if(folder.id === action.id) {
+                if(folder.id === action.payload.id) {
                     indexOfFolderInState = index;
                 }
             });
@@ -132,10 +133,9 @@ const appReducer = (state, action) => {
                 folders: newFolders
             }
         case UPDATE_NOTE_FILTER_QUERY:
-            debugger;
             return {
                 ...state,
-                notesQuery: action.query
+                notesQuery: action.payload.query
             }
         default:
             return state;
