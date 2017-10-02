@@ -18,6 +18,13 @@ export interface TypedAction {
     payload?: any;
 }
 
+export interface AppComponentState {
+    folders: FolderType[];
+    notes: NoteType[];
+    activeFolderId: number | null;
+    notesQuery: string;
+}
+
 export type GoToNoteEditFn = (id: number) => (dispatch: (obj: any) => void) => void;
 
 export type MakeFolderActiveFn = (id: number) => (dispatch: (obj: TypedAction) => void) => void;

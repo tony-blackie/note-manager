@@ -10,8 +10,9 @@ import {
   GET_NOTE_FAIL,
   CLEAR_NOTE_DATA
 } from './constants';
+import { EditNoteState, TypedAction } from './types';
 
-const editNoteReducer = (state, action) => {
+const editNoteReducer = (state: EditNoteState, action: TypedAction) => {
     let newFoldersArray,
         clickedFolder,
         clickedFolderIndex;

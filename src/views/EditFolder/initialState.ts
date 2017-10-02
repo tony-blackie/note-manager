@@ -1,8 +1,6 @@
-interface State {
-    folderName: string;
-}
+import { EditFolderState } from './types';
 
-const initialState: State = {
+const initialState: EditFolderState = {
     folderName: '',
 };
 

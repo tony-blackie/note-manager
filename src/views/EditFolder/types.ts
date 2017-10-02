@@ -1,3 +1,7 @@
+export interface EditFolderState {
+    folderName: string;
+}
+
 export type GetFolderFn = (id: string) => void;
 
 export type CreateNewFolderFn = (folderName: string) => void;

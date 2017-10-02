@@ -1,4 +1,6 @@
-const initialState = {
+import { FolderType, NoteType, AppComponentState } from './types';
+
+const initialState: AppComponentState = {
     folders: [
         {
             id: 1,

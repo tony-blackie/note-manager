@@ -1,4 +1,6 @@
-const initialState = {
+import { EditNoteState } from './types';
+
+const initialState: EditNoteState = {
     editedNote: {
         id: null,
         name: '',
