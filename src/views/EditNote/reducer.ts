@@ -31,7 +31,7 @@ const editNoteReducer = (state: EditNoteState, action: TypedAction) => {
                 ...state,
                 editedNote: {
                     ...state.editedNote,
-                    textFieldValue: action.textFieldValue
+                    textFieldValue: action.payload.textFieldValue
                 }
             };
         case CHANGE_NOTE_NAME:
@@ -39,18 +39,19 @@ const editNoteReducer = (state: EditNoteState, action: TypedAction) => {
                 ...state,
                 editedNote: {
                     ...state.editedNote,
-                    name: action.name
+                    name: action.payload.name
                 }
             };
         case GET_NOTE_SUCCESS:
+        const { name, id, text, parent_id } = action.payload;
             return {
                 ...state,
                 editedNote: {
                     ...state.editedNote,
-                    name: action.note.name,
-                    id: action.note.id,
-                    textFieldValue: action.note.text,
-                    folderId: action.note.parent_id
+                    name,
+                    id,
+                    textFieldValue: text,
+                    folderId: parent_id
                 }
             };
         case CLEAR_NOTE_DATA:

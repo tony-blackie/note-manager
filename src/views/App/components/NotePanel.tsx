@@ -2,10 +2,10 @@ import * as React from 'react';
 import Note from './Note';
 import {
     UpdateNoteFilterQueryFn, 
-    NoteType, 
     GoToNoteEditFn, 
     RemoveNoteFn
 } from '../types';
+import { NoteType } from '../../../generic/types';
 
 interface Props {
     notes: NoteType[];

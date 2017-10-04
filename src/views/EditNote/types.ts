@@ -1,3 +1,5 @@
+import { FolderType, NoteType, TypedAction } from '../../generic/types';
+
 export interface EditedNote {
     id: number | null;
     name: string;

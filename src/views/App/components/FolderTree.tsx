@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Folder from './Folder';
-import { FolderType, MakeFolderActiveFn, MakeFolderInactiveFn } from '../types';
+import { MakeFolderActiveFn, MakeFolderInactiveFn } from '../types';
+import { FolderType } from '../../../generic/types';
 
 interface Props {
     folders: FolderType[];

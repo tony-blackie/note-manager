@@ -19,13 +19,10 @@ import {
     UPDATE_NOTE_FILTER_QUERY
 } from '../../actionTypes';
 import {
-    NoteType, 
     GoToNoteEditFn, 
     GoToNoteCreationFn,
     MakeFolderActiveFn,
     MakeFolderInactiveFn,
-    TypedAction,
-    FolderType,
     GetAllFoldersFn,
     RemoveFolderFn,
     GoToEditFolderFn,
@@ -43,6 +40,7 @@ import {
     HandleFailedDeleteFolderFn,
     UpdateNoteFilterQueryFn
 } from '../types';
+import { FolderType, NoteType, TypedAction } from '../../../generic/types';
 import { hashHistory } from 'react-router';
 import { baseName } from '../../../app/config';
 

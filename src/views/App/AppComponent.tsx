@@ -26,8 +26,6 @@ import {
 import {
     GetAllNotesFn,
     GetAllFoldersFn,
-    NoteType,
-    FolderType,
     GoToNoteEditFn,
     GoToEditFolderFn,
     MakeFolderActiveFn,
@@ -37,6 +35,7 @@ import {
     RemoveFolderFn,
     RemoveNoteFn
 } from './types';
+import { FolderType, NoteType } from '../../generic/types';
 
 interface MappedProps {
     notes: NoteType[];

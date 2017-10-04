@@ -15,11 +15,14 @@ import {
   CLEAR_NOTE_DATA
 } from '../../actionTypes';
 import { baseName } from '../../../app/config';
+import { FolderType, NoteType, TypedAction } from '../../../generic/types';
+
+export type handleEditNoteSuccessFn = (NoteType) => TypedAction;
 
 export const handleEditNoteSuccess = response => {
     hashHistory.push('/');
 
-    return ({type: EDIT_EXISTING_NOTE_SUCCESS, payload: response});
+    return ({ type: EDIT_EXISTING_NOTE_SUCCESS, payload: response });
 }
 
 export const handleEditNoteFail = error => {
@@ -56,7 +59,7 @@ export const handleFailedNoteCreation = error => {
 };
 
 export const createNoteRequest = note => dispatch => {
-    dispatch({type: CREATE_NEW_NOTE});
+    dispatch({ type: CREATE_NEW_NOTE });
 
     return fetch(`${baseName}/note`, {
         method: 'POST',
@@ -80,12 +83,12 @@ export const changeNoteName = name => dispatch => (
 
 export const handleSuccessfulNoteResponse = response => ({
     type: GET_NOTE_SUCCESS,
-    note: response
+    payload: { note: response }
 });
 
 export const handleFailedNoteResponse = error => ({
     type: GET_NOTE_FAIL,
-    error: error
+    payload: { error: error }
 });
 
 export const fetchNote = id => dispatch => {

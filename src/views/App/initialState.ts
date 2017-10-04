@@ -1,4 +1,5 @@
-import { FolderType, NoteType, AppComponentState } from './types';
+import { AppComponentState } from './types';
+import { FolderType, NoteType } from '../../generic/types';
 
 const initialState: AppComponentState = {
     folders: [
