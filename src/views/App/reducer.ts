@@ -1,4 +1,4 @@
-import initialState from './initialState';
+// import initialState from './initialState';
 import {
   MAKE_FOLDER_ACTIVE,
   MAKE_FOLDER_INACTIVE,
@@ -12,15 +12,21 @@ import {
   REMOVE_FOLDER_FAIL,
   UPDATE_NOTE_FILTER_QUERY
 } from './constants';
+import { AppComponentState } from './types';
 
-const appReducer = (state, action) => {
+const appReducer = (state: AppComponentState = {
+    folders: [],
+    notes: [],
+    activeFolderId: null,
+    notesQuery: ''
+}, action) => {
     let newFoldersArray,
         clickedFolder,
         clickedFolderIndex;
 
-    if (typeof state === 'undefined') {
-        return initialState;
-    }
+    // if (typeof state === 'undefined') {
+    //     return initialState;
+    // }
 
     switch(action.type) {
         case MAKE_FOLDER_ACTIVE:

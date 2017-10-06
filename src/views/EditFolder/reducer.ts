@@ -1,4 +1,4 @@
-import initialState from './initialState';
+import { EditFolderState } from './types';
 import {
   GET_FOLDER_SUCCESS,
   CHANGE_FOLDER_NAME,
@@ -7,14 +7,12 @@ import {
   FOLDER_CREATION_FAIL
 } from './constants';
 
-const editFolderReducer = (state, action) => {
+const editFolderReducer = (state: EditFolderState = {
+    folderName: '',
+}, action) => {
     let newFoldersArray,
         clickedFolder,
         clickedFolderIndex;
-
-    if (typeof state === 'undefined') {
-        return initialState;
-    }
 
     switch(action.type) {
         case GET_FOLDER_SUCCESS:
@@ -28,6 +26,7 @@ const editFolderReducer = (state, action) => {
                 folderName: action.text
             };
         case SAVE_EDITED_FOLDER:
+        // TODO: state.folders are not available in this reducer. Fix this
             let newFolderArray = state.folders.slice();
             newFolderArray.map((folder, index) => {
                 if(folder.id === action.folder.id) {

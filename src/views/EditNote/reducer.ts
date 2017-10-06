@@ -1,4 +1,3 @@
-import initialState from './initialState';
 import {
   EDIT_EXISTING_NOTE,
   EDIT_EXISTING_NOTE_SUCCESS,
@@ -12,14 +11,19 @@ import {
 } from './constants';
 import { EditNoteState, TypedAction } from './types';
 
-const editNoteReducer = (state: EditNoteState, action: TypedAction) => {
+const editNoteReducer = (state: EditNoteState = {
+    editedNote: {
+        id: null,
+        name: '',
+        textFieldValue: '',
+        textFieldPlaceholder: '',
+        folderId: null
+    },
+    isNoteCreationMode: false
+}, action: TypedAction) => {
     let newFoldersArray,
         clickedFolder,
         clickedFolderIndex;
-
-    if (typeof state === 'undefined') {
-        return initialState;
-    }
 
     switch(action.type) {
         case EDIT_EXISTING_NOTE:
