@@ -40,7 +40,7 @@ const appReducer = (state: AppComponentState = {
             });
 
             newFoldersArray.map((folder, index) => {
-                if(folder.id !== action.padyload.id) {
+                if(folder.id !== action.payload.id) {
                     folder.isActive = false;
                 }
             });
