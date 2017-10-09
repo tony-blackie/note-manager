@@ -34,7 +34,7 @@ export const handleEditNoteFail = error => {
 export const editNoteRequest = note => dispatch => {
     dispatch({type: EDIT_EXISTING_NOTE});
 
-    return fetch(`${baseName}/notes/${note.id}/`, {
+    return fetch(`${baseName}/note/${note.id}/`, {
         method: 'PUT',
         body: JSON.stringify(note),
         headers: {
@@ -96,7 +96,7 @@ export const handleFailedNoteResponse = error => ({
 export const fetchNote = id => dispatch => {
     dispatch({ type: REQUEST_NOTE_FETCH });
 
-    return fetch(`${baseName}/notes/${id}/`, {
+    return fetch(`${baseName}/note/${id}/`, {
         method: 'GET',
         credentials: 'same-origin',
         headers: {

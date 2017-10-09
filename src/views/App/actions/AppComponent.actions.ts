@@ -61,7 +61,7 @@ export const requestAllNotes: RequestAllNotesFn = () => ({
 export const getAllNotes: GetAllNotesFn = () => dispatch => {
     dispatch(requestAllNotes());
 
-    return fetch(`${baseName}/notes/`, {
+    return fetch(`${baseName}/note/`, {
         method: 'GET',
         credentials: 'same-origin',
         headers: {
@@ -77,13 +77,13 @@ export const getAllNotes: GetAllNotesFn = () => dispatch => {
 export const goToNoteEdit: GoToNoteEditFn = id => dispatch => {
     dispatch({type: GO_TO_NOTE_EDIT});
 
-    hashHistory.push(`/notes/${id}/`);
+    hashHistory.push(`/note/${id}/`);
 };
 
 export const goToNoteCreation: GoToNoteCreationFn = () => dispatch => {
     dispatch({ type: GO_TO_NOTE_CREATION });
 
-    hashHistory.push(`/notes`);
+    hashHistory.push(`/note`);
 }
 
 export const handleSuccessfulDeleteNote: HandleSuccessfulDeleteNoteFn = id => ({
@@ -99,7 +99,7 @@ export const handleFailedDeleteNote: HandleFailedDeleteNoteFn = error => ({
 export const removeNote: RemoveNoteFn = id => dispatch => {
     dispatch({ type: REMOVE_NOTE });
 
-    return fetch(`${baseName}/notes/${id}`, {
+    return fetch(`${baseName}/note/${id}`, {
         method: 'DELETE',
         credentials: 'same-origin',
         headers: {
@@ -133,7 +133,7 @@ export const handleFailedGetAllFolders: HandleFailedGetAllFoldersFn = error => (
 export const getAllFolders: GetAllFoldersFn = () => dispatch => {
     dispatch({type: REQUEST_ALL_FOLDERS})
 
-    return fetch(`${baseName}/folders`, {
+    return fetch(`${baseName}/folder`, {
         method: 'GET',
         credentials: 'same-origin',
         headers: {
@@ -157,7 +157,7 @@ export const handleFailedDeleteFolder: HandleFailedDeleteFolderFn = error => ({
 });
 
 export const removeFolder: RemoveFolderFn = id => dispatch => {
-    return fetch(`${baseName}/folders/${id}`, {
+    return fetch(`${baseName}/folder/${id}`, {
         method: 'DELETE',
         credentials: 'same-origin',
         headers: {

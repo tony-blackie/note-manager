@@ -1,8 +1,8 @@
 import * as React from 'react';
 import Note from './Note';
 import {
-    UpdateNoteFilterQueryFn, 
-    GoToNoteEditFn, 
+    UpdateNoteFilterQueryFn,
+    GoToNoteEditFn,
     RemoveNoteFn
 } from '../types';
 import { NoteType } from '../../../generic/types';

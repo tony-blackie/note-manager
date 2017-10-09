@@ -42,7 +42,7 @@ export const requestFolder = () => ({
 export const getFolder = id => dispatch => {
     dispatch(requestFolder());
 
-    return fetch(`${baseName}/folders/${id}/`, {
+    return fetch(`${baseName}/folder/${id}/`, {
         method: 'GET',
         credentials: 'same-origin',
         headers: {
@@ -75,7 +75,7 @@ export const requestFolderEdit = () => ({
 export const editFolder: EditFolderFn = (id, name) => dispatch => {
     dispatch(requestFolderEdit());
 
-    return fetch(`${baseName}/folders/${id}/`, {
+    return fetch(`${baseName}/folder/${id}/`, {
         method: 'PUT',
         credentials: 'same-origin',
         body: JSON.stringify({ id, name }),

@@ -39,7 +39,7 @@ export default class Folder extends React.Component<Props, State> {
             this.props.makeFolderInactive(id);
             this.closeFolder();
         }
-        
+
         if (isOpen && !isActive) {
             this.closeFolder();
         }
