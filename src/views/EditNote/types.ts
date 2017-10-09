@@ -17,3 +17,16 @@ export interface TypedAction {
     type: string;
     payload?: any;
 }
+
+interface NoteRequestBody {
+    id?: string;
+    name: string;
+    text: string;
+    activeFolderId?: number | null;
+}
+
+export type CreateNoteRequestFn = (note: NoteRequestBody) => void;
+
+export type ChangeTextFieldValueFn = (value: string) => void;
+
+export type FetchNoteFn = (noteId: string) => void;

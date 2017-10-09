@@ -6,6 +6,7 @@ import { createStructuredSelector } from 'reselect';
 
 import { selectIsNoteCreationMode, selectEditedNote } from './selectors';
 import { NoteType } from '../../generic/types';
+import { CreateNoteRequestFn, ChangeTextFieldValueFn, FetchNoteFn, EditNoteState } from './types';
 
 import {
   editNoteRequest,
@@ -37,27 +38,26 @@ interface EditedNote {
     textFieldPlaceholder: string;
 }
 
-interface NoteRequestBody {
-    id?: string;
-    name: string;
-    text: string;
-    activeFolderId?: number | null;
-}
-
-
-
 interface MappedActions {
-    createNoteRequest: (note: NoteRequestBody) => void;
-    editNoteRequest: (note: NoteRequestBody) => void;
-    changeTextFieldValue: (value: string) => void;
-    changeNoteName: (value: string) => void;
-    fetchNote: (noteId: string) => void;
+    createNoteRequest: CreateNoteRequestFn;
+    editNoteRequest: CreateNoteRequestFn;
+    changeTextFieldValue: ChangeTextFieldValueFn;
+    changeNoteName: ChangeTextFieldValueFn;
+    fetchNote: FetchNoteFn;
     clearNoteData: () => void;
 }
 
 type Props = OwnProps & MappedActions & MappedProps;
 
 export class EditNote extends React.Component<Props> {
+    componentDidMount() {
+        if (this.props.routeParams.noteId) {
+            this.props.fetchNote(this.props.routeParams.noteId);
+        } else {
+            this.props.clearNoteData();
+        }
+    }
+
     handleSaveClick = () => {
         const { routeParams } = this.props;
         const { name, textFieldValue, activeFolderId } = this.props.editedNote;
@@ -83,14 +83,6 @@ export class EditNote extends React.Component<Props> {
 
     handleNameChange = (event) => {
         this.props.changeNoteName(event.target.value);
-    }
-
-    componentDidMount() {
-        if (this.props.routeParams.noteId) {
-            this.props.fetchNote(this.props.routeParams.noteId);
-        } else {
-            this.props.clearNoteData();
-        }
     }
 
     render() {
@@ -134,7 +126,7 @@ export class EditNote extends React.Component<Props> {
     }
 }
 
-export const mapStateToProps = state => createStructuredSelector({
+export const mapStateToProps = (state: EditNoteState) => createStructuredSelector({
     isNoteCreationMode: selectIsNoteCreationMode,
     editedNote: selectEditedNote
 });

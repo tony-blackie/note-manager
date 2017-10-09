@@ -1,8 +1,13 @@
 import { createSelector } from 'reselect';
+import { EditNoteState } from './types';
+import { Store } from '../../generic/types';
 
-export const selectEditNoteView = state => state.editNote;
+export const selectEditNoteView = (state: Store) => state.editNote;
 
-export const selectIsNoteCreationMode = state => state.isNoteCreationMode;
+export const selectIsNoteCreationMode = createSelector(
+    selectEditNoteView,
+    editNoteView => editNoteView.isNoteCreationMode
+);
 
 export const selectEditedNote = createSelector(
     selectEditNoteView,
