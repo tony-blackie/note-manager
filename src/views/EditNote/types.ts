@@ -1,7 +1,7 @@
 import { FolderType, NoteType, TypedAction } from '../../generic/types';
 
 export interface EditedNote {
-    id: number | null;
+    id?: number | null;
     name: string;
     textFieldValue: string;
     textFieldPlaceholder: string;
@@ -22,7 +22,7 @@ interface NoteRequestBody {
     id?: string;
     name: string;
     text: string;
-    activeFolderId?: number | null;
+    parent?: number | null;
 }
 
 export type CreateNoteRequestFn = (note: NoteRequestBody) => void;

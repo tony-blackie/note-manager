@@ -6,7 +6,7 @@ import { createStructuredSelector } from 'reselect';
 
 import { selectIsNoteCreationMode, selectEditedNote } from './selectors';
 import { NoteType } from '../../generic/types';
-import { CreateNoteRequestFn, ChangeTextFieldValueFn, FetchNoteFn, EditNoteState } from './types';
+import { CreateNoteRequestFn, ChangeTextFieldValueFn, FetchNoteFn, EditNoteState, EditedNote } from './types';
 
 import {
   editNoteRequest,
@@ -28,14 +28,6 @@ import {
 interface MappedProps {
     name: string;
     editedNote: EditedNote;
-}
-
-interface EditedNote {
-    id?: string;
-    name: string;
-    textFieldValue: string;
-    activeFolderId?: number | null;
-    textFieldPlaceholder: string;
 }
 
 interface MappedActions {
@@ -60,19 +52,20 @@ export class EditNote extends React.Component<Props> {
 
     handleSaveClick = () => {
         const { routeParams } = this.props;
-        const { name, textFieldValue, activeFolderId } = this.props.editedNote;
+        const { name, textFieldValue, folderId } = this.props.editedNote;
 
         if (!routeParams.noteId) {
             this.props.createNoteRequest({
                 name,
                 text: textFieldValue,
-                activeFolderId
+                parent: folderId
             });
         } else {
             this.props.editNoteRequest({
                 id: routeParams.noteId,
                 name,
-                text: textFieldValue
+                text: textFieldValue,
+                parent: folderId
             });
         }
     }
