@@ -73,13 +73,15 @@ export const createNoteRequest = note => dispatch => {
     .catch(error => dispatch(handleFailedNoteCreation(error)));
 }
 
-export const changeTextFieldValue = value => dispatch => (
-    dispatch({ type: CHANGE_TEXT_FIELD_VALUE, textFieldValue: value })
-);
+export const changeTextFieldValue = value => ({
+    type: CHANGE_TEXT_FIELD_VALUE, 
+    textFieldValue: value
+});
 
-export const changeNoteName = name => dispatch => (
-    dispatch({ type: CHANGE_NOTE_NAME, name })
-);
+export const changeNoteName = name => ({
+    type: CHANGE_NOTE_NAME, 
+    name
+});
 
 export const handleSuccessfulNoteResponse = response => ({
     type: GET_NOTE_SUCCESS,
@@ -107,6 +109,6 @@ export const fetchNote = id => dispatch => {
     .catch(error => dispatch(handleFailedNoteResponse(error)));
 };
 
-export const clearNoteData = () => dispatch => (
-    dispatch({ type: CLEAR_NOTE_DATA })
-);
+export const clearNoteData = () => ({
+    type: CLEAR_NOTE_DATA
+});
