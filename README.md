@@ -52,8 +52,7 @@ npm run coverage
 
 ### About
 ```
-Built with: Webpack
-Front-end: React, Redux, ES6, Babel
+Front-end: Typescript, React, Redux, ES6, Babel, Webpack
 Back-end: Python, Django, SQLite
 Tests: Jest, Enzyme
 ```
