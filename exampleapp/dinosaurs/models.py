@@ -18,4 +18,4 @@ class Note(models.Model):
     parent = models.IntegerField(null=True)
     name = models.TextField()
     text = models.TextField()
-    folder = models.ForeignKey(Folder)
+    folder = models.ForeignKey(Folder, null=True)

@@ -61,7 +61,7 @@ export const handleFailedNoteCreation = error => {
 export const createNoteRequest = note => dispatch => {
     dispatch({ type: CREATE_NEW_NOTE });
 
-    return fetch(`${baseName}/note`, {
+    return fetch(`${baseName}/note/`, {
         method: 'POST',
         body: JSON.stringify(note),
         headers: {
