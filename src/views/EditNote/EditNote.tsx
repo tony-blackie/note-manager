@@ -4,6 +4,9 @@ import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
+import { selectIsNoteCreationMode, selectEditedNote } from './selectors';
+import { NoteType } from '../../generic/types';
+
 import {
   editNoteRequest,
   createNoteRequest,
@@ -23,21 +26,29 @@ import {
 
 interface MappedProps {
     name: string;
+    editedNote: EditedNote;
+}
+
+interface EditedNote {
+    id?: string;
+    name: string;
     textFieldValue: string;
-    activeFolderId: number;
+    activeFolderId?: number | null;
     textFieldPlaceholder: string;
 }
 
-interface Note {
+interface NoteRequestBody {
     id?: string;
     name: string;
     text: string;
     activeFolderId?: number | null;
 }
 
+
+
 interface MappedActions {
-    createNoteRequest: (note: Note) => void;
-    editNoteRequest: (note: Note) => void;
+    createNoteRequest: (note: NoteRequestBody) => void;
+    editNoteRequest: (note: NoteRequestBody) => void;
     changeTextFieldValue: (value: string) => void;
     changeNoteName: (value: string) => void;
     fetchNote: (noteId: string) => void;
@@ -48,18 +59,19 @@ type Props = OwnProps & MappedActions & MappedProps;
 
 export class EditNote extends React.Component<Props> {
     handleSaveClick = () => {
-        const { routeParams, name, textFieldValue, activeFolderId } = this.props;
+        const { routeParams } = this.props;
+        const { name, textFieldValue, activeFolderId } = this.props.editedNote;
 
         if (!routeParams.noteId) {
             this.props.createNoteRequest({
-                name: name,
+                name,
                 text: textFieldValue,
-                activeFolderId: activeFolderId
+                activeFolderId
             });
         } else {
             this.props.editNoteRequest({
                 id: routeParams.noteId,
-                name: name,
+                name,
                 text: textFieldValue
             });
         }
@@ -82,6 +94,8 @@ export class EditNote extends React.Component<Props> {
     }
 
     render() {
+        const { textFieldValue, textFieldPlaceholder, name } = this.props.editedNote;
+
         return (
             <div>
                 <nav className="edit-note__nav">
@@ -101,7 +115,7 @@ export class EditNote extends React.Component<Props> {
                             onChange={this.handleNameChange}
                             className="edit-note__name"
                             type="text"
-                            value={this.props.name}
+                            value={name}
                         />
                     </fieldset>
                     <fieldset>
@@ -109,8 +123,8 @@ export class EditNote extends React.Component<Props> {
                             onChange={this.handleTextFieldChange}
                             className="edit-note__text"
                             type="text"
-                            value={this.props.textFieldValue}
-                            placeholder={this.props.textFieldPlaceholder}
+                            value={textFieldValue}
+                            placeholder={textFieldPlaceholder}
                         />
                     </fieldset>
                 </form>
@@ -120,12 +134,9 @@ export class EditNote extends React.Component<Props> {
     }
 }
 
-export const mapStateToProps = state => ({
-    isNoteCreationMode: state.editNote.isNoteCreationMode,
-    activeFolderId: state.editNote.activeFolderId,
-    textFieldValue: state.editNote.editedNote.textFieldValue,
-    textFieldPlaceholder: state.editNote.editedNote.textFieldPlaceholder,
-    name: state.editNote.editedNote.name
+export const mapStateToProps = state => createStructuredSelector({
+    isNoteCreationMode: selectIsNoteCreationMode,
+    editedNote: selectEditedNote
 });
 
 export const mapDispatchToProps = dispatch => bindActionCreators({
