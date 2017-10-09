@@ -46,10 +46,6 @@ interface MappedActions {
 type Props = OwnProps & MappedActions & MappedProps;
 
 export class EditNote extends React.Component<Props> {
-    constructor(props: Props) {
-        super(props);
-    }
-
     handleSaveClick() {
         if (!this.props.routeParams.noteId) {
             this.props.createNoteRequest({
@@ -83,6 +79,7 @@ export class EditNote extends React.Component<Props> {
     }
 
     render() {
+        debugger;
         return (
             <div>
                 <nav className="edit-note__nav">

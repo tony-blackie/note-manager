@@ -26,11 +26,15 @@ const editNoteReducer = (state: EditNoteState = {
         clickedFolderIndex;
 
     switch(action.type) {
-        case EDIT_EXISTING_NOTE:
+        case EDIT_EXISTING_NOTE: {
             return state;
-        case EDIT_EXISTING_NOTE_SUCCESS:
+        }
+
+        case EDIT_EXISTING_NOTE_SUCCESS: {
             return state;
-        case CHANGE_TEXT_FIELD_VALUE:
+        }
+
+        case CHANGE_TEXT_FIELD_VALUE: {
             return {
                 ...state,
                 editedNote: {
@@ -38,7 +42,9 @@ const editNoteReducer = (state: EditNoteState = {
                     textFieldValue: action.payload.textFieldValue
                 }
             };
-        case CHANGE_NOTE_NAME:
+        }
+
+        case CHANGE_NOTE_NAME: {
             return {
                 ...state,
                 editedNote: {
@@ -46,8 +52,11 @@ const editNoteReducer = (state: EditNoteState = {
                     name: action.payload.name
                 }
             };
-        case GET_NOTE_SUCCESS:
-        const { name, id, text, parent_id } = action.payload;
+        }
+
+        case GET_NOTE_SUCCESS: {
+            const { name, id, text, parent } = action.payload.note;
+
             return {
                 ...state,
                 editedNote: {
@@ -55,10 +64,12 @@ const editNoteReducer = (state: EditNoteState = {
                     name,
                     id,
                     textFieldValue: text,
-                    folderId: parent_id
+                    folderId: parent
                 }
             };
-        case CLEAR_NOTE_DATA:
+        }
+
+        case CLEAR_NOTE_DATA: {
             return {
                 ...state,
                 editedNote: {
@@ -68,6 +79,8 @@ const editNoteReducer = (state: EditNoteState = {
                     folderId: null
                 }
             };
+        }
+
         default:
             return state;
     }
