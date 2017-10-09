@@ -74,13 +74,13 @@ export const createNoteRequest = note => dispatch => {
 }
 
 export const changeTextFieldValue = value => ({
-    type: CHANGE_TEXT_FIELD_VALUE, 
-    textFieldValue: value
+    type: CHANGE_TEXT_FIELD_VALUE,
+    payload: { textFieldValue: value }
 });
 
 export const changeNoteName = name => ({
-    type: CHANGE_NOTE_NAME, 
-    name
+    type: CHANGE_NOTE_NAME,
+    payload: { name }
 });
 
 export const handleSuccessfulNoteResponse = response => ({

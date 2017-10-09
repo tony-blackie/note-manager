@@ -2,6 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
+import { createStructuredSelector } from 'reselect';
 
 import {
   editNoteRequest,
@@ -46,27 +47,29 @@ interface MappedActions {
 type Props = OwnProps & MappedActions & MappedProps;
 
 export class EditNote extends React.Component<Props> {
-    handleSaveClick() {
-        if (!this.props.routeParams.noteId) {
+    handleSaveClick = () => {
+        const { routeParams, name, textFieldValue, activeFolderId } = this.props;
+
+        if (!routeParams.noteId) {
             this.props.createNoteRequest({
-                name: this.props.name,
-                text: this.props.textFieldValue,
-                activeFolderId: this.props.activeFolderId
+                name: name,
+                text: textFieldValue,
+                activeFolderId: activeFolderId
             });
         } else {
             this.props.editNoteRequest({
-                id: this.props.routeParams.noteId,
-                name: this.props.name,
-                text: this.props.textFieldValue
+                id: routeParams.noteId,
+                name: name,
+                text: textFieldValue
             });
         }
     }
 
-    handleTextFieldChange(event) {
+    handleTextFieldChange = (event) => {
         this.props.changeTextFieldValue(event.target.value);
     }
 
-    handleNameChange(event) {
+    handleNameChange = (event) => {
         this.props.changeNoteName(event.target.value);
     }
 
@@ -79,14 +82,13 @@ export class EditNote extends React.Component<Props> {
     }
 
     render() {
-        debugger;
         return (
             <div>
                 <nav className="edit-note__nav">
                     <button>
                         <Link to="/"> Go Back</Link>
                     </button>
-                    <button className="edit-note__save" onClick={() => this.handleSaveClick()}>
+                    <button className="edit-note__save" onClick={this.handleSaveClick}>
                         Save changes
                     </button>
                 </nav>
@@ -96,7 +98,7 @@ export class EditNote extends React.Component<Props> {
                             <label>Name:</label>
                         </div>
                         <input
-                            onChange={event => this.handleNameChange(event)}
+                            onChange={this.handleNameChange}
                             className="edit-note__name"
                             type="text"
                             value={this.props.name}
@@ -104,7 +106,7 @@ export class EditNote extends React.Component<Props> {
                     </fieldset>
                     <fieldset>
                         <input
-                            onChange={event => this.handleTextFieldChange(event)}
+                            onChange={this.handleTextFieldChange}
                             className="edit-note__text"
                             type="text"
                             value={this.props.textFieldValue}
@@ -119,7 +121,6 @@ export class EditNote extends React.Component<Props> {
 }
 
 export const mapStateToProps = state => ({
-    params: state.editNote.note,
     isNoteCreationMode: state.editNote.isNoteCreationMode,
     activeFolderId: state.editNote.activeFolderId,
     textFieldValue: state.editNote.editedNote.textFieldValue,
