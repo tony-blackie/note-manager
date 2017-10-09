@@ -19,18 +19,33 @@ export default class Folder extends React.Component<Props, State> {
     };
 
     openFolder = () => {
-        this.setState({isOpen: !this.state.isOpen})
+        this.setState({ isOpen: true });
+    }
+
+    closeFolder = () => {
+        this.setState({ isOpen: false });
     }
 
     handleFolderClick = () => {
-        this.openFolder();
-
         const { id, isActive } = this.props;
+        const { isOpen } = this.state;
 
-        if (isActive) {
-            this.props.makeFolderInactive(id);
-        } else {
+        if (!isOpen && !isActive) {
             this.props.makeFolderActive(id);
+            this.openFolder();
+        }
+
+        if (isOpen && isActive) {
+            this.props.makeFolderInactive(id);
+            this.closeFolder();
+        }
+        
+        if (isOpen && !isActive) {
+            this.closeFolder();
+        }
+
+        if (!isOpen && isActive) {
+            this.openFolder();
         }
     }
 
