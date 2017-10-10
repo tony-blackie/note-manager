@@ -9,35 +9,28 @@ import {
 
 const editFolderReducer = (state: EditFolderState = {
     folderName: '',
+    folderId: null
 }, action) => {
     let newFoldersArray,
         clickedFolder,
         clickedFolderIndex;
 
     switch(action.type) {
-        case GET_FOLDER_SUCCESS:
+        case GET_FOLDER_SUCCESS: {
             return {
                 ...state,
-                folderName: action.folder.name
+                folderName: action.payload.folder.name,
+                folderId: action.payload.folder.id
             };
-        case CHANGE_FOLDER_NAME:
+        }
+
+        case CHANGE_FOLDER_NAME: {
             return {
                 ...state,
                 folderName: action.text
             };
-        case SAVE_EDITED_FOLDER:
-        // TODO: state.folders are not available in this reducer. Fix this
-            let newFolderArray = state.folders.slice();
-            newFolderArray.map((folder, index) => {
-                if(folder.id === action.folder.id) {
-                    folder.name = state.folderName;
-                }
-            });
-            return {
-                ...state,
-                folderName: '',
-                folders: newFolderArray
-            };
+        }
+
         default:
             return state;
     }

@@ -11,7 +11,7 @@ import {
     FOLDER_CREATION_SUCCESS,
     FOLDER_CREATION_FAIL
 } from '../../actionTypes';
-import { EditFolderFn } from '../types';
+import { EditFolderFn, HandleSuccessfulFolderEditFn } from '../types';
 import { hashHistory } from 'react-router';
 import { baseName } from '../../../app/config';
 
@@ -28,7 +28,10 @@ export const handleFailedFolderCreation = error => ({
 });
 
 export const handleSuccessfulGetFolder = folder => {
-    return {type: GET_FOLDER_SUCCESS, folder};
+    return {
+        type: GET_FOLDER_SUCCESS,
+        payload: { folder }
+    };
 };
 
 export const handleFailedGetFolder = error => ({
@@ -42,7 +45,7 @@ export const requestFolder = () => ({
 export const getFolder = id => dispatch => {
     dispatch(requestFolder());
 
-    return fetch(`${baseName}/folder/${id}/`, {
+    fetch(`${baseName}/folder/${id}/`, {
         method: 'GET',
         credentials: 'same-origin',
         headers: {
@@ -50,7 +53,8 @@ export const getFolder = id => dispatch => {
             'Content-Type': 'application/json'
         }
     })
-    .then(folder => dispatch(handleSuccessfulGetFolder(folder)))
+    .then(response => response.json())
+    .then(response => dispatch(handleSuccessfulGetFolder(response)))
     .catch(error => dispatch(handleFailedGetFolder(error)));
 }
 
@@ -58,9 +62,9 @@ export const handleFolderNameChange = text => dispatch => {
     dispatch({ type: CHANGE_FOLDER_NAME, text });
 }
 
-export const handleSuccessfulFolderEdit = folder => ({
+export const handleSuccessfulFolderEdit: HandleSuccessfulFolderEditFn = (folderId, folderName) => ({
     type: SAVE_EDITED_FOLDER,
-    folder
+    payload: { folderId, folderName }
 });
 
 export const handleFailedFolderEdit = error => ({
@@ -84,8 +88,9 @@ export const editFolder: EditFolderFn = (id, name) => dispatch => {
             'Content-Type': 'application/json'
         }
     })
+    .then(response => response.json())
     .then(response => {
-        dispatch(handleSuccessfulFolderEdit(response));
+        dispatch(handleSuccessfulFolderEdit(response.id, response.name));
 
         hashHistory.push('/');
     })

@@ -1,4 +1,5 @@
-// import initialState from './initialState';
+import { findIndex } from 'lodash';
+
 import {
   MAKE_FOLDER_ACTIVE,
   MAKE_FOLDER_INACTIVE,
@@ -12,6 +13,7 @@ import {
   REMOVE_FOLDER_FAIL,
   UPDATE_NOTE_FILTER_QUERY
 } from './constants';
+import { SAVE_EDITED_FOLDER } from '../EditFolder/constants';
 import { AppComponentState } from './types';
 
 const appReducer = (state: AppComponentState = {
@@ -24,11 +26,24 @@ const appReducer = (state: AppComponentState = {
         clickedFolder,
         clickedFolderIndex;
 
-    // if (typeof state === 'undefined') {
-    //     return initialState;
-    // }
-
     switch(action.type) {
+        case SAVE_EDITED_FOLDER: {
+            const { folderId, folderName } = action.payload;
+
+            let newFolderArray = state.folders.slice();
+
+            newFolderArray.map((folder, index) => {
+                if(folder.id === folderId) {
+                    folder.name = folderName;
+                }
+            });
+
+            return {
+                ...state,
+                folders: newFolderArray
+            };
+        }
+
         case MAKE_FOLDER_ACTIVE:
             newFoldersArray = state.folders.slice();
 

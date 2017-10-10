@@ -2,13 +2,17 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
+import { createStructuredSelector } from 'reselect';
+
 import { GetFolderFn, CreateNewFolderFn, EditFolderFn, HandleFolderNameChangeFn } from './types';
+import { FolderType } from '../../generic/types';
 import {
   getFolder,
   handleFolderNameChange,
   editFolder,
   createNewFolder
 } from './actions/EditFolder.actions';
+import { selectFolderName, selectFolderId } from './selectors';
 
 interface RouteParams {
     id: string;
@@ -56,7 +60,10 @@ export class EditFolder extends React.Component<Props> {
     }
 
     render() {
-        const { folderName } = this.props;
+        const { folderName, routeParams } = this.props;
+        if (routeParams.id) {
+            const folderId = routeParams.id;
+        }
 
         return (
             <div>
@@ -88,8 +95,9 @@ export class EditFolder extends React.Component<Props> {
     }
 }
 
-export const mapStateToProps = state => ({
-    folderName: state.editFolder.folderName
+export const mapStateToProps = state => createStructuredSelector({
+    folderName: selectFolderName,
+    folderId: selectFolderId
 });
 
 export const mapDispatchToProps = dispatch => bindActionCreators({
