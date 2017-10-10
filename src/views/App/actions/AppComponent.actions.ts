@@ -51,7 +51,7 @@ export const handleSuccessfulGetAllNotes: HandleSuccessfulGetAllNotesFn = notes 
 
 export const handleFailedGetAllNotes: HandleFailedGetAllNotesFn = error => ({
     type: GET_ALL_NOTES_FAIL,
-    payload: error
+    payload: { error }
 });
 
 export const requestAllNotes: RequestAllNotesFn = () => ({

@@ -27,3 +27,7 @@ export interface TypedAction<payload> {
     type: string;
     payload?: payload;
 }
+
+export interface TypedActionNoPayload {
+    type: string;
+}

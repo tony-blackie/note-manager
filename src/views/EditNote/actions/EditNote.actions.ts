@@ -17,9 +17,9 @@ import {
 import { baseName } from '../../../app/config';
 import { FolderType, NoteType, TypedAction } from '../../../generic/types';
 
-export type handleEditNoteSuccessFn = (NoteType) => TypedAction;
+export type HandleEditNoteSuccessFn = (NoteType) => TypedAction<any>;
 
-export const handleEditNoteSuccess = response => {
+export const handleEditNoteSuccess: HandleEditNoteSuccessFn = response => {
     hashHistory.push('/');
 
     return ({ type: EDIT_EXISTING_NOTE_SUCCESS, payload: response });

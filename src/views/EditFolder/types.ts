@@ -13,4 +13,10 @@ export type EditFolderFn = (id: number, name: string) => void;
 
 export type HandleFolderNameChangeFn = (text: string) => void;
 
-export type HandleSuccessfulFolderEditFn = (folderId: number | null, folderName: string) => TypedAction;
+export interface HandleSuccessfulFolderEditPayload {
+    folderId: number | null;
+    folderName: string;
+}
+
+export type HandleSuccessfulFolderEditFn = (folderId: number | null, folderName: string) =>
+    TypedAction<HandleSuccessfulFolderEditPayload>;
