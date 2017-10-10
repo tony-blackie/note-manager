@@ -23,7 +23,7 @@ export type GoToNoteCreationFn = () => (dispatch: (obj: any) => void) => void;
 
 export type GetAllFoldersFn = () => (dispatch: (obj: TypedAction) => void) => void;
 
-export type HandleSuccessfulGetAllNotesFn = (response: NoteType[]) => TypedAction;
+export type HandleSuccessfulGetAllNotesFn = (response: NoteType[]) => TypedAction<NoteType[]>;
 
 export type HandleFailedGetAllNotesFn = (error: any) => TypedAction;
 
@@ -37,7 +37,11 @@ export type HandleFailedDeleteNoteFn = (error: any) => TypedAction;
 
 export type RemoveNoteFn = (id: number) => (dispatch: (callback: any) => void) => void;
 
-export type HandleSuccessfulGetAllFoldersFn = (response: FolderType[]) => TypedAction;
+export interface HandleSuccessfulGetAllFoldersPayload {
+    folders: FolderType[];
+}
+
+export type HandleSuccessfulGetAllFoldersFn = (response: FolderType[]) => TypedAction<HandleSuccessfulGetAllFoldersPayload>;
 
 export type HandleFailedGetAllFoldersFn = (error: any) => TypedAction;
 

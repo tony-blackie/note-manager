@@ -23,7 +23,7 @@ export interface FolderType {
     name: string;
 }
 
-export interface TypedAction {
+export interface TypedAction<payload> {
     type: string;
-    payload?: any;
+    payload?: payload;
 }

@@ -15,6 +15,7 @@ import {
 } from './constants';
 import { SAVE_EDITED_FOLDER } from '../EditFolder/constants';
 import { AppComponentState } from './types';
+import { FolderType, NoteType } from '../../generic/types';
 
 const appReducer = (state: AppComponentState = {
     folders: [],
@@ -44,85 +45,88 @@ const appReducer = (state: AppComponentState = {
             };
         }
 
-        case MAKE_FOLDER_ACTIVE:
-            newFoldersArray = state.folders.slice();
+        case MAKE_FOLDER_ACTIVE: {
+            const { id } = action.payload;
+            const newFolders = state.folders.slice();
 
-            state.folders.map((folder, index) => {
-                if(folder.id === action.payload.id) {
-                    clickedFolder = folder;
-                    clickedFolderIndex = index;
+            newFolders.map((folder, index) => {
+                if(folder.id === id) {
+                    newFolders[index].isActive = true;
+                } else {
+                    newFolders[index].isActive = false;
                 }
             });
-
-            newFoldersArray.map((folder, index) => {
-                if(folder.id !== action.payload.id) {
-                    folder.isActive = false;
-                }
-            });
-
-            newFoldersArray[clickedFolderIndex] = clickedFolder;
-            newFoldersArray[clickedFolderIndex].isActive = !newFoldersArray[clickedFolderIndex].isActive;
 
             return {
                 ...state,
                 folders: newFoldersArray,
-                activeFolderId: action.payload.id
+                activeFolderId: id
             };
-        case MAKE_FOLDER_INACTIVE:
-            newFoldersArray = state.folders.slice();
+        }
 
-            state.folders.map((folder, index) => {
-                if(folder.id === action.payload.id) {
-                    clickedFolder = folder;
-                    clickedFolderIndex = index;
+        case MAKE_FOLDER_INACTIVE: {
+            const { id } = action.payload;
+            const newFolders = state.folders.slice();
+
+            newFolders.map((folder, index) => {
+                if(folder.id === id) {
+                    newFolders[index].isActive = true;
+                } else {
+                    newFolders[index].isActive = false;
                 }
             });
-
-            newFoldersArray.map((folder, index) => {
-                if(folder.id !== action.payload.id) {
-                    folder.isActive = false;
-                }
-            });
-
-            newFoldersArray[clickedFolderIndex] = clickedFolder;
-            newFoldersArray[clickedFolderIndex].isActive = !newFoldersArray[clickedFolderIndex].isActive;
 
             return {
                 ...state,
-                folders: newFoldersArray,
+                folders: newFolders,
                 activeFolderId: null
             };
-        case GO_TO_NOTE_EDIT:
+        }
+
+
+        case GO_TO_NOTE_EDIT: {
             return {
                 ...state,
                 isNoteCreationMode: false
             }
-        case GET_ALL_NOTES:
-            return state;
-        case GET_ALL_NOTES_SUCCESS:
+        }
+
+        case GET_ALL_NOTES_SUCCESS: {
+            const { notes } = action.payload;
+
             return {
                 ...state,
-                notes: action.payload
+                notes
             };
-        case REMOVE_NOTE_SUCCESS:
-            let indexOfNoteInState;
+        }
+
+        case REMOVE_NOTE_SUCCESS: {
+            let indexOfNoteInState: number;
+            const { id } = action.payload;
 
             state.notes.map((note, index) => {
-                if(note.id === action.payload.id) {
+                if(note.id === id) {
                     indexOfNoteInState = index;
                 }
             });
+
             let newNotes = state.notes.slice(0, indexOfNoteInState);
+
             if (state.notes[indexOfNoteInState + 1]) {
                 newNotes = newNotes.concat(state.notes.slice(indexOfNoteInState + 1, state.notes.length));
             }
+
             return {
                 ...state,
                 notes: newNotes
             }
+        }
+
         case REQUEST_ALL_FOLDERS_SUCCESS:
-            let newFolders = [];
-            let firstFolderId = action.payload[0].id;
+            let newFolders: FolderType[] = [];
+            const { folders } = action.payload;
+            let firstFolderId: number = folders[0].id;
+
             action.payload.map((folder, index) => {
                 newFolders.push({
                     isOpen: false,

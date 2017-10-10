@@ -44,9 +44,9 @@ import { FolderType, NoteType, TypedAction } from '../../../generic/types';
 import { hashHistory } from 'react-router';
 import { baseName } from '../../../app/config';
 
-export const handleSuccessfulGetAllNotes: HandleSuccessfulGetAllNotesFn = response => ({
+export const handleSuccessfulGetAllNotes: HandleSuccessfulGetAllNotesFn = notes => ({
     type: GET_ALL_NOTES_SUCCESS,
-    payload: response
+    payload: { notes }
 });
 
 export const handleFailedGetAllNotes: HandleFailedGetAllNotesFn = error => ({
@@ -122,7 +122,7 @@ export const makeFolderInactive: MakeFolderInactiveFn = id => dispatch => {
 
 export const handleSuccessfulGetAllFolders: HandleSuccessfulGetAllFoldersFn = folders => ({
     type: REQUEST_ALL_FOLDERS_SUCCESS,
-    payload: folders
+    payload: { folders }
 });
 
 export const handleFailedGetAllFolders: HandleFailedGetAllFoldersFn = error => ({
