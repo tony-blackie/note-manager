@@ -23,17 +23,13 @@ const appReducer = (state: AppComponentState = {
     activeFolderId: null,
     notesQuery: ''
 }, action) => {
-    let newFoldersArray,
-        clickedFolder,
-        clickedFolderIndex;
-
     switch(action.type) {
         case SAVE_EDITED_FOLDER: {
             const { folderId, folderName } = action.payload;
 
-            let newFolderArray = state.folders.slice();
+            const newFolders = state.folders.slice();
 
-            newFolderArray.map((folder, index) => {
+            newFolders.map((folder, index) => {
                 if(folder.id === folderId) {
                     folder.name = folderName;
                 }
@@ -41,7 +37,7 @@ const appReducer = (state: AppComponentState = {
 
             return {
                 ...state,
-                folders: newFolderArray
+                folders: newFolders
             };
         }
 
@@ -59,7 +55,7 @@ const appReducer = (state: AppComponentState = {
 
             return {
                 ...state,
-                folders: newFoldersArray,
+                folders: newFolders,
                 activeFolderId: id
             };
         }
@@ -69,11 +65,7 @@ const appReducer = (state: AppComponentState = {
             const newFolders = state.folders.slice();
 
             newFolders.map((folder, index) => {
-                if(folder.id === id) {
-                    newFolders[index].isActive = true;
-                } else {
-                    newFolders[index].isActive = false;
-                }
+                newFolders[index].isActive = false;
             });
 
             return {
@@ -127,13 +119,15 @@ const appReducer = (state: AppComponentState = {
             const { folders } = action.payload;
             let firstFolderId: number = folders[0].id;
 
-            action.payload.map((folder, index) => {
+            folders.map((folder, index) => {
+                const { parent, id, name } = folder;
+
                 newFolders.push({
                     isOpen: false,
                     isActive: false,
-                    parent: action.payload[index].parent,
-                    id: action.payload[index].id,
-                    name: action.payload[index].name
+                    parent,
+                    id,
+                    name
                 });
             });
 
