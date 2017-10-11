@@ -25,9 +25,11 @@ const editFolderReducer = (state: EditFolderState = {
         }
 
         case CHANGE_FOLDER_NAME: {
+            const { text } = action.payload;
+
             return {
                 ...state,
-                folderName: action.text
+                folderName: text
             };
         }
 

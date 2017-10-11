@@ -37,7 +37,13 @@ type Props = OwnProps & MappedProps & MappedActions;
 
 export class EditFolder extends React.Component<Props> {
     componentDidMount() {
-        this.props.getFolder(this.props.routeParams.id);
+        const { id } = this.props.routeParams;
+
+        if (this.props.routeParams.id) {
+            const numericId = parseInt(id, 10);
+
+            this.props.getFolder(numericId);
+        }
     }
 
     handleFolderSave = (event) => {

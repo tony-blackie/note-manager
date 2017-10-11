@@ -1,3 +1,5 @@
+import { hashHistory } from 'react-router';
+
 import {
     RENAME_FOLDER,
     GET_FOLDER,
@@ -11,38 +13,51 @@ import {
     FOLDER_CREATION_SUCCESS,
     FOLDER_CREATION_FAIL
 } from '../../actionTypes';
-import { EditFolderFn, HandleSuccessfulFolderEditFn } from '../types';
-import { hashHistory } from 'react-router';
+import {
+    EditFolderFn,
+    HandleSuccessfulFolderEditFn,
+    RequestFolderCreationFn,
+    HandleSuccessfulFolderCreationFn,
+    HandleFailedFolderCreationFn,
+    HandleSuccessfulGetFolderFn,
+    HandleFailedGetFolderFn,
+    RequestFolderFn,
+    GetFolderFn,
+    HandleFolderNameChangeFn,
+    HandleFailedFolderEditFn,
+    RequestFolderEditFn,
+    CreateNewFolderFn
+} from '../types';
 import { baseName } from '../../../app/config';
 
-export const requestFolderCreation = () => ({
+export const requestFolderCreation: RequestFolderCreationFn = () => ({
     type: REQUEST_FOLDER_CREATION
 });
 
-export const handleSuccessfulFolderCreation = folder => ({
-    type: FOLDER_CREATION_SUCCESS, folder
+export const handleSuccessfulFolderCreation: HandleSuccessfulFolderCreationFn = folder => ({
+    type: FOLDER_CREATION_SUCCESS, payload: { folder }
 });
 
-export const handleFailedFolderCreation = error => ({
-    type: FOLDER_CREATION_FAIL, error
+export const handleFailedFolderCreation: HandleFailedFolderCreationFn = error => ({
+    type: FOLDER_CREATION_FAIL, payload: { error }
 });
 
-export const handleSuccessfulGetFolder = folder => {
+export const handleSuccessfulGetFolder: HandleSuccessfulGetFolderFn = folder => {
     return {
         type: GET_FOLDER_SUCCESS,
         payload: { folder }
     };
 };
 
-export const handleFailedGetFolder = error => ({
-    type: GET_FOLDER_FAIL, error
+export const handleFailedGetFolder: HandleFailedGetFolderFn = error => ({
+    type: GET_FOLDER_FAIL, payload: { error }
 });
 
-export const requestFolder = () => ({
+export const requestFolder: RequestFolderFn = () => ({
     type: GET_FOLDER
 });
 
-export const getFolder = id => dispatch => {
+export const getFolder: GetFolderFn = id => dispatch => {
     dispatch(requestFolder());
 
     fetch(`${baseName}/folder/${id}/`, {
@@ -58,21 +73,22 @@ export const getFolder = id => dispatch => {
     .catch(error => dispatch(handleFailedGetFolder(error)));
 }
 
-export const handleFolderNameChange = text => dispatch => {
-    dispatch({ type: CHANGE_FOLDER_NAME, text });
-}
+export const handleFolderNameChange: HandleFolderNameChangeFn = text => ({
+    type: CHANGE_FOLDER_NAME,
+    payload: { text }
+});
 
 export const handleSuccessfulFolderEdit: HandleSuccessfulFolderEditFn = (folderId, folderName) => ({
     type: SAVE_EDITED_FOLDER,
     payload: { folderId, folderName }
 });
 
-export const handleFailedFolderEdit = error => ({
+export const handleFailedFolderEdit: HandleFailedFolderEditFn = error => ({
     type: HANDLE_FOLDER_EDIT_ERROR,
-    error
+    payload: { error }
 });
 
-export const requestFolderEdit = () => ({
+export const requestFolderEdit: RequestFolderEditFn = () => ({
     type: REQUEST_FOLDER_EDIT
 });
 
@@ -101,7 +117,7 @@ export const editFolder: EditFolderFn = (id, name) => dispatch => {
     });
 }
 
-export const createNewFolder = folderName => dispatch => {
+export const createNewFolder: CreateNewFolderFn = folderName => dispatch => {
     dispatch(requestFolderCreation());
 
     return fetch(`${baseName}/folder`, {
