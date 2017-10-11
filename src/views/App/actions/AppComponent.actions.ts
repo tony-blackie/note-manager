@@ -66,7 +66,8 @@ export const getAllNotes: GetAllNotesFn = () => dispatch => {
         credentials: 'same-origin',
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer nKglUOXRepLCZ73mbHocqH8uvFhIZS'
         }
     })
     .then(response => response.json())
@@ -104,7 +105,8 @@ export const removeNote: RemoveNoteFn = id => dispatch => {
         credentials: 'same-origin',
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer nKglUOXRepLCZ73mbHocqH8uvFhIZS'
         }
     })
     .then(response => response.json())
@@ -138,7 +140,8 @@ export const getAllFolders: GetAllFoldersFn = () => dispatch => {
         credentials: 'same-origin',
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer nKglUOXRepLCZ73mbHocqH8uvFhIZS'
         }
     })
     .then(response => response.json())
@@ -162,7 +165,8 @@ export const removeFolder: RemoveFolderFn = id => dispatch => {
         credentials: 'same-origin',
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer nKglUOXRepLCZ73mbHocqH8uvFhIZS'
         }
     })
     .then(response => response.json())
