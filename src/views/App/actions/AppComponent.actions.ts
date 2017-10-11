@@ -19,7 +19,7 @@ import {
     UPDATE_NOTE_FILTER_QUERY
 } from '../../actionTypes';
 import {
-    GoToNoteEditFn, 
+    GoToNoteEditFn,
     GoToNoteCreationFn,
     MakeFolderActiveFn,
     MakeFolderInactiveFn,

@@ -14,15 +14,15 @@ import {
   UPDATE_NOTE_FILTER_QUERY
 } from './constants';
 import { SAVE_EDITED_FOLDER } from '../EditFolder/constants';
-import { AppComponentState } from './types';
-import { FolderType, NoteType } from '../../generic/types';
+import { AppComponentState, ReducerAction } from './types';
+import { FolderType, NoteType, TypedAction } from '../../generic/types';
 
 const appReducer = (state: AppComponentState = {
     folders: [],
     notes: [],
     activeFolderId: null,
     notesQuery: ''
-}, action) => {
+}, action: TypedAction<ReducerAction>) => {
     switch(action.type) {
         case SAVE_EDITED_FOLDER: {
             const { folderId, folderName } = action.payload;
