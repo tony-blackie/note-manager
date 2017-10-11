@@ -1,13 +1,13 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { createStructuredSelector } from 'reselect';
 
 import ControlPanel from './components/ControlPanel';
 import FolderTree from './components/FolderTree';
 import NotePanel from './components/NotePanel';
 import Folder from './components/Folder';
-import { default as filterNotes } from './queries/filterNotes';
-
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { selectNotesByQuery, selectFolders, selectActiveFolderId } from './selectors';
 
 import {
   getAllNotes,
@@ -20,7 +20,6 @@ import {
   removeFolder,
   goToEditFolder,
   goToFolderCreation,
-  updateNoteFilterQuery
 } from './actions/AppComponent.actions';
 
 import {
@@ -38,7 +37,6 @@ import {
 import { FolderType, NoteType } from '../../generic/types';
 
 interface MappedProps {
-    notes: NoteType[];
     filteredNotes: NoteType[];
     folders: FolderType[];
     activeFolderId: number;
@@ -75,9 +73,9 @@ export class App extends React.Component<Props> {
             folders,
             makeFolderActive,
             makeFolderInactive,
-            notes,
             goToNoteEdit,
-            removeNote
+            removeNote,
+            filteredNotes
         } = this.props;
 
         return (
@@ -96,11 +94,10 @@ export class App extends React.Component<Props> {
                       makeFolderInactive={makeFolderInactive}
                     />
                     <NotePanel
-                        notes={notes}
+                        notes={filteredNotes}
                         goToNoteEdit={goToNoteEdit}
                         removeNote={removeNote}
                         activeFolderId={activeFolderId}
-                        updateNoteFilterQuery={updateNoteFilterQuery}
                     />
                 </div>
             </div>
@@ -108,11 +105,10 @@ export class App extends React.Component<Props> {
     }
 }
 
-export const mapStateToProps = state => ({
-    notes: state.app.notes,
-    filteredNotes: filterNotes(state),
-    folders: state.app.folders,
-    activeFolderId: state.app.activeFolderId
+export const mapStateToProps = state => createStructuredSelector({
+    filteredNotes: selectNotesByQuery,
+    folders: selectFolders,
+    activeFolderId: selectActiveFolderId
 });
 
 export const mapDispatchToProps = dispatch => bindActionCreators({
@@ -125,8 +121,7 @@ export const mapDispatchToProps = dispatch => bindActionCreators({
     getAllFolders,
     removeFolder,
     goToEditFolder,
-    goToFolderCreation,
-    updateNoteFilterQuery
+    goToFolderCreation
 }, dispatch);
 
 export default connect<MappedProps, MappedActions, {}>(mapStateToProps, mapDispatchToProps)(App);

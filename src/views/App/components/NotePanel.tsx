@@ -1,4 +1,7 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
 import Note from './Note';
 import {
     UpdateNoteFilterQueryFn,
@@ -6,16 +9,22 @@ import {
     RemoveNoteFn
 } from '../types';
 import { NoteType } from '../../../generic/types';
+import { updateNoteFilterQuery } from '../actions/AppComponent.actions';
 
-interface Props {
+interface OwnProps {
     notes: NoteType[];
     activeFolderId: number;
-    updateNoteFilterQuery: UpdateNoteFilterQueryFn;
     goToNoteEdit: GoToNoteEditFn;
     removeNote: RemoveNoteFn;
 }
 
-export default class NotePanel extends React.Component<Props> {
+interface MappedActions {
+    updateNoteFilterQuery: UpdateNoteFilterQueryFn;
+}
+
+type Props = OwnProps & MappedActions;
+
+class NotePanel extends React.Component<Props> {
     updateNoteFilterQuery = (event) => {
         const text = event.target.value;
 
@@ -51,3 +60,9 @@ export default class NotePanel extends React.Component<Props> {
         );
     }
 }
+
+export const mapDispatchToProps = dispatch => bindActionCreators({
+    updateNoteFilterQuery
+}, dispatch);
+
+export default connect<null, MappedActions, OwnProps>(null, mapDispatchToProps)(NotePanel);

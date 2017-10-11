@@ -114,4 +114,4 @@ export type HandleFailedDeleteFolderFn = (error: any) =>
     TypedAction<HandleFailedDeleteFolderPayload>;
 
 export type UpdateNoteFilterQueryFn = (query: string) =>
-    (dispatch: (obj: TypedAction<any>) => void) => void;
+    TypedAction<UpdateNoteFilterQueryPayload>;

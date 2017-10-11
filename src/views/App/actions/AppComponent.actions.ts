@@ -182,6 +182,5 @@ export const goToFolderCreation: GoToFolderCreationFn = () => dispatch => {
     hashHistory.push('/folder');
 };
 
-export const updateNoteFilterQuery: UpdateNoteFilterQueryFn = query => dispatch => {
-    dispatch({ type: UPDATE_NOTE_FILTER_QUERY, payload: { query } });
-};
+export const updateNoteFilterQuery: UpdateNoteFilterQueryFn = query =>
+    ({ type: UPDATE_NOTE_FILTER_QUERY, payload: { query } });

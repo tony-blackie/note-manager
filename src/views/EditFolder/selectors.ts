@@ -1,6 +1,9 @@
 import { createSelector } from 'reselect';
+import { includes } from 'lodash';
 
-export const selectEditFolder = state => state.editFolder;
+import { Store } from '../../generic/types';
+
+export const selectEditFolder = (state: Store) => state.editFolder;
 
 export const selectFolderName = createSelector(
     selectEditFolder,
