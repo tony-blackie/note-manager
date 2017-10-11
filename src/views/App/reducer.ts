@@ -114,8 +114,8 @@ const appReducer = (state: AppComponentState = {
             }
         }
 
-        case REQUEST_ALL_FOLDERS_SUCCESS:
-            let newFolders: FolderType[] = [];
+        case REQUEST_ALL_FOLDERS_SUCCESS: {
+            const newFolders: FolderType[] = [];
             const { folders } = action.payload;
             let firstFolderId: number = folders[0].id;
 
@@ -136,26 +136,40 @@ const appReducer = (state: AppComponentState = {
                 folders: newFolders,
                 activeFolderId: null
             }
-        case REMOVE_FOLDER_SUCCESS:
+        }
+
+
+        case REMOVE_FOLDER_SUCCESS: {
             let indexOfFolderInState;
+
             state.folders.map((folder, index) => {
                 if(folder.id === action.payload.id) {
                     indexOfFolderInState = index;
                 }
             });
-            newFolders = state.folders.slice(0, indexOfFolderInState);
+
+            let newFolders = state.folders.slice(0, indexOfFolderInState);
+
             if (state.folders[indexOfFolderInState + 1]) {
-                newFolders = newFolders.concat(state.folders.slice(indexOfFolderInState + 1, state.folders.length));
+                newFolders = newFolders.concat(
+                    state.folders.slice(indexOfFolderInState + 1,
+                    state.folders.length
+                ));
             }
+
             return {
                 ...state,
                 folders: newFolders
             }
-        case UPDATE_NOTE_FILTER_QUERY:
+        }
+
+        case UPDATE_NOTE_FILTER_QUERY: {
             return {
                 ...state,
                 notesQuery: action.payload.query
             }
+        }
+
         default:
             return state;
     }
