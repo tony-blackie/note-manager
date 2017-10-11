@@ -9,6 +9,7 @@ import App from '../views/App/AppComponent';
 import NoMatch from '../views/NoMatchComponent/NoMatchComponent';
 import EditNote from '../views/EditNote/EditNote';
 import EditFolder from '../views/EditFolder/EditFolder';
+import Login from '../views/Login/Login';
 import rootReducer from './reducer';
 
 declare global {
@@ -30,6 +31,7 @@ ReactDOM.render((
             <Route path="/note" component={EditNote} />
             <Route path="/folder/:id" component={EditFolder} />
             <Route path="/folder" component={EditFolder} />
+            <Route path="/login" component={Login} />
         </Router>
     </Provider>
 ), document.getElementById('root'));
