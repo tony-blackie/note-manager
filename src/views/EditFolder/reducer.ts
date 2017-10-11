@@ -1,4 +1,5 @@
-import { EditFolderState } from './types';
+import { EditFolderState, ReducerAction } from './types';
+import { TypedAction } from '../../generic/types';
 import {
   GET_FOLDER_SUCCESS,
   CHANGE_FOLDER_NAME,
@@ -10,17 +11,15 @@ import {
 const editFolderReducer = (state: EditFolderState = {
     folderName: '',
     folderId: null
-}, action) => {
-    let newFoldersArray,
-        clickedFolder,
-        clickedFolderIndex;
-
+}, action: TypedAction<ReducerAction>) => {
     switch(action.type) {
         case GET_FOLDER_SUCCESS: {
+            const { name, id } = action.payload.folder;
+
             return {
                 ...state,
-                folderName: action.payload.folder.name,
-                folderId: action.payload.folder.id
+                folderName: name,
+                folderId: id
             };
         }
 
