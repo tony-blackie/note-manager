@@ -1,4 +1,5 @@
 import { hashHistory } from 'react-router';
+import axios from 'axios';
 
 import {
   EDIT_EXISTING_NOTE,
@@ -34,16 +35,22 @@ export const handleEditNoteFail = error => {
 export const editNoteRequest = note => dispatch => {
     dispatch({type: EDIT_EXISTING_NOTE});
 
-    return fetch(`${baseName}/note/${note.id}/`, {
+    // return fetch(`${baseName}/note/${note.id}/`, {
+    //     method: 'PUT',
+    //     body: JSON.stringify(note),
+    //     headers: {
+    //         'Accept': 'application/json',
+    //         'Content-Type': 'application/json',
+    //         'Authorization': 'Bearer A088hWN1ZTTTjbkb9PaVIiq4wfY2jP'
+    //     }
+    // })
+
+    return axios.request({
+        url:`${baseName}/note/${note.id}/`,
         method: 'PUT',
-        body: JSON.stringify(note),
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer A088hWN1ZTTTjbkb9PaVIiq4wfY2jP'
-        }
+        data: note
     })
-    .then(response => dispatch(handleEditNoteSuccess(response)))
+    .then(response => dispatch(handleEditNoteSuccess(response.data)))
     .catch(error => dispatch(handleEditNoteFail(error)));
 }
 
@@ -62,16 +69,22 @@ export const handleFailedNoteCreation = error => {
 export const createNoteRequest = note => dispatch => {
     dispatch({ type: CREATE_NEW_NOTE });
 
-    return fetch(`${baseName}/note/`, {
+    // return fetch(`${baseName}/note/`, {
+    //     method: 'POST',
+    //     body: JSON.stringify(note),
+    //     headers: {
+    //         'Accept': 'application/json',
+    //         'Content-Type': 'application/json',
+    //         'Authorization': 'Bearer A088hWN1ZTTTjbkb9PaVIiq4wfY2jP'
+    //     }
+    // })
+
+    return axios.request({
+        url: `${baseName}/note/`,
         method: 'POST',
-        body: JSON.stringify(note),
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer A088hWN1ZTTTjbkb9PaVIiq4wfY2jP'
-        }
+        data: note
     })
-    .then(response => dispatch(handleSuccessfulNoteCreation(response)))
+    .then(response => dispatch(handleSuccessfulNoteCreation(response.data)))
     .catch(error => dispatch(handleFailedNoteCreation(error)));
 }
 
@@ -98,17 +111,22 @@ export const handleFailedNoteResponse = error => ({
 export const fetchNote = id => dispatch => {
     dispatch({ type: REQUEST_NOTE_FETCH });
 
-    return fetch(`${baseName}/note/${id}/`, {
-        method: 'GET',
-        credentials: 'same-origin',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer A088hWN1ZTTTjbkb9PaVIiq4wfY2jP'
-        }
+    // return fetch(`${baseName}/note/${id}/`, {
+    //     method: 'GET',
+    //     credentials: 'same-origin',
+    //     headers: {
+    //         'Accept': 'application/json',
+    //         'Content-Type': 'application/json',
+    //         'Authorization': 'Bearer A088hWN1ZTTTjbkb9PaVIiq4wfY2jP'
+    //     }
+    // })
+    // .then(response => response.json())
+
+    return axios.request({
+        url: `${baseName}/note/${id}/`,
+        method: 'GET'
     })
-    .then(response => response.json())
-    .then(response => dispatch(handleSuccessfulNoteResponse(response)))
+    .then(response => dispatch(handleSuccessfulNoteResponse(response.data)))
     .catch(error => dispatch(handleFailedNoteResponse(error)));
 };
 

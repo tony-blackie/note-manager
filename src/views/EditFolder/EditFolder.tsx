@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 import { createStructuredSelector } from 'reselect';
+import axios from 'axios';
 
 import { GetFolderFn, CreateNewFolderFn, EditFolderFn, HandleFolderNameChangeFn } from './types';
 import { FolderType } from '../../generic/types';
@@ -37,6 +38,9 @@ type Props = OwnProps & MappedProps & MappedActions;
 
 export class EditFolder extends React.Component<Props> {
     componentDidMount() {
+        /* TODO: Refactor to use a util function for localStorage set/get */
+        axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
+
         const { id } = this.props.routeParams;
 
         if (this.props.routeParams.id) {

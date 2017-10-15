@@ -62,22 +62,7 @@ export const requestAllNotes: RequestAllNotesFn = () => ({
 export const getAllNotes: GetAllNotesFn = () => dispatch => {
     dispatch(requestAllNotes());
 
-    axios.get(`${baseName}/note/`, {
-        headers: {
-            'Authorization': 'Bearer A088hWN1ZTTTjbkb9PaVIiq4wfY2jP'
-        }
-    })
-
-    // return fetch(`${baseName}/note/`, {
-    //     method: 'GET',
-    //     credentials: 'same-origin',
-    //     headers: {
-    //         'Accept': 'application/json',
-    //         'Content-Type': 'application/json',
-    //         'Authorization': 'Bearer A088hWN1ZTTTjbkb9PaVIiq4wfY2jP'
-    //     }
-    // })
-    // .then(response => response.json())
+    return axios.get(`${baseName}/note/`)
     .then(response => dispatch(handleSuccessfulGetAllNotes(response.data)))
     .catch(error => dispatch(handleFailedGetAllNotes(error)));
 };
@@ -107,16 +92,18 @@ export const handleFailedDeleteNote: HandleFailedDeleteNoteFn = error => ({
 export const removeNote: RemoveNoteFn = id => dispatch => {
     dispatch({ type: REMOVE_NOTE });
 
-    return fetch(`${baseName}/note/${id}`, {
-        method: 'DELETE',
-        credentials: 'same-origin',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer A088hWN1ZTTTjbkb9PaVIiq4wfY2jP'
-        }
-    })
-    .then(response => response.json())
+    // return fetch(`${baseName}/note/${id}`, {
+    //     method: 'DELETE',
+    //     credentials: 'same-origin',
+    //     headers: {
+    //         'Accept': 'application/json',
+    //         'Content-Type': 'application/json',
+    //         'Authorization': 'Bearer A088hWN1ZTTTjbkb9PaVIiq4wfY2jP'
+    //     }
+    // })
+    // .then(response => response.json())
+
+    return axios.delete(`${baseName}/note/${id}`)
     .then(() => dispatch(handleSuccessfulDeleteNote(id)))
     .catch(error => dispatch(handleFailedDeleteNote(error)));
 }
@@ -142,17 +129,19 @@ export const handleFailedGetAllFolders: HandleFailedGetAllFoldersFn = error => (
 export const getAllFolders: GetAllFoldersFn = () => dispatch => {
     dispatch({type: REQUEST_ALL_FOLDERS})
 
-    return fetch(`${baseName}/folder`, {
-        method: 'GET',
-        credentials: 'same-origin',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer A088hWN1ZTTTjbkb9PaVIiq4wfY2jP'
-        }
-    })
-    .then(response => response.json())
-    .then(json => dispatch(handleSuccessfulGetAllFolders(json)))
+    // return fetch(`${baseName}/folder`, {
+    //     method: 'GET',
+    //     credentials: 'same-origin',
+    //     headers: {
+    //         'Accept': 'application/json',
+    //         'Content-Type': 'application/json',
+    //         'Authorization': 'Bearer A088hWN1ZTTTjbkb9PaVIiq4wfY2jP'
+    //     }
+    // })
+    // .then(response => response.json())
+
+    return axios.get(`${baseName}/folder`)
+    .then(response => dispatch(handleSuccessfulGetAllFolders(response.data)))
     .catch(error => dispatch(handleFailedGetAllFolders(error)));
 }
 
@@ -167,16 +156,18 @@ export const handleFailedDeleteFolder: HandleFailedDeleteFolderFn = error => ({
 });
 
 export const removeFolder: RemoveFolderFn = id => dispatch => {
-    return fetch(`${baseName}/folder/${id}`, {
-        method: 'DELETE',
-        credentials: 'same-origin',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer A088hWN1ZTTTjbkb9PaVIiq4wfY2jP'
-        }
-    })
-    .then(response => response.json())
+    // return fetch(`${baseName}/folder/${id}`, {
+    //     method: 'DELETE',
+    //     credentials: 'same-origin',
+    //     headers: {
+    //         'Accept': 'application/json',
+    //         'Content-Type': 'application/json',
+    //         'Authorization': 'Bearer A088hWN1ZTTTjbkb9PaVIiq4wfY2jP'
+    //     }
+    // })
+    // .then(response => response.json())
+
+    return axios.delete(`${baseName}/folder/${id}`)
     .then(() => dispatch(handleSuccessfulDeleteFolder(id)))
     .catch(error => dispatch(handleFailedDeleteFolder(error)));
 }

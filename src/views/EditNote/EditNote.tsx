@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
+import axios from 'axios';
 
 import { selectIsNoteCreationMode, selectEditedNote } from './selectors';
 import { NoteType } from '../../generic/types';
@@ -43,6 +44,9 @@ type Props = OwnProps & MappedActions & MappedProps;
 
 export class EditNote extends React.Component<Props> {
     componentDidMount() {
+        /* TODO: Refactor to use a util function for localStorage set/get */
+        axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
+
         if (this.props.routeParams.noteId) {
             this.props.fetchNote(this.props.routeParams.noteId);
         } else {

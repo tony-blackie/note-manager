@@ -2,6 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
+import axios from 'axios';
 
 import ControlPanel from './components/ControlPanel';
 import FolderTree from './components/FolderTree';
@@ -59,6 +60,9 @@ type Props = MappedProps & MappedActions;
 
 export class App extends React.Component<Props> {
     componentDidMount() {
+        /* TODO: Refactor to use a util function for localStorage set/get */
+        axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
+
         this.props.getAllNotes();
         this.props.getAllFolders();
     }
