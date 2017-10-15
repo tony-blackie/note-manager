@@ -39,7 +39,8 @@ export const editNoteRequest = note => dispatch => {
         body: JSON.stringify(note),
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer A088hWN1ZTTTjbkb9PaVIiq4wfY2jP'
         }
     })
     .then(response => dispatch(handleEditNoteSuccess(response)))
@@ -66,7 +67,8 @@ export const createNoteRequest = note => dispatch => {
         body: JSON.stringify(note),
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer A088hWN1ZTTTjbkb9PaVIiq4wfY2jP'
         }
     })
     .then(response => dispatch(handleSuccessfulNoteCreation(response)))
@@ -101,7 +103,8 @@ export const fetchNote = id => dispatch => {
         credentials: 'same-origin',
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer A088hWN1ZTTTjbkb9PaVIiq4wfY2jP'
         }
     })
     .then(response => response.json())

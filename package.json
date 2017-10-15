@@ -69,6 +69,7 @@
   "dependencies": {
     "@types/react": "^16.0.5",
     "@types/redux": "^3.6.0",
+    "axios": "^0.16.2",
     "babel-core": "^6.23.1",
     "babel-loader": "^6.4.0",
     "babel-preset-airbnb": "^2.2.1",

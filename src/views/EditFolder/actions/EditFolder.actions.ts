@@ -65,7 +65,8 @@ export const getFolder: GetFolderFn = id => dispatch => {
         credentials: 'same-origin',
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer A088hWN1ZTTTjbkb9PaVIiq4wfY2jP'
         }
     })
     .then(response => response.json())
@@ -101,7 +102,8 @@ export const editFolder: EditFolderFn = (id, name) => dispatch => {
         body: JSON.stringify({ id, name }),
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer A088hWN1ZTTTjbkb9PaVIiq4wfY2jP'
         }
     })
     .then(response => response.json())
@@ -126,7 +128,8 @@ export const createNewFolder: CreateNewFolderFn = folderName => dispatch => {
         body: JSON.stringify({ name: folderName }),
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer A088hWN1ZTTTjbkb9PaVIiq4wfY2jP'
         }
     })
     .then(response => {

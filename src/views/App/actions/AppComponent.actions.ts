@@ -43,6 +43,7 @@ import {
 import { FolderType, NoteType, TypedAction } from '../../../generic/types';
 import { hashHistory } from 'react-router';
 import { baseName } from '../../../app/config';
+import axios from 'axios';
 
 export const handleSuccessfulGetAllNotes: HandleSuccessfulGetAllNotesFn = notes => ({
     type: GET_ALL_NOTES_SUCCESS,
@@ -61,17 +62,23 @@ export const requestAllNotes: RequestAllNotesFn = () => ({
 export const getAllNotes: GetAllNotesFn = () => dispatch => {
     dispatch(requestAllNotes());
 
-    return fetch(`${baseName}/note/`, {
-        method: 'GET',
-        credentials: 'same-origin',
+    axios.get(`${baseName}/note/`, {
         headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer nKglUOXRepLCZ73mbHocqH8uvFhIZS'
+            'Authorization': 'Bearer A088hWN1ZTTTjbkb9PaVIiq4wfY2jP'
         }
     })
-    .then(response => response.json())
-    .then(json => dispatch(handleSuccessfulGetAllNotes(json)))
+
+    // return fetch(`${baseName}/note/`, {
+    //     method: 'GET',
+    //     credentials: 'same-origin',
+    //     headers: {
+    //         'Accept': 'application/json',
+    //         'Content-Type': 'application/json',
+    //         'Authorization': 'Bearer A088hWN1ZTTTjbkb9PaVIiq4wfY2jP'
+    //     }
+    // })
+    // .then(response => response.json())
+    .then(response => dispatch(handleSuccessfulGetAllNotes(response.data)))
     .catch(error => dispatch(handleFailedGetAllNotes(error)));
 };
 
@@ -106,7 +113,7 @@ export const removeNote: RemoveNoteFn = id => dispatch => {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer nKglUOXRepLCZ73mbHocqH8uvFhIZS'
+            'Authorization': 'Bearer A088hWN1ZTTTjbkb9PaVIiq4wfY2jP'
         }
     })
     .then(response => response.json())
@@ -141,7 +148,7 @@ export const getAllFolders: GetAllFoldersFn = () => dispatch => {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer nKglUOXRepLCZ73mbHocqH8uvFhIZS'
+            'Authorization': 'Bearer A088hWN1ZTTTjbkb9PaVIiq4wfY2jP'
         }
     })
     .then(response => response.json())
@@ -166,7 +173,7 @@ export const removeFolder: RemoveFolderFn = id => dispatch => {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer nKglUOXRepLCZ73mbHocqH8uvFhIZS'
+            'Authorization': 'Bearer A088hWN1ZTTTjbkb9PaVIiq4wfY2jP'
         }
     })
     .then(response => response.json())
