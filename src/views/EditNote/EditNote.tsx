@@ -8,7 +8,6 @@ import axios from 'axios';
 import { selectIsNoteCreationMode, selectEditedNote } from './selectors';
 import { NoteType } from '../../generic/types';
 import { CreateNoteRequestFn, ChangeTextFieldValueFn, FetchNoteFn, EditNoteState, EditedNote } from './types';
-
 import {
   editNoteRequest,
   createNoteRequest,
@@ -17,6 +16,9 @@ import {
   fetchNote,
   clearNoteData
  } from './actions/EditNote.actions';
+ import utils from '../../utils';
+
+ const { setDefaultAuthHeader } = utils;
 
  interface RouteParams {
      noteId: string;
@@ -44,8 +46,7 @@ type Props = OwnProps & MappedActions & MappedProps;
 
 export class EditNote extends React.Component<Props> {
     componentDidMount() {
-        /* TODO: Refactor to use a util function for localStorage set/get */
-        axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
+        setDefaultAuthHeader();
 
         if (this.props.routeParams.noteId) {
             this.props.fetchNote(this.props.routeParams.noteId);
