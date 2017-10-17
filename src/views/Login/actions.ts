@@ -1,31 +1,31 @@
 import { baseName, clientID, clientSecret } from '../../app/config';
 import axios from 'axios';
+import utils from '../../utils';
+
+ const { setToken } = utils;
 
 export const requestToken = (username, password) => dispatch => {
     const grant_type = 'password';
     const client_id = clientID;
     const client_secret = clientSecret;
 
-    return fetch(`${baseName}/o/token/?grant_type=${grant_type}&username=${username}&password=${password}&client_secret=${client_secret}&client_id=${clientID}`, {
+    return axios.request({
+        url: `${baseName}/o/token/`,
         method: 'POST',
-        headers: {
-            'Accept': 'application/json',
+        params: {
+            grant_type,
+            username,
+            password,
+            client_secret,
+            client_id
         }
     })
-    .then(response => response.json())
-
-    // return axios.post(
-    //     `${baseName}/o/token/
-    //     ?grant_type=${grant_type}
-    //     &username=${username}
-    //     &password=${password}
-    //     &client_secret=${client_secret}
-    //     &client_id=${clientID}`
-    // )
     .then(response => {
-        const token = `${response.token_type} ${response.access_token}`;
+        const { token_type, access_token } = response.data;
 
-        localStorage.setItem('token', token);
+        const token = `${token_type} ${access_token}`;
+
+        setToken(token);
     })
     .catch(error => console.log(error));
 };

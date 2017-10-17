@@ -9,6 +9,9 @@ import FolderTree from './components/FolderTree';
 import NotePanel from './components/NotePanel';
 import Folder from './components/Folder';
 import { selectNotesByQuery, selectFolders, selectActiveFolderId } from './selectors';
+import utils from '../../utils';
+
+ const { setDefaultAuthHeader } = utils;
 
 import {
   getAllNotes,
@@ -60,8 +63,7 @@ type Props = MappedProps & MappedActions;
 
 export class App extends React.Component<Props> {
     componentDidMount() {
-        /* TODO: Refactor to use a util function for localStorage set/get */
-        axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
+        setDefaultAuthHeader();
 
         this.props.getAllNotes();
         this.props.getAllFolders();
