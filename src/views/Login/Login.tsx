@@ -10,12 +10,11 @@ interface MappedProps {
 
 type Props = MappedProps;
 
-// interface Props {
-    // login: string;
-    // password: string;
-// }
-
 class Login extends React.Component<Props> {
+    requestToken = () => {
+        this.props.requestToken('user1', 'xcvbXCVB');
+    }
+
     render() {
         return (
             <div>
@@ -24,7 +23,7 @@ class Login extends React.Component<Props> {
                     <input type="text" value={'user1'} />
                     <input type="password" value={'xcvbXCVB'} />
 
-                    <button onClick={() => this.props.requestToken('user1', 'xcvbXCVB')}>Submit</button>
+                    <button onClick={this.requestToken}>Submit</button>
                 </form>
             </div>
         );
