@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
-import { requestToken } from './actions';
+import { requestToken, changeLogin, changePassword } from './actions';
 import { selectUserLogin, selectPassword } from './selectors';
 
 interface MappedProps {
@@ -13,6 +13,8 @@ interface MappedProps {
 
 interface MappedActions {
     requestToken: (username: string, password: string) => Promise<any>;
+    changeLogin: (login: string) => void;
+    changePassword: (password: string) => void;
 }
 
 type Props = MappedActions & MappedProps;
@@ -29,8 +31,16 @@ class Login extends React.Component<Props> {
             <div>
                 <span>Login:</span>
                 <form>
-                    <input type="text" value={login} />
-                    <input type="password" value={password} />
+                    <input
+                        type="text"
+                        value={login}
+                        onChange={(event) => this.props.changeLogin(event.target.value)}
+                    />
+                    <input
+                        type="password"
+                        value={password}
+                        onChange={(event) => this.props.changePassword(event.target.value)}
+                    />
 
                     <button onClick={this.requestToken}>Submit</button>
                 </form>
@@ -45,7 +55,9 @@ export const mapStateToProps = state => createStructuredSelector({
 });
 
 export const mapDispatchToProps = (dispatch) => bindActionCreators({
-    requestToken
+    requestToken,
+    changeLogin,
+    changePassword
 }, dispatch);
 
 export default connect<MappedProps, MappedActions, {}>(mapStateToProps, mapDispatchToProps)(Login);

@@ -29,3 +29,7 @@ export const requestToken = (username, password) => dispatch => {
     })
     .catch(error => console.log(error));
 };
+
+export const changeLogin = (login: string) => ({ type: 'CHANGE_LOGIN', login });
+
+export const changePassword = (password: string) => ({ type: 'CHANGE_PASSWORD', password });
