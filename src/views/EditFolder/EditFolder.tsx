@@ -15,7 +15,11 @@ import {
   createNewFolder,
   handleFailedFolderCreation
 } from './actions/EditFolder.actions';
+
 import { selectFolderName, selectFolderId, selectFolderFail } from './selectors';
+import utils from '../../utils';
+
+const { setDefaultAuthHeader } = utils;
 
 interface RouteParams {
     id: string;
@@ -42,8 +46,7 @@ type Props = OwnProps & MappedProps & MappedActions;
 
 export class EditFolder extends React.Component<Props> {
     componentDidMount() {
-        /* TODO: Refactor to use a util function for localStorage set/get */
-        axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
+        setDefaultAuthHeader();
 
         const { id } = this.props.routeParams;
 

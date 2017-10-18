@@ -61,17 +61,6 @@ export const requestFolder: RequestFolderFn = () => ({
 export const getFolder: GetFolderFn = id => dispatch => {
     dispatch(requestFolder());
 
-    // fetch(`${baseName}/folder/${id}/`, {
-    //     method: 'GET',
-    //     credentials: 'same-origin',
-    //     headers: {
-    //         'Accept': 'application/json',
-    //         'Content-Type': 'application/json',
-    //         'Authorization': 'Bearer A088hWN1ZTTTjbkb9PaVIiq4wfY2jP'
-    //     }
-    // })
-    // .then(response => response.json())
-
     return axios.request({
         url: `${baseName}/folder/${id}/`,
         method: 'GET'
@@ -102,17 +91,6 @@ export const requestFolderEdit: RequestFolderEditFn = () => ({
 export const editFolder: EditFolderFn = (id, name) => dispatch => {
     dispatch(requestFolderEdit());
 
-    // return fetch(`${baseName}/folder/${id}/`, {
-    //     method: 'PUT',
-    //     credentials: 'same-origin',
-    //     body: JSON.stringify({ id, name }),
-    //     headers: {
-    //         'Accept': 'application/json',
-    //         'Content-Type': 'application/json',
-    //         'Authorization': 'Bearer A088hWN1ZTTTjbkb9PaVIiq4wfY2jP'
-    //     }
-    // })
-    // .then(response => response.json())
     return axios.request({
         url:`${baseName}/folder/${id}/`,
         method: 'PUT',
@@ -134,17 +112,6 @@ export const editFolder: EditFolderFn = (id, name) => dispatch => {
 
 export const createNewFolder: CreateNewFolderFn = folderName => dispatch => {
     dispatch(requestFolderCreation());
-
-    // return fetch(`${baseName}/folder`, {
-    //     method: 'PUT',
-    //     credentials: 'same-origin',
-    //     body: JSON.stringify({ name: folderName }),
-    //     headers: {
-    //         'Accept': 'application/json',
-    //         'Content-Type': 'application/json',
-    //         'Authorization': 'Bearer A088hWN1ZTTTjbkb9PaVIiq4wfY2jP'
-    //     }
-    // })
 
     return axios.request({
         url:`${baseName}/folder`,
