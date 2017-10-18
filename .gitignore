@@ -3,6 +3,7 @@ node_modules
 dist
 npm-debug.log
 coverage
+exampleapp/db.sqlite3
 exampleapp/dinosaurs/__init__.pyc
 exampleapp/dinosaurs/admin.pyc
 exampleapp/dinosaurs/apps.pyc
@@ -22,4 +23,4 @@ exampleapp/exampleapp/__init__.pyc
 exampleapp/exampleapp/settings.pyc
 exampleapp/exampleapp/urls.pyc
 exampleapp/exampleapp/wsgi.pyc
-exampleapp/db.sqlite3
+

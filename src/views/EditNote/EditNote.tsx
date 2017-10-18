@@ -5,9 +5,9 @@ import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import axios from 'axios';
 
-import { selectIsNoteCreationMode, selectEditedNote } from './selectors';
+import { selectIsNoteCreationMode, selectEditedNote, selectFailNote } from './selectors';
 import { NoteType } from '../../generic/types';
-import { CreateNoteRequestFn, ChangeTextFieldValueFn, FetchNoteFn, EditNoteState, EditedNote } from './types';
+import { CreateNoteRequestFn, ChangeTextFieldValueFn, FetchNoteFn, EditNoteState, EditedNote} from './types';
 
 import {
   editNoteRequest,
@@ -29,6 +29,7 @@ import {
 interface MappedProps {
     name: string;
     editedNote: EditedNote;
+    failNote: string;
 }
 
 interface MappedActions {
@@ -52,6 +53,9 @@ export class EditNote extends React.Component<Props> {
         } else {
             this.props.clearNoteData();
         }
+
+        //this.props.handleFailedNoteCreation('');
+
     }
 
     handleSaveClick = () => {
@@ -95,6 +99,7 @@ export class EditNote extends React.Component<Props> {
                         Save changes
                     </button>
                 </nav>
+                <div>{this.props.failNote}</div>
                 <form>
                     <fieldset>
                         <div>
@@ -125,7 +130,8 @@ export class EditNote extends React.Component<Props> {
 
 export const mapStateToProps = (state: EditNoteState) => createStructuredSelector({
     isNoteCreationMode: selectIsNoteCreationMode,
-    editedNote: selectEditedNote
+    editedNote: selectEditedNote,
+    failNote: selectFailNote
 });
 
 export const mapDispatchToProps = dispatch => bindActionCreators({

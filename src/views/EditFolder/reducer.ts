@@ -5,12 +5,13 @@ import {
   CHANGE_FOLDER_NAME,
   SAVE_EDITED_FOLDER,
   FOLDER_CREATION_SUCCESS,
-  FOLDER_CREATION_FAIL
+  FOLDER_CREATION_FAIL,
 } from './constants';
 
 const editFolderReducer = (state: EditFolderState = {
     folderName: '',
-    folderId: null
+    folderId: null,
+    folderFail: ''
 }, action: TypedAction<ReducerAction>) => {
     switch(action.type) {
         case GET_FOLDER_SUCCESS: {
@@ -31,6 +32,17 @@ const editFolderReducer = (state: EditFolderState = {
                 folderName: text
             };
         }
+
+        case FOLDER_CREATION_FAIL: {
+            const { error } = action.payload;
+
+            return {
+                ...state,
+                folderFail: error
+            };
+        }
+
+        
 
         default:
             return state;

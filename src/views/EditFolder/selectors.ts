@@ -14,3 +14,8 @@ export const selectFolderId = createSelector(
     selectEditFolder,
     editFolder => editFolder.folderId
 );
+
+export const selectFolderFail = createSelector(
+    selectEditFolder,
+    editFolder => editFolder.folderFail
+);

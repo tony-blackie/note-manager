@@ -3,6 +3,7 @@ import { TypedAction, TypedActionNoPayload, FolderType } from '../../generic/typ
 export interface EditFolderState {
     folderName: string;
     folderId: number | null;
+    folderFail: string;
 }
 
 export interface HandleSuccessfulFolderEditPayload {

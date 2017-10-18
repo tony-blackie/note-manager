@@ -27,9 +27,9 @@ export const handleEditNoteSuccess: HandleEditNoteSuccessFn = response => {
 }
 
 export const handleEditNoteFail = error => {
-    hashHistory.push('/');
+    //hashHistory.push('/');
 
-    return ({ type: EDIT_EXISTING_NOTE_FAIL, payload: error });
+    return ({ type: CREATE_NEW_NOTE_FAIL, payload: error });
 }
 
 export const editNoteRequest = note => dispatch => {
@@ -46,12 +46,12 @@ export const editNoteRequest = note => dispatch => {
     // })
 
     return axios.request({
-        url:`${baseName}/note/${note.id}/`,
+        url:`${baseName}/noe/${note.id}/`,
         method: 'PUT',
         data: note
     })
     .then(response => dispatch(handleEditNoteSuccess(response.data)))
-    .catch(error => dispatch(handleEditNoteFail(error)));
+    .catch(error => dispatch(handleEditNoteFail('error, ee')));
 }
 
 export const handleSuccessfulNoteCreation = response => {
@@ -61,8 +61,8 @@ export const handleSuccessfulNoteCreation = response => {
 };
 
 export const handleFailedNoteCreation = error => {
-    hashHistory.push('/');
-
+    //hashHistory.push('/');
+    
     return ({ type: CREATE_NEW_NOTE_FAIL, payload: error });
 };
 
@@ -85,7 +85,7 @@ export const createNoteRequest = note => dispatch => {
         data: note
     })
     .then(response => dispatch(handleSuccessfulNoteCreation(response.data)))
-    .catch(error => dispatch(handleFailedNoteCreation(error)));
+    .catch(error => dispatch(handleFailedNoteCreation('sorry, e')));
 }
 
 export const changeTextFieldValue = value => ({

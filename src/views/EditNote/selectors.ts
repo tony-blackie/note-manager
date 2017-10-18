@@ -13,3 +13,8 @@ export const selectEditedNote = createSelector(
     selectEditNoteView,
     editNoteView => editNoteView.editedNote
 );
+
+export const selectFailNote = createSelector(
+    selectEditNoteView,
+    editNoteView => editNoteView.failNote
+);

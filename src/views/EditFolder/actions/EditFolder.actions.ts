@@ -157,8 +157,8 @@ export const createNewFolder: CreateNewFolderFn = folderName => dispatch => {
         hashHistory.push('/');
     })
     .catch(error => {
-        dispatch(handleFailedFolderCreation(error));
-
-        hashHistory.push('/');
+        dispatch(handleFailedFolderCreation('sorry'));
+        
+        //hashHistory.push('/');
     });
 }
