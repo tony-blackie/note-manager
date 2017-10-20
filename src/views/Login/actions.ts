@@ -1,6 +1,8 @@
-import { baseName, clientID, clientSecret } from '../../app/config';
 import axios from 'axios';
+
+import { baseName, clientID, clientSecret } from '../../app/config';
 import utils from '../../utils';
+import { CHANGE_LOGIN, CHANGE_PASSWORD } from './constants';
 
  const { setToken } = utils;
 
@@ -29,3 +31,13 @@ export const requestToken = (username, password) => dispatch => {
     })
     .catch(error => console.log(error));
 };
+
+export const changeLogin = (login: string) => ({
+    type: CHANGE_LOGIN,
+    payload: { login }
+});
+
+export const changePassword = (password: string) => ({
+    type: CHANGE_PASSWORD,
+    payload: { password }
+});

@@ -1,11 +1,13 @@
 import { EditNoteState } from '../views/EditNote/types';
 import { AppComponentState } from '../views/App/types';
 import { EditFolderState } from '../views/EditFolder/types';
+import { LoginState } from '../views/Login/types';
 
 export interface Store {
     editNote: EditNoteState;
     editFolder: EditFolderState;
     app: AppComponentState;
+    login: LoginState;
 }
 
 export interface NoteType {
