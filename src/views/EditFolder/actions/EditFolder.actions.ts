@@ -12,7 +12,9 @@ import {
     REQUEST_FOLDER_CREATION,
     REQUEST_FOLDER_EDIT,
     FOLDER_CREATION_SUCCESS,
-    FOLDER_CREATION_FAIL
+    FOLDER_CREATION_FAIL,
+    CLEAR_FOLDER_FAIL,
+    CLEAR_FOLDER_NAME
 } from '../../actionTypes';
 import {
     EditFolderFn,
@@ -20,6 +22,7 @@ import {
     RequestFolderCreationFn,
     HandleSuccessfulFolderCreationFn,
     HandleFailedFolderCreationFn,
+    HandleClearFailedFolderCreationFn,
     HandleSuccessfulGetFolderFn,
     HandleFailedGetFolderFn,
     RequestFolderFn,
@@ -27,7 +30,8 @@ import {
     HandleFolderNameChangeFn,
     HandleFailedFolderEditFn,
     RequestFolderEditFn,
-    CreateNewFolderFn
+    CreateNewFolderFn,
+    HandleFolderNameClearFn
 } from '../types';
 import { baseName } from '../../../app/config';
 
@@ -39,8 +43,12 @@ export const handleSuccessfulFolderCreation: HandleSuccessfulFolderCreationFn = 
     type: FOLDER_CREATION_SUCCESS, payload: { folder }
 });
 
-export const handleFailedFolderCreation: HandleFailedFolderCreationFn = error => ({
-    type: FOLDER_CREATION_FAIL, payload: { error }
+export const handleFailedFolderCreation: HandleFailedFolderCreationFn = () => ({
+    type: FOLDER_CREATION_FAIL
+});
+
+export const handleClearFailedFolderCreation: HandleClearFailedFolderCreationFn = () => ({
+    type: CLEAR_FOLDER_FAIL
 });
 
 export const handleSuccessfulGetFolder: HandleSuccessfulGetFolderFn = folder => {
@@ -72,6 +80,10 @@ export const getFolder: GetFolderFn = id => dispatch => {
 export const handleFolderNameChange: HandleFolderNameChangeFn = text => ({
     type: CHANGE_FOLDER_NAME,
     payload: { text }
+});
+
+export const handleFolderNameClear: HandleFolderNameClearFn = () => ({
+    type: CLEAR_FOLDER_NAME
 });
 
 export const handleSuccessfulFolderEdit: HandleSuccessfulFolderEditFn = (folderId, folderName) => ({
@@ -114,18 +126,18 @@ export const createNewFolder: CreateNewFolderFn = folderName => dispatch => {
     dispatch(requestFolderCreation());
 
     return axios.request({
-        url:`${baseName}/folder`,
+        url:`${baseName}/folder/`,
         method: 'PUT',
         data: { name: folderName }
     })
     .then(response => {
         dispatch(handleSuccessfulFolderCreation(folderName));
-
+        
         hashHistory.push('/');
     })
     .catch(error => {
-        dispatch(handleFailedFolderCreation(error));
-
-        hashHistory.push('/');
+        dispatch(handleFailedFolderCreation());
+        
+        //hashHistory.push('/');
     });
 }

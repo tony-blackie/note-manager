@@ -13,7 +13,8 @@ import {
   REQUEST_NOTE_FETCH,
   GET_NOTE_SUCCESS,
   GET_NOTE_FAIL,
-  CLEAR_NOTE_DATA
+  CLEAR_NOTE_DATA,
+  CLEAR_ERROR_MESSAGE
 } from '../../actionTypes';
 import { baseName } from '../../../app/config';
 import { FolderType, NoteType, TypedAction } from '../../../generic/types';
@@ -26,10 +27,12 @@ export const handleEditNoteSuccess: HandleEditNoteSuccessFn = response => {
     return ({ type: EDIT_EXISTING_NOTE_SUCCESS, payload: response });
 }
 
-export const handleEditNoteFail = error => {
-    hashHistory.push('/');
+export const handleEditNoteFail = () => {
+    return ({ type: CREATE_NEW_NOTE_FAIL });
+}
 
-    return ({ type: EDIT_EXISTING_NOTE_FAIL, payload: error });
+export const handleClearErrorMessage = () => {
+    return ({ type: CLEAR_ERROR_MESSAGE });
 }
 
 export const editNoteRequest = note => dispatch => {
@@ -41,7 +44,7 @@ export const editNoteRequest = note => dispatch => {
         data: note
     })
     .then(response => dispatch(handleEditNoteSuccess(response.data)))
-    .catch(error => dispatch(handleEditNoteFail(error)));
+    .catch(error => dispatch(handleEditNoteFail()));
 }
 
 export const handleSuccessfulNoteCreation = response => {
@@ -50,10 +53,8 @@ export const handleSuccessfulNoteCreation = response => {
     return ({ type: CREATE_NEW_NOTE_SUCCESS, payload: response });
 };
 
-export const handleFailedNoteCreation = error => {
-    hashHistory.push('/');
-
-    return ({ type: CREATE_NEW_NOTE_FAIL, payload: error });
+export const handleFailedNoteCreation = () => {
+    return ({ type: CREATE_NEW_NOTE_FAIL });
 };
 
 export const createNoteRequest = note => dispatch => {
@@ -65,7 +66,7 @@ export const createNoteRequest = note => dispatch => {
         data: note
     })
     .then(response => dispatch(handleSuccessfulNoteCreation(response.data)))
-    .catch(error => dispatch(handleFailedNoteCreation(error)));
+    .catch(error => dispatch(handleFailedNoteCreation()));
 }
 
 export const changeTextFieldValue = value => ({

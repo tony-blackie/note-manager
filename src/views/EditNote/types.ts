@@ -11,6 +11,7 @@ export interface EditedNote {
 export interface EditNoteState {
     editedNote: EditedNote;
     isNoteCreationMode: boolean;
+    errorMessage: string;
 }
 
 export interface TypedAction {

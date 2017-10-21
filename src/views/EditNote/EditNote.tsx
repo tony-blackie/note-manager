@@ -5,16 +5,19 @@ import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import axios from 'axios';
 
-import { selectIsNoteCreationMode, selectEditedNote } from './selectors';
+import { selectIsNoteCreationMode, selectEditedNote, selectErrorMessage } from './selectors';
 import { NoteType } from '../../generic/types';
+
 import { CreateNoteRequestFn, ChangeTextFieldValueFn, FetchNoteFn, EditNoteState, EditedNote } from './types';
+
 import {
   editNoteRequest,
   createNoteRequest,
   changeTextFieldValue,
   changeNoteName,
   fetchNote,
-  clearNoteData
+  clearNoteData,
+  handleClearErrorMessage
  } from './actions/EditNote.actions';
  import utils from '../../utils';
 
@@ -31,6 +34,7 @@ import {
 interface MappedProps {
     name: string;
     editedNote: EditedNote;
+    errorMessage: string;
 }
 
 interface MappedActions {
@@ -40,6 +44,7 @@ interface MappedActions {
     changeNoteName: ChangeTextFieldValueFn;
     fetchNote: FetchNoteFn;
     clearNoteData: () => void;
+    handleClearErrorMessage: () => void;
 }
 
 type Props = OwnProps & MappedActions & MappedProps;
@@ -53,6 +58,9 @@ export class EditNote extends React.Component<Props> {
         } else {
             this.props.clearNoteData();
         }
+
+        this.props.handleClearErrorMessage();
+
     }
 
     handleSaveClick = () => {
@@ -96,6 +104,7 @@ export class EditNote extends React.Component<Props> {
                         Save changes
                     </button>
                 </nav>
+                <div>{this.props.errorMessage}</div>
                 <form>
                     <fieldset>
                         <div>
@@ -120,13 +129,13 @@ export class EditNote extends React.Component<Props> {
                 </form>
             </div>
         );
-
     }
 }
 
 export const mapStateToProps = (state: EditNoteState) => createStructuredSelector({
     isNoteCreationMode: selectIsNoteCreationMode,
-    editedNote: selectEditedNote
+    editedNote: selectEditedNote,
+    errorMessage: selectErrorMessage
 });
 
 export const mapDispatchToProps = dispatch => bindActionCreators({
@@ -135,7 +144,8 @@ export const mapDispatchToProps = dispatch => bindActionCreators({
     changeTextFieldValue,
     changeNoteName,
     fetchNote,
-    clearNoteData
+    clearNoteData,
+    handleClearErrorMessage
 }, dispatch);
 
 export default connect<MappedProps, MappedActions, {}>(mapStateToProps, mapDispatchToProps)(EditNote);

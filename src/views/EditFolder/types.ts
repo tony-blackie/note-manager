@@ -3,6 +3,7 @@ import { TypedAction, TypedActionNoPayload, FolderType } from '../../generic/typ
 export interface EditFolderState {
     folderName: string;
     folderId: number | null;
+    errorMessage: string;
 }
 
 export interface HandleSuccessfulFolderEditPayload {
@@ -15,7 +16,9 @@ export interface HandleSuccessfulFolderCreationPayload {
 }
 
 export interface HandleFailedFolderCreationPayload {
-    error: any;
+}
+
+export interface HandleClearFailedFolderCreationPayload {
 }
 
 export interface HandleSuccessfulGetFolderPayload {
@@ -30,6 +33,9 @@ export interface HandleFolderNameChangePayload {
     text: string;
 }
 
+export interface HandleFolderNameClearPayload {
+}
+
 export interface HandleFailedFolderEditPayload {
     error: any;
 }
@@ -38,10 +44,12 @@ export type ReducerAction =
 HandleSuccessfulFolderEditPayload &
 HandleFailedFolderEditPayload &
 HandleSuccessfulFolderCreationPayload &
+HandleClearFailedFolderCreationPayload &
 HandleFailedFolderCreationPayload &
 HandleSuccessfulGetFolderPayload &
 HandleFailedGetFolderPayload &
-HandleFolderNameChangePayload
+HandleFolderNameChangePayload &
+HandleFolderNameClearPayload
 
 export type EditFolderFn = (id: number, name: string) => void;
 
@@ -53,8 +61,11 @@ export type RequestFolderCreationFn = () => TypedActionNoPayload;
 export type HandleSuccessfulFolderCreationFn = (folder: string) =>
     TypedAction<HandleSuccessfulFolderCreationPayload>;
 
-export type HandleFailedFolderCreationFn = (error: any) =>
+export type HandleFailedFolderCreationFn = () =>
     TypedAction<HandleFailedFolderCreationPayload>;
+
+export type HandleClearFailedFolderCreationFn = () =>
+    TypedAction<HandleClearFailedFolderCreationPayload>;
 
 export type HandleSuccessfulGetFolderFn = (folder: FolderType) =>
     TypedAction<HandleSuccessfulGetFolderPayload>;
@@ -68,6 +79,9 @@ export type GetFolderFn = (id: number) => (dispatch: (callback: any) => void) =>
 
 export type HandleFolderNameChangeFn = (text: string) =>
     TypedAction<HandleFolderNameChangePayload>;
+
+    export type HandleFolderNameClearFn = () =>
+TypedAction<HandleFolderNameClearPayload>;
 
 export type HandleFailedFolderEditFn = (error: any) => TypedAction<HandleFailedFolderEditPayload>;
 

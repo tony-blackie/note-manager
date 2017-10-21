@@ -7,7 +7,9 @@ import {
   CHANGE_NOTE_NAME,
   GET_NOTE_SUCCESS,
   GET_NOTE_FAIL,
-  CLEAR_NOTE_DATA
+  CLEAR_NOTE_DATA,
+  CREATE_NEW_NOTE_FAIL,
+  CLEAR_ERROR_MESSAGE
 } from './constants';
 import { EditNoteState, TypedAction } from './types';
 
@@ -19,7 +21,8 @@ const editNoteReducer = (state: EditNoteState = {
         textFieldPlaceholder: '',
         folderId: null
     },
-    isNoteCreationMode: false
+    isNoteCreationMode: false,
+    errorMessage: ''
 }, action: TypedAction) => {
     let newFoldersArray,
         clickedFolder,
@@ -78,6 +81,20 @@ const editNoteReducer = (state: EditNoteState = {
                     textFieldValue: '',
                     folderId: null
                 }
+            };
+        }
+
+        case CREATE_NEW_NOTE_FAIL: {
+            return {
+                ...state,
+                errorMessage: 'sorry, try later :('
+            };
+        }
+
+        case CLEAR_ERROR_MESSAGE: {
+            return {
+                ...state,
+                errorMessage: ''
             };
         }
 
