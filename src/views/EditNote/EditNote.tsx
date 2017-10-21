@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import axios from 'axios';
 
-import { selectIsNoteCreationMode, selectEditedNote, selectFailNote } from './selectors';
+import { selectIsNoteCreationMode, selectEditedNote, selectErrorMessage } from './selectors';
 import { NoteType } from '../../generic/types';
 import { CreateNoteRequestFn, ChangeTextFieldValueFn, FetchNoteFn, EditNoteState, EditedNote} from './types';
 
@@ -15,7 +15,8 @@ import {
   changeTextFieldValue,
   changeNoteName,
   fetchNote,
-  clearNoteData
+  clearNoteData,
+  handleClearEditNoteFail
  } from './actions/EditNote.actions';
 
  interface RouteParams {
@@ -29,7 +30,7 @@ import {
 interface MappedProps {
     name: string;
     editedNote: EditedNote;
-    failNote: string;
+    errorMessage: string;
 }
 
 interface MappedActions {
@@ -39,6 +40,7 @@ interface MappedActions {
     changeNoteName: ChangeTextFieldValueFn;
     fetchNote: FetchNoteFn;
     clearNoteData: () => void;
+    handleClearEditNoteFail: () => void;
 }
 
 type Props = OwnProps & MappedActions & MappedProps;
@@ -54,7 +56,7 @@ export class EditNote extends React.Component<Props> {
             this.props.clearNoteData();
         }
 
-        //this.props.handleFailedNoteCreation('');
+        this.props.handleClearEditNoteFail();
 
     }
 
@@ -99,7 +101,7 @@ export class EditNote extends React.Component<Props> {
                         Save changes
                     </button>
                 </nav>
-                <div>{this.props.failNote}</div>
+                <div>{this.props.errorMessage}</div>
                 <form>
                     <fieldset>
                         <div>
@@ -124,14 +126,13 @@ export class EditNote extends React.Component<Props> {
                 </form>
             </div>
         );
-
     }
 }
 
 export const mapStateToProps = (state: EditNoteState) => createStructuredSelector({
     isNoteCreationMode: selectIsNoteCreationMode,
     editedNote: selectEditedNote,
-    failNote: selectFailNote
+    errorMessage: selectErrorMessage
 });
 
 export const mapDispatchToProps = dispatch => bindActionCreators({
@@ -140,7 +141,8 @@ export const mapDispatchToProps = dispatch => bindActionCreators({
     changeTextFieldValue,
     changeNoteName,
     fetchNote,
-    clearNoteData
+    clearNoteData,
+    handleClearEditNoteFail
 }, dispatch);
 
 export default connect<MappedProps, MappedActions, {}>(mapStateToProps, mapDispatchToProps)(EditNote);

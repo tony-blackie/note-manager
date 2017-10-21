@@ -1,4 +1,3 @@
-import { } from '../App/components/Folder';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -6,16 +5,26 @@ import { Link } from 'react-router';
 import { createStructuredSelector } from 'reselect';
 import axios from 'axios';
 
-import { GetFolderFn, CreateNewFolderFn, EditFolderFn, HandleFolderNameChangeFn, HandleFailedFolderCreationFn } from './types';
+import { 
+    GetFolderFn, 
+    CreateNewFolderFn, 
+    EditFolderFn, 
+    HandleFolderNameChangeFn, 
+    HandleFailedFolderCreationFn,
+    HandleClearFailedFolderCreationFn,
+    HandleFolderNameClearFn
+} from './types';
 import { FolderType } from '../../generic/types';
 import {
   getFolder,
   handleFolderNameChange,
   editFolder,
   createNewFolder,
-  handleFailedFolderCreation
+  handleFailedFolderCreation,
+  handleClearFailedFolderCreation,
+  handleFolderNameClear
 } from './actions/EditFolder.actions';
-import { selectFolderName, selectFolderId, selectFolderFail } from './selectors';
+import { selectFolderName, selectFolderId, selectErrorMessage } from './selectors';
 
 interface RouteParams {
     id: string;
@@ -27,7 +36,7 @@ interface OwnProps {
 
 interface MappedProps {
     folderName: string;
-    folderFail: string;
+    errorMessage: string;
 }
 
 interface MappedActions {
@@ -36,6 +45,8 @@ interface MappedActions {
     editFolder: EditFolderFn;
     handleFolderNameChange: HandleFolderNameChangeFn;
     handleFailedFolderCreation: HandleFailedFolderCreationFn;
+    handleClearFailedFolderCreation: HandleClearFailedFolderCreationFn;
+    handleFolderNameClear: HandleFolderNameClearFn;
 }
 
 type Props = OwnProps & MappedProps & MappedActions;
@@ -47,8 +58,8 @@ export class EditFolder extends React.Component<Props> {
 
         const { id } = this.props.routeParams;
 
-        this.props.handleFailedFolderCreation('');
-        this.props.handleFolderNameChange('');
+        this.props.handleClearFailedFolderCreation();
+        this.props.handleFolderNameClear();
 
         if (this.props.routeParams.id) {
             const numericId = parseInt(id, 10);
@@ -77,7 +88,7 @@ export class EditFolder extends React.Component<Props> {
     }
 
     render() {
-        const { folderName, routeParams, folderFail} = this.props;
+        const { folderName, routeParams, errorMessage} = this.props;
         if (routeParams.id) {
             const folderId = routeParams.id;
         }
@@ -95,7 +106,7 @@ export class EditFolder extends React.Component<Props> {
                     </button>
                 </nav>
                 <form>
-                    <div>{this.props.folderFail}</div>
+                    <div>{errorMessage}</div>
                     <fieldset>
                         <div>
                             <label>Name:</label>
@@ -116,7 +127,7 @@ export class EditFolder extends React.Component<Props> {
 export const mapStateToProps = state => createStructuredSelector({
     folderName: selectFolderName,
     folderId: selectFolderId,
-    folderFail: selectFolderFail
+    errorMessage: selectErrorMessage
 });
 
 export const mapDispatchToProps = dispatch => bindActionCreators({
@@ -124,7 +135,9 @@ export const mapDispatchToProps = dispatch => bindActionCreators({
     handleFolderNameChange,
     editFolder,
     createNewFolder,
-    handleFailedFolderCreation
+    handleFailedFolderCreation,
+    handleClearFailedFolderCreation,
+    handleFolderNameClear
 }, dispatch);
 
 export default connect<MappedProps, MappedActions, OwnProps>(mapStateToProps, mapDispatchToProps)(EditFolder);

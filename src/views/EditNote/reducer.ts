@@ -1,4 +1,3 @@
-import { Action } from 'redux';
 import {
   EDIT_EXISTING_NOTE,
   EDIT_EXISTING_NOTE_SUCCESS,
@@ -9,7 +8,8 @@ import {
   GET_NOTE_SUCCESS,
   GET_NOTE_FAIL,
   CLEAR_NOTE_DATA,
-  CREATE_NEW_NOTE_FAIL
+  CREATE_NEW_NOTE_FAIL,
+  CLEAR_NOTE_FAIL
 } from './constants';
 import { EditNoteState, TypedAction } from './types';
 
@@ -22,7 +22,7 @@ const editNoteReducer = (state: EditNoteState = {
         folderId: null
     },
     isNoteCreationMode: false,
-    failNote: ''
+    errorMessage: ''
 }, action: TypedAction) => {
     let newFoldersArray,
         clickedFolder,
@@ -87,7 +87,14 @@ const editNoteReducer = (state: EditNoteState = {
         case CREATE_NEW_NOTE_FAIL: {
             return {
                 ...state,
-                failNote: action.payload
+                errorMessage: 'sorry, try later :('
+            };
+        }
+
+        case CLEAR_NOTE_FAIL: {
+            return {
+                ...state,
+                errorMessage: ''
             };
         }
 
