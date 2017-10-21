@@ -38,16 +38,6 @@ export const handleClearEditNoteFail = () => {
 export const editNoteRequest = note => dispatch => {
     dispatch({type: EDIT_EXISTING_NOTE});
 
-    // return fetch(`${baseName}/note/${note.id}/`, {
-    //     method: 'PUT',
-    //     body: JSON.stringify(note),
-    //     headers: {
-    //         'Accept': 'application/json',
-    //         'Content-Type': 'application/json',
-    //         'Authorization': 'Bearer A088hWN1ZTTTjbkb9PaVIiq4wfY2jP'
-    //     }
-    // })
-
     return axios.request({
         url:`${baseName}/note/${note.id}/`,
         method: 'PUT',
@@ -69,16 +59,6 @@ export const handleFailedNoteCreation = () => {
 
 export const createNoteRequest = note => dispatch => {
     dispatch({ type: CREATE_NEW_NOTE });
-
-    // return fetch(`${baseName}/note/`, {
-    //     method: 'POST',
-    //     body: JSON.stringify(note),
-    //     headers: {
-    //         'Accept': 'application/json',
-    //         'Content-Type': 'application/json',
-    //         'Authorization': 'Bearer A088hWN1ZTTTjbkb9PaVIiq4wfY2jP'
-    //     }
-    // })
 
     return axios.request({
         url: `${baseName}/note/`,
@@ -111,17 +91,6 @@ export const handleFailedNoteResponse = error => ({
 
 export const fetchNote = id => dispatch => {
     dispatch({ type: REQUEST_NOTE_FETCH });
-
-    // return fetch(`${baseName}/note/${id}/`, {
-    //     method: 'GET',
-    //     credentials: 'same-origin',
-    //     headers: {
-    //         'Accept': 'application/json',
-    //         'Content-Type': 'application/json',
-    //         'Authorization': 'Bearer A088hWN1ZTTTjbkb9PaVIiq4wfY2jP'
-    //     }
-    // })
-    // .then(response => response.json())
 
     return axios.request({
         url: `${baseName}/note/${id}/`,
