@@ -17,7 +17,7 @@ import {
   changeNoteName,
   fetchNote,
   clearNoteData,
-  handleClearEditNoteFail
+  handleClearErrorMessage
  } from './actions/EditNote.actions';
  import utils from '../../utils';
 
@@ -44,7 +44,7 @@ interface MappedActions {
     changeNoteName: ChangeTextFieldValueFn;
     fetchNote: FetchNoteFn;
     clearNoteData: () => void;
-    handleClearEditNoteFail: () => void;
+    handleClearErrorMessage: () => void;
 }
 
 type Props = OwnProps & MappedActions & MappedProps;
@@ -59,7 +59,7 @@ export class EditNote extends React.Component<Props> {
             this.props.clearNoteData();
         }
 
-        this.props.handleClearEditNoteFail();
+        this.props.handleClearErrorMessage();
 
     }
 
@@ -145,7 +145,7 @@ export const mapDispatchToProps = dispatch => bindActionCreators({
     changeNoteName,
     fetchNote,
     clearNoteData,
-    handleClearEditNoteFail
+    handleClearErrorMessage
 }, dispatch);
 
 export default connect<MappedProps, MappedActions, {}>(mapStateToProps, mapDispatchToProps)(EditNote);

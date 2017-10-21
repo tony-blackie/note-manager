@@ -14,7 +14,7 @@ import {
   GET_NOTE_SUCCESS,
   GET_NOTE_FAIL,
   CLEAR_NOTE_DATA,
-  CLEAR_NOTE_FAIL
+  CLEAR_ERROR_MESSAGE
 } from '../../actionTypes';
 import { baseName } from '../../../app/config';
 import { FolderType, NoteType, TypedAction } from '../../../generic/types';
@@ -31,8 +31,8 @@ export const handleEditNoteFail = () => {
     return ({ type: CREATE_NEW_NOTE_FAIL });
 }
 
-export const handleClearEditNoteFail = () => {
-    return ({ type: CLEAR_NOTE_FAIL });
+export const handleClearErrorMessage = () => {
+    return ({ type: CLEAR_ERROR_MESSAGE });
 }
 
 export const editNoteRequest = note => dispatch => {

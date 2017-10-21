@@ -9,7 +9,7 @@ import {
   GET_NOTE_FAIL,
   CLEAR_NOTE_DATA,
   CREATE_NEW_NOTE_FAIL,
-  CLEAR_NOTE_FAIL
+  CLEAR_ERROR_MESSAGE
 } from './constants';
 import { EditNoteState, TypedAction } from './types';
 
@@ -91,7 +91,7 @@ const editNoteReducer = (state: EditNoteState = {
             };
         }
 
-        case CLEAR_NOTE_FAIL: {
+        case CLEAR_ERROR_MESSAGE: {
             return {
                 ...state,
                 errorMessage: ''
