@@ -24,3 +24,5 @@ exampleapp/exampleapp/settings.pyc
 exampleapp/exampleapp/urls.pyc
 exampleapp/exampleapp/wsgi.pyc
 
+
+*.sqlite3
