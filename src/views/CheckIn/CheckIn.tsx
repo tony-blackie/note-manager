@@ -14,7 +14,7 @@ interface MappedProps {
 }
 
 interface MappedActions {
-    changeLogin: (login: string) => void;
+    changeLogin: (userLogin: string) => void;
     changeEmail: (email: string) => void;
     changePassword: (password: string) => void;
     changeConfirmPassword: (confirmPassword: string) => void;
@@ -26,10 +26,15 @@ type Props = MappedActions & MappedProps;
 class CheckIn extends React.Component<Props> {
 
     checkData() {
+        
         let checkData = this.props.password === this.props.confirmPassword;
 
         if (checkData) {
-            this.props.checkInRequest(this.props);
+            this.props.checkInRequest({
+                login: this.props.login,
+                email: this.props.email,
+                password: this.props.password,
+            })
         }
     }
 
@@ -65,7 +70,7 @@ class CheckIn extends React.Component<Props> {
                         required
                     />
 
-                    <button onClick={this.checkData}>Submit</button>
+                    <button type="button" onClick={() => this.checkData()}>Submit</button>
                 </form>
             </div>
         );

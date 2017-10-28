@@ -7,13 +7,16 @@ import utils from '../../utils';
 import { CHANGE_LOGIN, CHANGE_EMAIL, CHANGE_PASSWORD, CHANGE_CONFIRM_PASSWORD } from './constants';
 
 export const checkInRequest = data => dispatch => {
-
     return axios.request({
-        url: `${baseName}/`,
+        url: `${baseName}/user/`,
         method: 'POST',
-        params: data
+        headers: {
+            'Authorization': `${localStorage.getItem('token')}`
+        },
+        data:  data
     })
     .then(response => {
+        debugger;
         if (response.data) {
           hashHistory.push('/login');
         }
