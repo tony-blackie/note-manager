@@ -4,6 +4,8 @@ from dinosaurs.serializers import DinosaurSerializer, UserSerializer, FolderSeri
 from dinosaurs.models import Dinosaur, User, Folder, Note
 import pdb
 from django.http import HttpResponse, JsonResponse
+from rest_framework import permissions
+from oauth2_provider.contrib.rest_framework import TokenHasReadWriteScope, TokenHasScope
 
 
 class DinosaurViewSet(viewsets.ModelViewSet):
@@ -14,7 +16,7 @@ class DinosaurViewSet(viewsets.ModelViewSet):
     serializer_class = DinosaurSerializer
 
 class UserViewSet(viewsets.ModelViewSet):
-    print(User.objects)
+    permission_classes = [permissions.AllowAny]
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
