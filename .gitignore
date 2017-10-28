@@ -23,6 +23,8 @@ exampleapp/exampleapp/__init__.pyc
 exampleapp/exampleapp/settings.pyc
 exampleapp/exampleapp/urls.pyc
 exampleapp/exampleapp/wsgi.pyc
+exampleapp/dinosaurs/__pycache__/*.pyc
+exampleapp/dinosaurs/__pycache__/
 
 
-*.sqlite3
+exampleapp/*.sqlite3
