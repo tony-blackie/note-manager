@@ -5,10 +5,9 @@ class Dinosaur(models.Model):
     species = models.TextField()
 
 class User(models.Model):
-    firstName = models.TextField()
-    lastName = models.TextField()
+    login = models.TextField()
     email = models.TextField()
-    age = models.TextField()
+    password = models.TextField()
 
 class Folder(models.Model):
     name = models.TextField()
