@@ -6,6 +6,8 @@ import pdb
 from django.http import HttpResponse, JsonResponse
 from rest_framework import permissions
 from oauth2_provider.contrib.rest_framework import TokenHasReadWriteScope, TokenHasScope
+from rest_framework.renderers import JSONRenderer
+import json
 
 
 class DinosaurViewSet(viewsets.ModelViewSet):
@@ -20,32 +22,24 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-    def get(self, request):
-        pdb.set_trace()
+    # def get(self, request):
+    #     pdb.set_trace()
 
-    def list(self, request):
-        pdb.set_trace()
+    # def list(self, request):
+    #     pdb.set_trace()
 
-    def post(self, request):
-        pdb.set_trace()
+    # def post(self, request):
+    #     pdb.set_trace()
 
 
 
 
 class FolderViewSet(viewsets.ModelViewSet):
     queryset = Folder.objects.all()
-    serializer_class = FolderSerializer
-
-    def get(self, request):
-        pdb.set_trace()
 
     def list(self, request):
-        pdb.set_trace()
-        response = HttpResponse()
-        return response.content(Folder.objects.all())
-
-    def post(self, request):
-        pdb.set_trace()
+        serializer = FolderSerializer(Folder.objects.all(), many=True)
+        return HttpResponse(json.dumps(serializer.data))
 
 class NoteViewSet(viewsets.ModelViewSet):
     queryset = Note.objects.all()
