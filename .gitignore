@@ -28,3 +28,5 @@ exampleapp/dinosaurs/__pycache__/
 
 
 exampleapp/*.sqlite3
+
+exampleapp/exampleapp/__pycache__/
