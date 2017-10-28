@@ -42,7 +42,7 @@ class Login extends React.Component<Props> {
                         onChange={(event) => this.props.changePassword(event.target.value)}
                     />
 
-                    <button onClick={this.requestToken}>Submit</button>
+                    <button type="button" onClick={this.requestToken}>Submit</button>
                 </form>
             </div>
         );
