@@ -25,7 +25,6 @@ from rest_framework import permissions, routers, serializers, viewsets
 
 from oauth2_provider.contrib.rest_framework import TokenHasReadWriteScope, TokenHasScope
 
-# first we define the serializers
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -35,8 +34,7 @@ class GroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = Group
 
-
-# ViewSets define the view behavior.
+# # ViewSets define the view behavior.
 class UserViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated, TokenHasReadWriteScope]
     queryset = User.objects.all()
@@ -48,6 +46,7 @@ class GroupViewSet(viewsets.ModelViewSet):
     required_scopes = ['groups']
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
+
 
 router = routers.DefaultRouter()
 router.register(r'dinosaurs', views.DinosaurViewSet)

@@ -5,15 +5,11 @@ export interface LoginState {
     password: string;
 }
 
-export type LoginAction =
-    ChangeLoginPayload &
-    ChangePasswordPayload;
-
-interface ChangeLoginPayload {
+export interface ChangeLoginPayload {
     login: string;
 }
 
-interface ChangePasswordPayload {
+export interface ChangePasswordPayload {
     password: string;
 }
 

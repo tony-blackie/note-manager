@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import axios from 'axios';
+import { hashHistory } from 'react-router';
 
 import ControlPanel from './components/ControlPanel';
 import FolderTree from './components/FolderTree';
@@ -11,7 +12,7 @@ import Folder from './components/Folder';
 import { selectNotesByQuery, selectFolders, selectActiveFolderId } from './selectors';
 import utils from '../../utils';
 
- const { setDefaultAuthHeader } = utils;
+ const { setDefaultAuthHeader, getToken } = utils;
 
 import {
   getAllNotes,
@@ -63,6 +64,10 @@ type Props = MappedProps & MappedActions;
 
 export class App extends React.Component<Props> {
     componentDidMount() {
+        if (!getToken()) {
+            hashHistory.push('/login');
+        }
+
         setDefaultAuthHeader();
 
         this.props.getAllNotes();

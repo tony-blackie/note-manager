@@ -3,6 +3,7 @@ import axios from 'axios';
 import { baseName, clientID, clientSecret } from '../../app/config';
 import utils from '../../utils';
 import { CHANGE_LOGIN, CHANGE_PASSWORD } from './constants';
+import { hashHistory } from 'react-router';
 
  const { setToken } = utils;
 
@@ -28,6 +29,8 @@ export const requestToken = (username, password) => dispatch => {
         const token = `${token_type} ${access_token}`;
 
         setToken(token);
+
+        hashHistory.push('/');
     })
     .catch(error => console.log(error));
 };
