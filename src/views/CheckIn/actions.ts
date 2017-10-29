@@ -7,12 +7,18 @@ import utils from '../../utils';
 import { CHANGE_LOGIN, CHANGE_EMAIL, CHANGE_PASSWORD, CHANGE_CONFIRM_PASSWORD } from './constants';
 
 export const checkInRequest = credentials => dispatch => {
+    credentials = {
+        first_name: 'lolka11',
+        password: '123',
+        email: 'lolka@mail.com'
+    };
+
     return axios.request({
-        url: `${baseName}/user/`,
+        url: `${baseName}/users/`,
         method: 'POST',
-        headers: {
-            'Authorization': `${localStorage.getItem('token')}`
-        },
+        // headers: {
+        //     'Authorization': `${localStorage.getItem('token')}`
+        // },
         data: credentials
     })
     .then(response => {
