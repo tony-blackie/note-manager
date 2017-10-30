@@ -39,8 +39,7 @@ class FolderViewSet(viewsets.ModelViewSet):
     queryset = Folder.objects.all()
 
     def list(self, request):
-        pdb.set_trace()
-        serializer = FolderSerializer(Folder.objects.all(), many=True)
+        serializer = FolderSerializer(Folder.objects.filter(author = request.user.id), many=True)
         return HttpResponse(json.dumps(serializer.data))
 
 class NoteViewSet(viewsets.ModelViewSet):
