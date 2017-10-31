@@ -12,7 +12,7 @@ class User(models.Model):
 class Folder(models.Model):
     name = models.TextField()
     parent = models.IntegerField(null=True)
-    author = models.ForeignKey(User)
+    author = models.ForeignKey('User', on_delete=models.CASCADE,)
 
 class Note(models.Model):
     parent = models.IntegerField(null=True)
