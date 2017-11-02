@@ -11,6 +11,7 @@ const loginReducer = (state: LoginState = {
             const { login } = action.payload as ChangeLoginPayload;
 
             return {
+                ...state,
                 userLogin: login
             }
         }
@@ -19,6 +20,7 @@ const loginReducer = (state: LoginState = {
             const { password } = action.payload as ChangePasswordPayload;
 
             return {
+                ...state,
                 password
             }
         }

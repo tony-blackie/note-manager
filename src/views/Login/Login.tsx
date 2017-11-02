@@ -21,7 +21,9 @@ type Props = MappedActions & MappedProps;
 
 class Login extends React.Component<Props> {
     requestToken = () => {
-        this.props.requestToken('user1', 'xcvbXCVB');
+        const { login, password } = this.props;
+
+        this.props.requestToken(login, password);
     }
 
     render() {
