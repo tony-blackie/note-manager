@@ -1,18 +1,19 @@
 from django.db import models
 from django.conf import settings
+from django.contrib.auth.models import User, Group
 
-class Dinosaur(models.Model):
-    species = models.TextField()
+class Person(User):
+    class Meta:
+        proxy = True
+        ordering = ('first_name', )
 
-class User(models.Model):
-    first_name = models.TextField()
-    email = models.TextField()
-    password = models.TextField()
+    # def do_something(self):
+
 
 class Folder(models.Model):
     name = models.TextField()
     parent = models.IntegerField(null=True)
-    author = models.ForeignKey('User', on_delete=models.CASCADE,)
+    author = models.ForeignKey(User, on_delete=models.CASCADE,)
 
 class Note(models.Model):
     parent = models.IntegerField(null=True)

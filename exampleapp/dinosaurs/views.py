@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 from rest_framework.decorators import detail_route
-from dinosaurs.serializers import DinosaurSerializer, UserSerializer, FolderSerializer, NoteSerializer, GroupSerializer
-from dinosaurs.models import Dinosaur, Folder, Note
+from dinosaurs.serializers import UserSerializer, FolderSerializer, NoteSerializer, GroupSerializer
+from dinosaurs.models import Folder, Note
 from django.contrib.auth.models import User, Group
 import pdb
 from django.http import HttpResponse, JsonResponse
@@ -9,14 +9,6 @@ from rest_framework import permissions
 from oauth2_provider.contrib.rest_framework import TokenHasReadWriteScope, TokenHasScope
 from rest_framework.renderers import JSONRenderer
 import json
-
-
-class DinosaurViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
-    queryset = Dinosaur.objects.all()
-    serializer_class = DinosaurSerializer
 
 # class UserViewSet(viewsets.ModelViewSet):
 #     permission_classes = [permissions.AllowAny]

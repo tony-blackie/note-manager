@@ -1,11 +1,6 @@
-from dinosaurs.models import Dinosaur, Folder, Note
+from dinosaurs.models import Folder, Note
 from rest_framework import serializers
 from django.contrib.auth.models import User, Group
-
-class DinosaurSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Dinosaur
-        fields = ('url', 'species')
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:

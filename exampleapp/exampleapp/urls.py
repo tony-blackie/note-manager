@@ -25,7 +25,7 @@ from rest_framework import permissions, routers, serializers, viewsets
 from oauth2_provider.contrib.rest_framework import TokenHasReadWriteScope, TokenHasScope
 
 router = routers.DefaultRouter()
-router.register(r'dinosaurs', views.DinosaurViewSet)
+# router.register(r'dinosaurs', views.DinosaurViewSet)
 # router.register(r'user', views.UserViewSet)
 router.register(r'folder', views.FolderViewSet)
 router.register(r'note', views.NoteViewSet)
