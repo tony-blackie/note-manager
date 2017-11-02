@@ -8,9 +8,9 @@ import { CHANGE_LOGIN, CHANGE_EMAIL, CHANGE_PASSWORD, CHANGE_CONFIRM_PASSWORD } 
 
 export const checkInRequest = credentials => dispatch => {
     credentials = {
-        first_name: 'lolka11',
+        username: 'gbh555',
         password: '123',
-        email: 'lolka@mail.com'
+        email: 'lolka123@mail.com'
     };
 
     return axios.request({
