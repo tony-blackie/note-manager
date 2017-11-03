@@ -1,10 +1,10 @@
-from dinosaurs.models import Folder, Note
+from dinosaurs.models import Folder, Note, Person
 from rest_framework import serializers
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import Group
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class PersonSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = User
+        model = Person
         fields = ('id', 'username', 'email', 'password')
 
 class FolderSerializer(serializers.HyperlinkedModelSerializer):

@@ -29,7 +29,7 @@ router = routers.DefaultRouter()
 # router.register(r'user', views.UserViewSet)
 router.register(r'folder', views.FolderViewSet)
 router.register(r'note', views.NoteViewSet)
-router.register(r'users', views.UserViewSet)
+router.register(r'users', views.PersonViewSet)
 router.register(r'groups', views.GroupViewSet)
 
 # Wire up our API using automatic URL routing.
