@@ -8,7 +8,7 @@ class Person(User):
         ordering = ('first_name', )
 
     def __str__(self):
-        return str(self.name)
+        return str(self.username)
 
     # def do_something(self):
 
