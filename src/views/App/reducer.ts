@@ -120,14 +120,15 @@ const appReducer = (state: AppComponentState = {
             let firstFolderId: number = folders[0].id;
 
             folders.map((folder, index) => {
-                const { parent, id, name } = folder;
+                const { parent, id, name, notes } = folder;
 
                 newFolders.push({
                     isOpen: false,
                     isActive: false,
                     parent,
                     id,
-                    name
+                    name,
+                    notes
                 });
             });
 
