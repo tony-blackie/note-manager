@@ -15,7 +15,7 @@ class FolderSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Folder
-        fields = ('id', 'name', 'parent', 'notes')
+        fields = ('id', 'name', 'parent', 'is_root', 'notes')
 
 class NoteSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:

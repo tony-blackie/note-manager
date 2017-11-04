@@ -17,6 +17,7 @@ class Folder(models.Model):
     name = models.TextField()
     parent = models.IntegerField(null=True)
     author = models.ForeignKey(Person, related_name='folders', on_delete=models.CASCADE,)
+    is_root = models.BooleanField()
 
     def __str__(self):
         return str(self.name)
