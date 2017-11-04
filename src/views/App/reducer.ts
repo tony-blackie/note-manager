@@ -20,7 +20,7 @@ import { FolderType, NoteType, TypedAction } from '../../generic/types';
 const appReducer = (state: AppComponentState = {
     folders: [],
     notes: [],
-    activeFolderId: 0,
+    activeFolderId: null,
     notesQuery: ''
 }, action: TypedAction<ReducerAction>) => {
     switch(action.type) {
