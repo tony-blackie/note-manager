@@ -8,8 +8,6 @@ import { hashHistory } from 'react-router';
  const { setToken } = utils;
 
 export const requestToken = (username, password) => dispatch => {
-    username = 'tony';
-    password = 'admin123';
     const grant_type = 'password';
     const client_id = clientID;
     const client_secret = clientSecret;

@@ -3,8 +3,8 @@ import { TypedAction } from '../../generic/types';
 import { CHANGE_LOGIN, CHANGE_PASSWORD } from './constants';
 
 const loginReducer = (state: LoginState = {
-    userLogin: 'user1',
-    password: 'xcvbXCVB'
+    userLogin: 'tony',
+    password: 'admin123'
 }, action: TypedAction<any>) => {
     switch (action.type) {
         case CHANGE_LOGIN: {
