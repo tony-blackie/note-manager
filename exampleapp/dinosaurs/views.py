@@ -37,15 +37,11 @@ class FolderViewSet(viewsets.ModelViewSet):
 
 class NoteViewSet(viewsets.ModelViewSet):
     queryset = Note.objects.all()
-    serializer_class = NoteSerializer
 
-# # ViewSets define the view behavior.
-# class UserViewSet(viewsets.ModelViewSet):
-#     permission_classes = [permissions.IsAuthenticated, TokenHasReadWriteScope]
-#     permission_classes = [permissions.AllowAny]
-#     queryset = User.objects.all()
-#     serializer_class = UserSerializer
-
+    def list(self, request):
+        # pdb.set_trace()
+        serializer = NoteSerializer(Note.objects.filter(author = request.user.id), many=True)
+        return HttpResponse(json.dumps(serializer.data))
 
 class GroupViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated, TokenHasScope]

@@ -25,6 +25,7 @@ export interface FolderType {
     isActive: boolean;
     isOpen: boolean;
     name: string;
+    notes: number[];
 }
 
 export interface TypedAction<payload> {

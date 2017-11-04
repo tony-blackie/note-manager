@@ -16,7 +16,7 @@ class Person(User):
 class Folder(models.Model):
     name = models.TextField()
     parent = models.IntegerField(null=True)
-    author = models.ForeignKey(Person, on_delete=models.CASCADE,)
+    author = models.ForeignKey(Person, related_name='folders', on_delete=models.CASCADE,)
 
     def __str__(self):
         return str(self.name)
@@ -25,8 +25,8 @@ class Note(models.Model):
     parent = models.IntegerField(null=True)
     name = models.TextField()
     text = models.TextField()
-    folder = models.ForeignKey(Folder, null=True, on_delete=models.CASCADE,)
-    author = models.ForeignKey(Person, on_delete=models.CASCADE,)
+    folder = models.ForeignKey(Folder, null=True, related_name='notes', on_delete=models.CASCADE,)
+    author = models.ForeignKey(Person, related_name='notes', on_delete=models.CASCADE,)
 
     def __str__(self):
         return str(self.name)

@@ -8,11 +8,12 @@ import {
     GoToNoteEditFn,
     RemoveNoteFn
 } from '../types';
-import { NoteType } from '../../../generic/types';
+import { NoteType, FolderType } from '../../../generic/types';
 import { updateNoteFilterQuery } from '../actions/AppComponent.actions';
 
 interface OwnProps {
     notes: NoteType[];
+    folders: FolderType[];
     activeFolderId: number;
     goToNoteEdit: GoToNoteEditFn;
     removeNote: RemoveNoteFn;
@@ -31,8 +32,19 @@ class NotePanel extends React.Component<Props> {
         this.props.updateNoteFilterQuery(text);
     }
 
+    getActiveFolder = (folders: FolderType[], activeFolderId: number) => {
+        return folders.filter(folder => folder.id === activeFolderId)[0];
+    }
+
     render() {
-        const { notes, activeFolderId } = this.props;
+        const { notes, folders, activeFolderId } = this.props;
+
+        debugger;
+
+        const activeFolder = this.getActiveFolder(folders, activeFolderId);
+
+        const notesToShow = notes.filter(note => activeFolder.notes.includes(note.id));
+        console.log(notesToShow);
 
         return (
             <div className="note-panel">
@@ -40,21 +52,15 @@ class NotePanel extends React.Component<Props> {
                     <input type="text" placeholder="search" onChange={this.updateNoteFilterQuery} />
                 </div>
                 <div>
-                    {
-                        notes.map(note => {
-                            if ((note.parent === activeFolderId) || (note.parent === 0 && activeFolderId === null)) {
-                                return (
-                                  <Note
-                                      key={note.id}
-                                      id={note.id}
-                                      name={note.name}
-                                      goToNoteEdit={this.props.goToNoteEdit}
-                                      removeNote={this.props.removeNote}
-                                  />
-                                );
-                            }
-                        }, this)
-                    }
+                    {notesToShow.map(note =>
+                        <Note
+                            key={note.id}
+                            id={note.id}
+                            name={note.name}
+                            goToNoteEdit={this.props.goToNoteEdit}
+                            removeNote={this.props.removeNote}
+                        />
+                    )}
                 </div>
             </div>
         );
