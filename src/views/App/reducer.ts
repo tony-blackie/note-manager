@@ -15,7 +15,7 @@ import {
 } from './constants';
 import { SAVE_EDITED_FOLDER } from '../EditFolder/constants';
 import { AppComponentState, ReducerAction } from './types';
-import { FolderType, NoteType, TypedAction } from '../../generic/types';
+import { FolderType, FolderTypeAPI, NoteType, TypedAction } from '../../generic/types';
 
 const appReducer = (state: AppComponentState = {
     folders: [],
@@ -120,7 +120,7 @@ const appReducer = (state: AppComponentState = {
             let firstFolderId: number = folders[0].id;
 
             folders.map((folder, index) => {
-                const { parent, id, name, notes } = folder;
+                const { parent, id, name, notes, is_root } = folder;
 
                 newFolders.push({
                     isOpen: false,
@@ -128,7 +128,8 @@ const appReducer = (state: AppComponentState = {
                     parent,
                     id,
                     name,
-                    notes
+                    notes,
+                    isRoot: is_root
                 });
             });
 

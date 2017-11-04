@@ -26,6 +26,15 @@ export interface FolderType {
     isOpen: boolean;
     name: string;
     notes: number[];
+    isRoot: boolean;
+}
+
+export interface FolderTypeAPI {
+    id: number;
+    parent: number;
+    name: string;
+    notes: number[];
+    is_root: boolean;
 }
 
 export interface TypedAction<payload> {

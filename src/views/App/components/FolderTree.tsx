@@ -38,8 +38,8 @@ export default class FolderTree extends React.Component<Props> {
         return (
             <div className="folder-tree">
                 {
-                    folders.map((folder, index) => {
-                        if (folder.parent === 0) {
+                    folders.map(folder => {
+                        if (folder.isRoot) {
                             return this.renderFolder(folder, folder.id)
                         };
                     })
