@@ -23,7 +23,7 @@ class Folder(models.Model):
         return str(self.name)
 
 class Note(models.Model):
-    parent = models.IntegerField(null=True)
+    # parent = models.IntegerField(null=True)
     name = models.TextField()
     text = models.TextField()
     folder = models.ForeignKey(Folder, null=True, related_name='notes', on_delete=models.CASCADE,)
