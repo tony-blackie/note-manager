@@ -7,6 +7,9 @@ class Person(User):
         proxy = True
         ordering = ('first_name', )
 
+    def __str__(self):
+        return str(self.name)
+
     # def do_something(self):
 
 
@@ -15,8 +18,15 @@ class Folder(models.Model):
     parent = models.IntegerField(null=True)
     author = models.ForeignKey(Person, on_delete=models.CASCADE,)
 
+    def __str__(self):
+        return str(self.name)
+
 class Note(models.Model):
     parent = models.IntegerField(null=True)
     name = models.TextField()
     text = models.TextField()
-    folder = models.ForeignKey(Folder, null=True)
+    folder = models.ForeignKey(Folder, null=True, on_delete=models.CASCADE,)
+    author = models.ForeignKey(Person, on_delete=models.CASCADE,)
+
+    def __str__(self):
+        return str(self.name)
