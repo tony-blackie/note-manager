@@ -15,19 +15,8 @@ class PersonViewSet(viewsets.ModelViewSet):
     queryset = Person.objects.all()
     serializer_class = PersonSerializer
 
-    def get(self, request):
-        pdb.set_trace()
-
-    def list(self, request):
-        pdb.set_trace()
-
-    def post(self, request):
-        pdb.set_trace()
-
-
-
-
 class FolderViewSet(viewsets.ModelViewSet):
+    serializer_class = FolderSerializer
     queryset = Folder.objects.all()
 
     def list(self, request):
@@ -36,6 +25,7 @@ class FolderViewSet(viewsets.ModelViewSet):
         return HttpResponse(json.dumps(serializer.data))
 
 class NoteViewSet(viewsets.ModelViewSet):
+    serializer_class = NoteSerializer
     queryset = Note.objects.all()
 
     def list(self, request):
