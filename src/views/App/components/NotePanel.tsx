@@ -39,12 +39,9 @@ class NotePanel extends React.Component<Props> {
     render() {
         const { notes, folders, activeFolderId } = this.props;
 
-        debugger;
-
         const activeFolder = this.getActiveFolder(folders, activeFolderId);
 
         const notesToShow = notes.filter(note => (activeFolder.notes as any).includes(note.id));
-        console.log(notesToShow);
 
         return (
             <div className="note-panel">
