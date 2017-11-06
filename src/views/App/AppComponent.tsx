@@ -109,6 +109,7 @@ export class App extends React.Component<Props> {
                         goToNoteEdit={goToNoteEdit}
                         removeNote={removeNote}
                         activeFolderId={activeFolderId}
+                        folders={folders}
                     />
                 </div>
             </div>

@@ -132,12 +132,12 @@ export const createNewFolder: CreateNewFolderFn = folderName => dispatch => {
     })
     .then(response => {
         dispatch(handleSuccessfulFolderCreation(folderName));
-        
+
         hashHistory.push('/');
     })
     .catch(error => {
         dispatch(handleFailedFolderCreation());
-        
+
         //hashHistory.push('/');
     });
 }

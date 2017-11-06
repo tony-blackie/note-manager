@@ -15,7 +15,7 @@ import {
 } from './constants';
 import { SAVE_EDITED_FOLDER } from '../EditFolder/constants';
 import { AppComponentState, ReducerAction } from './types';
-import { FolderType, NoteType, TypedAction } from '../../generic/types';
+import { FolderType, FolderTypeAPI, NoteType, TypedAction } from '../../generic/types';
 
 const appReducer = (state: AppComponentState = {
     folders: [],
@@ -63,15 +63,20 @@ const appReducer = (state: AppComponentState = {
         case MAKE_FOLDER_INACTIVE: {
             const { id } = action.payload;
             const newFolders = state.folders.slice();
+            let rootFolderId: number;
 
             newFolders.map((folder, index) => {
                 newFolders[index].isActive = false;
+
+                if (folder.isRoot) {
+                    rootFolderId = folder.id;
+                }
             });
 
             return {
                 ...state,
                 folders: newFolders,
-                activeFolderId: null
+                activeFolderId: rootFolderId
             };
         }
 
@@ -118,23 +123,30 @@ const appReducer = (state: AppComponentState = {
             const newFolders: FolderType[] = [];
             const { folders } = action.payload;
             let firstFolderId: number = folders[0].id;
+            let activeFolderId: null | number = null;
 
             folders.map((folder, index) => {
-                const { parent, id, name } = folder;
+                const { parent, id, name, notes, is_root } = folder;
+
+                if (is_root) {
+                    activeFolderId = id;
+                }
 
                 newFolders.push({
                     isOpen: false,
                     isActive: false,
                     parent,
                     id,
-                    name
+                    name,
+                    notes,
+                    isRoot: is_root
                 });
             });
 
             return {
                 ...state,
                 folders: newFolders,
-                activeFolderId: null
+                activeFolderId
             }
         }
 
