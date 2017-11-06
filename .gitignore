@@ -15,4 +15,3 @@ lib
 lib64
 *.pyc
 *.pyo
-*.sqlite3
