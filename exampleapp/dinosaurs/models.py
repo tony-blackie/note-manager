@@ -26,6 +26,7 @@ class Note(models.Model):
     # parent = models.IntegerField(null=True)
     name = models.TextField()
     text = models.TextField()
+    date = models.DateTimeField()
     folder = models.ForeignKey(Folder, null=True, related_name='notes', on_delete=models.CASCADE,)
     author = models.ForeignKey(Person, related_name='notes', on_delete=models.CASCADE,)
 
