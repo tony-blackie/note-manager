@@ -4,4 +4,12 @@
   border: 2px solid black;
   padding: 10px;
   margin-left: 10px;
+  user-select: none;
+}
+
+.create-folder {
+  border: 1px dashed rgba(0, 0, 0,0.6);
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
 }

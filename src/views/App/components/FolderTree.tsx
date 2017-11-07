@@ -46,6 +46,7 @@ export default class FolderTree extends React.Component<Props> {
         const { folders } = this.props;
         return (
             <div className="folder-tree">
+                <div className="create-folder" onClick={() => {}}>+ Add folder</div>
                 {
                     folders.map(folder => {
                         if (folder.isRoot) {
