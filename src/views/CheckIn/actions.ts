@@ -12,10 +12,18 @@ export const checkInRequest = formData => dispatch => {
         is_staff: true
     };
 
+    // xsrfHeaderName: 'X-CSRFToken',
+    // xsrfCookieName: 'w14oAyTweO9asugkrMnhaELwQw5L2Dfxx8MB3WCLm2FHaePcssHChFGa9QHdRxwT'
+
+    // axios.defaults.withCredentials = true;
+    // axios.defaults.xsrfHeaderName = "X-CSRFToken";
+    const csrfToken = 'WmKkLOuWkfWgKjIx5rrkeDl5xTuu4J9YCeILlIteV7LEbB2XXJyf1taf5zWRSfN2';
+
     return axios.request({
         url: `${baseName}/users/`,
         method: 'POST',
-        data: credentials
+        data: credentials,
+        headers: {"X-CSRFToken": csrfToken}
     })
     .then(response => {
         console.log(`user creation response: ${response}`);

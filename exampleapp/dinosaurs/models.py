@@ -10,6 +10,9 @@ class Person(User):
     def __str__(self):
         return str(self.username)
 
+    def validate_password(self, value: str) -> str:
+        return make_password(value)
+
     # def do_something(self):
 
 

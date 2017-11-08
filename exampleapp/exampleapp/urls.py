@@ -14,7 +14,6 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url, include
-from rest_framework import routers
 from django.contrib import admin
 from dinosaurs import views
 
@@ -25,16 +24,14 @@ from rest_framework import permissions, routers, serializers, viewsets
 from oauth2_provider.contrib.rest_framework import TokenHasReadWriteScope, TokenHasScope
 
 router = routers.DefaultRouter()
-# router.register(r'dinosaurs', views.DinosaurViewSet)
-# router.register(r'user', views.UserViewSet)
 router.register(r'folder', views.FolderViewSet)
 router.register(r'note', views.NoteViewSet)
-router.register(r'users', views.PersonViewSet)
 router.register(r'groups', views.GroupViewSet)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
+    url(r'^users/', views.PersonAPIView.as_view()),
     url(r'^', include(router.urls)),
     url(r'^admin/', admin.site.urls),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),

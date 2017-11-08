@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# CSRF_COOKIE_NAME = "XSRF-TOKEN"
 
 # Application definition
 
@@ -51,12 +52,18 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+    # 'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+# CORS_ALLOW_CREDENTIALS = True
+
+# CSRF_TRUSTED_ORIGINS = (
+#     'localhost:8080'
+# )
 
 ROOT_URLCONF = 'exampleapp.urls'
 
