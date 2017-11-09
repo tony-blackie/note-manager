@@ -59,12 +59,6 @@ MIDDLEWARE_CLASSES = [
 
 CORS_ORIGIN_ALLOW_ALL = True
 
-# CORS_ALLOW_CREDENTIALS = True
-
-# CSRF_TRUSTED_ORIGINS = (
-#     'localhost:8080'
-# )
-
 ROOT_URLCONF = 'exampleapp.urls'
 
 TEMPLATES = [
