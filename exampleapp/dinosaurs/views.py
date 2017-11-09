@@ -21,15 +21,12 @@ class PersonAPIView(APIView):
     queryset = Person.objects.all()
 
     def get(self, request):
-        # pdb.set_trace()
         print('get request')
 
     def put(self, request):
-        # pdb.set_trace()
         print('put request')
 
     def delete(self, request):
-        # pdb.set_trace()
         print('delete request')
 
     def post(self, request):
