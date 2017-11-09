@@ -42,10 +42,8 @@ class MyUserManager(BaseUserManager):
         return user
 
 class PersonAPIView(APIView):
-    # authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)
     permission_classes = [permissions.AllowAny]
     queryset = Person.objects.all()
-    # serializer_class = PersonSerializer
 
     def get(self, request):
         pdb.set_trace()
@@ -57,49 +55,21 @@ class PersonAPIView(APIView):
         pdb.set_trace()
 
     def post(self, request):
-        pdb.set_trace()
         username = request.data['username']
         email = request.data['email']
         password = request.data['password']
         is_staff = request.data['is_staff']
-        pdb.set_trace()
-        pdb.set_trace()
-        # user = {
-        #     'username': username,
-        #     'email': email,
-        #     'is_staff': is_staff,
-        #     'password': password,
-        #     'notes': [],
-        #     'folders': []
-        # }
-        # user.set_password(request.data['password'])
-        user = MyUserManager.create_user(
-            UserManager,
+
+        user = Person.objects.create_user(
             username = username,
-            email = email,
             password = password,
-            is_staff = is_staff,
+            email = email,
+            is_staff = is_staff
         )
-        # user = MyUserManager.create_user(
-        #     self,
-        #     username = username,
-        #     email = email,
-        #     password = password,
-        #     is_staff = is_staff,
-        # )
-        pdb.set_trace()
-        # AbstractBaseUser.create_user(
-        #     username = username,
-        #     email = email,
-        #     is_staff = is_staff,
-        #     password = password
-        # )
-        pdb.set_trace()
+        user.save()
+
         serializer = PersonSerializer(instance=user)
-        pdb.set_trace()
-        # serializer.save()
-        # PersonSerializer.save(user)
-        pdb.set_trace()
+
         return HttpResponse(json.dumps(serializer.data))
 
 class FolderViewSet(viewsets.ModelViewSet):
