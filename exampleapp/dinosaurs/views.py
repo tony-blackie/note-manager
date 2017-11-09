@@ -15,44 +15,22 @@ from rest_framework import authentication
 from rest_framework import exceptions
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth import get_user_model
-# from rest_framework.authentication import SessionAuthentication, BasicAuthentication 
-
-# class CsrfExemptSessionAuthentication(SessionAuthentication):
-
-#     def enforce_csrf(self, request):
-#         return  # To not perform the csrf check previously happening
-
-class MyUserManager(BaseUserManager):
-    def create_user(self, username, password, email, is_staff):
-        """
-        Creates and saves a User with the given email, date of
-        birth and password.
-        """
-        if not email:
-            raise ValueError('Users must have an email address')
-
-        user = self.model(
-            email = self.normalize_email(email),
-            username = username,
-            is_staff = is_staff
-        )
-
-        user.set_password(password)
-        user.save(using = self._db)
-        return user
 
 class PersonAPIView(APIView):
     permission_classes = [permissions.AllowAny]
     queryset = Person.objects.all()
 
     def get(self, request):
-        pdb.set_trace()
+        # pdb.set_trace()
+        print('get request')
 
     def put(self, request):
-        pdb.set_trace()
+        # pdb.set_trace()
+        print('put request')
 
     def delete(self, request):
-        pdb.set_trace()
+        # pdb.set_trace()
+        print('delete request')
 
     def post(self, request):
         username = request.data['username']
