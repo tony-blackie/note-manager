@@ -6,6 +6,7 @@ export interface EditedNote {
     textFieldValue: string;
     textFieldPlaceholder: string;
     folderId: number | null;
+    date: string;
 }
 
 export interface EditNoteState {

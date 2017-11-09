@@ -17,6 +17,7 @@ export interface NoteType {
     parent: number;
     name: string;
     text: string;
+    date: string;
 }
 
 export interface FolderType {
