@@ -18,7 +18,7 @@ import { AppComponentState, ReducerAction } from './types';
 import { FolderType, FolderTypeAPI, NoteType, TypedAction } from '../../generic/types';
 
 const appReducer = (state: AppComponentState = {
-    folders: [],
+    folders: null,
     notes: [],
     activeFolderId: null,
     notesQuery: ''
@@ -122,6 +122,15 @@ const appReducer = (state: AppComponentState = {
         case REQUEST_ALL_FOLDERS_SUCCESS: {
             const newFolders: FolderType[] = [];
             const { folders } = action.payload;
+
+            if (folders.length === 0) {
+                return {
+                    ...state,
+                    folders: [],
+                    activeFolderId: null
+                };
+            }
+
             let firstFolderId: number = folders[0].id;
             let activeFolderId: null | number = null;
 

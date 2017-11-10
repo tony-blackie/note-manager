@@ -15,6 +15,7 @@ from rest_framework import authentication
 from rest_framework import exceptions
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth import get_user_model
+import re
 
 class PersonAPIView(APIView):
     permission_classes = [permissions.AllowAny]
@@ -47,14 +48,63 @@ class PersonAPIView(APIView):
 
         return HttpResponse(json.dumps(serializer.data))
 
-class FolderViewSet(viewsets.ModelViewSet):
-    serializer_class = FolderSerializer
+class FolderAPIView(APIView):
     queryset = Folder.objects.all()
+    permission_classes = [permissions.AllowAny]
 
-    def list(self, request):
+    def get(self, request):
         # pdb.set_trace()
+
+        # Fix admin panel for folders
+
+        if re.match(r'/folder/$', request.path):
+            folders = Folder.objects.all()
+            serializer = FolderSerializer(folders)
+            return HttpResponse(json.dumps(serializer.data))
+
+        userId = request.user.id
+
+        try:
+            folders = Folder.objects.get(author=userId)
+        except Folder.DoesNotExist:
+            return HttpResponse(json.dumps([]))
+
         serializer = FolderSerializer(Folder.objects.filter(author = request.user.id), many=True)
         return HttpResponse(json.dumps(serializer.data))
+
+    def post(self, request):
+        userId = request.user.id
+
+        Folder.objects.create(
+            name = request.data['name'],
+            parent = request.data['parent'],
+            is_root = request.data['is_root'],
+            author = request.user
+        )
+
+        serializer = FolderSerializer(Folder.objects.filter(author = request.user.id), many=True)
+        return HttpResponse(json.dumps(serializer.data))
+
+    def put(self, request):
+        # TODO: finish Put and delete API's
+        pdb.set_trace()
+        userId = request.data.user
+        serializer = FolderSerializer(Folder.objects.filter(author = request.user.id), many=True)
+        return HttpResponse(json.dumps(serializer.data))
+
+    def delete(self, request):
+        userId = request.data.user
+        serializer = FolderSerializer(Folder.objects.filter(author = request.user.id), many=True)
+        return HttpResponse(json.dumps(serializer.data))
+
+# class FolderViewSet(viewsets.ModelViewSet):
+#     serializer_class = FolderSerializer
+#     queryset = Folder.objects.all()
+
+#     def list(self, request):
+#         # pdb.set_trace()
+#         serializer = FolderSerializer(Folder.objects.filter(author = request.user.id), many=True)
+#         return HttpResponse(json.dumps(serializer.data))
 
 class NoteViewSet(viewsets.ModelViewSet):
     serializer_class = NoteSerializer

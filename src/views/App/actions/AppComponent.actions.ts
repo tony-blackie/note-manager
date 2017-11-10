@@ -1,3 +1,6 @@
+import { hashHistory } from 'react-router';
+import axios from 'axios';
+
 import {
     GET_ALL_NOTES,
     GET_ALL_NOTES_SUCCESS,
@@ -38,12 +41,11 @@ import {
     HandleSuccessfulGetAllFoldersFn,
     HandleFailedGetAllFoldersFn,
     HandleFailedDeleteFolderFn,
-    UpdateNoteFilterQueryFn
+    UpdateNoteFilterQueryFn,
+    CreateInitialFolderFn
 } from '../types';
 import { FolderType, NoteType, TypedAction } from '../../../generic/types';
-import { hashHistory } from 'react-router';
 import { baseName } from '../../../app/config';
-import axios from 'axios';
 
 export const handleSuccessfulGetAllNotes: HandleSuccessfulGetAllNotesFn = notes => ({
     type: GET_ALL_NOTES_SUCCESS,
@@ -149,8 +151,27 @@ export const goToEditFolder: GoToEditFolderFn = id => dispatch => {
 export const goToFolderCreation: GoToFolderCreationFn = () => dispatch => {
     dispatch({ type: GO_TO_FOLDER_CREATION });
 
-    hashHistory.push('/folder');
+    hashHistory.push('/folder/');
 };
 
 export const updateNoteFilterQuery: UpdateNoteFilterQueryFn = query =>
     ({ type: UPDATE_NOTE_FILTER_QUERY, payload: { query } });
+
+export const createInitialFolder: CreateInitialFolderFn = () => {
+    const folder = {
+        name: 'Initial',
+        is_root: true,
+        parent: 0,
+        notes: []
+    };
+
+    debugger;
+
+    return axios.request({
+        url: `${baseName}/folder/`,
+        method: 'POST',
+        data: folder
+    })
+    .then(response => console.log(response))
+    .catch(error => console.log(error));
+};

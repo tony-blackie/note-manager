@@ -2,7 +2,7 @@ import { FolderType, FolderTypeAPI, NoteType, TypedAction, TypedActionNoPayload 
 import { HandleSuccessfulFolderEditPayload } from '../EditFolder/types';
 
 export interface AppComponentState {
-    folders: FolderType[];
+    folders: FolderType[] | null;
     notes: NoteType[];
     activeFolderId: number | null;
     notesQuery: string;
@@ -115,3 +115,5 @@ export type HandleFailedDeleteFolderFn = (error: any) =>
 
 export type UpdateNoteFilterQueryFn = (query: string) =>
     TypedAction<UpdateNoteFilterQueryPayload>;
+
+export type CreateInitialFolderFn = () => Promise<any>;
