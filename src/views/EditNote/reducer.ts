@@ -19,7 +19,8 @@ const editNoteReducer = (state: EditNoteState = {
         name: '',
         textFieldValue: '',
         textFieldPlaceholder: '',
-        folderId: null
+        folderId: null,
+        date: ''
     },
     isNoteCreationMode: false,
     errorMessage: ''

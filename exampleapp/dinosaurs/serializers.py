@@ -3,15 +3,15 @@ from rest_framework import serializers
 from django.contrib.auth.models import Group
 
 class PersonSerializer(serializers.HyperlinkedModelSerializer):
-    notes = serializers.PrimaryKeyRelatedField(many=True, queryset=Note.objects.all())
-    folders = serializers.PrimaryKeyRelatedField(many=True, queryset=Folder.objects.all())
+    notes = serializers.PrimaryKeyRelatedField(many=True, required=False, queryset=Note.objects.all())
+    folders = serializers.PrimaryKeyRelatedField(many=True, required=False, queryset=Folder.objects.all())
 
     class Meta:
         model = Person
         fields = ('id', 'username', 'email', 'password', 'notes', 'folders')
 
 class FolderSerializer(serializers.HyperlinkedModelSerializer):
-    notes = serializers.PrimaryKeyRelatedField(many=True, queryset=Note.objects.all())
+    notes = serializers.PrimaryKeyRelatedField(many=True, required=False, queryset=Note.objects.all())
 
     class Meta:
         model = Folder

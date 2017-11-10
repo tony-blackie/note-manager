@@ -30,7 +30,7 @@ class CheckIn extends React.Component<Props> {
 
         if (checkData) {
             this.props.checkInRequest({
-                login: this.props.login,
+                username: this.props.login,
                 email: this.props.email,
                 password: this.props.password,
             })
