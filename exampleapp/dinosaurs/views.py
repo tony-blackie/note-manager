@@ -63,32 +63,46 @@ class FolderAPIView(APIView):
     permission_classes = [permissions.AllowAny]
     serializer_class = FolderSerializer
     queryset = Folder.objects.all()
-    # renderer_classes = (CustomBrowsableAPIRenderer,)
 
-    def get(self, request):
-        # pdb.set_trace()
+    def get(self, request, id = None):
+        def remove_slashes(string):
+            return string.replace('/', '')
 
-        # if request.user.is_staff:
-        #     folders = Folder.objects.all()
-        #     serializer = FolderSerializer(folders, many=True)
-        #     return Response(serializer.data)
+        if id == '':
+            if re.search(r'admin/dinosaurs/folder/$', request.path):
+                folders = Folder.objects.all()
+                serializer = FolderSerializer(folders, many=True)
+                return Response(serializer.data)
 
-        # Fix admin panel for folders
+            if re.search(r'/folder/$', request.path):
+                pdb.set_trace()
+                userId = request.user.id
 
-        if re.search(r'admin/dinosaurs/folder/$', request.path):
-            folders = Folder.objects.all()
-            serializer = FolderSerializer(folders, many=True)
+                try:
+                    folders = Folder.objects.filter(author=userId)
+                except Folder.DoesNotExist:
+                    return Response([])
+
+                serializer = FolderSerializer(Folder.objects.filter(author = request.user.id), many=True)
+
+                return Response(serializer.data)
+
+            if re.search(r'/folder/', request.path):
+                userId = request.user.id
+
+                try:
+                    folders = Folder.objects.filter(author=userId)
+                except Folder.DoesNotExist:
+                    return Response([])
+
+                serializer = FolderSerializer(Folder.objects.filter(author = request.user.id), many=True)
+
+                return Response(serializer.data)
+        else:
+            id = int(remove_slashes(id))
+            userId = request.user.id
+            serializer = FolderSerializer(Folder.objects.get(author = request.user.id, id = id))
             return Response(serializer.data)
-
-        userId = request.user.id
-
-        try:
-            folders = Folder.objects.filter(author=userId)
-        except Folder.DoesNotExist:
-            return Response([])
-
-        serializer = FolderSerializer(Folder.objects.filter(author = request.user.id), many=True)
-        return Response(serializer.data)
 
     def post(self, request):
         userId = request.user.id

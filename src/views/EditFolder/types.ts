@@ -87,4 +87,4 @@ export type HandleFailedFolderEditFn = (error: any) => TypedAction<HandleFailedF
 
 export type RequestFolderEditFn = () => TypedActionNoPayload;
 
-export type CreateNewFolderFn = (folderName: string) => (dispatch: any) => Promise<any>;
+export type CreateNewFolderFn = (folderName: string, activeFolderId: number) => (dispatch: any) => Promise<any>;

@@ -122,13 +122,17 @@ export const editFolder: EditFolderFn = (id, name) => dispatch => {
     });
 }
 
-export const createNewFolder: CreateNewFolderFn = folderName => dispatch => {
+export const createNewFolder: CreateNewFolderFn = (folderName, activeFolderId) => dispatch => {
     dispatch(requestFolderCreation());
 
     return axios.request({
         url:`${baseName}/folder/`,
-        method: 'PUT',
-        data: { name: folderName }
+        method: 'POST',
+        data: {
+            name: folderName,
+            is_root: false,
+            parent: activeFolderId
+        }
     })
     .then(response => {
         dispatch(handleSuccessfulFolderCreation(folderName));

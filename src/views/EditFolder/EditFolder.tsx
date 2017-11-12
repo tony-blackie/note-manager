@@ -5,11 +5,11 @@ import { Link } from 'react-router';
 import { createStructuredSelector } from 'reselect';
 import axios from 'axios';
 
-import { 
-    GetFolderFn, 
-    CreateNewFolderFn, 
-    EditFolderFn, 
-    HandleFolderNameChangeFn, 
+import {
+    GetFolderFn,
+    CreateNewFolderFn,
+    EditFolderFn,
+    HandleFolderNameChangeFn,
     HandleFailedFolderCreationFn,
     HandleClearFailedFolderCreationFn,
     HandleFolderNameClearFn
@@ -25,6 +25,7 @@ import {
   handleFolderNameClear
 } from './actions/EditFolder.actions';
 import { selectFolderName, selectFolderId, selectErrorMessage } from './selectors';
+import { selectActiveFolderId } from '../App/selectors';
 import utils from '../../utils';
 
 
@@ -92,6 +93,7 @@ export class EditFolder extends React.Component<Props> {
 
     render() {
         const { folderName, routeParams, errorMessage} = this.props;
+
         if (routeParams.id) {
             const folderId = routeParams.id;
         }
@@ -129,7 +131,7 @@ export class EditFolder extends React.Component<Props> {
 
 export const mapStateToProps = state => createStructuredSelector({
     folderName: selectFolderName,
-    folderId: selectFolderId,
+    selectActiveFolderId: selectFolderId,
     errorMessage: selectErrorMessage
 });
 

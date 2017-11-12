@@ -31,7 +31,7 @@ router.register(r'groups', views.GroupViewSet)
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
-    url(r'folder/', views.FolderAPIView.as_view()),
+    url(r'folder/(?P<id>.*)', views.FolderAPIView.as_view()),
     url(r'^users/', views.PersonAPIView.as_view()),
     url(r'^', include(router.urls)),
     url(r'^admin/', admin.site.urls),
