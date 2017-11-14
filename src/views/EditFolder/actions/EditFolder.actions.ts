@@ -13,7 +13,6 @@ import {
     REQUEST_FOLDER_EDIT,
     FOLDER_CREATION_SUCCESS,
     FOLDER_CREATION_FAIL,
-    CLEAR_FOLDER_FAIL,
     CLEAR_FOLDER_NAME
 } from '../../actionTypes';
 import {
@@ -45,10 +44,6 @@ export const handleSuccessfulFolderCreation: HandleSuccessfulFolderCreationFn = 
 
 export const handleFailedFolderCreation: HandleFailedFolderCreationFn = () => ({
     type: FOLDER_CREATION_FAIL
-});
-
-export const handleClearFailedFolderCreation: HandleClearFailedFolderCreationFn = () => ({
-    type: CLEAR_FOLDER_FAIL
 });
 
 export const handleSuccessfulGetFolder: HandleSuccessfulGetFolderFn = folder => {
@@ -110,6 +105,8 @@ export const editFolder: EditFolderFn = (id, name) => dispatch => {
     })
     .then(response => {
         const { data } = response;
+
+        dispatch(handleFolderNameClear());
 
         dispatch(handleSuccessfulFolderEdit(data.id, data.name));
 

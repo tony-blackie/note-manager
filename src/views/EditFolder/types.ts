@@ -1,9 +1,12 @@
-import { TypedAction, TypedActionNoPayload, FolderType } from '../../generic/types';
+import { TypedAction, TypedActionNoPayload, FolderType, FolderTypeAPI } from '../../generic/types';
 
 export interface EditFolderState {
     folderName: string;
     folderId: number | null;
     errorMessage: string;
+    notes: number[];
+    isRoot: boolean;
+    parent: number;
 }
 
 export interface HandleSuccessfulFolderEditPayload {
@@ -22,7 +25,7 @@ export interface HandleClearFailedFolderCreationPayload {
 }
 
 export interface HandleSuccessfulGetFolderPayload {
-    folder: FolderType;
+    folder: FolderTypeAPI;
 }
 
 export interface HandleFailedGetFolderPayload {
@@ -67,7 +70,7 @@ export type HandleFailedFolderCreationFn = () =>
 export type HandleClearFailedFolderCreationFn = () =>
     TypedAction<HandleClearFailedFolderCreationPayload>;
 
-export type HandleSuccessfulGetFolderFn = (folder: FolderType) =>
+export type HandleSuccessfulGetFolderFn = (folder: FolderTypeAPI) =>
     TypedAction<HandleSuccessfulGetFolderPayload>;
 
 export type HandleFailedGetFolderFn = (error: any) =>

@@ -1,28 +1,34 @@
-import { EditFolderState, ReducerAction } from './types';
-import { TypedAction } from '../../generic/types';
+import { EditFolderState, ReducerAction, HandleSuccessfulGetFolderPayload } from './types';
+import { TypedAction, FolderTypeAPI } from '../../generic/types';
 import {
   GET_FOLDER_SUCCESS,
   CHANGE_FOLDER_NAME,
   SAVE_EDITED_FOLDER,
   FOLDER_CREATION_SUCCESS,
   FOLDER_CREATION_FAIL,
-  CLEAR_FOLDER_FAIL,
   CLEAR_FOLDER_NAME
 } from './constants';
 
 const editFolderReducer = (state: EditFolderState = {
     folderName: '',
     folderId: null,
+    isRoot: false,
+    parent: 0,
+    notes: [],
     errorMessage: ''
 }, action: TypedAction<ReducerAction>) => {
     switch(action.type) {
         case GET_FOLDER_SUCCESS: {
-            const { name, id } = action.payload.folder;
+            const { payload } = action as TypedAction<HandleSuccessfulGetFolderPayload>;
+            const { name, id, is_root, notes, parent } = payload.folder;
 
             return {
                 ...state,
+                isRoot: is_root,
                 folderName: name,
-                folderId: id
+                folderId: id,
+                parent,
+                notes
             };
         }
 
@@ -42,20 +48,13 @@ const editFolderReducer = (state: EditFolderState = {
             };
         }
 
-        case CLEAR_FOLDER_FAIL: {
-            return {
-                ...state,
-                errorMessage: ""
-            }
-        }
-
         case CLEAR_FOLDER_NAME: {
             return {
                 ...state,
                 folderName: ""
             }
         }
-        
+
         default:
             return state;
     }

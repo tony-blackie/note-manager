@@ -165,8 +165,6 @@ export const createInitialFolder: CreateInitialFolderFn = () => {
         notes: []
     };
 
-    debugger;
-
     return axios.request({
         url: `${baseName}/folder/`,
         method: 'POST',
