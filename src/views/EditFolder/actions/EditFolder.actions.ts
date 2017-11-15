@@ -95,13 +95,21 @@ export const requestFolderEdit: RequestFolderEditFn = () => ({
     type: REQUEST_FOLDER_EDIT
 });
 
-export const editFolder: EditFolderFn = (id, name) => dispatch => {
+export const editFolder: EditFolderFn = (folder) => dispatch => {
     dispatch(requestFolderEdit());
+
+    const { id, name, parent, isRoot, notes } = folder;
 
     return axios.request({
         url:`${baseName}/folder/${id}/`,
         method: 'PUT',
-        data: { id, name }
+        data: {
+            id,
+            name,
+            parent,
+            is_root: isRoot,
+            notes
+        }
     })
     .then(response => {
         const { data } = response;

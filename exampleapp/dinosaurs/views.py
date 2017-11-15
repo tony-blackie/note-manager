@@ -75,7 +75,6 @@ class FolderAPIView(APIView):
                 return Response(serializer.data)
 
             if re.search(r'/folder/$', request.path):
-                pdb.set_trace()
                 userId = request.user.id
 
                 try:
@@ -107,8 +106,6 @@ class FolderAPIView(APIView):
     def post(self, request):
         userId = request.user.id
 
-        pdb.set_trace()
-
         Folder.objects.create(
             name = request.data.get('name', 'newName'),
             parent = request.data.get('parent', 4),
@@ -121,7 +118,6 @@ class FolderAPIView(APIView):
 
     def put(self, request):
         # TODO: finish Put and delete API's
-        pdb.set_trace()
         userId = request.data.user
         serializer = FolderSerializer(Folder.objects.filter(author = request.user.id), many=True)
         return Response(serializer.data)

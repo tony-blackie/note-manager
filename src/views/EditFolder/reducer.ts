@@ -1,5 +1,5 @@
 import { EditFolderState, ReducerAction, HandleSuccessfulGetFolderPayload } from './types';
-import { TypedAction, FolderTypeAPI } from '../../generic/types';
+import { TypedAction, FolderTypeAPI, FolderType } from '../../generic/types';
 import {
   GET_FOLDER_SUCCESS,
   CHANGE_FOLDER_NAME,
@@ -10,11 +10,13 @@ import {
 } from './constants';
 
 const editFolderReducer = (state: EditFolderState = {
-    folderName: '',
-    folderId: null,
-    isRoot: false,
-    parent: 0,
-    notes: [],
+    folder: {
+        name: '',
+        id: 0,
+        isRoot: false,
+        parent: 0,
+        notes: [],
+    },
     errorMessage: ''
 }, action: TypedAction<ReducerAction>) => {
     switch(action.type) {
@@ -24,11 +26,13 @@ const editFolderReducer = (state: EditFolderState = {
 
             return {
                 ...state,
-                isRoot: is_root,
-                folderName: name,
-                folderId: id,
-                parent,
-                notes
+                folder: {
+                    isRoot: is_root,
+                    name: name,
+                    id: id,
+                    parent,
+                    notes
+                }
             };
         }
 
@@ -37,7 +41,10 @@ const editFolderReducer = (state: EditFolderState = {
 
             return {
                 ...state,
-                folderName: text
+                folder: {
+                    ...state.folder,
+                    name: text
+                }
             };
         }
 
@@ -51,7 +58,10 @@ const editFolderReducer = (state: EditFolderState = {
         case CLEAR_FOLDER_NAME: {
             return {
                 ...state,
-                folderName: ""
+                folder: {
+                    ...state.folder,
+                    name: ''
+                }
             }
         }
 
