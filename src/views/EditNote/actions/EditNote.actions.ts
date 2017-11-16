@@ -57,13 +57,16 @@ export const handleFailedNoteCreation = () => {
     return ({ type: CREATE_NEW_NOTE_FAIL });
 };
 
-export const createNoteRequest = note => dispatch => {
+export const createNoteRequest = (note: NoteType, activeFolderId: number) => dispatch => {
     dispatch({ type: CREATE_NEW_NOTE });
 
     return axios.request({
         url: `${baseName}/note/`,
         method: 'POST',
-        data: note
+        data: {
+            ...note,
+            parent: activeFolderId
+        }
     })
     .then(response => dispatch(handleSuccessfulNoteCreation(response.data)))
     .catch(error => dispatch(handleFailedNoteCreation()));

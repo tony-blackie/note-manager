@@ -178,7 +178,7 @@ class NoteAPIView(APIView):
 
     def post(self, request, id = None):
         userId = request.user.id
-        parentFolderId = request.data.get('folder', None)
+        parentFolderId = request.data.get('parent', None)
 
         if parentFolderId:
             parentFolder = Folder.objects.get(id=int(parentFolderId))
