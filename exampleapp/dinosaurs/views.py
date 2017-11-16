@@ -103,7 +103,7 @@ class FolderAPIView(APIView):
             serializer = FolderSerializer(Folder.objects.get(author = request.user.id, id = id))
             return Response(serializer.data)
 
-    def post(self, request):
+    def post(self, request, id = None):
         userId = request.user.id
 
         Folder.objects.create(
@@ -116,10 +116,14 @@ class FolderAPIView(APIView):
         serializer = FolderSerializer(Folder.objects.filter(author = request.user.id), many=True)
         return Response(serializer.data)
 
-    def put(self, request):
-        # TODO: finish Put and delete API's
-        userId = request.data.user
-        serializer = FolderSerializer(Folder.objects.filter(author = request.user.id), many=True)
+    def put(self, request, id = None):
+        userId = request.user.id
+        folder = Folder.objects.get(id = userId, author = request.user.id)
+
+        folder.name = request.data.get('name')
+        folder.save()
+
+        serializer = FolderSerializer(folder)
         return Response(serializer.data)
 
     def delete(self, request):
@@ -127,21 +131,11 @@ class FolderAPIView(APIView):
         serializer = FolderSerializer(Folder.objects.filter(author = request.user.id), many=True)
         return Response(serializer.data)
 
-# class FolderViewSet(viewsets.ModelViewSet):
-#     serializer_class = FolderSerializer
-#     queryset = Folder.objects.all()
-
-#     def list(self, request):
-#         # pdb.set_trace()
-#         serializer = FolderSerializer(Folder.objects.filter(author = request.user.id), many=True)
-#         return HttpResponse(json.dumps(serializer.data))
-
 class NoteViewSet(viewsets.ModelViewSet):
     serializer_class = NoteSerializer
     queryset = Note.objects.all()
 
     def list(self, request):
-        # pdb.set_trace()
         serializer = NoteSerializer(Note.objects.filter(author = request.user.id), many=True)
         return HttpResponse(json.dumps(serializer.data))
 
