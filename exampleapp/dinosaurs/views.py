@@ -59,15 +59,15 @@ class PersonAPIView(APIView):
 #     serializer_class = FolderSerializer
 #     queryset = Folder.objects.all()
 
+def remove_slashes(string):
+    return string.replace('/', '')
+
 class FolderAPIView(APIView):
     permission_classes = [permissions.AllowAny]
     serializer_class = FolderSerializer
     queryset = Folder.objects.all()
 
     def get(self, request, id = None):
-        def remove_slashes(string):
-            return string.replace('/', '')
-
         if id == '':
             if re.search(r'admin/dinosaurs/folder/$', request.path):
                 folders = Folder.objects.all()
@@ -208,9 +208,13 @@ class NoteAPIView(APIView):
         serializer = FolderSerializer(folder)
         return Response(serializer.data)
 
-    def delete(self, request):
-        userId = request.data.user
-        serializer = FolderSerializer(Folder.objects.filter(author = request.user.id), many=True)
+    def delete(self, request, id=None):
+        noteId = int(remove_slashes(id))
+        note = Note.objects.get(id=noteId)
+        note.delete()
+        # userId = request.data.user
+        # noteToDelete = Note.objects.get(author=userId, )
+        serializer = FolderSerializer(note)
         return Response(serializer.data)
 
 # class NoteViewSet(viewsets.ModelViewSet):
