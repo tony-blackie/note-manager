@@ -5,14 +5,9 @@ import { Store } from '../../generic/types';
 
 export const selectEditFolder = (state: Store) => state.editFolder;
 
-export const selectFolderName = createSelector(
+export const selectFolder = createSelector(
     selectEditFolder,
-    editFolder => editFolder.folderName
-);
-
-export const selectFolderId = createSelector(
-    selectEditFolder,
-    editFolder => editFolder.folderId
+    editFolder => editFolder.folder
 );
 
 export const selectErrorMessage = createSelector(

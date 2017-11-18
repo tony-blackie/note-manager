@@ -1,28 +1,38 @@
-import { EditFolderState, ReducerAction } from './types';
-import { TypedAction } from '../../generic/types';
+import { EditFolderState, ReducerAction, HandleSuccessfulGetFolderPayload } from './types';
+import { TypedAction, FolderTypeAPI, FolderType } from '../../generic/types';
 import {
   GET_FOLDER_SUCCESS,
   CHANGE_FOLDER_NAME,
   SAVE_EDITED_FOLDER,
   FOLDER_CREATION_SUCCESS,
   FOLDER_CREATION_FAIL,
-  CLEAR_FOLDER_FAIL,
   CLEAR_FOLDER_NAME
 } from './constants';
 
 const editFolderReducer = (state: EditFolderState = {
-    folderName: '',
-    folderId: null,
+    folder: {
+        name: '',
+        id: 0,
+        isRoot: false,
+        parent: 0,
+        notes: [],
+    },
     errorMessage: ''
 }, action: TypedAction<ReducerAction>) => {
     switch(action.type) {
         case GET_FOLDER_SUCCESS: {
-            const { name, id } = action.payload.folder;
+            const { payload } = action as TypedAction<HandleSuccessfulGetFolderPayload>;
+            const { name, id, is_root, notes, parent } = payload.folder;
 
             return {
                 ...state,
-                folderName: name,
-                folderId: id
+                folder: {
+                    isRoot: is_root,
+                    name: name,
+                    id: id,
+                    parent,
+                    notes
+                }
             };
         }
 
@@ -31,7 +41,10 @@ const editFolderReducer = (state: EditFolderState = {
 
             return {
                 ...state,
-                folderName: text
+                folder: {
+                    ...state.folder,
+                    name: text
+                }
             };
         }
 
@@ -42,20 +55,16 @@ const editFolderReducer = (state: EditFolderState = {
             };
         }
 
-        case CLEAR_FOLDER_FAIL: {
-            return {
-                ...state,
-                errorMessage: ""
-            }
-        }
-
         case CLEAR_FOLDER_NAME: {
             return {
                 ...state,
-                folderName: ""
+                folder: {
+                    ...state.folder,
+                    name: ''
+                }
             }
         }
-        
+
         default:
             return state;
     }

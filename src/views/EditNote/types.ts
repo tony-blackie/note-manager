@@ -27,7 +27,9 @@ interface NoteRequestBody {
     parent?: number | null;
 }
 
-export type CreateNoteRequestFn = (note: NoteRequestBody) => void;
+export type CreateNoteRequestFn = (note: NoteRequestBody, activeFolderId: number) => void;
+
+export type EditNoteRequestFn = (note: NoteRequestBody) => void;
 
 export type ChangeTextFieldValueFn = (value: string) => void;
 

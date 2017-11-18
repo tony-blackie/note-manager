@@ -1,8 +1,7 @@
-import { TypedAction, TypedActionNoPayload, FolderType } from '../../generic/types';
+import { TypedAction, TypedActionNoPayload, FolderType, FolderTypeAPI } from '../../generic/types';
 
 export interface EditFolderState {
-    folderName: string;
-    folderId: number | null;
+    folder: FolderType;
     errorMessage: string;
 }
 
@@ -22,7 +21,7 @@ export interface HandleClearFailedFolderCreationPayload {
 }
 
 export interface HandleSuccessfulGetFolderPayload {
-    folder: FolderType;
+    folder: FolderTypeAPI;
 }
 
 export interface HandleFailedGetFolderPayload {
@@ -51,7 +50,7 @@ HandleFailedGetFolderPayload &
 HandleFolderNameChangePayload &
 HandleFolderNameClearPayload
 
-export type EditFolderFn = (id: number, name: string) => void;
+export type EditFolderFn = (folder: FolderType) => void;
 
 export type HandleSuccessfulFolderEditFn = (folderId: number | null, folderName: string) =>
     TypedAction<HandleSuccessfulFolderEditPayload>;
@@ -67,7 +66,7 @@ export type HandleFailedFolderCreationFn = () =>
 export type HandleClearFailedFolderCreationFn = () =>
     TypedAction<HandleClearFailedFolderCreationPayload>;
 
-export type HandleSuccessfulGetFolderFn = (folder: FolderType) =>
+export type HandleSuccessfulGetFolderFn = (folder: FolderTypeAPI) =>
     TypedAction<HandleSuccessfulGetFolderPayload>;
 
 export type HandleFailedGetFolderFn = (error: any) =>
@@ -87,4 +86,4 @@ export type HandleFailedFolderEditFn = (error: any) => TypedAction<HandleFailedF
 
 export type RequestFolderEditFn = () => TypedActionNoPayload;
 
-export type CreateNewFolderFn = (folderName: string) => (dispatch: any) => Promise<any>;
+export type CreateNewFolderFn = (folderName: string, activeFolderId: number) => (dispatch: any) => Promise<any>;

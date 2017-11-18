@@ -23,11 +23,11 @@ export interface NoteType {
 export interface FolderType {
     id: number;
     parent: number;
-    isActive: boolean;
-    isOpen: boolean;
     name: string;
     notes: number[];
     isRoot: boolean;
+    isActive?: boolean;
+    isOpen?: boolean;
 }
 
 export interface FolderTypeAPI {

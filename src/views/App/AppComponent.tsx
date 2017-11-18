@@ -12,7 +12,7 @@ import Folder from './components/Folder';
 import { selectNotesByQuery, selectFolders, selectActiveFolderId } from './selectors';
 import utils from '../../utils';
 
- const { setDefaultAuthHeader, getToken } = utils;
+const { setDefaultAuthHeader, getToken } = utils;
 
 import {
   getAllNotes,
@@ -25,6 +25,7 @@ import {
   removeFolder,
   goToEditFolder,
   goToFolderCreation,
+  createInitialFolder
 } from './actions/AppComponent.actions';
 
 import {
@@ -37,7 +38,8 @@ import {
     GoToNoteCreationFn,
     GoToFolderCreationFn,
     RemoveFolderFn,
-    RemoveNoteFn
+    RemoveNoteFn,
+    CreateInitialFolderFn
 } from './types';
 import { FolderType, NoteType } from '../../generic/types';
 
@@ -58,6 +60,7 @@ interface MappedActions {
     goToFolderCreation: GoToFolderCreationFn;
     removeFolder: RemoveFolderFn;
     removeNote: RemoveNoteFn;
+    createInitialFolder: CreateInitialFolderFn;
 }
 
 type Props = MappedProps & MappedActions;
@@ -89,6 +92,16 @@ export class App extends React.Component<Props> {
             filteredNotes
         } = this.props;
 
+        let currentFolders = [];
+
+        if (folders !== null && folders.length === 0) {
+            this.props.createInitialFolder();
+        }
+
+        if (folders !== null) {
+            currentFolders = folders;
+        }
+
         return (
             <div>
                 <ControlPanel
@@ -100,7 +113,7 @@ export class App extends React.Component<Props> {
                 />
                 <div className="content">
                     <FolderTree
-                      folders={folders}
+                      folders={currentFolders}
                       makeFolderActive={makeFolderActive}
                       makeFolderInactive={makeFolderInactive}
                     />
@@ -109,7 +122,7 @@ export class App extends React.Component<Props> {
                         goToNoteEdit={goToNoteEdit}
                         removeNote={removeNote}
                         activeFolderId={activeFolderId}
-                        folders={folders}
+                        folders={currentFolders}
                     />
                 </div>
             </div>
@@ -133,7 +146,8 @@ export const mapDispatchToProps = dispatch => bindActionCreators({
     getAllFolders,
     removeFolder,
     goToEditFolder,
-    goToFolderCreation
+    goToFolderCreation,
+    createInitialFolder
 }, dispatch);
 
 export default connect<MappedProps, MappedActions, {}>(mapStateToProps, mapDispatchToProps)(App);
