@@ -19,9 +19,8 @@ import re
 from rest_framework.response import Response
 from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer, HTMLFormRenderer
 
-# class CustomBrowsableAPIRenderer(BrowsableAPIRenderer):
-#     def get_default_renderer(self, view):
-#         return JSONRenderer()
+def remove_slashes(string):
+    return string.replace('/', '')
 
 class PersonAPIView(APIView):
     permission_classes = [permissions.AllowAny]
@@ -53,14 +52,6 @@ class PersonAPIView(APIView):
         serializer = PersonSerializer(instance=user)
 
         return HttpResponse(json.dumps(serializer.data))
-
-# class AdminFoldersViewset(viewsets.ModelViewSet):
-#     permission_classes = [permissions.IsAdminUser]
-#     serializer_class = FolderSerializer
-#     queryset = Folder.objects.all()
-
-def remove_slashes(string):
-    return string.replace('/', '')
 
 class FolderAPIView(APIView):
     permission_classes = [permissions.AllowAny]
@@ -126,10 +117,17 @@ class FolderAPIView(APIView):
         serializer = FolderSerializer(folder)
         return Response(serializer.data)
 
-    def delete(self, request):
-        # TODO: Remove notes associated with deleted folder, if it's not empty
-        userId = request.data.user
-        serializer = FolderSerializer(Folder.objects.filter(author = request.user.id), many=True)
+    def delete(self, request, id = None):
+        folderId = int(remove_slashes(id))
+        folder = Folder.objects.get(id=folderId)
+        noteIds = folder.notes
+
+        for note in noteIds.all():
+            dbNote = Note.objects.get(id=note.id)
+            dbNote.delete()
+        folder.delete()
+
+        serializer = FolderSerializer(folder)
         return Response(serializer.data)
 
 class NoteAPIView(APIView):
@@ -211,19 +209,11 @@ class NoteAPIView(APIView):
     def delete(self, request, id=None):
         noteId = int(remove_slashes(id))
         note = Note.objects.get(id=noteId)
+
         note.delete()
-        # userId = request.data.user
-        # noteToDelete = Note.objects.get(author=userId, )
+
         serializer = FolderSerializer(note)
         return Response(serializer.data)
-
-# class NoteViewSet(viewsets.ModelViewSet):
-#     serializer_class = NoteSerializer
-#     queryset = Note.objects.all()
-
-#     def list(self, request):
-#         serializer = NoteSerializer(Note.objects.filter(author = request.user.id), many=True)
-#         return HttpResponse(json.dumps(serializer.data))
 
 class GroupViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated, TokenHasScope]
