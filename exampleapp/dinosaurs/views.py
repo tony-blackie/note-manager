@@ -1,23 +1,16 @@
 from rest_framework import viewsets
 from rest_framework.views import APIView
-from rest_framework.decorators import detail_route
 from dinosaurs.serializers import PersonSerializer, FolderSerializer, NoteSerializer, GroupSerializer
 from dinosaurs.models import Folder, Note, Person
 from django.contrib.auth.models import Group
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, UserManager
 import pdb
 from django.http import HttpResponse, JsonResponse
 from rest_framework import permissions
 from oauth2_provider.contrib.rest_framework import TokenHasReadWriteScope, TokenHasScope
-from rest_framework.renderers import JSONRenderer
 import json
-from rest_framework import authentication
 from rest_framework import exceptions
-from django.contrib.auth.hashers import make_password
-from django.contrib.auth import get_user_model
 import re
 from rest_framework.response import Response
-from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer, HTMLFormRenderer
 
 def remove_slashes(string):
     return string.replace('/', '')

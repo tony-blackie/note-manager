@@ -24,8 +24,6 @@ from rest_framework import permissions, routers, serializers, viewsets
 from oauth2_provider.contrib.rest_framework import TokenHasReadWriteScope, TokenHasScope
 
 router = routers.DefaultRouter()
-# router.register(r'folders/', views.AdminFoldersViewset)
-# router.register(r'note', views.NoteViewSet)
 router.register(r'groups', views.GroupViewSet)
 
 # Wire up our API using automatic URL routing.
