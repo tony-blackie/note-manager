@@ -1,4 +1,4 @@
-import { FolderType, NoteType, TypedAction } from '../../generic/types';
+import { FolderType, NoteType, TypedAction, TypedActionNoPayload } from '../../generic/types';
 
 export interface EditedNote {
     id?: number | null;
@@ -34,3 +34,5 @@ export type EditNoteRequestFn = (note: NoteRequestBody) => void;
 export type ChangeTextFieldValueFn = (value: string) => void;
 
 export type FetchNoteFn = (noteId: string) => void;
+
+export type HandleEditNoteFail = () => TypedActionNoPayload;

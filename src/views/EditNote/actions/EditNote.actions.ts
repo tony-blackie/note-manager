@@ -17,6 +17,7 @@ import {
   CLEAR_ERROR_MESSAGE
 } from '../../actionTypes';
 import { baseName } from '../../../app/config';
+import { HandleEditNoteFail } from '../types';
 import { FolderType, NoteType, TypedAction } from '../../../generic/types';
 
 export type HandleEditNoteSuccessFn = (NoteType) => TypedAction<any>;
@@ -27,7 +28,7 @@ export const handleEditNoteSuccess: HandleEditNoteSuccessFn = response => {
     return ({ type: EDIT_EXISTING_NOTE_SUCCESS, payload: response });
 }
 
-export const handleEditNoteFail = () => {
+export const handleEditNoteFail: HandleEditNoteFail = () => {
     return ({ type: CREATE_NEW_NOTE_FAIL });
 }
 
