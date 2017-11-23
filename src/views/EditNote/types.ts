@@ -36,3 +36,5 @@ export type ChangeTextFieldValueFn = (value: string) => void;
 export type FetchNoteFn = (noteId: string) => void;
 
 export type HandleEditNoteFail = () => TypedActionNoPayload;
+
+export type HandleClearErrorMessage = () => TypedActionNoPayload;
