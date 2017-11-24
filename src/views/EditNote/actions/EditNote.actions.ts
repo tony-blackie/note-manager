@@ -17,8 +17,11 @@ import {
   CLEAR_ERROR_MESSAGE
 } from '../../actionTypes';
 import { baseName } from '../../../app/config';
-import { HandleEditNoteFail, HandleClearErrorMessage } from '../types';
-import { FolderType, NoteType, TypedAction } from '../../../generic/types';
+import {
+    HandleEditNoteFail,
+    HandleClearErrorMessage
+} from '../types';
+import { FolderType, NoteType, TypedAction, TypedActionNoPayload } from '../../../generic/types';
 
 export type HandleEditNoteSuccessFn = (NoteType) => TypedAction<any>;
 
@@ -28,11 +31,11 @@ export const handleEditNoteSuccess: HandleEditNoteSuccessFn = response => {
     return ({ type: EDIT_EXISTING_NOTE_SUCCESS, payload: response });
 }
 
-export const handleEditNoteFail: HandleEditNoteFail = () => {
+export const handleEditNoteFail = (): TypedActionNoPayload => {
     return ({ type: CREATE_NEW_NOTE_FAIL });
 }
 
-export const handleClearErrorMessage: HandleClearErrorMessage = () => {
+export const handleClearErrorMessage = (): TypedActionNoPayload => {
     return ({ type: CLEAR_ERROR_MESSAGE });
 }
 
