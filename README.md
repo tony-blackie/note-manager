@@ -8,7 +8,7 @@ Application for creating small notes, customized to your own liking.
 3. Drag and drop
 4. Colored notes
 5. Responsive markup
-6. Authentication
+6. ~~Authentication~~
 7. Synchronization with Google services
 8. Links to personal notes for other users
 9. Customizable design and layout
