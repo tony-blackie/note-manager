@@ -35,8 +35,8 @@ export const handleClearErrorMessage = (): TypedActionNoPayload => {
     return ({ type: CLEAR_ERROR_MESSAGE });
 }
 
-export const editNoteRequest = note => dispatch => {
-    dispatch({type: EDIT_EXISTING_NOTE});
+export const editNoteRequest = (note: NoteType) => dispatch => {
+    dispatch({ type: EDIT_EXISTING_NOTE });
 
     return axios.request({
         url:`${baseName}/note/${note.id}/`,
