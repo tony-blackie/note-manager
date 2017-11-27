@@ -17,10 +17,6 @@ import {
   CLEAR_ERROR_MESSAGE
 } from '../../actionTypes';
 import { baseName } from '../../../app/config';
-import {
-    HandleEditNoteFail,
-    HandleClearErrorMessage
-} from '../types';
 import { FolderType, NoteType, TypedAction, TypedActionNoPayload } from '../../../generic/types';
 
 export type HandleEditNoteSuccessFn = (NoteType) => TypedAction<any>;
