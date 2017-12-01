@@ -18,6 +18,7 @@ import {
 } from '../../actionTypes';
 import { baseName } from '../../../app/config';
 import { FolderType, NoteType, TypedAction, TypedActionNoPayload } from '../../../generic/types';
+import { ChangeTextFieldValueFn } from '../types';
 
 export type HandleEditNoteSuccessFn = (NoteType) => TypedAction<any>;
 
@@ -72,7 +73,7 @@ export const createNoteRequest = (note: NoteType, activeFolderId: number) => dis
     .catch(error => dispatch(handleFailedNoteCreation()));
 }
 
-export const changeTextFieldValue = value => ({
+export const changeTextFieldValue: ChangeTextFieldValueFn = value => ({
     type: CHANGE_TEXT_FIELD_VALUE,
     payload: { textFieldValue: value }
 });
