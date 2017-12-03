@@ -48,7 +48,7 @@ class CheckIn extends React.Component<Props> {
         const wrapperStyles = {
             padding: 20,
             margin: '20px auto',
-            'max-width': 700
+            maxWidth: 700
         };
 
         return (
