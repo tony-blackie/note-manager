@@ -54,8 +54,8 @@ class CheckIn extends React.Component<Props> {
         return (
             <Paper zDepth={4} style={wrapperStyles}>
                 <div className="register">
-                    <div className="register-header">Register:</div>
-                    <form className="form">
+                    <div className="register__header">Register:</div>
+                    <form className="register__form">
                         <div className="register__form-body">
                             <TextField
                                 floatingLabelText="Login"
@@ -106,9 +106,9 @@ class CheckIn extends React.Component<Props> {
                                 Submit
                             </FlatButton>
 
-                            <div className="login-link">
-                                <div className="login-link__text">Already registered?</div>
-                                <Link className="login-link__link" to="/login">Log in</Link>
+                            <div className="register-link">
+                                <div className="register-link__text">Already registered?</div>
+                                <Link className="register-link__link" to="/login">Log in</Link>
                             </div>
                         </div>
                     </form>

@@ -2,9 +2,13 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
+import { TextField, Paper, FlatButton } from 'material-ui';
+import { Link } from 'react-router';
 
 import { requestToken, changeLogin, changePassword } from './actions';
 import { selectUserLogin, selectPassword } from './selectors';
+
+import '../../sass/login.scss';
 
 interface MappedProps {
     login: string;
@@ -29,24 +33,55 @@ class Login extends React.Component<Props> {
     render() {
         const { login, password } = this.props;
 
-        return (
-            <div>
-                <span>Login:</span>
-                <form>
-                    <input
-                        type="text"
-                        value={login}
-                        onChange={(event) => this.props.changeLogin(event.target.value)}
-                    />
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(event) => this.props.changePassword(event.target.value)}
-                    />
+        const wrapperStyles = {
+            padding: 20,
+            margin: '20px auto',
+            'max-width': 700
+        };
 
-                    <button type="button" onClick={this.requestToken}>Submit</button>
-                </form>
-            </div>
+        return (
+            <Paper zDepth={4} style={wrapperStyles}>
+                <div className="login">
+                    <div className="login__header">Login:</div>
+                    <form className="login__form">
+                        <div className="login__form-body">
+                            <TextField
+                                floatingLabelText="Login"
+                                type="text"
+                                name="login"
+                                value={login}
+                                onChange={(event) => this.props.changeLogin(event.target.value)}
+                                required
+                                className="text-field"
+                                fullWidth={true}
+                            />
+                            <TextField
+                                floatingLabelText="Password"
+                                type="password"
+                                name="pass"
+                                value={password}
+                                onChange={(event) => this.props.changePassword(event.target.value)}
+                                required
+                                className="text-field"
+                                fullWidth={true}
+                            />
+                        </div>
+                        <div className="login__buttons">
+                            <FlatButton
+                                onClick={this.requestToken}
+                                primary={true}
+                            >
+                                Submit
+                            </FlatButton>
+
+                            <div className="login-link">
+                                <div className="login-link__text">Not registered?</div>
+                                <Link className="login-link__link" to="/check-in">Register</Link>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </Paper>
         );
     }
 }
