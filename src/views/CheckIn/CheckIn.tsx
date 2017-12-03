@@ -63,6 +63,8 @@ class CheckIn extends React.Component<Props> {
                                 value={login}
                                 onChange={(event) => this.props.changeLogin(event.target.value)}
                                 required
+                                className="text-field"
+                                fullWidth={true}
                             />
                             <TextField
                                 floatingLabelText="Email"
@@ -71,6 +73,8 @@ class CheckIn extends React.Component<Props> {
                                 value={email}
                                 onChange={(event) => this.props.changeEmail(event.target.value)}
                                 required
+                                className="text-field"
+                                fullWidth={true}
                             />
                             <TextField
                                 floatingLabelText="Password"
@@ -79,6 +83,8 @@ class CheckIn extends React.Component<Props> {
                                 value={password}
                                 onChange={(event) => this.props.changePassword(event.target.value)}
                                 required
+                                className="text-field"
+                                fullWidth={true}
                             />
                             <TextField
                                 floatingLabelText="Repeat password"
@@ -87,6 +93,8 @@ class CheckIn extends React.Component<Props> {
                                 value={confirmPassword}
                                 onChange={(event) => this.props.changeConfirmPassword(event.target.value)}
                                 required
+                                className="text-field"
+                                fullWidth={true}
                             />
                         </div>
                         <div className="register__buttons">
