@@ -17,7 +17,8 @@ import {
   CLEAR_ERROR_MESSAGE
 } from '../../actionTypes';
 import { baseName } from '../../../app/config';
-import { FolderType, NoteType, TypedAction } from '../../../generic/types';
+import { FolderType, NoteType, TypedAction, TypedActionNoPayload } from '../../../generic/types';
+import { ChangeTextFieldValueFn } from '../types';
 
 export type HandleEditNoteSuccessFn = (NoteType) => TypedAction<any>;
 
@@ -27,16 +28,16 @@ export const handleEditNoteSuccess: HandleEditNoteSuccessFn = response => {
     return ({ type: EDIT_EXISTING_NOTE_SUCCESS, payload: response });
 }
 
-export const handleEditNoteFail = () => {
+export const handleEditNoteFail = (): TypedActionNoPayload => {
     return ({ type: CREATE_NEW_NOTE_FAIL });
 }
 
-export const handleClearErrorMessage = () => {
+export const handleClearErrorMessage = (): TypedActionNoPayload => {
     return ({ type: CLEAR_ERROR_MESSAGE });
 }
 
-export const editNoteRequest = note => dispatch => {
-    dispatch({type: EDIT_EXISTING_NOTE});
+export const editNoteRequest = (note: NoteType) => dispatch => {
+    dispatch({ type: EDIT_EXISTING_NOTE });
 
     return axios.request({
         url:`${baseName}/note/${note.id}/`,
@@ -57,19 +58,22 @@ export const handleFailedNoteCreation = () => {
     return ({ type: CREATE_NEW_NOTE_FAIL });
 };
 
-export const createNoteRequest = note => dispatch => {
+export const createNoteRequest = (note: NoteType, activeFolderId: number) => dispatch => {
     dispatch({ type: CREATE_NEW_NOTE });
 
     return axios.request({
         url: `${baseName}/note/`,
         method: 'POST',
-        data: note
+        data: {
+            ...note,
+            parent: activeFolderId
+        }
     })
     .then(response => dispatch(handleSuccessfulNoteCreation(response.data)))
     .catch(error => dispatch(handleFailedNoteCreation()));
 }
 
-export const changeTextFieldValue = value => ({
+export const changeTextFieldValue: ChangeTextFieldValueFn = value => ({
     type: CHANGE_TEXT_FIELD_VALUE,
     payload: { textFieldValue: value }
 });

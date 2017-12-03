@@ -5,14 +5,13 @@ import { Link } from 'react-router';
 import { createStructuredSelector } from 'reselect';
 import axios from 'axios';
 
-import { 
-    GetFolderFn, 
-    CreateNewFolderFn, 
-    EditFolderFn, 
-    HandleFolderNameChangeFn, 
+import {
+    GetFolderFn,
+    CreateNewFolderFn,
+    EditFolderFn,
+    HandleFolderNameChangeFn,
     HandleFailedFolderCreationFn,
     HandleClearFailedFolderCreationFn,
-    HandleFolderNameClearFn
 } from './types';
 import { FolderType } from '../../generic/types';
 import {
@@ -21,10 +20,9 @@ import {
   editFolder,
   createNewFolder,
   handleFailedFolderCreation,
-  handleClearFailedFolderCreation,
-  handleFolderNameClear
 } from './actions/EditFolder.actions';
-import { selectFolderName, selectFolderId, selectErrorMessage } from './selectors';
+import { selectFolder, selectErrorMessage } from './selectors';
+import { selectActiveFolderId } from '../App/selectors';
 import utils from '../../utils';
 
 
@@ -39,8 +37,9 @@ interface OwnProps {
 }
 
 interface MappedProps {
-    folderName: string;
+    folder: FolderType;
     errorMessage: string;
+    activeFolderId: number;
 }
 
 interface MappedActions {
@@ -50,7 +49,6 @@ interface MappedActions {
     handleFolderNameChange: HandleFolderNameChangeFn;
     handleFailedFolderCreation: HandleFailedFolderCreationFn;
     handleClearFailedFolderCreation: HandleClearFailedFolderCreationFn;
-    handleFolderNameClear: HandleFolderNameClearFn;
 }
 
 type Props = OwnProps & MappedProps & MappedActions;
@@ -60,9 +58,6 @@ export class EditFolder extends React.Component<Props> {
         setDefaultAuthHeader();
 
         const { id } = this.props.routeParams;
-
-        this.props.handleClearFailedFolderCreation();
-        this.props.handleFolderNameClear();
 
         if (this.props.routeParams.id) {
             const numericId = parseInt(id, 10);
@@ -74,15 +69,15 @@ export class EditFolder extends React.Component<Props> {
     handleFolderSave = (event) => {
         event.preventDefault();
 
-        const { folderName, routeParams } = this.props;
+        const { routeParams, folder, activeFolderId } = this.props;
 
         if (!routeParams.id) {
-            this.props.createNewFolder(folderName);
+            this.props.createNewFolder(name, activeFolderId);
         } else {
-            const id: number = parseInt(routeParams.id, 10);
-            const name: string = folderName;
-
-            this.props.editFolder(id, name);
+            this.props.editFolder({
+                ...folder,
+                id: parseInt(routeParams.id, 10)
+            });
         }
     }
 
@@ -91,7 +86,9 @@ export class EditFolder extends React.Component<Props> {
     }
 
     render() {
-        const { folderName, routeParams, errorMessage} = this.props;
+        const { folder, routeParams, errorMessage } = this.props;
+        const { name } = folder;
+
         if (routeParams.id) {
             const folderId = routeParams.id;
         }
@@ -118,7 +115,7 @@ export class EditFolder extends React.Component<Props> {
                             onChange={this.handleNameChange}
                             className="edit-note__name"
                             type="text"
-                            value={folderName}
+                            value={name}
                         />
                     </fieldset>
                 </form>
@@ -128,8 +125,8 @@ export class EditFolder extends React.Component<Props> {
 }
 
 export const mapStateToProps = state => createStructuredSelector({
-    folderName: selectFolderName,
-    folderId: selectFolderId,
+    folder: selectFolder,
+    activeFolderId: selectActiveFolderId,
     errorMessage: selectErrorMessage
 });
 
@@ -139,8 +136,6 @@ export const mapDispatchToProps = dispatch => bindActionCreators({
     editFolder,
     createNewFolder,
     handleFailedFolderCreation,
-    handleClearFailedFolderCreation,
-    handleFolderNameClear
 }, dispatch);
 
 export default connect<MappedProps, MappedActions, OwnProps>(mapStateToProps, mapDispatchToProps)(EditFolder);

@@ -13,7 +13,6 @@ import {
     REQUEST_FOLDER_EDIT,
     FOLDER_CREATION_SUCCESS,
     FOLDER_CREATION_FAIL,
-    CLEAR_FOLDER_FAIL,
     CLEAR_FOLDER_NAME
 } from '../../actionTypes';
 import {
@@ -45,10 +44,6 @@ export const handleSuccessfulFolderCreation: HandleSuccessfulFolderCreationFn = 
 
 export const handleFailedFolderCreation: HandleFailedFolderCreationFn = () => ({
     type: FOLDER_CREATION_FAIL
-});
-
-export const handleClearFailedFolderCreation: HandleClearFailedFolderCreationFn = () => ({
-    type: CLEAR_FOLDER_FAIL
 });
 
 export const handleSuccessfulGetFolder: HandleSuccessfulGetFolderFn = folder => {
@@ -100,16 +95,26 @@ export const requestFolderEdit: RequestFolderEditFn = () => ({
     type: REQUEST_FOLDER_EDIT
 });
 
-export const editFolder: EditFolderFn = (id, name) => dispatch => {
+export const editFolder: EditFolderFn = (folder) => dispatch => {
     dispatch(requestFolderEdit());
+
+    const { id, name, parent, isRoot, notes } = folder;
 
     return axios.request({
         url:`${baseName}/folder/${id}/`,
         method: 'PUT',
-        data: { id, name }
+        data: {
+            id,
+            name,
+            parent,
+            is_root: isRoot,
+            notes
+        }
     })
     .then(response => {
         const { data } = response;
+
+        dispatch(handleFolderNameClear());
 
         dispatch(handleSuccessfulFolderEdit(data.id, data.name));
 
@@ -122,22 +127,26 @@ export const editFolder: EditFolderFn = (id, name) => dispatch => {
     });
 }
 
-export const createNewFolder: CreateNewFolderFn = folderName => dispatch => {
+export const createNewFolder: CreateNewFolderFn = (folderName, activeFolderId) => dispatch => {
     dispatch(requestFolderCreation());
 
     return axios.request({
         url:`${baseName}/folder/`,
-        method: 'PUT',
-        data: { name: folderName }
+        method: 'POST',
+        data: {
+            name: folderName,
+            is_root: false,
+            parent: activeFolderId
+        }
     })
     .then(response => {
         dispatch(handleSuccessfulFolderCreation(folderName));
-        
+
         hashHistory.push('/');
     })
     .catch(error => {
         dispatch(handleFailedFolderCreation());
-        
+
         //hashHistory.push('/');
     });
 }

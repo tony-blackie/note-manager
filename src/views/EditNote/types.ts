@@ -1,4 +1,4 @@
-import { FolderType, NoteType, TypedAction } from '../../generic/types';
+import { FolderType, NoteType, TypedAction, TypedActionNoPayload } from '../../generic/types';
 
 export interface EditedNote {
     id?: number | null;
@@ -6,6 +6,7 @@ export interface EditedNote {
     textFieldValue: string;
     textFieldPlaceholder: string;
     folderId: number | null;
+    date: string;
 }
 
 export interface EditNoteState {
@@ -26,7 +27,9 @@ interface NoteRequestBody {
     parent?: number | null;
 }
 
-export type CreateNoteRequestFn = (note: NoteRequestBody) => void;
+export type CreateNoteRequestFn = (note: NoteRequestBody, activeFolderId: number) => void;
+
+export type EditNoteRequestFn = (note: NoteRequestBody) => void;
 
 export type ChangeTextFieldValueFn = (value: string) => void;
 

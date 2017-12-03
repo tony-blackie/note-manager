@@ -12,16 +12,18 @@ export const requestToken = (username, password) => dispatch => {
     const client_id = clientID;
     const client_secret = clientSecret;
 
-    return axios.request({
-        url: `${baseName}/o/token/`,
-        method: 'POST',
-        params: {
+    const params = {
             grant_type,
             username,
             password,
             client_secret,
             client_id
-        }
+    };
+
+    return axios.request({
+        url: `${baseName}/o/token/`,
+        method: 'POST',
+        params
     })
     .then(response => {
         const { token_type, access_token } = response.data;

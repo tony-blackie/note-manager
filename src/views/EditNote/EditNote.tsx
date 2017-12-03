@@ -4,11 +4,14 @@ import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import axios from 'axios';
+import * as format from 'date-fns/format';
+import * as parse from 'date-fns/parse';
 
 import { selectIsNoteCreationMode, selectEditedNote, selectErrorMessage } from './selectors';
+import { selectActiveFolderId } from '../App/selectors';
 import { NoteType } from '../../generic/types';
 
-import { CreateNoteRequestFn, ChangeTextFieldValueFn, FetchNoteFn, EditNoteState, EditedNote } from './types';
+import { CreateNoteRequestFn, EditNoteRequestFn, ChangeTextFieldValueFn, FetchNoteFn, EditNoteState, EditedNote } from './types';
 
 import {
   editNoteRequest,
@@ -34,12 +37,13 @@ import {
 interface MappedProps {
     name: string;
     editedNote: EditedNote;
+    activeFolderId: number | null;
     errorMessage: string;
 }
 
 interface MappedActions {
     createNoteRequest: CreateNoteRequestFn;
-    editNoteRequest: CreateNoteRequestFn;
+    editNoteRequest: EditNoteRequestFn;
     changeTextFieldValue: ChangeTextFieldValueFn;
     changeNoteName: ChangeTextFieldValueFn;
     fetchNote: FetchNoteFn;
@@ -64,15 +68,14 @@ export class EditNote extends React.Component<Props> {
     }
 
     handleSaveClick = () => {
-        const { routeParams } = this.props;
+        const { routeParams, activeFolderId } = this.props;
         const { name, textFieldValue, folderId } = this.props.editedNote;
 
         if (!routeParams.noteId) {
             this.props.createNoteRequest({
                 name,
                 text: textFieldValue,
-                parent: folderId
-            });
+            }, activeFolderId);
         } else {
             this.props.editNoteRequest({
                 id: routeParams.noteId,
@@ -92,7 +95,10 @@ export class EditNote extends React.Component<Props> {
     }
 
     render() {
-        const { textFieldValue, textFieldPlaceholder, name } = this.props.editedNote;
+        const { errorMessage, editedNote } = this.props;
+        const { textFieldValue, textFieldPlaceholder, name, date } = editedNote;
+
+        const parsedDate = date ? format(parse(date), 'DD/MM/YY HH:mm') : null;
 
         return (
             <div>
@@ -104,7 +110,8 @@ export class EditNote extends React.Component<Props> {
                         Save changes
                     </button>
                 </nav>
-                <div>{this.props.errorMessage}</div>
+                <div>{errorMessage}</div>
+                <div>Creation date: {parsedDate}</div>
                 <form>
                     <fieldset>
                         <div>
@@ -135,6 +142,7 @@ export class EditNote extends React.Component<Props> {
 export const mapStateToProps = (state: EditNoteState) => createStructuredSelector({
     isNoteCreationMode: selectIsNoteCreationMode,
     editedNote: selectEditedNote,
+    activeFolderId: selectActiveFolderId,
     errorMessage: selectErrorMessage
 });
 

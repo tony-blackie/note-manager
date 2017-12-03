@@ -19,7 +19,8 @@ const editNoteReducer = (state: EditNoteState = {
         name: '',
         textFieldValue: '',
         textFieldPlaceholder: '',
-        folderId: null
+        folderId: null,
+        date: ''
     },
     isNoteCreationMode: false,
     errorMessage: ''
@@ -58,7 +59,7 @@ const editNoteReducer = (state: EditNoteState = {
         }
 
         case GET_NOTE_SUCCESS: {
-            const { name, id, text, parent } = action.payload.note;
+            const { name, id, text, parent, date } = action.payload.note;
 
             return {
                 ...state,
@@ -67,7 +68,8 @@ const editNoteReducer = (state: EditNoteState = {
                     name,
                     id,
                     textFieldValue: text,
-                    folderId: parent
+                    folderId: parent,
+                    date
                 }
             };
         }

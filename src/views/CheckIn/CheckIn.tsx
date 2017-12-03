@@ -2,6 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
+import { TextField } from 'material-ui';
 
 import { changeLogin, changeEmail, changePassword, changeConfirmPassword, checkInRequest } from './actions';
 import { selectUserLogin, selectEmail, selectPassword, selectConfirmPassword } from './selectors';
@@ -30,7 +31,7 @@ class CheckIn extends React.Component<Props> {
 
         if (checkData) {
             this.props.checkInRequest({
-                login: this.props.login,
+                username: this.props.login,
                 email: this.props.email,
                 password: this.props.password,
             })
@@ -46,26 +47,30 @@ class CheckIn extends React.Component<Props> {
             <div>
                 <span>Check in:</span>
                 <form>
-                    <input
+                    <TextField
                         type="text"
+                        name="login"
                         value={login}
                         onChange={(event) => this.props.changeLogin(event.target.value)}
                         required
                     />
-                    <input
-                        type="email"
+                    <TextField
+                        type="text"
+                        name="email"
                         value={email}
                         onChange={(event) => this.props.changeEmail(event.target.value)}
                         required
                     />
-                    <input
+                    <TextField
                         type="password"
+                        name="pass"
                         value={password}
                         onChange={(event) => this.props.changePassword(event.target.value)}
                         required
                     />
-                    <input
+                    <TextField
                         type="password"
+                        name="pass_repeat"
                         value={confirmPassword}
                         onChange={(event) => this.props.changeConfirmPassword(event.target.value)}
                         required

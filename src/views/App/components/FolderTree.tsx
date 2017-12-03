@@ -13,24 +13,33 @@ export default class FolderTree extends React.Component<Props> {
     renderFolder = (folder, folderId) => {
         const { folders } = this.props;
 
-        return (
-          <Folder
-              isActive={folder.isActive}
-              key={folderId}
-              id={folderId}
-              makeFolderActive={this.props.makeFolderActive}
-              makeFolderInactive={this.props.makeFolderInactive}
-              folderName={folder.name}
-          >
-              {
-                  folders.map(folder => {
-                        if(folder.parent && folder.parent === folderId) {
-                            return this.renderFolder(folder, folder.id);
-                        }
-                  }, this)
-              }
-          </Folder>
-        );
+        /* Root folder should be invisible */
+        if (folder.isRoot) {
+                return folders.map(folder => {
+                      if(folder.parent && folder.parent === folderId) {
+                          return this.renderFolder(folder, folder.id);
+                      }
+                }, this)
+        } else {
+            return (
+                <Folder
+                    isActive={folder.isActive}
+                    key={folderId}
+                    id={folderId}
+                    makeFolderActive={this.props.makeFolderActive}
+                    makeFolderInactive={this.props.makeFolderInactive}
+                    folderName={folder.name}
+                >
+                    {
+                        folders.map(folder => {
+                              if(folder.parent && folder.parent === folderId) {
+                                  return this.renderFolder(folder, folder.id);
+                              }
+                        }, this)
+                    }
+                </Folder>
+              );
+        }
     }
 
     render() {
@@ -38,8 +47,8 @@ export default class FolderTree extends React.Component<Props> {
         return (
             <div className="folder-tree">
                 {
-                    folders.map((folder, index) => {
-                        if (folder.parent === 0) {
+                    folders.map(folder => {
+                        if (folder.isRoot) {
                             return this.renderFolder(folder, folder.id)
                         };
                     })

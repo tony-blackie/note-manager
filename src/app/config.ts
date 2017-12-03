@@ -1,5 +1,5 @@
 export const baseName = 'http://localhost:8000';
 
-export const clientID = 'jJzbQf5LBuVpE7R2ehDLPLH4dXT0TFIq6PsFuUTx';
+export const clientID = 'Rlo5xvaKUwEwJWFoLEpVfRZu1CUtRH4qLrWtdy1j';
 
-export const clientSecret = '9BR8y0PdKyhLzXDeUand5td4kwjaAjhxIMDHLhPXQOH7BsmCLzEvzVL7QaZj82sb0sEIWrc9pBp4q8iX6Q5kVKf4soGcKQAJfF2BIxHHuA3hYJWr14gQbA9cewg2It4K';
+export const clientSecret = 'z50zU9Uqx8gWSyVPa8spNWECGU7qtWYTcfwuUDEATGrwsAboHUUNnHUmOAs0bDB8rSqZ2e042rmr99x6h3C7pJpWCSUWHNNt83bVMiTTIz9Fg67QzlTzJlzWVblmEgvt';

@@ -1,8 +1,8 @@
-import { FolderType, NoteType, TypedAction, TypedActionNoPayload } from '../../generic/types';
+import { FolderType, FolderTypeAPI, NoteType, TypedAction, TypedActionNoPayload } from '../../generic/types';
 import { HandleSuccessfulFolderEditPayload } from '../EditFolder/types';
 
 export interface AppComponentState {
-    folders: FolderType[];
+    folders: FolderType[] | null;
     notes: NoteType[];
     activeFolderId: number | null;
     notesQuery: string;
@@ -29,7 +29,7 @@ export interface HandleSuccessfulDeleteNotePayload {
 }
 
 export interface HandleSuccessfulGetAllFoldersPayload {
-    folders: FolderType[];
+    folders: FolderTypeAPI[];
 }
 
 export interface HandleFailedDeleteNotePayload {
@@ -101,7 +101,7 @@ export type HandleFailedDeleteNoteFn = (error: any) =>
 
 export type RemoveNoteFn = (id: number) => (dispatch: (callback: any) => void) => void;
 
-export type HandleSuccessfulGetAllFoldersFn = (response: FolderType[]) =>
+export type HandleSuccessfulGetAllFoldersFn = (response: FolderTypeAPI[]) =>
     TypedAction<HandleSuccessfulGetAllFoldersPayload>;
 
 export type HandleFailedGetAllFoldersFn = (error: any) =>
@@ -115,3 +115,5 @@ export type HandleFailedDeleteFolderFn = (error: any) =>
 
 export type UpdateNoteFilterQueryFn = (query: string) =>
     TypedAction<UpdateNoteFilterQueryPayload>;
+
+export type CreateInitialFolderFn = () => Promise<any>;

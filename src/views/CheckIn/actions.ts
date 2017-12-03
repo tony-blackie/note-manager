@@ -6,14 +6,16 @@ import { baseName } from '../../app/config';
 import utils from '../../utils';
 import { CHANGE_LOGIN, CHANGE_EMAIL, CHANGE_PASSWORD, CHANGE_CONFIRM_PASSWORD } from './constants';
 
-export const checkInRequest = credentials => dispatch => {
+export const checkInRequest = formData => dispatch => {
+    const credentials = {
+        ...formData,
+        is_staff: true
+    };
+
     return axios.request({
-        url: `${baseName}/user/`,
+        url: `${baseName}/users/`,
         method: 'POST',
-        headers: {
-            'Authorization': `${localStorage.getItem('token')}`
-        },
-        data: credentials
+        data: credentials,
     })
     .then(response => {
         console.log(`user creation response: ${response}`);
