@@ -1,6 +1,8 @@
+@import './variables.scss';
+
 .folder {
   &_active {
-    background-color: rgba(0, 41, 255, 0.42);
+    background-color: $secondary-color;
     color: white;
   }
 
@@ -12,5 +14,6 @@
   &__name {
     margin-left: 5px;
     cursor: pointer;
+    user-select: none;
   }
 }
