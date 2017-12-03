@@ -20,6 +20,7 @@
         width: 100%;
         padding-top: 30px;
         display: flex;
+        flex-direction: column;
         justify-content: center;
     }
 }
@@ -29,6 +30,29 @@
     flex-direction: column;
     align-self: center;
     width: 100%;
+}
+
+.login-link {
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    cursor: inherit;
+
+    &__text {
+        font-size: 13px;
+        cursor: default;
+        color: $color-black;
+    }
+
+    &__link {
+        margin-top: 5px;
+        color: $primary-color;
+        cursor: pointer;
+        text-decoration: none;
+    }
 }
 
 @media (max-width: 400px) {

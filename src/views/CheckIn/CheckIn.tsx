@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import { TextField, Paper, FlatButton } from 'material-ui';
+import { Link } from 'react-router';
 
 import { changeLogin, changeEmail, changePassword, changeConfirmPassword, checkInRequest } from './actions';
 import { selectUserLogin, selectEmail, selectPassword, selectConfirmPassword } from './selectors';
@@ -104,6 +105,11 @@ class CheckIn extends React.Component<Props> {
                             >
                                 Submit
                             </FlatButton>
+
+                            <div className="login-link">
+                                <div className="login-link__text">Already registered?</div>
+                                <Link className="login-link__link" to="/login">Log in</Link>
+                            </div>
                         </div>
                     </form>
                 </div>
