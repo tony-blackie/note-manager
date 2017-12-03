@@ -1,6 +1,5 @@
 .control-panel {
-  width: 100px;
-  float: left;
+  display: flex;
 
   &__underline {
     text-align: center;
@@ -11,10 +10,7 @@
   cursor: pointer;
   position: relative;
   padding-bottom: 20px;
-
-  &:first-child {
-    margin-top: 35px;
-  }
+  width: 72px;
 
   &:last-child {
     margin-bottom: 0;
@@ -27,9 +23,9 @@
       cursor: pointer;
       position: absolute;
       height: 50px;
-      top: -36px;
-      width: 72px;
-      padding-left: 37px;
+      width: 100%;
+      text-align: center;
+      color: white;
 
     &:hover {
       transform: translateY(-3px) scale(0.98);
@@ -37,8 +33,10 @@
   }
 
   &__text {
+    width: 100%;
     cursor: pointer;
     margin-top: 30px;
     text-align: center;
+    color: white;
   }
 }

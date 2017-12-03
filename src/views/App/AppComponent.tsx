@@ -4,6 +4,8 @@ import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import axios from 'axios';
 import { hashHistory } from 'react-router';
+import { Paper, AppBar } from 'material-ui';
+import { grey300 } from 'material-ui';
 
 import ControlPanel from './components/ControlPanel';
 import FolderTree from './components/FolderTree';
@@ -102,21 +104,39 @@ export class App extends React.Component<Props> {
             currentFolders = folders;
         }
 
+        const wrapperStyles = {
+            padding: 20,
+            margin: '20px auto',
+            maxWidth: 300
+        };
+
+        const menuStyles = {
+            width: '100%',
+            backgroundColor: grey300
+        };
+
         return (
             <div>
-                <ControlPanel
-                    goToNoteCreation={goToNoteCreation}
-                    removeFolder={removeFolder}
-                    activeFolderId={activeFolderId}
-                    goToEditFolder={goToEditFolder}
-                    goToFolderCreation={goToFolderCreation}
-                />
-                <div className="content">
-                    <FolderTree
-                      folders={currentFolders}
-                      makeFolderActive={makeFolderActive}
-                      makeFolderInactive={makeFolderInactive}
+                <AppBar
+                    title="Notes"
+                    iconClassNameRight="muidocs-icon-navigation-expand-more"
+                >
+                    <ControlPanel
+                        goToNoteCreation={goToNoteCreation}
+                        removeFolder={removeFolder}
+                        activeFolderId={activeFolderId}
+                        goToEditFolder={goToEditFolder}
+                        goToFolderCreation={goToFolderCreation}
                     />
+                </AppBar>
+                <div className="content-wrapper">
+                    <Paper zDepth={4} style={wrapperStyles}>
+                        <FolderTree
+                        folders={currentFolders}
+                        makeFolderActive={makeFolderActive}
+                        makeFolderInactive={makeFolderInactive}
+                        />
+                    </Paper>
                     <NotePanel
                         notes={filteredNotes}
                         goToNoteEdit={goToNoteEdit}
