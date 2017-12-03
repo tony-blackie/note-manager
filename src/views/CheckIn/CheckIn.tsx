@@ -2,10 +2,11 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
-import { TextField } from 'material-ui';
+import { TextField, Paper, FlatButton } from 'material-ui';
 
 import { changeLogin, changeEmail, changePassword, changeConfirmPassword, checkInRequest } from './actions';
 import { selectUserLogin, selectEmail, selectPassword, selectConfirmPassword } from './selectors';
+import '../../sass/check-in.scss';
 
 interface MappedProps {
     login: string;
@@ -43,11 +44,18 @@ class CheckIn extends React.Component<Props> {
     render() {
         const { login, email, password, confirmPassword } = this.props;
 
+        const wrapperStyles = {
+            padding: 20,
+            margin: '20px auto',
+            'max-width': 700
+        };
+
         return (
-            <div>
-                <span>Check in:</span>
-                <form>
+            <Paper zDepth={4} style={wrapperStyles}>
+                <div className="register-header">Register:</div>
+                <form className="form">
                     <TextField
+                        floatingLabelText="Login"
                         type="text"
                         name="login"
                         value={login}
@@ -55,6 +63,7 @@ class CheckIn extends React.Component<Props> {
                         required
                     />
                     <TextField
+                        floatingLabelText="Email"
                         type="text"
                         name="email"
                         value={email}
@@ -62,6 +71,7 @@ class CheckIn extends React.Component<Props> {
                         required
                     />
                     <TextField
+                        floatingLabelText="Password"
                         type="password"
                         name="pass"
                         value={password}
@@ -69,6 +79,7 @@ class CheckIn extends React.Component<Props> {
                         required
                     />
                     <TextField
+                        floatingLabelText="Repeat password"
                         type="password"
                         name="pass_repeat"
                         value={confirmPassword}
@@ -76,9 +87,12 @@ class CheckIn extends React.Component<Props> {
                         required
                     />
 
-                    <button type="button" onClick={() => this.checkData()}>Submit</button>
+                    <FlatButton
+                        onClick={() => this.checkData()}
+                        primary={true}
+                    >Submit</FlatButton>
                 </form>
-            </div>
+            </Paper>
         );
     }
 }
