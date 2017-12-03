@@ -90,9 +90,17 @@ class FolderAPIView(APIView):
     def post(self, request, id = None):
         userId = request.user.id
 
+        if request.data['parent'] != None:
+            parentFolder = Folder.objects.get(id=request.data['parent'])
+        else:
+            foldersForCurrentUser = Folder.objects.filter(author=userId)
+            for folder in foldersForCurrentUser:
+                if folder.is_root == True:
+                    parentFolder = folder
+
         Folder.objects.create(
             name = request.data.get('name', 'newName'),
-            parent = request.data.get('parent', 4),
+            parent = parentFolder.id,
             is_root = request.data.get('is_root', False),
             author = request.user
         )
