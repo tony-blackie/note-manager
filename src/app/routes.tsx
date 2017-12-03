@@ -4,6 +4,8 @@ import { Router as Router, Route, hashHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 import '../sass/index.scss';
 import App from '../views/App/AppComponent';
 import NoMatch from '../views/NoMatchComponent/NoMatchComponent';
@@ -25,15 +27,17 @@ const store = createStore(rootReducer, composeEnhancers(
 ));
 
 ReactDOM.render((
-    <Provider store={store}>
-        <Router history={hashHistory}>
-            <Route path='/' component={App} />
-            <Route path="/note/:noteId" component={EditNote} />
-            <Route path="/note" component={EditNote} />
-            <Route path="/folder/:id" component={EditFolder} />
-            <Route path="/folder" component={EditFolder} />
-            <Route path="/login" component={Login} />
-            <Route path="/check-in" component={CheckIn} />
-        </Router>
-    </Provider>
+    <MuiThemeProvider>
+        <Provider store={store}>
+            <Router history={hashHistory}>
+                <Route path='/' component={App} />
+                <Route path="/note/:noteId" component={EditNote} />
+                <Route path="/note" component={EditNote} />
+                <Route path="/folder/:id" component={EditFolder} />
+                <Route path="/folder" component={EditFolder} />
+                <Route path="/login" component={Login} />
+                <Route path="/check-in" component={CheckIn} />
+            </Router>
+        </Provider>
+    </MuiThemeProvider>
 ), document.getElementById('root'));
