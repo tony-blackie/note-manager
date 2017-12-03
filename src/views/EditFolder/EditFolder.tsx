@@ -70,6 +70,7 @@ export class EditFolder extends React.Component<Props> {
         event.preventDefault();
 
         const { routeParams, folder, activeFolderId } = this.props;
+        const { name } = folder;
 
         if (!routeParams.id) {
             this.props.createNewFolder(name, activeFolderId);
