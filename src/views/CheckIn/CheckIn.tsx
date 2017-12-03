@@ -52,46 +52,53 @@ class CheckIn extends React.Component<Props> {
 
         return (
             <Paper zDepth={4} style={wrapperStyles}>
-                <div className="register-header">Register:</div>
-                <form className="form">
-                    <TextField
-                        floatingLabelText="Login"
-                        type="text"
-                        name="login"
-                        value={login}
-                        onChange={(event) => this.props.changeLogin(event.target.value)}
-                        required
-                    />
-                    <TextField
-                        floatingLabelText="Email"
-                        type="text"
-                        name="email"
-                        value={email}
-                        onChange={(event) => this.props.changeEmail(event.target.value)}
-                        required
-                    />
-                    <TextField
-                        floatingLabelText="Password"
-                        type="password"
-                        name="pass"
-                        value={password}
-                        onChange={(event) => this.props.changePassword(event.target.value)}
-                        required
-                    />
-                    <TextField
-                        floatingLabelText="Repeat password"
-                        type="password"
-                        name="pass_repeat"
-                        value={confirmPassword}
-                        onChange={(event) => this.props.changeConfirmPassword(event.target.value)}
-                        required
-                    />
-
-                    <FlatButton
-                        onClick={() => this.checkData()}
-                        primary={true}
-                    >Submit</FlatButton>
-                </form>
+                <div className="register">
+                    <div className="register-header">Register:</div>
+                    <form className="form">
+                        <div className="register__form-body">
+                            <TextField
+                                floatingLabelText="Login"
+                                type="text"
+                                name="login"
+                                value={login}
+                                onChange={(event) => this.props.changeLogin(event.target.value)}
+                                required
+                            />
+                            <TextField
+                                floatingLabelText="Email"
+                                type="text"
+                                name="email"
+                                value={email}
+                                onChange={(event) => this.props.changeEmail(event.target.value)}
+                                required
+                            />
+                            <TextField
+                                floatingLabelText="Password"
+                                type="password"
+                                name="pass"
+                                value={password}
+                                onChange={(event) => this.props.changePassword(event.target.value)}
+                                required
+                            />
+                            <TextField
+                                floatingLabelText="Repeat password"
+                                type="password"
+                                name="pass_repeat"
+                                value={confirmPassword}
+                                onChange={(event) => this.props.changeConfirmPassword(event.target.value)}
+                                required
+                            />
+                        </div>
+                        <div className="register__buttons">
+                            <FlatButton
+                                onClick={() => this.checkData()}
+                                primary={true}
+                            >
+                                Submit
+                            </FlatButton>
+                        </div>
+                    </form>
+                </div>
             </Paper>
         );
     }
