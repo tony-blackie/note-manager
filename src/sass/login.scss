@@ -18,10 +18,15 @@
 
     &__buttons {
         width: 100%;
-        padding-top: 30px;
         display: flex;
         flex-direction: column;
         justify-content: center;
+    }
+
+    &__submit {
+        display: flex;
+        justify-content: center;
+        padding: 20px 0 12px 0;
     }
 }
 

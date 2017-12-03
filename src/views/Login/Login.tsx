@@ -67,12 +67,14 @@ class Login extends React.Component<Props> {
                             />
                         </div>
                         <div className="login__buttons">
-                            <FlatButton
-                                onClick={this.requestToken}
-                                primary={true}
-                            >
-                                Submit
-                            </FlatButton>
+                            <div className="login__submit">
+                                <FlatButton
+                                    onClick={this.requestToken}
+                                    primary={true}
+                                >
+                                    Submit
+                                </FlatButton>
+                            </div>
 
                             <div className="login-link">
                                 <div className="login-link__text">Not registered?</div>

@@ -99,13 +99,14 @@ class CheckIn extends React.Component<Props> {
                             />
                         </div>
                         <div className="register__buttons">
-                            <FlatButton
-                                onClick={() => this.checkData()}
-                                primary={true}
-                            >
-                                Submit
-                            </FlatButton>
-
+                            <div className="register__submit">
+                                    <FlatButton
+                                        onClick={() => this.checkData()}
+                                        primary={true}
+                                    >
+                                        Submit
+                                    </FlatButton>
+                            </div>
                             <div className="register-link">
                                 <div className="register-link__text">Already registered?</div>
                                 <Link className="register-link__link" to="/login">Log in</Link>
