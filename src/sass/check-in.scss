@@ -1,0 +1,15 @@
+@import './variables.scss';
+
+.register {
+    padding: 20px;
+    font-family: Roboto, sans-serif;
+
+    &-header {
+        color: $primary-color;
+    }
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
