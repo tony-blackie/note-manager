@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Paper, Divider, TextField } from 'material-ui';
+import { Paper, Divider, TextField, yellow300 } from 'material-ui';
 
 import { GoToNoteEditFn, RemoveNoteFn } from '../types';
 
@@ -32,11 +32,8 @@ export default class Note extends React.Component<Props> {
             minHeight: 150,
             padding: 10,
             margin: 20,
-            position: 'relative'
-        };
-
-        const headerStyles = {
-            textAlign: 'center !important'
+            position: 'relative',
+            backgroundColor: yellow300
         };
 
         return (
@@ -51,7 +48,7 @@ export default class Note extends React.Component<Props> {
                     value={name}
                     fullWidth={true}
                     underlineShow={false}
-                    textareaStyle={headerStyles}
+                    className="note-header"
                 />
                 <Divider />
                 <TextField
