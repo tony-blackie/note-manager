@@ -120,6 +120,7 @@ export class App extends React.Component<Props> {
                 <AppBar
                     title="Notes"
                     iconClassNameRight="muidocs-icon-navigation-expand-more"
+                    zDepth={2}
                 >
                     <ControlPanel
                         goToNoteCreation={goToNoteCreation}
@@ -130,7 +131,7 @@ export class App extends React.Component<Props> {
                     />
                 </AppBar>
                 <div className="content-wrapper">
-                    <Paper zDepth={4} style={wrapperStyles}>
+                    <Paper zDepth={2} style={wrapperStyles}>
                         <FolderTree
                         folders={currentFolders}
                         makeFolderActive={makeFolderActive}
