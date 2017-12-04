@@ -48,15 +48,21 @@ class NotePanel extends React.Component<Props> {
                 <div className="note-search">
                     <input type="text" placeholder="search" onChange={this.updateNoteFilterQuery} />
                 </div>
-                <div>
-                    {notesToShow.map(note =>
-                        <Note
-                            key={note.id}
-                            id={note.id}
-                            name={note.name}
-                            goToNoteEdit={this.props.goToNoteEdit}
-                            removeNote={this.props.removeNote}
-                        />
+                <div className="note-container">
+                    {
+                        notesToShow.map(note => {
+                            const { id, text, name, } = note;
+                            return (
+                                <Note
+                                    key={id}
+                                    id={id}
+                                    text={text}
+                                    name={name}
+                                    goToNoteEdit={this.props.goToNoteEdit}
+                                    removeNote={this.props.removeNote}
+                                />
+                            );
+                        }
                     )}
                 </div>
             </div>
