@@ -9,7 +9,6 @@ import {
     RemoveNoteFn
 } from '../types';
 import { NoteType, FolderType } from '../../../generic/types';
-import { updateNoteFilterQuery } from '../actions/AppComponent.actions';
 
 interface OwnProps {
     notes: NoteType[];
@@ -20,18 +19,12 @@ interface OwnProps {
 }
 
 interface MappedActions {
-    updateNoteFilterQuery: UpdateNoteFilterQueryFn;
+    // updateNoteFilterQuery: UpdateNoteFilterQueryFn;
 }
 
 type Props = OwnProps & MappedActions;
 
 class NotePanel extends React.Component<Props> {
-    updateNoteFilterQuery = (event) => {
-        const text = event.target.value;
-
-        this.props.updateNoteFilterQuery(text);
-    }
-
     getActiveFolder = (folders: FolderType[], activeFolderId: number) => {
         return folders.filter(folder => folder.id === activeFolderId)[0];
     }
@@ -45,9 +38,6 @@ class NotePanel extends React.Component<Props> {
 
         return (
             <div className="note-panel">
-                <div className="note-search">
-                    <input type="text" placeholder="search" onChange={this.updateNoteFilterQuery} />
-                </div>
                 <div className="note-container">
                     {
                         notesToShow.map(note => {
@@ -71,7 +61,7 @@ class NotePanel extends React.Component<Props> {
 }
 
 export const mapDispatchToProps = dispatch => bindActionCreators({
-    updateNoteFilterQuery
+    // updateNoteFilterQuery
 }, dispatch);
 
 export default connect<null, MappedActions, OwnProps>(null, mapDispatchToProps)(NotePanel);
