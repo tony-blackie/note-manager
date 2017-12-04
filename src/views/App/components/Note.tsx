@@ -33,7 +33,7 @@ export default class Note extends React.Component<Props> {
             padding: 10,
             margin: 20,
             position: 'relative',
-            backgroundColor: yellow300
+            backgroundColor: '#fff9c4'
         };
 
         return (
