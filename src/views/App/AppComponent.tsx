@@ -133,6 +133,7 @@ export class App extends React.Component<Props> {
                     zDepth={2}
                 >
                     <TextField
+                        name={'search'}
                         value={this.props.searchQuery}
                         onChange={this.updateNoteFilterQuery}
                         className="note-search"
