@@ -134,6 +134,7 @@ export class App extends React.Component<Props> {
                 >
                     <TextField
                         name={'search'}
+                        hintText={'search'}
                         value={this.props.searchQuery}
                         onChange={this.updateNoteFilterQuery}
                         className="note-search"
