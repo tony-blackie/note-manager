@@ -4,13 +4,16 @@ import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import axios from 'axios';
 import { hashHistory } from 'react-router';
+import { Paper, AppBar } from 'material-ui';
+import { grey300, TextField } from 'material-ui';
 
 import ControlPanel from './components/ControlPanel';
 import FolderTree from './components/FolderTree';
 import NotePanel from './components/NotePanel';
 import Folder from './components/Folder';
-import { selectNotesByQuery, selectFolders, selectActiveFolderId } from './selectors';
+import { selectNotesByQuery, selectFolders, selectActiveFolderId, selectQuery } from './selectors';
 import utils from '../../utils';
+import { updateNoteFilterQuery } from './actions/AppComponent.actions';
 
 const { setDefaultAuthHeader, getToken } = utils;
 
@@ -39,7 +42,8 @@ import {
     GoToFolderCreationFn,
     RemoveFolderFn,
     RemoveNoteFn,
-    CreateInitialFolderFn
+    CreateInitialFolderFn,
+    UpdateNoteFilterQueryFn
 } from './types';
 import { FolderType, NoteType } from '../../generic/types';
 
@@ -47,6 +51,7 @@ interface MappedProps {
     filteredNotes: NoteType[];
     folders: FolderType[];
     activeFolderId: number;
+    searchQuery: string;
 }
 
 interface MappedActions {
@@ -61,6 +66,7 @@ interface MappedActions {
     removeFolder: RemoveFolderFn;
     removeNote: RemoveNoteFn;
     createInitialFolder: CreateInitialFolderFn;
+    updateNoteFilterQuery: UpdateNoteFilterQueryFn;
 }
 
 type Props = MappedProps & MappedActions;
@@ -75,6 +81,12 @@ export class App extends React.Component<Props> {
 
         this.props.getAllNotes();
         this.props.getAllFolders();
+    }
+
+    updateNoteFilterQuery = (event) => {
+        const text = event.target.value;
+
+        this.props.updateNoteFilterQuery(text);
     }
 
     render() {
@@ -102,21 +114,47 @@ export class App extends React.Component<Props> {
             currentFolders = folders;
         }
 
+        const wrapperStyles = {
+            padding: 20,
+            margin: '20px auto',
+            maxWidth: 300
+        };
+
+        const menuStyles = {
+            width: '100%',
+            backgroundColor: grey300
+        };
+
         return (
             <div>
-                <ControlPanel
-                    goToNoteCreation={goToNoteCreation}
-                    removeFolder={removeFolder}
-                    activeFolderId={activeFolderId}
-                    goToEditFolder={goToEditFolder}
-                    goToFolderCreation={goToFolderCreation}
-                />
-                <div className="content">
-                    <FolderTree
-                      folders={currentFolders}
-                      makeFolderActive={makeFolderActive}
-                      makeFolderInactive={makeFolderInactive}
+                <AppBar
+                    title="Notes"
+                    iconClassNameRight="muidocs-icon-navigation-expand-more"
+                    zDepth={2}
+                >
+                    <TextField
+                        name={'search'}
+                        hintText={'search'}
+                        value={this.props.searchQuery}
+                        onChange={this.updateNoteFilterQuery}
+                        className="note-search"
                     />
+                    <ControlPanel
+                        goToNoteCreation={goToNoteCreation}
+                        removeFolder={removeFolder}
+                        activeFolderId={activeFolderId}
+                        goToEditFolder={goToEditFolder}
+                        goToFolderCreation={goToFolderCreation}
+                    />
+                </AppBar>
+                <div className="content-wrapper">
+                    <Paper zDepth={2} style={wrapperStyles}>
+                        <FolderTree
+                        folders={currentFolders}
+                        makeFolderActive={makeFolderActive}
+                        makeFolderInactive={makeFolderInactive}
+                        />
+                    </Paper>
                     <NotePanel
                         notes={filteredNotes}
                         goToNoteEdit={goToNoteEdit}
@@ -133,7 +171,8 @@ export class App extends React.Component<Props> {
 export const mapStateToProps = state => createStructuredSelector({
     filteredNotes: selectNotesByQuery,
     folders: selectFolders,
-    activeFolderId: selectActiveFolderId
+    activeFolderId: selectActiveFolderId,
+    searchQuery: selectQuery
 });
 
 export const mapDispatchToProps = dispatch => bindActionCreators({
@@ -147,7 +186,8 @@ export const mapDispatchToProps = dispatch => bindActionCreators({
     removeFolder,
     goToEditFolder,
     goToFolderCreation,
-    createInitialFolder
+    createInitialFolder,
+    updateNoteFilterQuery
 }, dispatch);
 
 export default connect<MappedProps, MappedActions, {}>(mapStateToProps, mapDispatchToProps)(App);

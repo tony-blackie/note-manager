@@ -1,9 +1,9 @@
 .note-panel {
-  width: 400px;
-  float: left;
+  width: 70%;
   margin-left: 50px;
 }
 
-.note-search {
-  padding: 10px;
+.note-container {
+  display: flex;
+  flex-wrap: wrap;
 }
