@@ -11,6 +11,7 @@ import json
 from rest_framework import exceptions
 import re
 from rest_framework.response import Response
+from django.http import JsonResponse
 
 def remove_slashes(string):
     return string.replace('/', '')
@@ -139,6 +140,11 @@ class NoteAPIView(APIView):
     def get(self, request, id = None):
         def remove_slashes(string):
             return string.replace('/', '')
+
+        if request.user.id == None:
+            status = 400
+            message = 'Login is required'
+            return JsonResponse({'message': message}, status=status)
 
         if id == '':
             if re.search(r'admin/dinosaurs/note/$', request.path):
