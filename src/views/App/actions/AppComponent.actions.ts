@@ -1,5 +1,7 @@
 import { hashHistory } from 'react-router';
 import axios from 'axios';
+import utils from '../../../utils';
+const { deleteToken } = utils;
 
 import {
     GET_ALL_NOTES,
@@ -66,7 +68,15 @@ export const getAllNotes: GetAllNotesFn = () => dispatch => {
 
     return axios.get(`${baseName}/note/`)
     .then(response => dispatch(handleSuccessfulGetAllNotes(response.data)))
-    .catch(error => dispatch(handleFailedGetAllNotes(error)));
+    .catch(error => {
+        dispatch(handleFailedGetAllNotes(error));
+
+        if (error.message === 'Login is required') {
+            debugger;
+            deleteToken();
+            hashHistory.push('/login');
+        }
+    });
 };
 
 export const goToNoteEdit: GoToNoteEditFn = id => dispatch => {
@@ -122,7 +132,15 @@ export const getAllFolders: GetAllFoldersFn = () => dispatch => {
 
     return axios.get(`${baseName}/folder`)
     .then(response => dispatch(handleSuccessfulGetAllFolders(response.data)))
-    .catch(error => dispatch(handleFailedGetAllFolders(error)));
+    .catch(error => {
+        dispatch(handleFailedGetAllFolders(error));
+
+        if (error.message === 'Login is required') {
+            debugger;
+            deleteToken();
+            hashHistory.push('/login');
+        }
+    });
 }
 
 export const handleSuccessfulDeleteFolder: HandleSuccessfulDeleteFolderFn = id => ({
