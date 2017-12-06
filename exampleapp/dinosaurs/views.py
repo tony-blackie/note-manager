@@ -62,6 +62,11 @@ class FolderAPIView(APIView):
             if re.search(r'/folder/$', request.path):
                 userId = request.user.id
 
+                if request.user.id == None:
+                    status = 400
+                    message = 'Login is required'
+                    return JsonResponse({'message': message}, status=status)
+
                 try:
                     folders = Folder.objects.filter(author=userId)
                 except Folder.DoesNotExist:
@@ -141,11 +146,6 @@ class NoteAPIView(APIView):
         def remove_slashes(string):
             return string.replace('/', '')
 
-        if request.user.id == None:
-            status = 400
-            message = 'Login is required'
-            return JsonResponse({'message': message}, status=status)
-
         if id == '':
             if re.search(r'admin/dinosaurs/note/$', request.path):
                 notes = Note.objects.all()
@@ -154,6 +154,12 @@ class NoteAPIView(APIView):
 
             if re.search(r'/note/$', request.path):
                 userId = request.user.id
+
+                if request.user.id == None:
+                    status = 400
+                    message = 'Login is required'
+                    return JsonResponse({'message': message}, status=status)
+
 
                 try:
                     notes = Note.objects.filter(author=userId)
