@@ -73,7 +73,7 @@ export const getAllNotes: GetAllNotesFn = () => dispatch => {
 
         const { response } = error;
 
-        if (response.data && response.data.message === 'Login is required') {
+        if (response && response.data && response.data.message === 'Login is required') {
             deleteToken();
             hashHistory.push('/login');
         }
@@ -138,7 +138,7 @@ export const getAllFolders: GetAllFoldersFn = () => dispatch => {
 
         const { response } = error;
 
-        if (response.data && response.data.message === 'Login is required') {
+        if (response && response.data && response.data.message === 'Login is required') {
             deleteToken();
             hashHistory.push('/login');
         }
