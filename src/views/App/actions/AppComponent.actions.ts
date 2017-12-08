@@ -71,8 +71,9 @@ export const getAllNotes: GetAllNotesFn = () => dispatch => {
     .catch(error => {
         dispatch(handleFailedGetAllNotes(error));
 
-        if (error.message === 'Login is required') {
-            debugger;
+        const { response } = error;
+
+        if (response.data && response.data.message === 'Login is required') {
             deleteToken();
             hashHistory.push('/login');
         }
@@ -135,8 +136,9 @@ export const getAllFolders: GetAllFoldersFn = () => dispatch => {
     .catch(error => {
         dispatch(handleFailedGetAllFolders(error));
 
-        if (error.message === 'Login is required') {
-            debugger;
+        const { response } = error;
+
+        if (response.data && response.data.message === 'Login is required') {
             deleteToken();
             hashHistory.push('/login');
         }
