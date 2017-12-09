@@ -2,6 +2,7 @@ import * as React from 'react';
 import Folder from './Folder';
 import { MakeFolderActiveFn, MakeFolderInactiveFn } from '../types';
 import { FolderType } from '../../../generic/types';
+import { List, ListItem } from 'material-ui';
 
 interface Props {
     folders: FolderType[];
@@ -42,16 +43,20 @@ export default class FolderTree extends React.Component<Props> {
         }
     }
 
+    generateFolderStructure = (folders) => {
+        folders.map(folder => {
+            if (folder.isRoot) {
+                return this.renderFolder(folder, folder.id)
+            };
+        })
+    }
+
     render() {
         const { folders } = this.props;
         return (
             <div className="folder-tree">
                 {
-                    folders.map(folder => {
-                        if (folder.isRoot) {
-                            return this.renderFolder(folder, folder.id)
-                        };
-                    })
+                    this.generateFolderStructure(folders)
                 }
             </div>
         );
