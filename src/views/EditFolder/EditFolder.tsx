@@ -96,17 +96,24 @@ export class EditFolder extends React.Component<Props> {
         }
 
         const wrapperStyles = {
-            padding: 20,
+            padding: 40,
             margin: '20px auto',
             maxWidth: 700,
-            minHeight: 400,
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'space-between'
+            justifyContent: 'space-between',
         };
 
-        const buttonStyles = {
-            margin: 15
+        const leftButtonStyles = {
+            margin: '15px 0 15px 0'
+        };
+
+        const rightButtonStyles = {
+            margin: '15px 0 15px 15px'
+        };
+
+        const subheaderStyle = {
+            paddingLeft: 0
         };
 
         return (
@@ -119,33 +126,34 @@ export class EditFolder extends React.Component<Props> {
                 </AppBar>
                 <div>
                     <Paper zDepth={2} style={wrapperStyles}>
+                        <Subheader style={subheaderStyle}>Folder name:</Subheader>
                         <form className="edit-note__form">
                             <div>{errorMessage}</div>
-                                <Subheader>Name:</Subheader>
                                 <TextField
                                     onChange={this.handleNameChange}
                                     className="edit-note__name"
                                     type="text"
                                     value={name}
+                                    floating
                                 />
                         </form>
-                        <nav className="edit-note__nav">
+                    </Paper>
+                    <nav className="edit-note__nav">
                             <Link to="/">
                                 <RaisedButton
                                     label="Back"
                                     secondary={true}
-                                    style={buttonStyles}
+                                    style={leftButtonStyles}
                                 />
                             </Link>
                             <RaisedButton
                                 label="Save"
                                 primary={true}
-                                style={buttonStyles}
+                                style={rightButtonStyles}
                                 className="edit-note__save-button"
                                 onClick={this.handleFolderSave}
                             />
                         </nav>
-                    </Paper>
                 </div>
             </div>
         );

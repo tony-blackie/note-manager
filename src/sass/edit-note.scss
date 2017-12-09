@@ -1,18 +1,28 @@
 .edit-note {
     &__nav {
-        margin: 20px;
+        margin: 20px auto;
+        max-width: 700px;
+        flex-direction: column;
+        justify-content: space-between;
+        color: rgba(0, 0, 0, 0.87);
+        box-sizing: border-box;
+        font-family: Roboto, sans-serif;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     }
 
     &__text {
-        width: 100%;
+        width: 100% !important;
     }
 
     &__name {
-        width: 50%;
-        padding-left: 15px;
+        width: 100% !important;
     }
 
     &__form {
-        padding: 0 20px;
+        // padding: 0 20px;
+    }
+
+    &__creation-date {
+        align-self: flex-end;
     }
 }

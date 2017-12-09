@@ -6,6 +6,7 @@ import { createStructuredSelector } from 'reselect';
 import axios from 'axios';
 import * as format from 'date-fns/format';
 import * as parse from 'date-fns/parse';
+import { RaisedButton, Paper, TextField, Subheader, AppBar, Divider } from 'material-ui';
 
 import { selectIsNoteCreationMode, selectEditedNote, selectErrorMessage } from './selectors';
 import { selectActiveFolderId } from '../App/selectors';
@@ -98,42 +99,81 @@ export class EditNote extends React.Component<Props> {
         const { errorMessage, editedNote } = this.props;
         const { textFieldValue, textFieldPlaceholder, name, date } = editedNote;
 
-        const parsedDate = date ? format(parse(date), 'DD/MM/YY HH:mm') : null;
+        const parsedDate = date ? format(parse(date), 'DD/MM/YY') : null;
+
+        const wrapperStyles = {
+            padding: 40,
+            margin: '20px auto',
+            maxWidth: 700,
+            minHeight: 400,
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            backgroundColor: '#fff9c4'
+        };
+
+        const leftButtonStyles = {
+            margin: '15px 0 15px 0'
+        };
+
+        const rightButtonStyles = {
+            margin: '15px 0 15px 15px'
+        };
+
+        const subheaderStyles = {
+            paddingLeft: 0
+        };
 
         return (
             <div>
-                <nav className="edit-note__nav">
-                    <button>
-                        <Link to="/"> Go Back</Link>
-                    </button>
-                    <button className="edit-note__save" onClick={this.handleSaveClick}>
-                        Save changes
-                    </button>
-                </nav>
-                <div>{errorMessage}</div>
-                <div>Creation date: {parsedDate}</div>
-                <form>
-                    <fieldset>
-                        <div>
-                            <label>Name:</label>
-                        </div>
-                        <input
-                            onChange={this.handleNameChange}
-                            className="edit-note__name"
-                            type="text"
-                            value={name}
+                <AppBar
+                    title="Notes"
+                    iconClassNameRight="muidocs-icon-navigation-expand-more"
+                    zDepth={2}
+                >
+                </AppBar>
+                <div>
+                    <div>{errorMessage}</div>
+                    <Paper zDepth={2} style={wrapperStyles}>
+                        <form>
+                            <div>{errorMessage}</div>
+                            <TextField
+                                onChange={this.handleNameChange}
+                                className="edit-note__name"
+                                type="text"
+                                value={name}
+                                underlineShow={false}
+                            />
+                            <Divider/>
+                            <TextField
+                                multiLine={true}
+                                onChange={this.handleTextFieldChange}
+                                className="edit-note__text"
+                                type="text"
+                                value={textFieldValue}
+                                placeholder={textFieldPlaceholder}
+                                underlineShow={false}
+                            />
+                        </form>
+                        <div className="edit-note__creation-date">Created on: {parsedDate}</div>
+                    </Paper>
+                    <nav className="edit-note__nav">
+                        <Link to="/">
+                            <RaisedButton
+                                label="Back"
+                                secondary={true}
+                                style={leftButtonStyles}
+                            />
+                        </Link>
+                        <RaisedButton
+                            label="Save"
+                            primary={true}
+                            style={rightButtonStyles}
+                            className="edit-note__save"
+                            onClick={this.handleSaveClick}
                         />
-                    </fieldset>
-                    <fieldset>
-                        <input
-                            onChange={this.handleTextFieldChange}
-                            className="edit-note__text"
-                            type="text"
-                            value={textFieldValue}
-                            placeholder={textFieldPlaceholder}
-                        />
-                    </fieldset>
-                </form>
+                    </nav>
+                </div>
             </div>
         );
     }
