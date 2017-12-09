@@ -138,6 +138,7 @@ export class EditNote extends React.Component<Props> {
                         <form>
                             <div>{errorMessage}</div>
                             <TextField
+                                name="noteName"
                                 onChange={this.handleNameChange}
                                 className="edit-note__name"
                                 type="text"
@@ -146,6 +147,7 @@ export class EditNote extends React.Component<Props> {
                             />
                             <Divider/>
                             <TextField
+                                name="noteText"
                                 multiLine={true}
                                 onChange={this.handleTextFieldChange}
                                 className="edit-note__text"

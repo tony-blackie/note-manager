@@ -130,11 +130,11 @@ export class EditFolder extends React.Component<Props> {
                         <form className="edit-note__form">
                             <div>{errorMessage}</div>
                                 <TextField
+                                    name="folderName"
                                     onChange={this.handleNameChange}
                                     className="edit-note__name"
                                     type="text"
                                     value={name}
-                                    floating
                                 />
                         </form>
                     </Paper>
