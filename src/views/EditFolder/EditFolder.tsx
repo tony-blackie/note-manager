@@ -99,11 +99,9 @@ export class EditFolder extends React.Component<Props> {
             padding: 40,
             margin: '20px auto',
             maxWidth: 700,
-            minHeight: 400,
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
-            backgroundColor: '#fff9c4'
         };
 
         const leftButtonStyles = {
@@ -112,6 +110,10 @@ export class EditFolder extends React.Component<Props> {
 
         const rightButtonStyles = {
             margin: '15px 0 15px 15px'
+        };
+
+        const subheaderStyle = {
+            paddingLeft: 0
         };
 
         return (
@@ -124,14 +126,15 @@ export class EditFolder extends React.Component<Props> {
                 </AppBar>
                 <div>
                     <Paper zDepth={2} style={wrapperStyles}>
+                        <Subheader style={subheaderStyle}>Folder name:</Subheader>
                         <form className="edit-note__form">
                             <div>{errorMessage}</div>
-                                <Subheader>Name:</Subheader>
                                 <TextField
                                     onChange={this.handleNameChange}
                                     className="edit-note__name"
                                     type="text"
                                     value={name}
+                                    floating
                                 />
                         </form>
                     </Paper>

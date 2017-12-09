@@ -99,7 +99,7 @@ export class EditNote extends React.Component<Props> {
         const { errorMessage, editedNote } = this.props;
         const { textFieldValue, textFieldPlaceholder, name, date } = editedNote;
 
-        const parsedDate = date ? format(parse(date), 'DD/MM/YY HH:mm') : null;
+        const parsedDate = date ? format(parse(date), 'DD/MM/YY') : null;
 
         const wrapperStyles = {
             padding: 40,
@@ -125,7 +125,7 @@ export class EditNote extends React.Component<Props> {
         };
 
         return (
-                <div>
+            <div>
                 <AppBar
                     title="Notes"
                     iconClassNameRight="muidocs-icon-navigation-expand-more"
@@ -134,11 +134,9 @@ export class EditNote extends React.Component<Props> {
                 </AppBar>
                 <div>
                     <div>{errorMessage}</div>
-                    <div>Creation date: {parsedDate}</div>
                     <Paper zDepth={2} style={wrapperStyles}>
                         <form>
                             <div>{errorMessage}</div>
-                            <Subheader style={subheaderStyles}>Name:</Subheader>
                             <TextField
                                 onChange={this.handleNameChange}
                                 className="edit-note__name"
@@ -157,6 +155,7 @@ export class EditNote extends React.Component<Props> {
                                 underlineShow={false}
                             />
                         </form>
+                        <div className="edit-note__creation-date">Created on: {parsedDate}</div>
                     </Paper>
                     <nav className="edit-note__nav">
                         <Link to="/">
