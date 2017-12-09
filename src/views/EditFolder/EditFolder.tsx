@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 import { createStructuredSelector } from 'reselect';
 import axios from 'axios';
+import { Paper, AppBar, TextField, RaisedButton } from 'material-ui';
 
 import {
     GetFolderFn,
@@ -94,32 +95,48 @@ export class EditFolder extends React.Component<Props> {
             const folderId = routeParams.id;
         }
 
+        const wrapperStyles = {
+            padding: 20,
+            margin: '20px auto',
+            maxWidth: 700
+        };
+
         return (
             <div>
-                <nav className="edit-note__nav">
-                    <button>
-                        <Link to="/"> Go Back</Link>
-                    </button>
-                    <button
-                      className="edit-note__save-button"
-                      onClick={this.handleFolderSave}>
-                        Save changes
-                    </button>
-                </nav>
-                <form>
-                    <div>{errorMessage}</div>
-                    <fieldset>
-                        <div>
-                            <label>Name:</label>
-                        </div>
-                        <input
-                            onChange={this.handleNameChange}
-                            className="edit-note__name"
-                            type="text"
-                            value={name}
-                        />
-                    </fieldset>
-                </form>
+                <AppBar
+                    title="Notes"
+                    iconClassNameRight="muidocs-icon-navigation-expand-more"
+                    zDepth={2}
+                >
+                </AppBar>
+                <div>
+                    <Paper zDepth={2} style={wrapperStyles}>
+                        <nav className="edit-note__nav">
+                            <RaisedButton>
+                                <Link to="/"> Go Back</Link>
+                            </RaisedButton>
+                            <RaisedButton
+                            className="edit-note__save-button"
+                            onClick={this.handleFolderSave}>
+                                Save changes
+                            </RaisedButton>
+                        </nav>
+                        <form>
+                            <div>{errorMessage}</div>
+                            <fieldset>
+                                <div>
+                                    <label>Name:</label>
+                                </div>
+                                <input
+                                    onChange={this.handleNameChange}
+                                    className="edit-note__name"
+                                    type="text"
+                                    value={name}
+                                />
+                            </fieldset>
+                        </form>
+                    </Paper>
+                </div>
             </div>
         );
     }
