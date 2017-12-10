@@ -129,6 +129,9 @@ class FolderAPIView(APIView):
         folder = Folder.objects.get(id=folderId)
         noteIds = folder.notes
 
+        if folder.is_root == True:
+            return Response([])
+
         for note in noteIds.all():
             dbNote = Note.objects.get(id=note.id)
             dbNote.delete()
