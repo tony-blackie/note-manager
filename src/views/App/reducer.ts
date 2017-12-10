@@ -18,7 +18,7 @@ import { AppComponentState, ReducerAction } from './types';
 import { FolderType, FolderTypeAPI, NoteType, TypedAction } from '../../generic/types';
 
 const appReducer = (state: AppComponentState = {
-    folders: null,
+    folders: [],
     notes: [],
     activeFolderId: null,
     notesQuery: ''

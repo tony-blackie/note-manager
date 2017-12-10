@@ -70,7 +70,12 @@ class FolderAPIView(APIView):
                 try:
                     folders = Folder.objects.filter(author=userId)
                 except Folder.DoesNotExist:
-                    return Response([])
+                    Folder.objects.create(
+                        name = 'initial',
+                        parent = 0,
+                        is_root = True,
+                        author = request.user
+                    )
 
                 serializer = FolderSerializer(Folder.objects.filter(author = request.user.id), many=True)
 

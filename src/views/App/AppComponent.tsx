@@ -11,7 +11,13 @@ import ControlPanel from './components/ControlPanel';
 import FolderTree from './components/FolderTree';
 import NotePanel from './components/NotePanel';
 import Folder from './components/Folder';
-import { selectNotesByQuery, selectFolders, selectActiveFolderId, selectQuery } from './selectors';
+import {
+    selectNotesByQuery,
+    selectFolders,
+    selectActiveFolderId,
+    selectQuery,
+    isAnyFolderActive
+} from './selectors';
 import utils from '../../utils';
 import { updateNoteFilterQuery } from './actions/AppComponent.actions';
 
@@ -52,6 +58,7 @@ interface MappedProps {
     folders: FolderType[];
     activeFolderId: number;
     searchQuery: string;
+    isAnyFolderActive: boolean;
 }
 
 interface MappedActions {
@@ -101,18 +108,9 @@ export class App extends React.Component<Props> {
             makeFolderInactive,
             goToNoteEdit,
             removeNote,
-            filteredNotes
+            filteredNotes,
+            isAnyFolderActive
         } = this.props;
-
-        let currentFolders = [];
-
-        if (folders !== null && folders.length === 0) {
-            this.props.createInitialFolder();
-        }
-
-        if (folders !== null) {
-            currentFolders = folders;
-        }
 
         const wrapperStyles = {
             padding: 20,
@@ -145,12 +143,13 @@ export class App extends React.Component<Props> {
                         activeFolderId={activeFolderId}
                         goToEditFolder={goToEditFolder}
                         goToFolderCreation={goToFolderCreation}
+                        isAnyFolderActive={isAnyFolderActive}
                     />
                 </AppBar>
                 <div className="content-wrapper">
                     <Paper zDepth={2} style={wrapperStyles}>
                         <FolderTree
-                        folders={currentFolders}
+                        folders={folders}
                         makeFolderActive={makeFolderActive}
                         makeFolderInactive={makeFolderInactive}
                         />
@@ -160,7 +159,7 @@ export class App extends React.Component<Props> {
                         goToNoteEdit={goToNoteEdit}
                         removeNote={removeNote}
                         activeFolderId={activeFolderId}
-                        folders={currentFolders}
+                        folders={folders}
                     />
                 </div>
             </div>
@@ -172,7 +171,8 @@ export const mapStateToProps = state => createStructuredSelector({
     filteredNotes: selectNotesByQuery,
     folders: selectFolders,
     activeFolderId: selectActiveFolderId,
-    searchQuery: selectQuery
+    searchQuery: selectQuery,
+    isAnyFolderActive: isAnyFolderActive
 });
 
 export const mapDispatchToProps = dispatch => bindActionCreators({
