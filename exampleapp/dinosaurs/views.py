@@ -219,13 +219,16 @@ class NoteAPIView(APIView):
         return Response(serializer.data)
 
     def put(self, request, id = None):
-        userId = request.user.id
-        folder = Folder.objects.get(id = userId, author = request.user.id)
+        noteId = int(remove_slashes(id))
 
-        folder.name = request.data.get('name')
-        folder.save()
+        note = Note.objects.get(id = noteId)
 
-        serializer = FolderSerializer(folder)
+        note.name = request.data['name']
+        note.text = request.data['text']
+
+        note.save()
+
+        serializer = NoteSerializer(note)
         return Response(serializer.data)
 
     def delete(self, request, id=None):
