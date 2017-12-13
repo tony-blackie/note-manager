@@ -16,6 +16,14 @@ from django.http import JsonResponse
 def remove_slashes(string):
     return string.replace('/', '')
 
+def pushParentIdIntoDeleteList(folderId, arrayToPushIds, allFolders):
+    if folderId not in arrayToPushIds:
+        arrayToPushIds.append(folderId)
+    for item in allFolders:
+        if item.parent == folderId:
+            pushParentIdIntoDeleteList(item.id, arrayToPushIds, allFolders)
+
+
 class PersonAPIView(APIView):
     permission_classes = [permissions.AllowAny]
     queryset = Person.objects.all()
@@ -131,20 +139,27 @@ class FolderAPIView(APIView):
         return Response(serializer.data)
 
     def delete(self, request, id = None):
+        userId = request.user.id
         folderId = int(remove_slashes(id))
-        folder = Folder.objects.get(id=folderId)
-        noteIds = folder.notes
+        allFolders = Folder.objects.filter(author = userId)
 
-        if folder.is_root == True:
-            return Response([])
+        childFolderIdsToRemove = []
 
-        for note in noteIds.all():
-            dbNote = Note.objects.get(id=note.id)
-            dbNote.delete()
-        folder.delete()
+        pushParentIdIntoDeleteList(folderId, childFolderIdsToRemove, allFolders)
 
-        serializer = FolderSerializer(folder)
-        return Response(serializer.data)
+        for folderIdToRemove in childFolderIdsToRemove:
+            folder = Folder.objects.get(id=folderIdToRemove)
+            noteIds = folder.notes
+
+            if folder.is_root == True:
+                return Response([])
+
+            for note in noteIds.all():
+                dbNote = Note.objects.get(id=note.id)
+                dbNote.delete()
+            folder.delete()
+
+        return Response([])
 
 class NoteAPIView(APIView):
     permission_classes = [permissions.AllowAny]
