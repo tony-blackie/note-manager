@@ -121,7 +121,8 @@ class FolderAPIView(APIView):
 
     def put(self, request, id = None):
         userId = request.user.id
-        folder = Folder.objects.get(id = userId, author = request.user.id)
+        folderId = int(remove_slashes(id))
+        folder = Folder.objects.get(id = folderId, author = userId)
 
         folder.name = request.data.get('name')
         folder.save()
