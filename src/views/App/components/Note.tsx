@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Paper, Divider, TextField, yellow300 } from 'material-ui';
+import { Paper, Divider, TextField, yellow300, Dialog, FlatButton, FontIcon } from 'material-ui';
 
 import { GoToNoteEditFn, RemoveNoteFn } from '../types';
 
@@ -11,7 +11,15 @@ interface Props {
     removeNote: RemoveNoteFn;
 }
 
-export default class Note extends React.Component<Props> {
+interface State {
+    confirmDelete: boolean;
+}
+
+export default class Note extends React.Component<Props, State> {
+    state: State = {
+        confirmDelete: false
+    };
+
     goToNoteEdit = () => {
         const { id } = this.props;
 
@@ -24,8 +32,38 @@ export default class Note extends React.Component<Props> {
         this.props.removeNote(id);
     }
 
+    openConfirmDelete = (event) => {
+        event.stopPropagation();
+
+        this.setState({ confirmDelete: true });
+    }
+
+    closeConfirmDelete = () => {
+        this.setState({ confirmDelete: false });
+    }
+
+    handleConfirmDelete = () => {
+        this.removeNote();
+        this.closeConfirmDelete();
+    }
+
     render() {
         const { name, text } = this.props;
+        const { confirmDelete } = this.state;
+
+        const actions = [
+            <FlatButton
+              label="Cancel"
+              primary={true}
+              onClick={this.closeConfirmDelete}
+            />,
+            <FlatButton
+              label="Submit"
+              primary={true}
+              keyboardFocused={true}
+              onClick={this.handleConfirmDelete}
+            />,
+        ];
 
         const noteStyles = {
             minWidth: 150,
@@ -36,13 +74,24 @@ export default class Note extends React.Component<Props> {
             backgroundColor: '#fff9c4'
         };
 
+        // const iconStyle = {
+        //     marginRight: 5
+        // }
+
         return (
             <Paper
                 zDepth={3}
                 style={noteStyles}
                 onClick={this.goToNoteEdit}
             >
-                <div className="note__remove" onClick={this.removeNote}>X</div>
+                <div className="note__remove">
+                    <FontIcon
+                            className="material-icons"
+                            onClick={this.openConfirmDelete}
+                    >
+                        close
+                    </FontIcon>
+                </div>
                 <TextField
                     name={'name'}
                     value={name}
@@ -57,6 +106,13 @@ export default class Note extends React.Component<Props> {
                     fullWidth={true}
                     multiLine={true}
                     underlineShow={false}
+                />
+                <Dialog
+                    open={confirmDelete}
+                    title="Confirm deletion?"
+                    actions={actions}
+                    modal={false}
+                    onRequestClose={this.closeConfirmDelete}
                 />
             </Paper>
         );
