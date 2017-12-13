@@ -54,13 +54,12 @@ export default class Note extends React.Component<Props, State> {
         const actions = [
             <FlatButton
               label="Cancel"
-              primary={true}
+              secondary={true}
               onClick={this.closeConfirmDelete}
             />,
             <FlatButton
               label="Submit"
               primary={true}
-              keyboardFocused={true}
               onClick={this.handleConfirmDelete}
             />,
         ];
@@ -73,10 +72,6 @@ export default class Note extends React.Component<Props, State> {
             position: 'relative',
             backgroundColor: '#fff9c4'
         };
-
-        // const iconStyle = {
-        //     marginRight: 5
-        // }
 
         return (
             <Paper
