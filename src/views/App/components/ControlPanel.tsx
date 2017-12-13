@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { GoToEditFolderFn, RemoveFolderFn, GoToFolderCreationFn, GoToNoteCreationFn } from '../types';
+import { Dialog, FlatButton } from 'material-ui';
 
 interface Props {
     activeFolderId: number;
@@ -10,7 +11,15 @@ interface Props {
     isAnyFolderActive: boolean;
 }
 
-export default class ControlPanel extends React.Component<Props> {
+interface State {
+    confirmDelete: boolean;
+}
+
+export default class ControlPanel extends React.Component<Props, State> {
+    state: State = {
+        confirmDelete: false
+    }
+
     goToEditFolder = () => {
         const { activeFolderId } = this.props;
 
@@ -25,8 +34,38 @@ export default class ControlPanel extends React.Component<Props> {
         this.props.removeFolder(activeFolderId);
     }
 
+    openConfirmDelete = (event) => {
+        event.stopPropagation();
+
+        this.setState({ confirmDelete: true });
+    }
+
+    closeConfirmDelete = () => {
+        this.setState({ confirmDelete: false });
+    }
+
+    handleConfirmDelete = () => {
+        this.removeFolder();
+        this.closeConfirmDelete();
+    }
+
+
     render() {
         const { isAnyFolderActive } = this.props;
+        const { confirmDelete } = this.state;
+
+        const actions = [
+            <FlatButton
+              label="Cancel"
+              secondary={true}
+              onClick={this.closeConfirmDelete}
+            />,
+            <FlatButton
+              label="Submit"
+              primary={true}
+              onClick={this.handleConfirmDelete}
+            />,
+        ];
 
         return (
             <div
@@ -52,11 +91,18 @@ export default class ControlPanel extends React.Component<Props> {
                 }
                 {
                     isAnyFolderActive &&
-                    <div className="control control_remove-folder" onClick={this.removeFolder}>
+                    <div className="control control_remove-folder" onClick={this.openConfirmDelete}>
                         <i className="fa fa-remove fa-2x control__icon"></i>
                         <div className="control__text">Remove Folder</div>
                     </div>
                 }
+                <Dialog
+                    open={confirmDelete}
+                    title="Confirm deletion?"
+                    actions={actions}
+                    modal={false}
+                    onRequestClose={this.closeConfirmDelete}
+                />
             </div>
         );
     }
