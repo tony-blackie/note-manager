@@ -22,7 +22,7 @@ const editFolderReducer = (state: EditFolderState = {
     switch(action.type) {
         case GET_FOLDER_SUCCESS: {
             const { payload } = action as TypedAction<HandleSuccessfulGetFolderPayload>;
-            const { name, id, is_root, notes, parent } = payload.folder;
+            const { name, id, is_root, notes, parent } = payload.folder as FolderTypeAPI;
 
             return {
                 ...state,
