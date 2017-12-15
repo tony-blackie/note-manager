@@ -252,7 +252,7 @@ class NoteAPIView(APIView):
 
         note.delete()
 
-        serializer = FolderSerializer(note)
+        serializer = NoteSerializer(note)
         return Response(serializer.data)
 
 class GroupViewSet(viewsets.ModelViewSet):
