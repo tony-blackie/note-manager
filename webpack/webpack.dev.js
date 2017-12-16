@@ -20,7 +20,7 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
-      title: 'Hot Module Replacement',
+      title: 'Note Manager',
       template: './src/index.html'
     }),
     new webpack.NamedModulesPlugin(),
