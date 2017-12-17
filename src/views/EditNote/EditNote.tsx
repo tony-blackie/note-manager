@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import { Link, hashHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import axios from 'axios';
@@ -131,18 +131,23 @@ export class EditNote extends React.Component<Props> {
             textOverflow: 'ellipsis'
         };
 
+        const textareaStyles = {
+            width: '100%'
+        };
+
         return (
             <div>
                 <AppBar
                     title="Notes"
                     iconClassNameRight="muidocs-icon-navigation-expand-more"
                     zDepth={2}
+                    onTitleClick={() => hashHistory.push('/')}
                 >
                 </AppBar>
                 <div>
                     <div>{errorMessage}</div>
                     <Paper zDepth={2} style={wrapperStyles}>
-                        <form>
+                        <form className="edit-note__form">
                             <TextField
                                 name="noteName"
                                 onChange={this.handleNameChange}
@@ -153,15 +158,10 @@ export class EditNote extends React.Component<Props> {
                                 inputStyle={headerInputStyles}
                             />
                             <Divider/>
-                            <TextField
-                                name="noteText"
-                                multiLine={true}
-                                onChange={this.handleTextFieldChange}
-                                className="edit-note__text"
-                                type="text"
+                            <textarea
+                                className="edit-note__textarea"
                                 value={textFieldValue}
-                                placeholder={textFieldPlaceholder}
-                                underlineShow={false}
+                                onChange={this.handleTextFieldChange}
                             />
                         </form>
                         <div className="edit-note__creation-date">Created on: {parsedDate}</div>

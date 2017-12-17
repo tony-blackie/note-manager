@@ -1,3 +1,5 @@
+textarea, input, button { outline: none; }
+
 .edit-note {
     &__nav {
         margin: 20px auto;
@@ -13,6 +15,8 @@
 
     &__text {
         width: 100% !important;
+        display: flex !important;
+        flex-grow: 2;
     }
 
     &__name {
@@ -21,9 +25,26 @@
 
     &__form {
         // padding: 0 20px;
+        flex-grow: 2;
+        display: flex;
+        flex-direction: column;
     }
 
     &__creation-date {
         align-self: flex-end;
     }
+}
+
+.edit-note__text > div {
+    display: flex !important;
+    flex-grow: 2 !important;
+}
+
+.edit-note__textarea {
+    width: 100% !important;
+    min-height: 300px !important;
+    border: none;
+    background: transparent;
+    resize: none;
+    font-size: 16px;
 }
