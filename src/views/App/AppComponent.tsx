@@ -5,12 +5,13 @@ import { createStructuredSelector } from 'reselect';
 import axios from 'axios';
 import { hashHistory } from 'react-router';
 import { Paper, AppBar } from 'material-ui';
-import { grey300, TextField } from 'material-ui';
+import { grey300, TextField, IconButton,  } from 'material-ui';
 
 import ControlPanel from './components/ControlPanel';
 import FolderTree from './components/FolderTree';
 import NotePanel from './components/NotePanel';
 import Folder from './components/Folder';
+import CustomIconMenu from './components/CustomIconMenu';
 import {
     selectNotesByQuery,
     selectFolders,
@@ -132,6 +133,11 @@ export class App extends React.Component<Props> {
                     title="Notes"
                     iconClassNameRight="muidocs-icon-navigation-expand-more"
                     zDepth={2}
+                    iconElementLeft={
+                        <IconButton>
+                            <CustomIconMenu />
+                        </IconButton>
+                    }
                 >
                     <TextField
                         name={'search'}
