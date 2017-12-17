@@ -45,3 +45,30 @@ export const isAnyFolderActive = createSelector(
     selectFolders,
     (folders: FolderType[]): boolean => folders.some(folder => folder.isActive)
 );
+
+export const truncateText = (text) => {
+    const maxTextLength = 65;
+    const truncateSymbol = '...';
+
+    if (text.length < maxTextLength) {
+        return text;
+    }
+
+    const truncatedText = text.slice(0, maxTextLength).trim() + truncateSymbol;
+
+    return truncatedText;
+}
+
+export const selectTruncatedNotes = createSelector(
+    selectNotesByQuery,
+    notes => {
+        const truncatedNotes = notes.map(note => {
+            return {
+                ...note,
+                text: truncateText(note.text)
+            };
+        });
+
+        return truncatedNotes;
+    }
+);
