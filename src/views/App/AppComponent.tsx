@@ -16,7 +16,8 @@ import {
     selectFolders,
     selectActiveFolderId,
     selectQuery,
-    isAnyFolderActive
+    isAnyFolderActive,
+    selectTruncatedNotes
 } from './selectors';
 import utils from '../../utils';
 import { updateNoteFilterQuery } from './actions/AppComponent.actions';
@@ -59,6 +60,7 @@ interface MappedProps {
     activeFolderId: number;
     searchQuery: string;
     isAnyFolderActive: boolean;
+    truncatedNotes: NoteType[];
 }
 
 interface MappedActions {
@@ -109,7 +111,8 @@ export class App extends React.Component<Props> {
             goToNoteEdit,
             removeNote,
             filteredNotes,
-            isAnyFolderActive
+            isAnyFolderActive,
+            truncatedNotes
         } = this.props;
 
         const wrapperStyles = {
@@ -155,7 +158,7 @@ export class App extends React.Component<Props> {
                         />
                     </Paper>
                     <NotePanel
-                        notes={filteredNotes}
+                        notes={truncatedNotes}
                         goToNoteEdit={goToNoteEdit}
                         removeNote={removeNote}
                         activeFolderId={activeFolderId}
@@ -169,6 +172,7 @@ export class App extends React.Component<Props> {
 
 export const mapStateToProps = state => createStructuredSelector({
     filteredNotes: selectNotesByQuery,
+    truncatedNotes: selectTruncatedNotes,
     folders: selectFolders,
     activeFolderId: selectActiveFolderId,
     searchQuery: selectQuery,

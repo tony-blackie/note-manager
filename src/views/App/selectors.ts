@@ -1,6 +1,10 @@
 import { createSelector } from 'reselect';
-import { Store, FolderType } from '../../generic/types';
 import { includes } from 'lodash';
+
+import { Store, FolderType } from '../../generic/types';
+import utils from '../../utils';
+
+const { truncateText } = utils;
 
 export const selectAppView = (state: Store) => state.app;
 
@@ -44,4 +48,18 @@ export const selectNotesByQuery = createSelector(
 export const isAnyFolderActive = createSelector(
     selectFolders,
     (folders: FolderType[]): boolean => folders.some(folder => folder.isActive)
+);
+
+export const selectTruncatedNotes = createSelector(
+    selectNotesByQuery,
+    notes => {
+        const truncatedNotes = notes.map(note => {
+            return {
+                ...note,
+                text: truncateText(note.text)
+            };
+        });
+
+        return truncatedNotes;
+    }
 );
