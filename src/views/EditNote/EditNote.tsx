@@ -8,11 +8,23 @@ import * as format from 'date-fns/format';
 import * as parse from 'date-fns/parse';
 import { RaisedButton, Paper, TextField, Subheader, AppBar, Divider } from 'material-ui';
 
-import { selectIsNoteCreationMode, selectEditedNote, selectErrorMessage } from './selectors';
+import {
+    selectIsNoteCreationMode,
+    selectEditedNote,
+    selectErrorMessage,
+} from './selectors';
 import { selectActiveFolderId } from '../App/selectors';
 import { NoteType } from '../../generic/types';
+import { goToRoot } from '../../generic/actions';
 
-import { CreateNoteRequestFn, EditNoteRequestFn, ChangeTextFieldValueFn, FetchNoteFn, EditNoteState, EditedNote } from './types';
+import {
+    CreateNoteRequestFn,
+    EditNoteRequestFn,
+    ChangeTextFieldValueFn,
+    FetchNoteFn,
+    EditNoteState,
+    EditedNote
+} from './types';
 
 import {
   editNoteRequest,
@@ -50,6 +62,7 @@ interface MappedActions {
     fetchNote: FetchNoteFn;
     clearNoteData: () => void;
     handleClearErrorMessage: () => void;
+    goToRoot: () => void;
 }
 
 type Props = OwnProps & MappedActions & MappedProps;
@@ -135,13 +148,16 @@ export class EditNote extends React.Component<Props> {
             width: '100%'
         };
 
+        const titleStyles = {
+            cursor: 'pointer'
+        };
+
         return (
             <div>
                 <AppBar
-                    title="Notes"
+                    title={<span style={titleStyles}>Notes</span>}
                     iconClassNameRight="muidocs-icon-navigation-expand-more"
                     zDepth={2}
-                    onTitleClick={() => hashHistory.push('/')}
                 >
                 </AppBar>
                 <div>
@@ -202,7 +218,7 @@ export const mapDispatchToProps = dispatch => bindActionCreators({
     changeNoteName,
     fetchNote,
     clearNoteData,
-    handleClearErrorMessage
+    handleClearErrorMessage,
 }, dispatch);
 
 export default connect<MappedProps, MappedActions, {}>(mapStateToProps, mapDispatchToProps)(EditNote);
