@@ -135,7 +135,6 @@ export class App extends React.Component<Props> {
                     zDepth={2}
                     iconElementLeft={
                         <IconButton
-                            iconButtonElement={{}}
                         >
                             <CustomIconMenu />
                         </IconButton>
