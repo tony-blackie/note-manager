@@ -106,6 +106,7 @@ export class EditNote extends React.Component<Props> {
             margin: '20px auto',
             maxWidth: 700,
             minHeight: 400,
+            width: '94%',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
@@ -124,6 +125,12 @@ export class EditNote extends React.Component<Props> {
             paddingLeft: 0
         };
 
+        const headerInputStyles = {
+            cursor: 'default',
+            maxWidth: '90%',
+            textOverflow: 'ellipsis'
+        };
+
         return (
             <div>
                 <AppBar
@@ -136,7 +143,6 @@ export class EditNote extends React.Component<Props> {
                     <div>{errorMessage}</div>
                     <Paper zDepth={2} style={wrapperStyles}>
                         <form>
-                            <div>{errorMessage}</div>
                             <TextField
                                 name="noteName"
                                 onChange={this.handleNameChange}
@@ -144,6 +150,7 @@ export class EditNote extends React.Component<Props> {
                                 type="text"
                                 value={name}
                                 underlineShow={false}
+                                inputStyle={headerInputStyles}
                             />
                             <Divider/>
                             <TextField

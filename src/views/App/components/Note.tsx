@@ -51,6 +51,12 @@ export default class Note extends React.Component<Props, State> {
         const { name, text } = this.props;
         const { confirmDelete } = this.state;
 
+        const headerInputStyles = {
+            cursor: 'default',
+            maxWidth: 155,
+            textOverflow: 'ellipsis'
+        };
+
         const actions = [
             <FlatButton
               label="Cancel"
@@ -93,6 +99,7 @@ export default class Note extends React.Component<Props, State> {
                     fullWidth={true}
                     underlineShow={false}
                     className="note-header"
+                    inputStyle={headerInputStyles}
                 />
                 <Divider />
                 <TextField
