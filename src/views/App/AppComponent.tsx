@@ -134,8 +134,7 @@ export class App extends React.Component<Props> {
                     iconClassNameRight="muidocs-icon-navigation-expand-more"
                     zDepth={2}
                     iconElementLeft={
-                        <IconButton
-                        >
+                        <IconButton>
                             <CustomIconMenu />
                         </IconButton>
                     }
