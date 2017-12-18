@@ -5,13 +5,21 @@ import { createStructuredSelector } from 'reselect';
 import axios from 'axios';
 import { hashHistory } from 'react-router';
 import { Paper, AppBar } from 'material-ui';
-import { grey300, TextField } from 'material-ui';
+import { grey300, TextField, IconButton,  } from 'material-ui';
 
 import ControlPanel from './components/ControlPanel';
 import FolderTree from './components/FolderTree';
 import NotePanel from './components/NotePanel';
 import Folder from './components/Folder';
-import { selectNotesByQuery, selectFolders, selectActiveFolderId, selectQuery } from './selectors';
+import CustomIconMenu from './components/CustomIconMenu';
+import {
+    selectNotesByQuery,
+    selectFolders,
+    selectActiveFolderId,
+    selectQuery,
+    isAnyFolderActive,
+    selectTruncatedNotes
+} from './selectors';
 import utils from '../../utils';
 import { updateNoteFilterQuery } from './actions/AppComponent.actions';
 
@@ -52,6 +60,8 @@ interface MappedProps {
     folders: FolderType[];
     activeFolderId: number;
     searchQuery: string;
+    isAnyFolderActive: boolean;
+    truncatedNotes: NoteType[];
 }
 
 interface MappedActions {
@@ -101,18 +111,10 @@ export class App extends React.Component<Props> {
             makeFolderInactive,
             goToNoteEdit,
             removeNote,
-            filteredNotes
+            filteredNotes,
+            isAnyFolderActive,
+            truncatedNotes
         } = this.props;
-
-        let currentFolders = [];
-
-        if (folders !== null && folders.length === 0) {
-            this.props.createInitialFolder();
-        }
-
-        if (folders !== null) {
-            currentFolders = folders;
-        }
 
         const wrapperStyles = {
             padding: 20,
@@ -131,6 +133,11 @@ export class App extends React.Component<Props> {
                     title="Notes"
                     iconClassNameRight="muidocs-icon-navigation-expand-more"
                     zDepth={2}
+                    iconElementLeft={
+                        <IconButton>
+                            <CustomIconMenu />
+                        </IconButton>
+                    }
                 >
                     <TextField
                         name={'search'}
@@ -145,22 +152,23 @@ export class App extends React.Component<Props> {
                         activeFolderId={activeFolderId}
                         goToEditFolder={goToEditFolder}
                         goToFolderCreation={goToFolderCreation}
+                        isAnyFolderActive={isAnyFolderActive}
                     />
                 </AppBar>
                 <div className="content-wrapper">
                     <Paper zDepth={2} style={wrapperStyles}>
                         <FolderTree
-                        folders={currentFolders}
+                        folders={folders}
                         makeFolderActive={makeFolderActive}
                         makeFolderInactive={makeFolderInactive}
                         />
                     </Paper>
                     <NotePanel
-                        notes={filteredNotes}
+                        notes={truncatedNotes}
                         goToNoteEdit={goToNoteEdit}
                         removeNote={removeNote}
                         activeFolderId={activeFolderId}
-                        folders={currentFolders}
+                        folders={folders}
                     />
                 </div>
             </div>
@@ -170,9 +178,11 @@ export class App extends React.Component<Props> {
 
 export const mapStateToProps = state => createStructuredSelector({
     filteredNotes: selectNotesByQuery,
+    truncatedNotes: selectTruncatedNotes,
     folders: selectFolders,
     activeFolderId: selectActiveFolderId,
-    searchQuery: selectQuery
+    searchQuery: selectQuery,
+    isAnyFolderActive: isAnyFolderActive
 });
 
 export const mapDispatchToProps = dispatch => bindActionCreators({

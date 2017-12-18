@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 import { createStructuredSelector } from 'reselect';
 import axios from 'axios';
+import { Paper, AppBar, TextField, RaisedButton, Subheader } from 'material-ui';
 
 import {
     GetFolderFn,
@@ -94,32 +95,66 @@ export class EditFolder extends React.Component<Props> {
             const folderId = routeParams.id;
         }
 
+        const wrapperStyles = {
+            padding: 40,
+            margin: '20px auto',
+            maxWidth: 700,
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+        };
+
+        const leftButtonStyles = {
+            margin: '15px 0 15px 0'
+        };
+
+        const rightButtonStyles = {
+            margin: '15px 0 15px 15px'
+        };
+
+        const subheaderStyle = {
+            paddingLeft: 0
+        };
+
         return (
             <div>
-                <nav className="edit-note__nav">
-                    <button>
-                        <Link to="/"> Go Back</Link>
-                    </button>
-                    <button
-                      className="edit-note__save-button"
-                      onClick={this.handleFolderSave}>
-                        Save changes
-                    </button>
-                </nav>
-                <form>
-                    <div>{errorMessage}</div>
-                    <fieldset>
-                        <div>
-                            <label>Name:</label>
-                        </div>
-                        <input
-                            onChange={this.handleNameChange}
-                            className="edit-note__name"
-                            type="text"
-                            value={name}
-                        />
-                    </fieldset>
-                </form>
+                <AppBar
+                    title="Notes"
+                    iconClassNameRight="muidocs-icon-navigation-expand-more"
+                    zDepth={2}
+                >
+                </AppBar>
+                <div>
+                    <Paper zDepth={2} style={wrapperStyles}>
+                        <Subheader style={subheaderStyle}>Folder name:</Subheader>
+                        <form className="edit-note__form">
+                            <div>{errorMessage}</div>
+                                <TextField
+                                    name="folderName"
+                                    onChange={this.handleNameChange}
+                                    className="edit-note__name"
+                                    type="text"
+                                    value={name}
+                                />
+                        </form>
+                    </Paper>
+                    <nav className="edit-note__nav">
+                            <Link to="/">
+                                <RaisedButton
+                                    label="Back"
+                                    secondary={true}
+                                    style={leftButtonStyles}
+                                />
+                            </Link>
+                            <RaisedButton
+                                label="Save"
+                                primary={true}
+                                style={rightButtonStyles}
+                                className="edit-note__save-button"
+                                onClick={this.handleFolderSave}
+                            />
+                        </nav>
+                </div>
             </div>
         );
     }

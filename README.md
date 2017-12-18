@@ -30,7 +30,10 @@ Backend:
 (Make sure you have python, pip, virtual_env installed)
 create new virtual_env
 . <your virtual_env>/bin/activate
-pip install -r requirements.txt
+pip install Django==1.9
+pip install django-rest-framework
+pip install django-oauth-toolkit
+pip install django-cors-headers
 cd exampleapp
 python manage.py migrate
 python manage.py runserver

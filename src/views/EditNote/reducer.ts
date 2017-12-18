@@ -12,6 +12,7 @@ import {
   CLEAR_ERROR_MESSAGE
 } from './constants';
 import { EditNoteState, TypedAction } from './types';
+import { NoteType } from '../../generic/types';
 
 const editNoteReducer = (state: EditNoteState = {
     editedNote: {
@@ -59,7 +60,7 @@ const editNoteReducer = (state: EditNoteState = {
         }
 
         case GET_NOTE_SUCCESS: {
-            const { name, id, text, parent, date } = action.payload.note;
+            const { name, id, text, parent, date } = action.payload.note as NoteType;
 
             return {
                 ...state,

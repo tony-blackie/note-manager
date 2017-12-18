@@ -1,13 +1,51 @@
+textarea, input, button { outline: none; }
+
 .edit-note {
     &__nav {
-      margin: 10px;
+        margin: 20px auto;
+        max-width: 700px;
+        width: 94%;
+        flex-direction: column;
+        justify-content: space-between;
+        color: rgba(0, 0, 0, 0.87);
+        box-sizing: border-box;
+        font-family: Roboto, sans-serif;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     }
 
     &__text {
-        width: 100%;
+        width: 100% !important;
+        display: flex !important;
+        flex-grow: 2;
     }
 
     &__name {
-        width: 50%;
+        width: 100% !important;
     }
+
+    &__form {
+        // padding: 0 20px;
+        flex-grow: 2;
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__creation-date {
+        align-self: flex-end;
+    }
+}
+
+.edit-note__text > div {
+    display: flex !important;
+    flex-grow: 2 !important;
+}
+
+.edit-note__textarea {
+    width: 100% !important;
+    min-height: 300px !important;
+    border: none;
+    background: transparent;
+    resize: none;
+    font-size: 16px;
+    padding: 10px 0;
 }
