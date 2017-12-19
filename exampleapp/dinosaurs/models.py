@@ -35,3 +35,11 @@ class Note(models.Model):
 
     def __str__(self):
         return str(self.name)
+
+class Questionnaire(models.Model):
+    color = models.BooleanField()
+    hashtag = models.BooleanField()
+    i18n = models.BooleanField()
+    importance = models.BooleanField()
+    text = models.TextField()
+    author = models.ForeignKey(Person, null=True, blank=True, related_name='questions', on_delete=models.CASCADE,)

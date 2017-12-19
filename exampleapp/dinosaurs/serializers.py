@@ -1,4 +1,4 @@
-from dinosaurs.models import Folder, Note, Person
+from dinosaurs.models import Folder, Note, Person, Questionnaire
 from rest_framework import serializers
 from django.contrib.auth.models import Group
 
@@ -25,3 +25,8 @@ class NoteSerializer(serializers.HyperlinkedModelSerializer):
 class GroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = Group
+
+class QuestionnaireSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Questionnaire
+        fields = ('id', 'color', 'hashtag', 'i18n', 'importance', 'text')
