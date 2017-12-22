@@ -34,11 +34,11 @@ ReactDOM.render((
                 <Route path='/' component={App} />
                 <Route path="/note/:noteId" component={EditNote} />
                 <Route path="/note" component={EditNote} />
+                <Route path="/questionnaire" component={Questionnaire} />
                 <Route path="/folder/:id" component={EditFolder} />
                 <Route path="/folder" component={EditFolder} />
                 <Route path="/login" component={Login} />
                 <Route path="/check-in" component={CheckIn} />
-                <Route path="/questionnaire" component={Questionnaire} />
             </Router>
         </Provider>
     </MuiThemeProvider>
