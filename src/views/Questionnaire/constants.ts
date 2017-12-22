@@ -1,0 +1,2 @@
+export const CHANGE_MSG = 'CHANGE_MSG';
+export const CHANGE_CHECKBOX = 'CHANGE_CHECKBOX';

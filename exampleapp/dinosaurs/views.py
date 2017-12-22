@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 from rest_framework.views import APIView
-from dinosaurs.serializers import PersonSerializer, FolderSerializer, NoteSerializer, GroupSerializer
-from dinosaurs.models import Folder, Note, Person
+from dinosaurs.serializers import PersonSerializer, FolderSerializer, NoteSerializer, GroupSerializer, QuestionnaireSerializer
+from dinosaurs.models import Folder, Note, Person, Questionnaire
 from django.contrib.auth.models import Group
 import pdb
 from django.http import HttpResponse, JsonResponse
@@ -253,6 +253,64 @@ class NoteAPIView(APIView):
         note.delete()
 
         serializer = NoteSerializer(note)
+        return Response(serializer.data)
+
+class QuestionnaireViewAPI(APIView):
+    permission_classes = [permissions.AllowAny]
+    serializer_class = QuestionnaireSerializer
+    queryset = Questionnaire.objects.all()
+
+    def get(self, request, id=None):
+        if id == '':
+            if re.search(r'admin/dinosaurs/questionnaire/$', request.path):
+                questionnaires = Questionnaire.objects.all()
+                serializer = QuestionnaireSerializer(folders, many=True)
+                return Response(serializer.data)
+
+            if re.search(r'/questionnaire/$', request.path):
+                userId = request.user.id
+
+                if request.user.id == None:
+                    status = 400
+                    message = 'Login is required'
+                    return JsonResponse({'message': message}, status=status)
+
+                questionnaires = Questionnaire.objects.filter(author=userId)
+
+                serializer = QuestionnaireSerializer(Questionnaire.objects.filter(author = request.user.id), many=True)
+
+                return Response(serializer.data)
+
+            if re.search(r'/questionnaire/', request.path):
+                userId = request.user.id
+
+                try:
+                    questionnaires = Questionnaire.objects.filter(author=userId)
+                except Questionnaire.DoesNotExist:
+                    return Response([])
+
+                serializer = QuestionnaireSerializer(Questionnaire.objects.filter(author = request.user.id), many=True)
+
+                return Response(serializer.data)
+        else:
+            id = int(remove_slashes(id))
+            userId = request.user.id
+            serializer = QuestionnaireSerializer(Questionnaire.objects.get(author = request.user.id, id = id))
+            return Response(serializer.data)
+
+    def post(self, request, id = None):
+        userId = request.user.id
+
+        questionnaire = Questionnaire.objects.create(
+            color = request.data.get('color', False),
+            hashtag = request.data.get('hashtag', False),
+            i18n = request.data.get('i18n', False),
+            importance = request.data.get('importance', False),
+            text = request.data.get('text', ''),
+            author = request.user
+        )
+
+        serializer = QuestionnaireSerializer(questionnaire)
         return Response(serializer.data)
 
 class GroupViewSet(viewsets.ModelViewSet):

@@ -32,6 +32,7 @@ urlpatterns = [
     url(r'folder/(?P<id>.*)', views.FolderAPIView.as_view()),
     url(r'note/(?P<id>.*)', views.NoteAPIView.as_view()),
     url(r'^users/', views.PersonAPIView.as_view()),
+    url(r'^questionnaire/', views.QuestionnaireViewAPI.as_view()),
     url(r'^', include(router.urls)),
     url(r'^admin/', admin.site.urls),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
