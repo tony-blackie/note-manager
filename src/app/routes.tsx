@@ -13,6 +13,7 @@ import EditNote from '../views/EditNote/EditNote';
 import EditFolder from '../views/EditFolder/EditFolder';
 import Login from '../views/Login/Login';
 import CheckIn from '../views/CheckIn/CheckIn';
+import Questionnaire from '../views/Questionnaire/Questionnaire';
 import rootReducer from './reducer';
 
 declare global {
@@ -37,6 +38,7 @@ ReactDOM.render((
                 <Route path="/folder" component={EditFolder} />
                 <Route path="/login" component={Login} />
                 <Route path="/check-in" component={CheckIn} />
+                <Route path="/questionnaire" component={Questionnaire} />
             </Router>
         </Provider>
     </MuiThemeProvider>
