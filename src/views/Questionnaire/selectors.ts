@@ -7,3 +7,23 @@ export const selectMessage = createSelector(
     selectQuestionnaire,
     Questionnaire => Questionnaire.message
 );
+
+export const selectColors = createSelector(
+    selectQuestionnaire,
+    Questionnaire => Questionnaire.colors
+);
+
+export const selectHashtags = createSelector(
+    selectQuestionnaire,
+    Questionnaire => Questionnaire.hashtags
+);
+
+export const selectI18n = createSelector(
+    selectQuestionnaire,
+    Questionnaire => Questionnaire.i18n
+);
+
+export const selectImportance = createSelector(
+    selectQuestionnaire,
+    Questionnaire => Questionnaire.importance
+);
