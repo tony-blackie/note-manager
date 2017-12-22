@@ -193,3 +193,21 @@ export const createInitialFolder: CreateInitialFolderFn = () => {
     .then(response => console.log(response))
     .catch(error => console.log(error));
 };
+
+// window.tryCreateQuestionnaire = () => {
+//     const questionnaire = {
+//         color: true,
+//         hashtag: false,
+//         i18n: true,
+//         importance: false,
+//         text: 'someMockText'
+//     };
+
+//     return axios.request({
+//         url: `${baseName}/questionnaire/`,
+//         method: 'POST',
+//         data: questionnaire
+//     })
+//     .then(response => { debugger; console.log(`response: ${response.data}`) })
+//     .catch(error => console.log(`error: ${error}`));
+// }
