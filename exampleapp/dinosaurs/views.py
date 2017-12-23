@@ -275,9 +275,9 @@ class QuestionnaireViewAPI(APIView):
                     message = 'Login is required'
                     return JsonResponse({'message': message}, status=status)
 
-                questionnaires = Questionnaire.objects.filter(author=userId)
+                questionnaires = Questionnaire.objects.filter(author=request.user)
 
-                serializer = QuestionnaireSerializer(Questionnaire.objects.filter(author = request.user.id), many=True)
+                serializer = QuestionnaireSerializer(Questionnaire.objects.filter(author = request.user), many=True)
 
                 return Response(serializer.data)
 
@@ -289,13 +289,13 @@ class QuestionnaireViewAPI(APIView):
                 except Questionnaire.DoesNotExist:
                     return Response([])
 
-                serializer = QuestionnaireSerializer(Questionnaire.objects.filter(author = request.user.id), many=True)
+                serializer = QuestionnaireSerializer(Questionnaire.objects.filter(author = request.user), many=True)
 
                 return Response(serializer.data)
         else:
             id = int(remove_slashes(id))
             userId = request.user.id
-            serializer = QuestionnaireSerializer(Questionnaire.objects.get(author = request.user.id, id = id))
+            serializer = QuestionnaireSerializer(Questionnaire.objects.get(author = request.user, id = id))
             return Response(serializer.data)
 
     def post(self, request, id = None):
