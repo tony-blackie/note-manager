@@ -27,3 +27,13 @@ export const selectImportance = createSelector(
     selectQuestionnaire,
     Questionnaire => Questionnaire.importance
 );
+
+export const selectServerError = createSelector(
+    selectQuestionnaire,
+    Questionnaire => Questionnaire.serverError
+);
+
+export const selectSucces = createSelector(
+    selectQuestionnaire,
+    Questionnaire => Questionnaire.succes
+);

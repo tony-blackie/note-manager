@@ -6,6 +6,8 @@ export interface QuestionnaireState {
     hashtags: boolean;
     i18n: boolean;
     importance: boolean;
+    serverError: boolean;
+    succes: boolean;
 }
 
 export type QuestionnaireAction =

@@ -7,6 +7,7 @@ import thunk from 'redux-thunk';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import '../sass/index.scss';
+
 import App from '../views/App/AppComponent';
 import NoMatch from '../views/NoMatchComponent/NoMatchComponent';
 import EditNote from '../views/EditNote/EditNote';
