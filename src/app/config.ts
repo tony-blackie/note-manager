@@ -1,5 +1,5 @@
-export const baseName = 'http://localhost:8000';
+export const baseName = 'https://note-manager-stage.herokuapp.com';
 
-export const clientID = 'Rlo5xvaKUwEwJWFoLEpVfRZu1CUtRH4qLrWtdy1j';
+export const clientID = 'CcMnwDVGkmMi6NBujr4LvHAH3x8HrSq2B19UsMGq';
 
-export const clientSecret = 'z50zU9Uqx8gWSyVPa8spNWECGU7qtWYTcfwuUDEATGrwsAboHUUNnHUmOAs0bDB8rSqZ2e042rmr99x6h3C7pJpWCSUWHNNt83bVMiTTIz9Fg67QzlTzJlzWVblmEgvt';
+export const clientSecret = '0MVNxET7JcLamJMkQX2AkTZe0uBuQeyBQrLN9Dgvtm4c1bSodp0p0FPcH9aMRl5p8hFaS1AVsmC6UBf3oEykDsI5JrLCnQV8a4atMtV00SdvA2z6UVGbZKqZ0s27PwwZ';
