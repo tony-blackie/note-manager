@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
-import { TextField, Paper, FlatButton, Checkbox, RaisedButton } from 'material-ui';
+import { TextField, Paper, FlatButton, Checkbox, RaisedButton, AppBar } from 'material-ui';
 import { Link } from 'react-router';
 
 import { changeMessage, changeCheckbox, questionnaireRequest, backToMain } from './actions';
@@ -46,6 +46,14 @@ class Questionnaire extends React.Component<Props> {
             maxWidth: 700
         };
 
+        const leftButtonStyles = {
+            margin: '15px 0 15px 0'
+        };
+
+        const rightButtonStyles = {
+            margin: '15px 0 15px 15px'
+        };
+
         const checkboxes = [
             {
                 label: 'Colored notes',
@@ -67,54 +75,78 @@ class Questionnaire extends React.Component<Props> {
 
         return (
             <div >
-                {
-                    !serverError && !success &&
-                    <Paper zDepth={2} style={wrapperStyles}>
-                        <h1>Help us become better</h1>
+                <AppBar
+                    title="Notes (&#x3b2;eta version)"
+                    iconClassNameRight="muidocs-icon-navigation-expand-more"
+                    zDepth={2}
+                >
+                </AppBar>
+                <div>
+                    {
+                        !serverError && !success &&
+                        <div>
+                            <Paper zDepth={2} style={wrapperStyles}>
+                                <h1>Help us become better</h1>
 
-                        <h4>What feature do you need most?</h4>
+                                <h4>What feature do you need the most?</h4>
 
-                        {
-                            checkboxes.map(checkbox => {
-                                return (
-                                    <Checkbox
-                                        key={checkbox.name}
-                                        label={checkbox.label}
-                                        name={checkbox.name}
-                                        checked={this.props[checkbox.name]}
-                                        onCheck={(event) => this.props.changeCheckbox(event.target.name)}
+                                {
+                                    checkboxes.map(checkbox => {
+                                        return (
+                                            <Checkbox
+                                                key={checkbox.name}
+                                                label={checkbox.label}
+                                                name={checkbox.name}
+                                                checked={this.props[checkbox.name]}
+                                                onCheck={(event) => this.props.changeCheckbox(event.target.name)}
+                                            />
+                                        );
+                                    })
+                                }
+
+                                <h4>Experiencing problems or found a bug? Tell us</h4>
+                                <TextField
+                                    hintText="Message"
+                                    type="text"
+                                    multiLine={true}
+                                    name="message"
+                                    value={message}
+                                    onChange={(event) => this.props.changeMessage(event.target.value)}
+                                />
+                            </Paper>
+                            <nav className="edit-note__nav">
+                                <Link to="/">
+                                    <RaisedButton
+                                        label="Back"
+                                        secondary={true}
+                                        style={leftButtonStyles}
                                     />
-                                );
-                            })
-                        }
-
-                        <h4>Experiencing problems or found a bug? Tell us</h4>
-                        <TextField
-                            hintText="Message"
-                            type="text"
-                            multiLine={true}
-                            name="message"
-                            value={message}
-                            onChange={(event) => this.props.changeMessage(event.target.value)}
-                        />
-                        <div></div>
-                        <RaisedButton label="Send" primary={true} onClick={() => this.props.questionnaireRequest()} />
-                    </Paper>
-                }
-                {
-                    serverError &&
-                    <Paper zDepth={2} style={wrapperStyles}>
-                        <h1>Server Error</h1>
-                        <RaisedButton label="ok" primary={true} onClick={() => this.props.backToMain()} />
-                    </Paper>
-                }
-                {
-                    success &&
-                    <Paper zDepth={2} style={wrapperStyles}>
-                        <h1>Thanks for the feedback!</h1>
-                        <RaisedButton label="ok" primary={true} onClick={() => this.props.backToMain()} />
-                    </Paper>
-                }
+                                </Link>
+                                <RaisedButton
+                                    label="Send"
+                                    primary={true}
+                                    style={rightButtonStyles}
+                                    className="edit-note__save"
+                                    onClick={() => this.props.questionnaireRequest()}
+                                />
+                            </nav>
+                        </div>
+                    }
+                    {
+                        serverError &&
+                        <Paper zDepth={2} style={wrapperStyles}>
+                            <h1>Something went wrong, please try again later</h1>
+                            <RaisedButton label="ok" primary={true} onClick={() => this.props.backToMain()} />
+                        </Paper>
+                    }
+                    {
+                        success &&
+                        <Paper zDepth={2} style={wrapperStyles}>
+                            <h1>Thanks for the feedback!</h1>
+                            <RaisedButton label="ok" primary={true} onClick={() => this.props.backToMain()} />
+                        </Paper>
+                    }
+                </div>
             </div>
         );
     }
