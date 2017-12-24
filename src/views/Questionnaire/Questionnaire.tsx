@@ -76,7 +76,7 @@ class Questionnaire extends React.Component<Props> {
         return (
             <div >
                 <AppBar
-                    title="Notes (&#x3b2;eta version)"
+                    title="Notes &#x3b2;eta"
                     iconClassNameRight="muidocs-icon-navigation-expand-more"
                     zDepth={2}
                 >
