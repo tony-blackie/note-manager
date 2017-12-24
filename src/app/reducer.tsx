@@ -5,13 +5,15 @@ import editFolderReducer from '../views/EditFolder/reducer';
 import appReducer from '../views/App/reducer';
 import loginReducer from '../views/Login/reducer';
 import checkInReducer from '../views/CheckIn/reducer';
+import questionnaireReducer from '../views/Questionnaire/reducer';
 
 const rootReducer = combineReducers({
     editNote: editNoteReducer,
     editFolder: editFolderReducer,
     app: appReducer,
     login: loginReducer,
-    checkIn: checkInReducer
+    checkIn: checkInReducer,
+    questionnaire: questionnaireReducer
 });
 
 export default rootReducer;

@@ -155,7 +155,7 @@ export class EditNote extends React.Component<Props> {
         return (
             <div>
                 <AppBar
-                    title={<span style={titleStyles}>Notes</span>}
+                    title="Notes (&#x3b2;eta version)"
                     iconClassNameRight="muidocs-icon-navigation-expand-more"
                     zDepth={2}
                 >

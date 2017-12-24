@@ -7,12 +7,14 @@ import thunk from 'redux-thunk';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import '../sass/index.scss';
+
 import App from '../views/App/AppComponent';
 import NoMatch from '../views/NoMatchComponent/NoMatchComponent';
 import EditNote from '../views/EditNote/EditNote';
 import EditFolder from '../views/EditFolder/EditFolder';
 import Login from '../views/Login/Login';
 import CheckIn from '../views/CheckIn/CheckIn';
+import Questionnaire from '../views/Questionnaire/Questionnaire';
 import rootReducer from './reducer';
 
 declare global {
@@ -33,6 +35,7 @@ ReactDOM.render((
                 <Route path='/' component={App} />
                 <Route path="/note/:noteId" component={EditNote} />
                 <Route path="/note" component={EditNote} />
+                <Route path="/questionnaire" component={Questionnaire} />
                 <Route path="/folder/:id" component={EditFolder} />
                 <Route path="/folder" component={EditFolder} />
                 <Route path="/login" component={Login} />
