@@ -22,6 +22,7 @@
     "start": "npm run build:dev",
     "build": "node_modules/.bin/webpack --config ./webpack/webpack.prod.js",
     "build:dev": "node_modules/.bin/webpack-dev-server --config ./webpack/webpack.dev.js",
+    "postinstall": "npm run build:prod",
     "test": "jest",
     "coverage": "node_modules/.bin/jest --coverage"
   },
