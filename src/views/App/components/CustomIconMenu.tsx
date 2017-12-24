@@ -6,9 +6,13 @@ import utils from '../../../utils';
 const { deleteToken } = utils;
 
 export default class CustomIconMenu extends React.Component {
-    handleSignOut = (event) => {
+    handleSignOut = () => {
         deleteToken();
         hashHistory.push('/login');
+    }
+
+    goToQuestionnaire = () => {
+        hashHistory.push('/questionnaire');
     }
 
     render() {
@@ -27,6 +31,14 @@ export default class CustomIconMenu extends React.Component {
                     </FontIcon>
                 }
             >
+                <MenuItem
+                    primaryText="Leave feedback"
+                    onClick={this.goToQuestionnaire}
+                />
+                <MenuItem
+                    primaryText="Request a feature"
+                    onClick={this.goToQuestionnaire}
+                />
                 <MenuItem
                     primaryText="Sign out"
                     onClick={this.handleSignOut}
