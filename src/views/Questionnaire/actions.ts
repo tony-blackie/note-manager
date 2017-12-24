@@ -6,7 +6,7 @@ import { hashHistory } from 'react-router';
 
 import { baseName } from '../../app/config';
 
-import { CHANGE_MSG, CHANGE_FIELD, RESET_FIELDS } from './constants';
+import { CHANGE_MSG, CHANGE_FIELD, RESET_FIELDS, CHANGE_STATUS_TO_FAILED, CHANGE_STATUS_TO_SUCCESS } from './constants';
 
 export const changeMessage = (message: string) => ({
     type: CHANGE_MSG,
@@ -18,9 +18,12 @@ export const changeCheckbox = (field: string) => ({
     payload: { field }
 });
 
-export const changeStatus = (field: string) => ({
-    type: CHANGE_FIELD,
-    payload: { field }
+export const changeStatusToSuccess = () => ({
+    type: CHANGE_STATUS_TO_SUCCESS
+});
+
+export const changeStatusToFailed = () => ({
+    type: CHANGE_STATUS_TO_FAILED
 });
 
 export const questionnaireRequest = () => (dispatch, getState) => {
@@ -32,23 +35,23 @@ export const questionnaireRequest = () => (dispatch, getState) => {
         importance: currentState.importance,
         text: currentState.message
     };
-    
+
     return axios.request({
         url: `${baseName}/questionnaire/`,
         method: 'POST',
         headers: {'Authorization' : getToken()},
         data: questionnaire
     })
-    .then(response => { 
-        if (response.status === 200) {
-            dispatch(changeStatus('succes'));
-        } else {
-            dispatch(changeStatus('serverError'));
-        }
+    .then(response => {
+        // if (response.status === 200) {
+        dispatch(changeStatusToSuccess());
+        // } else {
+        //     dispatch(changeStatusToFailed());
+        // }
      })
     .catch(error => {
         console.log(`error: ${error}`);
-        dispatch(changeStatus('serverError'));
+        dispatch(changeStatusToFailed());
     });
 }
 

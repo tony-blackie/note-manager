@@ -6,12 +6,12 @@ import { TextField, Paper, FlatButton, Checkbox, RaisedButton } from 'material-u
 import { Link } from 'react-router';
 
 import { changeMessage, changeCheckbox, questionnaireRequest, backToMain } from './actions';
-import { 
-    selectMessage, 
-    selectColors, 
-    selectHashtags, 
-    selectI18n, 
-    selectImportance, 
+import {
+    selectMessage,
+    selectColors,
+    selectHashtags,
+    selectI18n,
+    selectImportance,
     selectServerError,
     selectSucces
  } from './selectors';
@@ -24,7 +24,7 @@ interface MappedProps {
     i18n: boolean;
     importance: boolean;
     serverError: boolean;
-    succes: boolean;
+    success: boolean;
 }
 
 interface MappedActions {
@@ -37,12 +37,8 @@ interface MappedActions {
 type Props = MappedActions & MappedProps;
 
 class Questionnaire extends React.Component<Props> {
-    state = {
-        
-    }
-
     render() {
-        const { message, colors, hashtags, i18n, importance, serverError, succes } = this.props;
+        const { message, serverError, success } = this.props;
 
         const wrapperStyles = {
             padding: 20,
@@ -50,45 +46,53 @@ class Questionnaire extends React.Component<Props> {
             maxWidth: 700
         };
 
+        const checkboxes = [
+            {
+                label: 'Colored notes',
+                name: 'colors'
+            },
+            {
+                label: 'Add hastags to notes and search by them',
+                name: 'hashtags'
+            },
+            {
+                label: 'Translation to YOUR language (please, add language as a comment)',
+                name: 'i18n'
+            },
+            {
+                label: 'Ability to mark note as important and automatically add to important folder',
+                name: 'importance'
+            },
+        ];
+
         return (
             <div >
                 {
-                    !serverError && !succes && 
+                    !serverError && !success &&
                     <Paper zDepth={2} style={wrapperStyles}>
                         <h1>Help us become better</h1>
 
                         <h4>What feature do you need most?</h4>
-                    
-                        <Checkbox
-                            label="colors"
-                            name="colors"
-                            checked={colors}
-                            onCheck={(event) => this.props.changeCheckbox(event.target.name)}
-                        />
-                        <Checkbox
-                            label="hashtags"
-                            name="hashtags"
-                            checked={hashtags}
-                            onCheck={(event) => this.props.changeCheckbox(event.target.name)}
-                        />
-                        <Checkbox
-                            label="i18n"
-                            name="i18n"
-                            checked={i18n}
-                            onCheck={(event) => this.props.changeCheckbox(event.target.name)}
-                        />
-                        <Checkbox
-                            label="importance"
-                            name="importance"
-                            checked={importance}
-                            onCheck={(event) => this.props.changeCheckbox(event.target.name)}
-                        />
 
-                        <h4>Have any problems or found any bugs? Tell us.</h4>
+                        {
+                            checkboxes.map(checkbox => {
+                                return (
+                                    <Checkbox
+                                        key={checkbox.name}
+                                        label={checkbox.label}
+                                        name={checkbox.name}
+                                        checked={this.props[checkbox.name]}
+                                        onCheck={(event) => this.props.changeCheckbox(event.target.name)}
+                                    />
+                                );
+                            })
+                        }
+
+                        <h4>Experiencing problems or found a bug? Tell us</h4>
                         <TextField
                             hintText="Message"
                             type="text"
-                            multiLine="true"
+                            multiLine={true}
                             name="message"
                             value={message}
                             onChange={(event) => this.props.changeMessage(event.target.value)}
@@ -105,9 +109,9 @@ class Questionnaire extends React.Component<Props> {
                     </Paper>
                 }
                 {
-                    succes &&
+                    success &&
                     <Paper zDepth={2} style={wrapperStyles}>
-                        <h1>Thnk</h1>
+                        <h1>Thanks for the feedback!</h1>
                         <RaisedButton label="ok" primary={true} onClick={() => this.props.backToMain()} />
                     </Paper>
                 }
@@ -123,7 +127,7 @@ export const mapStateToProps = state => createStructuredSelector({
     i18n: selectI18n,
     importance: selectImportance,
     serverError: selectServerError,
-    succes: selectSucces
+    success: selectSucces
 });
 
 export const mapDispatchToProps = (dispatch) => bindActionCreators({

@@ -7,7 +7,7 @@ export interface QuestionnaireState {
     i18n: boolean;
     importance: boolean;
     serverError: boolean;
-    succes: boolean;
+    success: boolean;
 }
 
 export type QuestionnaireAction =

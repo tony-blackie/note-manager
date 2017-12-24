@@ -35,5 +35,5 @@ export const selectServerError = createSelector(
 
 export const selectSucces = createSelector(
     selectQuestionnaire,
-    Questionnaire => Questionnaire.succes
+    Questionnaire => Questionnaire.success
 );
