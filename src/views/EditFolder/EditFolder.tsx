@@ -119,7 +119,7 @@ export class EditFolder extends React.Component<Props> {
         return (
             <div>
                 <AppBar
-                    title="Notes"
+                    title="Notes (&#x3b2;eta version)"
                     iconClassNameRight="muidocs-icon-navigation-expand-more"
                     zDepth={2}
                 >
