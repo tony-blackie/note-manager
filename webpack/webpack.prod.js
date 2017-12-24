@@ -9,7 +9,7 @@ module.exports = {
   entry: {
     app: './src/app/routes.tsx'
   },
-  devtool: 'source-map',
+  devtool: 'eval-source-map',
   devServer: {
     contentBase: './dist',
     hot: true
