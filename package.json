@@ -22,6 +22,7 @@
     "start": "npm run build:dev",
     "build": "node_modules/.bin/webpack --config ./webpack/webpack.prod.js",
     "build:dev": "node_modules/.bin/webpack-dev-server --config ./webpack/webpack.dev.js",
+    "build:accessible": "node_modules/.bin/webpack-dev-server --config ./webpack/webpack.dev.js --host 0.0.0.0 --disable-host-check",
     "postinstall": "npm run build",
     "test": "jest",
     "coverage": "node_modules/.bin/jest --coverage"
