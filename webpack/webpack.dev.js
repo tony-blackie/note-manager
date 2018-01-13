@@ -12,7 +12,7 @@ module.exports = {
   devServer: {
     contentBase: './dist',
     hot: true,
-    disableHostCheck: true,
+    // disableHostCheck: true,
   },
   resolve: {
     // Add `.ts` and `.tsx` as a resolvable extension.

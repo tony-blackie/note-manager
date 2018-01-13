@@ -131,7 +131,7 @@ export const handleFailedGetAllFolders: HandleFailedGetAllFoldersFn = error => (
 export const getAllFolders: GetAllFoldersFn = () => dispatch => {
     dispatch({type: REQUEST_ALL_FOLDERS})
 
-    return axios.get(`${baseName}/folder`)
+    return axios.get(`${baseName}/hashtag`)
     .then(response => dispatch(handleSuccessfulGetAllFolders(response.data)))
     .catch(error => {
         dispatch(handleFailedGetAllFolders(error));
@@ -157,7 +157,7 @@ export const handleFailedDeleteFolder: HandleFailedDeleteFolderFn = error => ({
 
 export const removeFolder: RemoveFolderFn = id => dispatch => {
 
-    return axios.delete(`${baseName}/folder/${id}`)
+    return axios.delete(`${baseName}/hashtag/${id}`)
     .then(() => dispatch(handleSuccessfulDeleteFolder(id)))
     .catch(error => dispatch(handleFailedDeleteFolder(error)));
 }
@@ -165,13 +165,13 @@ export const removeFolder: RemoveFolderFn = id => dispatch => {
 export const goToEditFolder: GoToEditFolderFn = id => dispatch => {
     dispatch({type: GO_TO_EDIT_FOLDER});
 
-    hashHistory.push(`/folder/${id}`);
+    hashHistory.push(`/hashtag/${id}`);
 };
 
 export const goToFolderCreation: GoToFolderCreationFn = () => dispatch => {
     dispatch({ type: GO_TO_FOLDER_CREATION });
 
-    hashHistory.push('/folder/');
+    hashHistory.push('/hashtag/');
 };
 
 export const updateNoteFilterQuery: UpdateNoteFilterQueryFn = query =>
@@ -180,13 +180,13 @@ export const updateNoteFilterQuery: UpdateNoteFilterQueryFn = query =>
 export const createInitialFolder: CreateInitialFolderFn = () => {
     const folder = {
         name: 'Initial',
-        is_root: true,
-        parent: 0,
+        // is_root: true,
+        // parent: 0,
         notes: []
     };
 
     return axios.request({
-        url: `${baseName}/folder/`,
+        url: `${baseName}/hashtag/`,
         method: 'POST',
         data: folder
     })
