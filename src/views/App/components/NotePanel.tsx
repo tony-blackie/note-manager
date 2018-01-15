@@ -32,21 +32,11 @@ class NotePanel extends React.Component<Props> {
     render() {
         const { notes, folders, activeFolderId } = this.props;
 
-        const activeFolder = this.getActiveFolder(folders, activeFolderId);
-
-        const notesToShow = notes.filter(note => {
-            if (activeFolder && activeFolder.notes) {
-                return (activeFolder.notes as any).includes(note.id)
-            }
-
-            return false;
-        });
-
         return (
             <div className="note-panel">
                 <div className="note-container">
                     {
-                        notesToShow.map(note => {
+                        notes.map(note => {
                             const { id, text, name, } = note;
                             return (
                                 <Note
