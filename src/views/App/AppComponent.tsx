@@ -81,6 +81,14 @@ interface MappedActions {
 
 type Props = MappedProps & MappedActions;
 
+interface EventTarget {
+    value: string;
+}
+
+interface Event {
+    target: EventTarget;
+}
+
 export class App extends React.Component<Props> {
     componentDidMount() {
         if (!getToken()) {
@@ -93,7 +101,7 @@ export class App extends React.Component<Props> {
         this.props.getAllFolders();
     }
 
-    updateNoteFilterQuery = (event) => {
+    updateNoteFilterQuery = (event: Event) => {
         const text = event.target.value;
 
         this.props.updateNoteFilterQuery(text);
