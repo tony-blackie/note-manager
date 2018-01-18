@@ -39,6 +39,21 @@ export const handleClearErrorMessage = (): TypedActionNoPayload => {
 export const editNoteRequest = (note: NoteType) => dispatch => {
     dispatch({ type: EDIT_EXISTING_NOTE });
 
+    note = {
+        ...note,
+        hashtagsToAdd: [
+            { id: 53, name: 'initial' },
+            { id: 54, name: 'chloe' },
+            { id: 55, name: 'rachel' }
+        ],
+        allHashtags: [
+            { id: 1, name: 'initial' },
+            { id: 2, name: 'chloe' },
+            { id: 13, name: 'rachel' },
+            { name: 'arcadia bay' }
+        ]
+    } as any;
+
     return axios.request({
         url:`${baseName}/note/${note.id}/`,
         method: 'PUT',
@@ -68,10 +83,17 @@ export const createNoteRequest = (note: NoteType, activeFolderId: number) => dis
         method: 'POST',
         data: {
             ...note,
-            hashtags: {
-                existing: [1],
-                new: ['chloe', 'rachel', 'max']
-            }
+            hashtagsToAdd: [
+                { id: 2, name: 'chloe' },
+                { name: 'arcadia bay' }
+            ],
+            allHashtags: [
+                { id: 1, name: 'initial' },
+                { id: 2, name: 'chloe' },
+                { id: 13, name: 'rachel' },
+                { id: 14, name: 'max' },
+                { name: 'arcadia bay' }
+            ]
         }
     })
     .then(response => dispatch(handleSuccessfulNoteCreation(response.data)))
