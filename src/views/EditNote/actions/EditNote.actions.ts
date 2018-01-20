@@ -54,13 +54,13 @@ export const editNoteRequest = (note: NoteType) => dispatch => {
         ]
     } as any;
 
-    return axios.request({
-        url:`${baseName}/note/${note.id}/`,
-        method: 'PUT',
-        data: note
-    })
-    .then(response => dispatch(handleEditNoteSuccess(response.data)))
-    .catch(error => dispatch(handleEditNoteFail()));
+    // return axios.request({
+    //     url:`${baseName}/note/${note.id}/`,
+    //     method: 'PUT',
+    //     data: note
+    // })
+    // .then(response => dispatch(handleEditNoteSuccess(response.data)))
+    // .catch(error => dispatch(handleEditNoteFail()));
 }
 
 export const handleSuccessfulNoteCreation = response => {
@@ -78,26 +78,26 @@ export const createNoteRequest = (note: NoteType, activeFolderId: number) => dis
 
     /* TODO: Remove hardcode */
 
-    return axios.request({
-        url: `${baseName}/note/`,
-        method: 'POST',
-        data: {
-            ...note,
-            hashtagsToAdd: [
-                { id: 2, name: 'chloe' },
-                { name: 'arcadia bay' }
-            ],
-            allHashtags: [
-                { id: 1, name: 'initial' },
-                { id: 2, name: 'chloe' },
-                { id: 13, name: 'rachel' },
-                { id: 14, name: 'max' },
-                { name: 'arcadia bay' }
-            ]
-        }
-    })
-    .then(response => dispatch(handleSuccessfulNoteCreation(response.data)))
-    .catch(error => dispatch(handleFailedNoteCreation()));
+    // return axios.request({
+    //     url: `${baseName}/note/`,
+    //     method: 'POST',
+    //     data: {
+    //         ...note,
+    //         hashtagsToAdd: [
+    //             { id: 2, name: 'chloe' },
+    //             { name: 'arcadia bay' }
+    //         ],
+    //         allHashtags: [
+    //             { id: 1, name: 'initial' },
+    //             { id: 2, name: 'chloe' },
+    //             { id: 13, name: 'rachel' },
+    //             { id: 14, name: 'max' },
+    //             { name: 'arcadia bay' }
+    //         ]
+    //     }
+    // })
+    // .then(response => dispatch(handleSuccessfulNoteCreation(response.data)))
+    // .catch(error => dispatch(handleFailedNoteCreation()));
 }
 
 export const changeTextFieldValue: ChangeTextFieldValueFn = value => ({
