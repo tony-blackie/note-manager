@@ -1,4 +1,4 @@
-export const baseName = 'http://localhost:8000';
+export const baseName = 'https://notes01stage.herokuapp.com/';
 
 export const clientID = 'CcMnwDVGkmMi6NBujr4LvHAH3x8HrSq2B19UsMGq';
 
