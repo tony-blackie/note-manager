@@ -139,7 +139,6 @@ export default class EditTags extends React.Component<Props, State> {
     }
  
     render() {
-        debugger;
         return (
             <div>
                 <div style={styles.wrapper}>
