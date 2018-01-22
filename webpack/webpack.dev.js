@@ -11,8 +11,7 @@ module.exports = {
   devtool: 'inline-source-map',
   devServer: {
     contentBase: './dist',
-    hot: true,
-    // disableHostCheck: true,
+    hot: true
   },
   resolve: {
     // Add `.ts` and `.tsx` as a resolvable extension.
@@ -43,6 +42,6 @@ module.exports = {
   },
   output: {
     filename: '[name].bundle.js',
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'dist')
   }
 };

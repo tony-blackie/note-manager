@@ -81,14 +81,6 @@ interface MappedActions {
 
 type Props = MappedProps & MappedActions;
 
-interface EventTarget {
-    value: string;
-}
-
-interface Event {
-    target: EventTarget;
-}
-
 export class App extends React.Component<Props> {
     componentDidMount() {
         if (!getToken()) {
@@ -101,7 +93,7 @@ export class App extends React.Component<Props> {
         this.props.getAllFolders();
     }
 
-    updateNoteFilterQuery = (event: Event) => {
+    updateNoteFilterQuery = (event) => {
         const text = event.target.value;
 
         this.props.updateNoteFilterQuery(text);
@@ -138,7 +130,7 @@ export class App extends React.Component<Props> {
         return (
             <div>
                 <AppBar
-                    title="Notes &#x3b2;eta"
+                    title="Notes"
                     iconClassNameRight="muidocs-icon-navigation-expand-more"
                     zDepth={2}
                     iconElementLeft={

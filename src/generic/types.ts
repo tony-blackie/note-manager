@@ -3,7 +3,6 @@ import { AppComponentState } from '../views/App/types';
 import { EditFolderState } from '../views/EditFolder/types';
 import { LoginState } from '../views/Login/types';
 import { CheckInState } from '../views/CheckIn/types';
-import { QuestionnaireState } from '../views/Questionnaire/types';
 
 export interface Store {
     editNote: EditNoteState;
@@ -11,7 +10,6 @@ export interface Store {
     app: AppComponentState;
     login: LoginState;
     checkIn: CheckInState;
-    questionnaire: QuestionnaireState;
 }
 
 export interface NoteType {

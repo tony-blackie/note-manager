@@ -8,7 +8,6 @@ import * as format from 'date-fns/format';
 import * as parse from 'date-fns/parse';
 import { RaisedButton, Paper, TextField, Subheader, AppBar, Divider } from 'material-ui';
 
-
 import {
     selectIsNoteCreationMode,
     selectEditedNote,
@@ -17,8 +16,6 @@ import {
 import { selectActiveFolderId } from '../App/selectors';
 import { NoteType } from '../../generic/types';
 import { goToRoot } from '../../generic/actions';
-
-import EditTags from './components/EditTags';
 
 import {
     CreateNoteRequestFn,
@@ -71,7 +68,6 @@ interface MappedActions {
 type Props = OwnProps & MappedActions & MappedProps;
 
 export class EditNote extends React.Component<Props> {
-
     componentDidMount() {
         setDefaultAuthHeader();
 
@@ -159,7 +155,7 @@ export class EditNote extends React.Component<Props> {
         return (
             <div>
                 <AppBar
-                    title="Notes &#x3b2;eta"
+                    title={<span style={titleStyles}>Notes</span>}
                     iconClassNameRight="muidocs-icon-navigation-expand-more"
                     zDepth={2}
                 >
@@ -185,9 +181,6 @@ export class EditNote extends React.Component<Props> {
                             />
                         </form>
                         <div className="edit-note__creation-date">Created on: {parsedDate}</div>
-                        <div> 
-                            <EditTags />
-                        </div>
                     </Paper>
                     <nav className="edit-note__nav">
                         <Link to="/">

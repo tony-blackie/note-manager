@@ -9,7 +9,7 @@ module.exports = {
   entry: {
     app: './src/app/routes.tsx'
   },
-  devtool: 'eval-source-map',
+  devtool: 'source-map',
   devServer: {
     contentBase: './dist',
     hot: true
@@ -47,7 +47,6 @@ module.exports = {
   },
   output: {
     filename: '[name].bundle.js',
-    path: path.resolve(__dirname, 'dist'),
-    publicPath: '/'
+    path: path.resolve(__dirname, 'dist')
   }
 };

@@ -39,28 +39,13 @@ export const handleClearErrorMessage = (): TypedActionNoPayload => {
 export const editNoteRequest = (note: NoteType) => dispatch => {
     dispatch({ type: EDIT_EXISTING_NOTE });
 
-    note = {
-        ...note,
-        hashtagsToAdd: [
-            { id: 53, name: 'initial' },
-            { id: 54, name: 'chloe' },
-            { id: 55, name: 'rachel' }
-        ],
-        allHashtags: [
-            { id: 1, name: 'initial' },
-            { id: 2, name: 'chloe' },
-            { id: 13, name: 'rachel' },
-            { name: 'arcadia bay' }
-        ]
-    } as any;
-
-    // return axios.request({
-    //     url:`${baseName}/note/${note.id}/`,
-    //     method: 'PUT',
-    //     data: note
-    // })
-    // .then(response => dispatch(handleEditNoteSuccess(response.data)))
-    // .catch(error => dispatch(handleEditNoteFail()));
+    return axios.request({
+        url:`${baseName}/note/${note.id}/`,
+        method: 'PUT',
+        data: note
+    })
+    .then(response => dispatch(handleEditNoteSuccess(response.data)))
+    .catch(error => dispatch(handleEditNoteFail()));
 }
 
 export const handleSuccessfulNoteCreation = response => {
@@ -76,28 +61,16 @@ export const handleFailedNoteCreation = () => {
 export const createNoteRequest = (note: NoteType, activeFolderId: number) => dispatch => {
     dispatch({ type: CREATE_NEW_NOTE });
 
-    /* TODO: Remove hardcode */
-
-    // return axios.request({
-    //     url: `${baseName}/note/`,
-    //     method: 'POST',
-    //     data: {
-    //         ...note,
-    //         hashtagsToAdd: [
-    //             { id: 2, name: 'chloe' },
-    //             { name: 'arcadia bay' }
-    //         ],
-    //         allHashtags: [
-    //             { id: 1, name: 'initial' },
-    //             { id: 2, name: 'chloe' },
-    //             { id: 13, name: 'rachel' },
-    //             { id: 14, name: 'max' },
-    //             { name: 'arcadia bay' }
-    //         ]
-    //     }
-    // })
-    // .then(response => dispatch(handleSuccessfulNoteCreation(response.data)))
-    // .catch(error => dispatch(handleFailedNoteCreation()));
+    return axios.request({
+        url: `${baseName}/note/`,
+        method: 'POST',
+        data: {
+            ...note,
+            parent: activeFolderId
+        }
+    })
+    .then(response => dispatch(handleSuccessfulNoteCreation(response.data)))
+    .catch(error => dispatch(handleFailedNoteCreation()));
 }
 
 export const changeTextFieldValue: ChangeTextFieldValueFn = value => ({

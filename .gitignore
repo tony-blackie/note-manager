@@ -15,7 +15,3 @@ lib
 lib64
 *.pyc
 *.pyo
-
-exampleapp/exampleapp/__pycache__/
-
-exampleapp/dinosaurs/__pycache__/
