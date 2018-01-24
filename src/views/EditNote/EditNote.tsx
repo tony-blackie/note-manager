@@ -7,12 +7,14 @@ import axios from 'axios';
 import * as format from 'date-fns/format';
 import * as parse from 'date-fns/parse';
 import { RaisedButton, Paper, TextField, Subheader, AppBar, Divider } from 'material-ui';
+import Chip from 'material-ui/Chip';
 
 
 import {
     selectIsNoteCreationMode,
     selectEditedNote,
     selectErrorMessage,
+    selectEditTags,
 } from './selectors';
 import { selectActiveFolderId } from '../App/selectors';
 import { NoteType } from '../../generic/types';
@@ -185,6 +187,7 @@ export class EditNote extends React.Component<Props> {
                             />
                         </form>
                         <div className="edit-note__creation-date">Created on: {parsedDate}</div>
+                        <div></div>
                         <div> 
                             <EditTags />
                         </div>
@@ -215,7 +218,8 @@ export const mapStateToProps = (state: EditNoteState) => createStructuredSelecto
     isNoteCreationMode: selectIsNoteCreationMode,
     editedNote: selectEditedNote,
     activeFolderId: selectActiveFolderId,
-    errorMessage: selectErrorMessage
+    errorMessage: selectErrorMessage,
+    editTags: selectEditTags
 });
 
 export const mapDispatchToProps = dispatch => bindActionCreators({

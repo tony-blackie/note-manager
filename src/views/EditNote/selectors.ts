@@ -18,3 +18,9 @@ export const selectErrorMessage = createSelector(
     selectEditNoteView,
     editNoteView => editNoteView.errorMessage
 );
+
+export const selectEditTags = createSelector(
+    selectEditNoteView,
+    editNoteView => editNoteView.editTags
+);
+

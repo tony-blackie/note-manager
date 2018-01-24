@@ -13,11 +13,16 @@ export interface EditNoteState {
     editedNote: EditedNote;
     isNoteCreationMode: boolean;
     errorMessage: string;
+    editTags: EditTags;
 }
 
 export interface TypedAction {
     type: string;
     payload?: any;
+}
+
+export interface EditTags {
+    listTags: any
 }
 
 interface NoteRequestBody {

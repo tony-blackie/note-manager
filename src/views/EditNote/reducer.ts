@@ -24,7 +24,10 @@ const editNoteReducer = (state: EditNoteState = {
         date: ''
     },
     isNoteCreationMode: false,
-    errorMessage: ''
+    errorMessage: '',
+    editTags: {
+        listTags: []
+    }
 }, action: TypedAction) => {
     let newFoldersArray,
         clickedFolder,
