@@ -13,7 +13,7 @@ export interface EditNoteState {
     editedNote: EditedNote;
     isNoteCreationMode: boolean;
     errorMessage: string;
-    editTags: EditTags;
+    editTags: EditedTags;
 }
 
 export interface TypedAction {
@@ -21,7 +21,7 @@ export interface TypedAction {
     payload?: any;
 }
 
-export interface EditTags {
+export interface EditedTags {
     listTags: any
 }
 

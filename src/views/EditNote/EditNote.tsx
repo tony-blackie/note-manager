@@ -28,7 +28,8 @@ import {
     ChangeTextFieldValueFn,
     FetchNoteFn,
     EditNoteState,
-    EditedNote
+    EditedNote,
+    EditedTags
 } from './types';
 
 import {
@@ -57,6 +58,7 @@ interface MappedProps {
     editedNote: EditedNote;
     activeFolderId: number | null;
     errorMessage: string;
+    editedTags: EditedTags;
 }
 
 interface MappedActions {
@@ -115,8 +117,9 @@ export class EditNote extends React.Component<Props> {
     }
 
     render() {
-        const { errorMessage, editedNote } = this.props;
+        const { errorMessage, editedNote, editedTags } = this.props;
         const { textFieldValue, textFieldPlaceholder, name, date } = editedNote;
+        const { listTags } = editedTags;
 
         const parsedDate = date ? format(parse(date), 'DD/MM/YY') : null;
 
@@ -158,6 +161,15 @@ export class EditNote extends React.Component<Props> {
             cursor: 'pointer'
         };
 
+        const chipStyles = {
+            chip: {
+                margin: 4,
+            },
+            wrapper: {
+                display: 'flex'
+            },
+        };
+
         return (
             <div>
                 <AppBar
@@ -187,7 +199,11 @@ export class EditNote extends React.Component<Props> {
                             />
                         </form>
                         <div className="edit-note__creation-date">Created on: {parsedDate}</div>
-                        <div></div>
+                        <div style={chipStyles.wrapper}>
+                        { listTags.map( (item, index) => 
+                            <Chip key={item.id} style={chipStyles.chip} onRequestDelete={()=>{}}>{item.name}</Chip>
+                        ) }
+                        </div>
                         <div> 
                             <EditTags />
                         </div>
@@ -219,7 +235,7 @@ export const mapStateToProps = (state: EditNoteState) => createStructuredSelecto
     editedNote: selectEditedNote,
     activeFolderId: selectActiveFolderId,
     errorMessage: selectErrorMessage,
-    editTags: selectEditTags
+    editedTags: selectEditTags
 });
 
 export const mapDispatchToProps = dispatch => bindActionCreators({
