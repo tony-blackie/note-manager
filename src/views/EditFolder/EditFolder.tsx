@@ -16,16 +16,15 @@ import {
 } from './types';
 import { FolderType } from '../../generic/types';
 import {
-  getFolder,
-  handleFolderNameChange,
-  editFolder,
-  createNewFolder,
-  handleFailedFolderCreation,
+    getFolder,
+    handleFolderNameChange,
+    editFolder,
+    createNewFolder,
+    handleFailedFolderCreation,
 } from './actions/EditFolder.actions';
 import { selectFolder, selectErrorMessage } from './selectors';
 import { selectActiveFolderId } from '../App/selectors';
 import utils from '../../utils';
-
 
 const { setDefaultAuthHeader } = utils;
 
@@ -67,7 +66,7 @@ export class EditFolder extends React.Component<Props> {
         }
     }
 
-    handleFolderSave = (event) => {
+    handleFolderSave = event => {
         event.preventDefault();
 
         const { routeParams, folder, activeFolderId } = this.props;
@@ -78,14 +77,14 @@ export class EditFolder extends React.Component<Props> {
         } else {
             this.props.editFolder({
                 ...folder,
-                id: parseInt(routeParams.id, 10)
+                id: parseInt(routeParams.id, 10),
             });
         }
-    }
+    };
 
-    handleNameChange = (event) => {
+    handleNameChange = event => {
         this.props.handleFolderNameChange(event.target.value);
-    }
+    };
 
     render() {
         const { folder, routeParams, errorMessage } = this.props;
@@ -105,15 +104,15 @@ export class EditFolder extends React.Component<Props> {
         };
 
         const leftButtonStyles = {
-            margin: '15px 0 15px 0'
+            margin: '15px 0 15px 0',
         };
 
         const rightButtonStyles = {
-            margin: '15px 0 15px 15px'
+            margin: '15px 0 15px 15px',
         };
 
         const subheaderStyle = {
-            paddingLeft: 0
+            paddingLeft: 0,
         };
 
         return (
@@ -122,56 +121,65 @@ export class EditFolder extends React.Component<Props> {
                     title="Notes &#x3b2;eta"
                     iconClassNameRight="muidocs-icon-navigation-expand-more"
                     zDepth={2}
-                >
-                </AppBar>
+                />
                 <div>
                     <Paper zDepth={2} style={wrapperStyles}>
-                        <Subheader style={subheaderStyle}>Folder name:</Subheader>
+                        <Subheader style={subheaderStyle}>
+                            Folder name:
+                        </Subheader>
                         <form className="edit-note__form">
                             <div>{errorMessage}</div>
-                                <TextField
-                                    name="folderName"
-                                    onChange={this.handleNameChange}
-                                    className="edit-note__name"
-                                    type="text"
-                                    value={name}
-                                />
+                            <TextField
+                                name="folderName"
+                                onChange={this.handleNameChange}
+                                className="edit-note__name"
+                                type="text"
+                                value={name}
+                            />
                         </form>
                     </Paper>
                     <nav className="edit-note__nav">
-                            <Link to="/">
-                                <RaisedButton
-                                    label="Back"
-                                    secondary={true}
-                                    style={leftButtonStyles}
-                                />
-                            </Link>
+                        <Link to="/">
                             <RaisedButton
-                                label="Save"
-                                primary={true}
-                                style={rightButtonStyles}
-                                className="edit-note__save-button"
-                                onClick={this.handleFolderSave}
+                                label="Back"
+                                secondary={true}
+                                style={leftButtonStyles}
                             />
-                        </nav>
+                        </Link>
+                        <RaisedButton
+                            label="Save"
+                            primary={true}
+                            style={rightButtonStyles}
+                            className="edit-note__save-button"
+                            onClick={this.handleFolderSave}
+                        />
+                    </nav>
                 </div>
             </div>
         );
     }
 }
 
-export const mapStateToProps = state => createStructuredSelector({
-    folder: selectFolder,
-    activeFolderId: selectActiveFolderId,
-    errorMessage: selectErrorMessage
-});
+export const mapStateToProps = state =>
+    createStructuredSelector({
+        folder: selectFolder,
+        activeFolderId: selectActiveFolderId,
+        errorMessage: selectErrorMessage,
+    });
 
-export const mapDispatchToProps = dispatch => bindActionCreators({
-    getFolder,
-    handleFolderNameChange,
-    editFolder,
-    createNewFolder,
-    handleFailedFolderCreation,
-}, dispatch);
+export const mapDispatchToProps = dispatch =>
+    bindActionCreators(
+        {
+            getFolder,
+            handleFolderNameChange,
+            editFolder,
+            createNewFolder,
+            handleFailedFolderCreation,
+        },
+        dispatch
+    );
 
-export default connect<MappedProps, MappedActions, OwnProps>(mapStateToProps, mapDispatchToProps)(EditFolder);
+export default connect<MappedProps, MappedActions, OwnProps>(
+    mapStateToProps,
+    mapDispatchToProps
+)(EditFolder);
