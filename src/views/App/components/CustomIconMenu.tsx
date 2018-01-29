@@ -9,24 +9,21 @@ export default class CustomIconMenu extends React.Component {
     handleSignOut = () => {
         deleteToken();
         hashHistory.push('/login');
-    }
+    };
 
     goToQuestionnaire = () => {
         hashHistory.push('/questionnaire');
-    }
+    };
 
     render() {
         const menuStyle = {
-            color: 'white'
+            color: 'white',
         };
 
         return (
             <IconMenu
                 iconButtonElement={
-                    <FontIcon
-                        className="material-icons"
-                        style={menuStyle}
-                    >
+                    <FontIcon className="material-icons" style={menuStyle}>
                         menu
                     </FontIcon>
                 }
@@ -39,10 +36,7 @@ export default class CustomIconMenu extends React.Component {
                     primaryText="Request a feature"
                     onClick={this.goToQuestionnaire}
                 />
-                <MenuItem
-                    primaryText="Sign out"
-                    onClick={this.handleSignOut}
-                />
+                <MenuItem primaryText="Sign out" onClick={this.handleSignOut} />
             </IconMenu>
         );
     }

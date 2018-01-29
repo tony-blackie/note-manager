@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
 import { EditNoteState } from './types';
 import { Store } from '../../generic/types';
+import { selectHashtags } from '../App/selectors';
 
 export const selectEditNoteView = (state: Store) => state.editNote;
 
@@ -23,4 +24,3 @@ export const selectEditTags = createSelector(
     selectEditNoteView,
     editNoteView => editNoteView.editTags
 );
-

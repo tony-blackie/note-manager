@@ -1,5 +1,13 @@
 import * as React from 'react';
-import { Paper, Divider, TextField, yellow300, Dialog, FlatButton, FontIcon } from 'material-ui';
+import {
+    Paper,
+    Divider,
+    TextField,
+    yellow300,
+    Dialog,
+    FlatButton,
+    FontIcon,
+} from 'material-ui';
 
 import { GoToNoteEditFn, RemoveNoteFn } from '../types';
 
@@ -17,35 +25,35 @@ interface State {
 
 export default class Note extends React.Component<Props, State> {
     state: State = {
-        confirmDelete: false
+        confirmDelete: false,
     };
 
     goToNoteEdit = () => {
         const { id } = this.props;
 
         this.props.goToNoteEdit(id);
-    }
+    };
 
     removeNote = () => {
         const { id } = this.props;
 
         this.props.removeNote(id);
-    }
+    };
 
-    openConfirmDelete = (event) => {
+    openConfirmDelete = event => {
         event.stopPropagation();
 
         this.setState({ confirmDelete: true });
-    }
+    };
 
     closeConfirmDelete = () => {
         this.setState({ confirmDelete: false });
-    }
+    };
 
     handleConfirmDelete = () => {
         this.removeNote();
         this.closeConfirmDelete();
-    }
+    };
 
     render() {
         const { name, text } = this.props;
@@ -54,19 +62,19 @@ export default class Note extends React.Component<Props, State> {
         const headerInputStyles = {
             cursor: 'default',
             maxWidth: 155,
-            textOverflow: 'ellipsis'
+            textOverflow: 'ellipsis',
         };
 
         const actions = [
             <FlatButton
-              label="Cancel"
-              secondary={true}
-              onClick={this.closeConfirmDelete}
+                label="Cancel"
+                secondary={true}
+                onClick={this.closeConfirmDelete}
             />,
             <FlatButton
-              label="Submit"
-              primary={true}
-              onClick={this.handleConfirmDelete}
+                label="Submit"
+                primary={true}
+                onClick={this.handleConfirmDelete}
             />,
         ];
 
@@ -76,19 +84,15 @@ export default class Note extends React.Component<Props, State> {
             padding: 10,
             margin: 20,
             position: 'relative',
-            backgroundColor: '#fff9c4'
+            backgroundColor: '#fff9c4',
         };
 
         return (
-            <Paper
-                zDepth={3}
-                style={noteStyles}
-                onClick={this.goToNoteEdit}
-            >
+            <Paper zDepth={3} style={noteStyles} onClick={this.goToNoteEdit}>
                 <div className="note__remove">
                     <FontIcon
-                            className="material-icons"
-                            onClick={this.openConfirmDelete}
+                        className="material-icons"
+                        onClick={this.openConfirmDelete}
                     >
                         close
                     </FontIcon>

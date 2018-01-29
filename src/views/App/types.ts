@@ -1,111 +1,111 @@
 import {
-  HashtagType,
-  HashtagTypeAPI,
-  NoteType,
-  TypedAction,
-  TypedActionNoPayload
-} from "../../generic/types";
-import { HandleSuccessfulHashtagEditPayload } from "../EditHashtag/types";
+    HashtagType,
+    HashtagTypeAPI,
+    NoteType,
+    TypedAction,
+    TypedActionNoPayload,
+} from '../../generic/types';
+import { HandleSuccessfulHashtagEditPayload } from '../EditHashtag/types';
 
 export interface AppComponentState {
-  hashtags: HashtagType[] | null;
-  notes: NoteType[];
-  activeHashtagId: number | null;
-  notesQuery: string;
+    hashtags: HashtagType[] | null;
+    notes: NoteType[];
+    activeHashtagId: number | null;
+    notesQuery: string;
 }
 
 export interface MakeHashtagActivePayload {
-  id: number;
+    id: number;
 }
 
 export interface MakeHashtagInactivePayload {
-  id: number;
+    id: number;
 }
 
 export interface HandleSuccessfulGetAllNotesPayload {
-  notes: NoteType[];
+    notes: NoteType[];
 }
 
 export interface HandleFailedGetAllNotesPayload {
-  error: any;
+    error: any;
 }
 
 export interface HandleSuccessfulDeleteNotePayload {
-  id: number;
+    id: number;
 }
 
 export interface HandleSuccessfulGetAllHashtagsPayload {
-  hashtags: HashtagTypeAPI[];
+    hashtags: HashtagTypeAPI[];
 }
 
 export interface HandleFailedDeleteNotePayload {
-  error: any;
+    error: any;
 }
 
 export interface HandleFailedGetAllHashtagsPayload {
-  error: any;
+    error: any;
 }
 
 export interface HandleSuccessfulDeleteHashtagPayload {
-  id: number;
+    id: number;
 }
 
 export interface HandleFailedDeleteHashtagPayload {
-  error: any;
+    error: any;
 }
 
 export interface UpdateNoteFilterQueryPayload {
-  query: string;
+    query: string;
 }
 
 export type ReducerAction = MakeHashtagActivePayload &
-  HandleFailedDeleteHashtagPayload &
-  HandleFailedDeleteNotePayload &
-  HandleFailedGetAllHashtagsPayload &
-  HandleFailedGetAllNotesPayload &
-  HandleSuccessfulDeleteHashtagPayload &
-  HandleSuccessfulDeleteNotePayload &
-  HandleSuccessfulGetAllHashtagsPayload &
-  HandleSuccessfulGetAllNotesPayload &
-  HandleSuccessfulHashtagEditPayload &
-  UpdateNoteFilterQueryPayload;
+    HandleFailedDeleteHashtagPayload &
+    HandleFailedDeleteNotePayload &
+    HandleFailedGetAllHashtagsPayload &
+    HandleFailedGetAllNotesPayload &
+    HandleSuccessfulDeleteHashtagPayload &
+    HandleSuccessfulDeleteNotePayload &
+    HandleSuccessfulGetAllHashtagsPayload &
+    HandleSuccessfulGetAllNotesPayload &
+    HandleSuccessfulHashtagEditPayload &
+    UpdateNoteFilterQueryPayload;
 
 export type GoToNoteEditFn = (
-  id: number
+    id: number
 ) => (dispatch: (obj: any) => void) => void;
 
 export type MakeHashtagActiveFn = (
-  id: number
+    id: number
 ) => (dispatch: (obj: TypedAction<MakeHashtagActivePayload>) => void) => void;
 
 export type MakeHashtagInactiveFn = (
-  id: number
+    id: number
 ) => (dispatch: (obj: TypedAction<MakeHashtagInactivePayload>) => void) => void;
 
 export type GoToEditHashtagFn = (
-  id: number
+    id: number
 ) => (dispatch: (obj: TypedAction<any>) => void) => void;
 
 export type RemoveHashtagFn = (
-  id: number
+    id: number
 ) => (dispatch: (obj: TypedAction<any>) => void) => void;
 
 export type GoToHashtagCreationFn = () => (
-  dispatch: (obj: TypedAction<any>) => void
+    dispatch: (obj: TypedAction<any>) => void
 ) => void;
 
 export type GoToNoteCreationFn = () => (dispatch: (obj: any) => void) => void;
 
 export type GetAllHashtagsFn = () => (
-  dispatch: (obj: TypedAction<any>) => void
+    dispatch: (obj: TypedAction<any>) => void
 ) => void;
 
 export type HandleSuccessfulGetAllNotesFn = (
-  response: NoteType[]
+    response: NoteType[]
 ) => TypedAction<HandleSuccessfulGetAllNotesPayload>;
 
 export type HandleFailedGetAllNotesFn = (
-  error: any
+    error: any
 ) => TypedAction<HandleFailedGetAllNotesPayload>;
 
 export type RequestAllNotesFn = () => TypedActionNoPayload;
@@ -113,35 +113,35 @@ export type RequestAllNotesFn = () => TypedActionNoPayload;
 export type GetAllNotesFn = () => (dispatch: (callback: any) => void) => void;
 
 export type HandleSuccessfulDeleteNoteFn = (
-  id: number
+    id: number
 ) => TypedAction<HandleSuccessfulDeleteNotePayload>;
 
 export type HandleFailedDeleteNoteFn = (
-  error: any
+    error: any
 ) => TypedAction<HandleFailedDeleteNotePayload>;
 
 export type RemoveNoteFn = (
-  id: number
+    id: number
 ) => (dispatch: (callback: any) => void) => void;
 
 export type HandleSuccessfulGetAllHashtagsFn = (
-  response: HashtagTypeAPI[]
+    response: HashtagTypeAPI[]
 ) => TypedAction<HandleSuccessfulGetAllHashtagsPayload>;
 
 export type HandleFailedGetAllHashtagsFn = (
-  error: any
+    error: any
 ) => TypedAction<HandleFailedGetAllHashtagsPayload>;
 
 export type HandleSuccessfulDeleteHashtagFn = (
-  id: number
+    id: number
 ) => TypedAction<HandleSuccessfulDeleteHashtagPayload>;
 
 export type HandleFailedDeleteHashtagFn = (
-  error: any
+    error: any
 ) => TypedAction<HandleFailedDeleteHashtagPayload>;
 
 export type UpdateNoteFilterQueryFn = (
-  query: string
+    query: string
 ) => TypedAction<UpdateNoteFilterQueryPayload>;
 
 export type CreateInitialHashtagFn = () => Promise<any>;
