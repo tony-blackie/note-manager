@@ -183,8 +183,6 @@ export class EditNote extends React.Component<Props> {
             },
         };
 
-        console.log(editedNote);
-
         return (
             <div>
                 <AppBar
