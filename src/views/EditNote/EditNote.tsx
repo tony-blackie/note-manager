@@ -95,7 +95,7 @@ export class EditNote extends React.Component<Props> {
 
   handleSaveClick = () => {
     const { routeParams, activeHashtagId } = this.props;
-    const { name, textFieldValue, folderId } = this.props.editedNote;
+    const { name, textFieldValue, hashtagId } = this.props.editedNote;
 
     if (!routeParams.noteId) {
       this.props.createNoteRequest(
@@ -110,7 +110,7 @@ export class EditNote extends React.Component<Props> {
         id: routeParams.noteId,
         name,
         text: textFieldValue,
-        parent: folderId
+        parent: hashtagId
       });
     }
   };

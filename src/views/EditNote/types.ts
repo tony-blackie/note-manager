@@ -10,7 +10,7 @@ export interface EditedNote {
   name: string;
   textFieldValue: string;
   textFieldPlaceholder: string;
-  folderId: number | null;
+  hashtagId: number | null;
   date: string;
 }
 
@@ -39,7 +39,7 @@ interface NoteRequestBody {
 
 export type CreateNoteRequestFn = (
   note: NoteRequestBody,
-  activeFolderId: number
+  activeHashtagId: number
 ) => void;
 
 export type EditNoteRequestFn = (note: NoteRequestBody) => void;
