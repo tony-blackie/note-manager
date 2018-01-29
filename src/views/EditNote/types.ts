@@ -1,38 +1,46 @@
-import { FolderType, NoteType, TypedAction, TypedActionNoPayload } from '../../generic/types';
+import {
+  HashtagType,
+  NoteType,
+  TypedAction,
+  TypedActionNoPayload
+} from "../../generic/types";
 
 export interface EditedNote {
-    id?: number | null;
-    name: string;
-    textFieldValue: string;
-    textFieldPlaceholder: string;
-    folderId: number | null;
-    date: string;
+  id?: number | null;
+  name: string;
+  textFieldValue: string;
+  textFieldPlaceholder: string;
+  folderId: number | null;
+  date: string;
 }
 
 export interface EditNoteState {
-    editedNote: EditedNote;
-    isNoteCreationMode: boolean;
-    errorMessage: string;
-    editTags: EditedTags;
+  editedNote: EditedNote;
+  isNoteCreationMode: boolean;
+  errorMessage: string;
+  editTags: EditedTags;
 }
 
 export interface TypedAction {
-    type: string;
-    payload?: any;
+  type: string;
+  payload?: any;
 }
 
 export interface EditedTags {
-    listTags: any
+  listTags: any;
 }
 
 interface NoteRequestBody {
-    id?: string;
-    name: string;
-    text: string;
-    parent?: number | null;
+  id?: string;
+  name: string;
+  text: string;
+  parent?: number | null;
 }
 
-export type CreateNoteRequestFn = (note: NoteRequestBody, activeFolderId: number) => void;
+export type CreateNoteRequestFn = (
+  note: NoteRequestBody,
+  activeFolderId: number
+) => void;
 
 export type EditNoteRequestFn = (note: NoteRequestBody) => void;
 

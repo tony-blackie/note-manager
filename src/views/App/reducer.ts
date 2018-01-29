@@ -1,199 +1,206 @@
-import { findIndex } from 'lodash';
+import { findIndex } from "lodash";
 
 import {
-  MAKE_FOLDER_ACTIVE,
-  MAKE_FOLDER_INACTIVE,
+  MAKE_HASHTAG_ACTIVE,
+  MAKE_HASHTAG_INACTIVE,
   GET_ALL_NOTES,
   GET_ALL_NOTES_SUCCESS,
   GO_TO_NOTE_EDIT,
   REMOVE_NOTE,
   REMOVE_NOTE_SUCCESS,
-  REQUEST_ALL_FOLDERS_SUCCESS,
-  REMOVE_FOLDER_SUCCESS,
-  REMOVE_FOLDER_FAIL,
+  REQUEST_ALL_HASHTAGS_SUCCESS,
+  REMOVE_HASHTAG_SUCCESS,
+  REMOVE_HASHTAG_FAIL,
   UPDATE_NOTE_FILTER_QUERY
-} from './constants';
-import { SAVE_EDITED_FOLDER } from '../EditFolder/constants';
-import { AppComponentState, ReducerAction } from './types';
-import { FolderType, FolderTypeAPI, NoteType, TypedAction } from '../../generic/types';
+} from "./constants";
+import { SAVE_EDITED_HASHTAG } from "../EditHashtag/constants";
+import { AppComponentState, ReducerAction } from "./types";
+import {
+  HashtagType,
+  HashtagTypeAPI,
+  NoteType,
+  TypedAction
+} from "../../generic/types";
 
-const appReducer = (state: AppComponentState = {
-    folders: [],
+const appReducer = (
+  state: AppComponentState = {
+    hashtags: [],
     notes: [],
-    activeFolderId: null,
-    notesQuery: ''
-}, action: TypedAction<ReducerAction>) => {
-    switch(action.type) {
-        case SAVE_EDITED_FOLDER: {
-            const { folderId, folderName } = action.payload;
+    activeHashtagId: null,
+    notesQuery: ""
+  },
+  action: TypedAction<ReducerAction>
+) => {
+  switch (action.type) {
+    case SAVE_EDITED_HASHTAG: {
+      const { hashtagId, hashtagName } = action.payload;
 
-            const newFolders = state.folders.slice();
+      const newHashtags = state.hashtags.slice();
 
-            newFolders.map((folder, index) => {
-                if(folder.id === folderId) {
-                    folder.name = folderName;
-                }
-            });
-
-            return {
-                ...state,
-                folders: newFolders
-            };
+      newHashtags.map((hashtag, index) => {
+        if (hashtag.id === hashtagId) {
+          hashtag.name = hashtagName;
         }
+      });
 
-        case MAKE_FOLDER_ACTIVE: {
-            const { id } = action.payload;
-            const newFolders = state.folders.slice();
-
-            newFolders.map((folder, index) => {
-                if(folder.id === id) {
-                    newFolders[index].isActive = true;
-                } else {
-                    newFolders[index].isActive = false;
-                }
-            });
-
-            return {
-                ...state,
-                folders: newFolders,
-                activeFolderId: id
-            };
-        }
-
-        case MAKE_FOLDER_INACTIVE: {
-            const { id } = action.payload;
-            const newFolders = state.folders.slice();
-            let rootFolderId: number;
-
-            newFolders.map((folder, index) => {
-                newFolders[index].isActive = false;
-
-                if (folder.isRoot) {
-                    rootFolderId = folder.id;
-                }
-            });
-
-            return {
-                ...state,
-                folders: newFolders,
-                activeFolderId: rootFolderId
-            };
-        }
-
-
-        case GO_TO_NOTE_EDIT: {
-            return {
-                ...state,
-                isNoteCreationMode: false
-            }
-        }
-
-        case GET_ALL_NOTES_SUCCESS: {
-            const { notes } = action.payload;
-
-            return {
-                ...state,
-                notes
-            };
-        }
-
-        case REMOVE_NOTE_SUCCESS: {
-            let indexOfNoteInState: number;
-            const { id } = action.payload;
-
-            state.notes.map((note, index) => {
-                if(note.id === id) {
-                    indexOfNoteInState = index;
-                }
-            });
-
-            let newNotes = state.notes.slice(0, indexOfNoteInState);
-
-            if (state.notes[indexOfNoteInState + 1]) {
-                newNotes = newNotes.concat(state.notes.slice(indexOfNoteInState + 1, state.notes.length));
-            }
-
-            return {
-                ...state,
-                notes: newNotes
-            }
-        }
-
-        case REQUEST_ALL_FOLDERS_SUCCESS: {
-            const newFolders: FolderType[] = [];
-            const { folders } = action.payload;
-
-            if (folders.length === 0) {
-                return {
-                    ...state,
-                    folders: [],
-                    activeFolderId: null
-                };
-            }
-
-            let firstFolderId: number = folders[0].id;
-            let activeFolderId: null | number = null;
-
-            folders.map((folder, index) => {
-                const { parent, id, name, notes, is_root } = folder;
-
-                if (is_root) {
-                    activeFolderId = id;
-                }
-
-                newFolders.push({
-                    isOpen: false,
-                    isActive: false,
-                    parent,
-                    id,
-                    name,
-                    notes,
-                    isRoot: is_root
-                });
-            });
-
-            return {
-                ...state,
-                folders: newFolders,
-                activeFolderId
-            }
-        }
-
-
-        case REMOVE_FOLDER_SUCCESS: {
-            let indexOfFolderInState;
-
-            state.folders.map((folder, index) => {
-                if(folder.id === action.payload.id) {
-                    indexOfFolderInState = index;
-                }
-            });
-
-            let newFolders = state.folders.slice(0, indexOfFolderInState);
-
-            if (state.folders[indexOfFolderInState + 1]) {
-                newFolders = newFolders.concat(
-                    state.folders.slice(indexOfFolderInState + 1,
-                    state.folders.length
-                ));
-            }
-
-            return {
-                ...state,
-                folders: newFolders
-            }
-        }
-
-        case UPDATE_NOTE_FILTER_QUERY: {
-            return {
-                ...state,
-                notesQuery: action.payload.query
-            }
-        }
-
-        default:
-            return state;
+      return {
+        ...state,
+        hashtags: newHashtags
+      };
     }
+
+    case MAKE_HASHTAG_ACTIVE: {
+      const { id } = action.payload;
+      const newHashtags = state.hashtags.slice();
+
+      newHashtags.map((hashtag, index) => {
+        if (hashtag.id === id) {
+          newHashtags[index].isActive = true;
+        } else {
+          newHashtags[index].isActive = false;
+        }
+      });
+
+      return {
+        ...state,
+        hashtags: newHashtags,
+        activeHashtagId: id
+      };
+    }
+
+    case MAKE_HASHTAG_INACTIVE: {
+      const { id } = action.payload;
+      const newHashtags = state.hashtags.slice();
+      let rootHashtagId: number;
+
+      newHashtags.map((hashtag, index) => {
+        newHashtags[index].isActive = false;
+
+        if (hashtag.isRoot) {
+          rootHashtagId = hashtag.id;
+        }
+      });
+
+      return {
+        ...state,
+        hashtags: newHashtags,
+        activeHashtagId: rootHashtagId
+      };
+    }
+
+    case GO_TO_NOTE_EDIT: {
+      return {
+        ...state,
+        isNoteCreationMode: false
+      };
+    }
+
+    case GET_ALL_NOTES_SUCCESS: {
+      const { notes } = action.payload;
+
+      return {
+        ...state,
+        notes
+      };
+    }
+
+    case REMOVE_NOTE_SUCCESS: {
+      let indexOfNoteInState: number;
+      const { id } = action.payload;
+
+      state.notes.map((note, index) => {
+        if (note.id === id) {
+          indexOfNoteInState = index;
+        }
+      });
+
+      let newNotes = state.notes.slice(0, indexOfNoteInState);
+
+      if (state.notes[indexOfNoteInState + 1]) {
+        newNotes = newNotes.concat(
+          state.notes.slice(indexOfNoteInState + 1, state.notes.length)
+        );
+      }
+
+      return {
+        ...state,
+        notes: newNotes
+      };
+    }
+
+    case REQUEST_ALL_HASHTAGS_SUCCESS: {
+      const newHashtags: HashtagType[] = [];
+      const { hashtags } = action.payload;
+
+      if (hashtags.length === 0) {
+        return {
+          ...state,
+          hashtags: [],
+          activeHashtagId: null
+        };
+      }
+
+      let firstHashtagId: number = hashtags[0].id;
+      let activeHashtagId: null | number = null;
+
+      hashtags.map((hashtag, index) => {
+        const { parent, id, name, notes, is_root } = hashtag;
+
+        if (is_root) {
+          activeHashtagId = id;
+        }
+
+        newHashtags.push({
+          isOpen: false,
+          isActive: false,
+          parent,
+          id,
+          name,
+          notes,
+          isRoot: is_root
+        });
+      });
+
+      return {
+        ...state,
+        hashtags: newHashtags,
+        activeHashtagId
+      };
+    }
+
+    case REMOVE_HASHTAG_SUCCESS: {
+      let indexOfHashtagInState;
+
+      state.hashtags.map((hashtag, index) => {
+        if (hashtag.id === action.payload.id) {
+          indexOfHashtagInState = index;
+        }
+      });
+
+      let newHashtags = state.hashtags.slice(0, indexOfHashtagInState);
+
+      if (state.hashtags[indexOfHashtagInState + 1]) {
+        newHashtags = newHashtags.concat(
+          state.hashtags.slice(indexOfHashtagInState + 1, state.hashtags.length)
+        );
+      }
+
+      return {
+        ...state,
+        hashtags: newHashtags
+      };
+    }
+
+    case UPDATE_NOTE_FILTER_QUERY: {
+      return {
+        ...state,
+        notesQuery: action.payload.query
+      };
+    }
+
+    default:
+      return state;
+  }
 };
 
 export default appReducer;
