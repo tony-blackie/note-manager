@@ -47,7 +47,10 @@ import {
   clearNoteData,
   handleClearErrorMessage
 } from "./actions/EditNote.actions";
+
 import utils from "../../utils";
+
+import { getAllHashtags } from "../App/actions/AppComponent.actions";
 
 const { setDefaultAuthHeader } = utils;
 
@@ -76,6 +79,7 @@ interface MappedActions {
   clearNoteData: () => void;
   handleClearErrorMessage: () => void;
   goToRoot: () => void;
+  getAllHashtags: () => void;
 }
 
 type Props = OwnProps & MappedActions & MappedProps;
@@ -89,6 +93,8 @@ export class EditNote extends React.Component<Props> {
     } else {
       this.props.clearNoteData();
     }
+
+    this.props.getAllHashtags();
 
     this.props.handleClearErrorMessage();
   }
@@ -262,7 +268,8 @@ export const mapDispatchToProps = dispatch =>
       changeNoteName,
       fetchNote,
       clearNoteData,
-      handleClearErrorMessage
+      handleClearErrorMessage,
+      getAllHashtags
     },
     dispatch
   );
