@@ -64,8 +64,6 @@ const editNoteReducer = (
             const { name, id, text, hashtags, date } = action.payload
                 .note as NoteType;
 
-            debugger;
-
             return {
                 ...state,
                 editedNote: {

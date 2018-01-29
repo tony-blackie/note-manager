@@ -78,7 +78,6 @@ export default class EditTags extends React.Component<OwnProps, State> {
 
     handleInputChange(event) {
         console.log(event.target.value);
-        debugger;
         let text = event.target.value.trim();
         let arr = this.state.startData.slice();
         let searchArr = this.state.searchArr.slice();
