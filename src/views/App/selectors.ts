@@ -48,12 +48,6 @@ export const selectNotesByQuery = createSelector(
     }
 );
 
-export const isAnyHashtagActive = createSelector(
-    selectHashtags,
-    (hashtags: HashtagType[]): boolean =>
-        hashtags.some(hashtag => hashtag.isActive)
-);
-
 export const selectTruncatedNotes = createSelector(
     selectNotesByQuery,
     notes => {

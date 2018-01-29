@@ -5,20 +5,19 @@ import {
     TypedActionNoPayload,
 } from '../../generic/types';
 
-export interface EditedNote {
+export interface EditedNote<Hashtag> {
     id?: number | null;
     name: string;
     textFieldValue: string;
     textFieldPlaceholder: string;
-    hashtagId: number | null;
+    hashtags: Hashtag[];
     date: string;
 }
 
 export interface EditNoteState {
-    editedNote: EditedNote;
+    editedNote: EditedNote<HashtagType | number>;
     isNoteCreationMode: boolean;
     errorMessage: string;
-    editTags: EditedTags;
 }
 
 export interface TypedAction {

@@ -6,6 +6,8 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import Chip from 'material-ui/Chip';
 import Checkbox from 'material-ui/Checkbox';
 
+import { HashtagType } from '../../../generic/types';
+
 interface State {
     isOpen: boolean;
     startData: any;
@@ -16,7 +18,11 @@ interface State {
     trySearch: boolean;
 }
 
-let mock = [
+interface OwnProps {
+    allHashtags: HashtagType[];
+}
+
+let mock: HashtagType[] = [
     { id: 1, name: 'initial' },
     { id: 2, name: 'chloe' },
     { id: 13, name: 'rachel' },
@@ -32,7 +38,7 @@ const styles = {
     },
 };
 
-export default class EditTags extends React.Component<{}, State> {
+export default class EditTags extends React.Component<OwnProps, State> {
     constructor(props) {
         super(props);
         this.state = {

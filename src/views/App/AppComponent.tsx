@@ -17,7 +17,6 @@ import {
     selectHashtags,
     selectActiveHashtagId,
     selectQuery,
-    isAnyHashtagActive,
     selectTruncatedNotes,
 } from './selectors';
 import utils from '../../utils';
@@ -191,7 +190,6 @@ export const mapStateToProps = state =>
         hashtags: selectHashtags,
         activeHashtagId: selectActiveHashtagId,
         searchQuery: selectQuery,
-        isAnyHashtagActive: isAnyHashtagActive,
     });
 
 export const mapDispatchToProps = dispatch =>

@@ -16,7 +16,7 @@ export interface Store {
 
 export interface NoteType {
     id: number;
-    parent: number;
+    hashtags: HashtagType[];
     name: string;
     text: string;
     date: string;
@@ -24,20 +24,12 @@ export interface NoteType {
 
 export interface HashtagType {
     id: number;
-    parent: number;
     name: string;
-    notes: number[];
-    isRoot: boolean;
-    isActive?: boolean;
-    isOpen?: boolean;
 }
 
 export interface HashtagTypeAPI {
     id: number;
-    parent: number;
     name: string;
-    notes: number[];
-    is_root: boolean;
 }
 
 export interface TypedAction<payload> {

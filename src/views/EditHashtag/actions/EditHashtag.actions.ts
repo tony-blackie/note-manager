@@ -104,7 +104,7 @@ export const requestHashtagEdit: RequestHashtagEditFn = () => ({
 export const editHashtag: EditHashtagFn = hashtag => dispatch => {
     dispatch(requestHashtagEdit());
 
-    const { id, name, parent, isRoot, notes } = hashtag;
+    const { id, name } = hashtag;
 
     return axios
         .request({
@@ -114,8 +114,6 @@ export const editHashtag: EditHashtagFn = hashtag => dispatch => {
                 id,
                 name,
                 parent,
-                is_root: isRoot,
-                notes,
             },
         })
         .then(response => {

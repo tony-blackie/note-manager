@@ -18,9 +18,6 @@ const editHashtagReducer = (
         hashtag: {
             name: '',
             id: 0,
-            isRoot: false,
-            parent: 0,
-            notes: [],
         },
         errorMessage: '',
     },
@@ -31,22 +28,13 @@ const editHashtagReducer = (
             const { payload } = action as TypedAction<
                 HandleSuccessfulGetHashtagPayload
             >;
-            const {
-                name,
-                id,
-                is_root,
-                notes,
-                parent,
-            } = payload.hashtag as HashtagTypeAPI;
+            const { name, id } = payload.hashtag as HashtagTypeAPI;
 
             return {
                 ...state,
                 hashtag: {
-                    isRoot: is_root,
                     name: name,
                     id: id,
-                    parent,
-                    notes,
                 },
             };
         }

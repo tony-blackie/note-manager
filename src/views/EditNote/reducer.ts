@@ -21,14 +21,11 @@ const editNoteReducer = (
             name: '',
             textFieldValue: '',
             textFieldPlaceholder: '',
-            hashtagId: null,
+            hashtags: [],
             date: '',
         },
         isNoteCreationMode: false,
         errorMessage: '',
-        editTags: {
-            listTags: [{ id: 53, name: 'initial' }, { id: 54, name: 'chloe' }],
-        },
     },
     action: TypedAction
 ) => {
@@ -64,8 +61,10 @@ const editNoteReducer = (
         }
 
         case GET_NOTE_SUCCESS: {
-            const { name, id, text, parent, date } = action.payload
+            const { name, id, text, hashtags, date } = action.payload
                 .note as NoteType;
+
+            debugger;
 
             return {
                 ...state,
@@ -74,7 +73,7 @@ const editNoteReducer = (
                     name,
                     id,
                     textFieldValue: text,
-                    hashtagId: parent,
+                    hashtags,
                     date,
                 },
             };
@@ -87,7 +86,7 @@ const editNoteReducer = (
                     id: null,
                     name: '',
                     textFieldValue: '',
-                    hashtagId: null,
+                    hashtags: [],
                 },
             };
         }

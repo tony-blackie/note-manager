@@ -49,44 +49,44 @@ const appReducer = (
             };
         }
 
-        case MAKE_HASHTAG_ACTIVE: {
-            const { id } = action.payload;
-            const newHashtags = state.hashtags.slice();
+        // case MAKE_HASHTAG_ACTIVE: {
+        //     const { id } = action.payload;
+        //     const newHashtags = state.hashtags.slice();
 
-            newHashtags.map((hashtag, index) => {
-                if (hashtag.id === id) {
-                    newHashtags[index].isActive = true;
-                } else {
-                    newHashtags[index].isActive = false;
-                }
-            });
+        //     newHashtags.map((hashtag, index) => {
+        //         if (hashtag.id === id) {
+        //             newHashtags[index].isActive = true;
+        //         } else {
+        //             newHashtags[index].isActive = false;
+        //         }
+        //     });
 
-            return {
-                ...state,
-                hashtags: newHashtags,
-                activeHashtagId: id,
-            };
-        }
+        //     return {
+        //         ...state,
+        //         hashtags: newHashtags,
+        //         activeHashtagId: id,
+        //     };
+        // }
 
-        case MAKE_HASHTAG_INACTIVE: {
-            const { id } = action.payload;
-            const newHashtags = state.hashtags.slice();
-            let rootHashtagId: number;
+        // case MAKE_HASHTAG_INACTIVE: {
+        //     const { id } = action.payload;
+        //     const newHashtags = state.hashtags.slice();
+        //     let rootHashtagId: number;
 
-            newHashtags.map((hashtag, index) => {
-                newHashtags[index].isActive = false;
+        //     newHashtags.map((hashtag, index) => {
+        //         newHashtags[index].isActive = false;
 
-                if (hashtag.isRoot) {
-                    rootHashtagId = hashtag.id;
-                }
-            });
+        //         if (hashtag.isRoot) {
+        //             rootHashtagId = hashtag.id;
+        //         }
+        //     });
 
-            return {
-                ...state,
-                hashtags: newHashtags,
-                activeHashtagId: rootHashtagId,
-            };
-        }
+        //     return {
+        //         ...state,
+        //         hashtags: newHashtags,
+        //         activeHashtagId: rootHashtagId,
+        //     };
+        // }
 
         case GO_TO_NOTE_EDIT: {
             return {
@@ -132,7 +132,6 @@ const appReducer = (
         }
 
         case REQUEST_ALL_HASHTAGS_SUCCESS: {
-            const newHashtags: HashtagType[] = [];
             const { hashtags } = action.payload;
 
             if (hashtags.length === 0) {
@@ -143,31 +142,18 @@ const appReducer = (
                 };
             }
 
-            let firstHashtagId: number = hashtags[0].id;
-            let activeHashtagId: null | number = null;
+            // let firstHashtagId: number = hashtags[0].id;
+            // let activeHashtagId: null | number = null;
 
-            hashtags.map((hashtag, index) => {
-                const { parent, id, name, notes, is_root } = hashtag;
-
-                if (is_root) {
-                    activeHashtagId = id;
-                }
-
-                newHashtags.push({
-                    isOpen: false,
-                    isActive: false,
-                    parent,
-                    id,
-                    name,
-                    notes,
-                    isRoot: is_root,
-                });
-            });
+            // const newHashtags: HashtagType[] = hashtags.map(hashtag => ({
+            //     id: hashtag.id,
+            //     name: hashtag.name,
+            // }));
 
             return {
                 ...state,
-                hashtags: newHashtags,
-                activeHashtagId,
+                hashtags,
+                // activeHashtagId,
             };
         }
 
