@@ -17,6 +17,8 @@ interface State {
     valueInput: string;
     isVisibleBnt: boolean;
     trySearch: boolean;
+    wereHashtagsInitialized: boolean;
+    wasAutocompleteInitialized: boolean;
 }
 
 interface OwnProps {
@@ -51,18 +53,28 @@ export default class EditTags extends React.Component<OwnProps, State> {
             valueInput: '',
             isVisibleBnt: false,
             trySearch: false,
+            wereHashtagsInitialized: false,
+            wasAutocompleteInitialized: false,
         };
     }
 
     componentWillReceiveProps(props) {
-        if (props.allHashtags.length && !this.state.startData.length) {
-            this.setState({ startData: props.allHashtags });
+        if (
+            props.allHashtags.length &&
+            !this.state.startData.length &&
+            !this.state.wereHashtagsInitialized
+        ) {
+            this.setState({
+                startData: props.allHashtags,
+                wereHashtagsInitialized: true,
+            });
         }
 
         if (
             props.hashtagsInNote.length &&
             !this.state.mockData.length &&
-            !this.state.searchArr.length
+            !this.state.searchArr.length &&
+            !this.state.wasAutocompleteInitialized
         ) {
             const hashtagsInAutocomplete = props.allHashtags.filter(
                 hashtag => !find(props.hashtagsInNote, hashtag)
@@ -71,6 +83,7 @@ export default class EditTags extends React.Component<OwnProps, State> {
             this.setState({
                 mockData: props.hashtagsInNote,
                 searchArr: hashtagsInAutocomplete,
+                wasAutocompleteInitialized: true,
             });
         }
     }
