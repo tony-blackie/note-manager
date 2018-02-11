@@ -38,7 +38,8 @@ interface NoteRequestBody {
 
 export type CreateNoteRequestFn = (
     note: NoteRequestBody,
-    activeHashtagId: number
+    allHashtags: HashtagType[];
+    hashtagsToAdd: HashtagType[];
 ) => void;
 
 export type EditNoteRequestFn = (note: NoteRequestBody) => void;

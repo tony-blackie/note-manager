@@ -15,6 +15,7 @@ import {
     Divider,
 } from 'material-ui';
 import Chip from 'material-ui/Chip';
+import { find } from 'lodash';
 
 import {
     selectIsNoteCreationMode,
@@ -70,6 +71,18 @@ interface MappedProps {
     allHashtags: HashtagType[];
 }
 
+interface State {
+    isOpen: boolean;
+    // startData: any;
+    mockData: any;
+    searchArr: any;
+    valueInput: string;
+    isVisibleBnt: boolean;
+    trySearch: boolean;
+    wereHashtagsInitialized: boolean;
+    wasAutocompleteInitialized: boolean;
+}
+
 interface MappedActions {
     createNoteRequest: CreateNoteRequestFn;
     editNoteRequest: EditNoteRequestFn;
@@ -84,7 +97,38 @@ interface MappedActions {
 
 type Props = OwnProps & MappedActions & MappedProps;
 
-export class EditNote extends React.Component<Props> {
+export class EditNote extends React.Component<Props, State> {
+    state: State = {
+        isOpen: null,
+        // startData: [],
+        searchArr: [],
+        mockData: [],
+        valueInput: '',
+        isVisibleBnt: false,
+        trySearch: false,
+        wereHashtagsInitialized: false,
+        wasAutocompleteInitialized: false,
+    };
+
+    componentWillReceiveProps(props) {
+        // if (
+        //     props.allHashtags.length &&
+        //     !this.state.searchArr.length &&
+        //     !this.state.wereHashtagsInitialized
+        // ) {
+        //     this.setInitialAllHashtags(props);
+        // }
+
+        if (
+            props.editedNote.hashtags.length &&
+            !this.state.mockData.length &&
+            !this.state.searchArr.length &&
+            !this.state.wasAutocompleteInitialized
+        ) {
+            this.setInitialAutocomplete(props);
+        }
+    }
+
     componentDidMount() {
         setDefaultAuthHeader();
 
@@ -109,6 +153,8 @@ export class EditNote extends React.Component<Props> {
             //         name,
             //         text: textFieldValue,
             //     },
+            //     this.state.mockData.concat(this.state.searchArr),
+            //     this.state.mockData
             // );
         } else {
             // this.props.editNoteRequest({
@@ -126,6 +172,120 @@ export class EditNote extends React.Component<Props> {
 
     handleNameChange = event => {
         this.props.changeNoteName(event.target.value);
+    };
+
+    closeState = () => {
+        this.setState({ isOpen: false });
+    };
+
+    saveData = () => {
+        let rand = 0 + Math.random() * (1000 + 1 - 0);
+        rand = Math.floor(rand);
+
+        let obj = { name: this.state.valueInput, id: rand };
+        let arr = this.state.mockData.slice();
+        let data = arr.concat(obj);
+
+        if (this.state.valueInput.length !== 0) {
+            this.setState({
+                isOpen: false,
+                mockData: data,
+                searchArr: [],
+                valueInput: '',
+                isVisibleBnt: false,
+                trySearch: false,
+            });
+        }
+    };
+
+    handleInputChange = event => {
+        console.log(event.target.value);
+        let text = event.target.value.trim();
+        let arr = this.state.searchArr.slice();
+
+        let flterArr = arr.filter(item => {
+            return (
+                item.name.toLowerCase().substr(0, text.length) ===
+                text.toLowerCase()
+            );
+        });
+
+        //let finArr = searchArr.concat(flterArr);
+
+        if (flterArr.length === 0 && text.length !== 0) {
+            this.setState({
+                searchArr: flterArr,
+                valueInput: text,
+                isVisibleBnt: true,
+                trySearch: true,
+            });
+        } else {
+            this.setState({
+                searchArr: flterArr,
+                valueInput: text,
+                isVisibleBnt: true,
+            });
+        }
+    };
+
+    updateCheck = id => {
+        debugger;
+        let data = this.state.searchArr.slice();
+        const itemForAdd = data.map(item => item.id).indexOf(id);
+        let item = data.slice(itemForAdd, itemForAdd + 1);
+
+        let mock = this.state.mockData.slice() || [];
+        mock = mock.concat(item);
+        data.splice(itemForAdd, 1);
+
+        this.setState({
+            isOpen: false,
+            // startData: data,
+            mockData: mock,
+            searchArr: data,
+            valueInput: '',
+            isVisibleBnt: false,
+            trySearch: false,
+        });
+    };
+
+    handleRequestDelete = id => {
+        debugger;
+        let chipData = this.state.mockData.slice();
+        const chipToDelete = chipData.map(chip => chip.id).indexOf(id);
+
+        let mock = this.state.searchArr.slice();
+        let item = chipData.slice(chipToDelete, chipToDelete + 1);
+        mock = mock.concat(item);
+        chipData.splice(chipToDelete, 1);
+
+        this.setState({
+            mockData: chipData,
+            searchArr: mock,
+        });
+    };
+
+    // setInitialAllHashtags = props => {
+    //     this.setState({
+    //         startData: props.allHashtags,
+    //         wereHashtagsInitialized: true,
+    //     });
+    // };
+
+    setInitialAutocomplete = props => {
+        const hashtagsInAutocomplete = props.allHashtags.filter(
+            hashtag => !find(props.editedNote.hashtags, hashtag)
+        );
+
+        this.setState({
+            mockData: props.editedNote.hashtags,
+            searchArr: hashtagsInAutocomplete,
+            wasAutocompleteInitialized: true,
+        });
+    };
+
+    setAutocompleteOpen = () => {
+        this.setState({ isOpen: true });
     };
 
     render() {
@@ -182,8 +342,24 @@ export class EditNote extends React.Component<Props> {
             },
         };
 
+        const {
+            isOpen,
+            // startData,
+            mockData,
+            searchArr,
+            valueInput,
+            isVisibleBnt,
+            trySearch,
+            wereHashtagsInitialized,
+            wasAutocompleteInitialized,
+        } = this.state;
+
         return (
-            <div>
+            <div
+                onClick={() =>
+                    this.state.isOpen ? this.setState({ isOpen: false }) : ''
+                }
+            >
                 <AppBar
                     title="Notes &#x3b2;eta"
                     iconClassNameRight="muidocs-icon-navigation-expand-more"
@@ -216,6 +392,31 @@ export class EditNote extends React.Component<Props> {
                             <EditTags
                                 hashtagsInNote={hashtagsInNote}
                                 allHashtags={allHashtags}
+                                isOpen={isOpen}
+                                // startData={startData}
+                                mockData={mockData}
+                                searchArr={searchArr}
+                                valueInput={valueInput}
+                                isVisibleBnt={isVisibleBnt}
+                                trySearch={trySearch}
+                                wereHashtagsInitialized={
+                                    wereHashtagsInitialized
+                                }
+                                wasAutocompleteInitialized={
+                                    wasAutocompleteInitialized
+                                }
+                                // setInitialAllHashtags={
+                                //     this.setInitialAllHashtags
+                                // }
+                                setInitialAutocomplete={
+                                    this.setInitialAutocomplete
+                                }
+                                handleRequestDelete={this.handleRequestDelete}
+                                updateCheck={this.updateCheck}
+                                handleInputChange={this.handleInputChange}
+                                saveData={this.saveData}
+                                closeState={this.closeState}
+                                setAutocompleteOpen={this.setAutocompleteOpen}
                             />
                         </div>
                     </Paper>

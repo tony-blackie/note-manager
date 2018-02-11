@@ -9,9 +9,13 @@ import { find } from 'lodash';
 
 import { HashtagType } from '../../../generic/types';
 
-interface State {
+interface State {}
+
+interface OwnProps {
+    allHashtags: HashtagType[];
+    hashtagsInNote: HashtagType[];
     isOpen: boolean;
-    startData: any;
+    // startData: any;
     mockData: any;
     searchArr: any;
     valueInput: string;
@@ -19,11 +23,14 @@ interface State {
     trySearch: boolean;
     wereHashtagsInitialized: boolean;
     wasAutocompleteInitialized: boolean;
-}
-
-interface OwnProps {
-    allHashtags: HashtagType[];
-    hashtagsInNote: HashtagType[];
+    // setInitialAllHashtags: any;
+    setInitialAutocomplete: any;
+    handleRequestDelete: any;
+    updateCheck: any;
+    handleInputChange: any;
+    saveData: any;
+    closeState: any;
+    setAutocompleteOpen: any;
 }
 
 // let mock: HashtagType[] = [
@@ -43,136 +50,24 @@ const styles = {
 };
 
 export default class EditTags extends React.Component<OwnProps, State> {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isOpen: null,
-            startData: [],
-            searchArr: [],
-            mockData: [],
-            valueInput: '',
-            isVisibleBnt: false,
-            trySearch: false,
-            wereHashtagsInitialized: false,
-            wasAutocompleteInitialized: false,
-        };
-    }
+    // componentWillReceiveProps(props) {
+    //     if (
+    //         props.allHashtags.length &&
+    //         !this.props.startData.length &&
+    //         !this.props.wereHashtagsInitialized
+    //     ) {
+    //         this.props.setInitialAllHashtags(props);
+    //     }
 
-    componentWillReceiveProps(props) {
-        if (
-            props.allHashtags.length &&
-            !this.state.startData.length &&
-            !this.state.wereHashtagsInitialized
-        ) {
-            this.setState({
-                startData: props.allHashtags,
-                wereHashtagsInitialized: true,
-            });
-        }
-
-        if (
-            props.hashtagsInNote.length &&
-            !this.state.mockData.length &&
-            !this.state.searchArr.length &&
-            !this.state.wasAutocompleteInitialized
-        ) {
-            const hashtagsInAutocomplete = props.allHashtags.filter(
-                hashtag => !find(props.hashtagsInNote, hashtag)
-            );
-
-            this.setState({
-                mockData: props.hashtagsInNote,
-                searchArr: hashtagsInAutocomplete,
-                wasAutocompleteInitialized: true,
-            });
-        }
-    }
-
-    closeState() {
-        this.setState({ isOpen: false });
-    }
-
-    saveData() {
-        let rand = 0 + Math.random() * (1000 + 1 - 0);
-        rand = Math.floor(rand);
-
-        let obj = { name: this.state.valueInput, id: rand };
-        let arr = this.state.mockData.slice();
-        let data = arr.concat(obj);
-
-        if (this.state.valueInput.length !== 0) {
-            this.setState({
-                isOpen: false,
-                mockData: data,
-                searchArr: [],
-                valueInput: '',
-                isVisibleBnt: false,
-                trySearch: false,
-            });
-        }
-    }
-
-    handleInputChange(event) {
-        console.log(event.target.value);
-        let text = event.target.value.trim();
-        let arr = this.state.startData.slice();
-        let searchArr = this.state.searchArr.slice();
-
-        let flterArr = arr.filter(item => {
-            return (
-                item.name.toLowerCase().substr(0, text.length) ===
-                text.toLowerCase()
-            );
-        });
-
-        //let finArr = searchArr.concat(flterArr);
-
-        if (flterArr.length === 0 && text.length !== 0) {
-            this.setState({
-                searchArr: flterArr,
-                valueInput: text,
-                isVisibleBnt: true,
-                trySearch: true,
-            });
-        } else {
-            this.setState({
-                searchArr: flterArr,
-                valueInput: text,
-                isVisibleBnt: true,
-            });
-        }
-    }
-
-    updateCheck(id) {
-        let data = this.state.startData.slice();
-        const itemForAdd = data.map(item => item.id).indexOf(id);
-        let item = data.slice(itemForAdd, itemForAdd + 1);
-        let mock = this.state.mockData.slice() || [];
-        mock = mock.concat(item);
-        data.splice(itemForAdd, 1);
-        this.setState({
-            isOpen: false,
-            startData: data,
-            mockData: mock,
-            searchArr: [],
-            valueInput: '',
-            isVisibleBnt: false,
-            trySearch: false,
-        });
-    }
-
-    handleRequestDelete(id) {
-        let chipData = this.state.mockData.slice();
-        const chipToDelete = chipData.map(chip => chip.id).indexOf(id);
-        let mock = this.state.startData.slice();
-        let item = chipData.slice(chipToDelete, chipToDelete + 1);
-        mock = mock.concat(item);
-        chipData.splice(chipToDelete, 1);
-        this.setState({
-            mockData: chipData,
-            startData: mock,
-        });
-    }
+    //     if (
+    //         props.hashtagsInNote.length &&
+    //         !this.props.mockData.length &&
+    //         !this.props.searchArr.length &&
+    //         !this.props.wasAutocompleteInitialized
+    //     ) {
+    //         this.props.setInitialAutocomplete(props);
+    //     }
+    // }
 
     render() {
         const chipStyles = {
@@ -198,12 +93,13 @@ export default class EditTags extends React.Component<OwnProps, State> {
                     ))}
                 </div> */}
                 <div style={styles.wrapper}>
-                    {this.state.mockData.map((item, index) => (
+                    {this.props.mockData.map((item, index) => (
                         <Chip
                             key={item.id}
                             style={styles.chip}
                             onRequestDelete={() => {
-                                this.handleRequestDelete(item.id);
+                                debugger;
+                                this.props.handleRequestDelete(item.id);
                             }}
                         >
                             {item.name}
@@ -214,9 +110,9 @@ export default class EditTags extends React.Component<OwnProps, State> {
                     iconButtonElement={<div>Add tag +</div>}
                     anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
                     targetOrigin={{ horizontal: 'left', vertical: 'top' }}
-                    open={this.state.isOpen}
+                    open={this.props.isOpen}
                     onClick={() => {
-                        this.setState({ isOpen: true });
+                        this.props.setAutocompleteOpen();
                     }}
                     onRequestChange={(e, r) => {
                         r === 'clickAway'
@@ -227,38 +123,40 @@ export default class EditTags extends React.Component<OwnProps, State> {
                     <div>
                         <input
                             type="text"
-                            value={this.state.valueInput}
+                            value={this.props.valueInput}
                             onChange={e => {
-                                this.handleInputChange(e);
+                                this.props.handleInputChange(e);
                             }}
                         />
-                        {this.state.searchArr.length === 0 &&
-                        !this.state.trySearch
-                            ? this.state.startData.map((item, index) => (
+                        {/* {this.props.searchArr.length === 0 &&
+                        !this.props.trySearch
+                            ? this.props.startData.map((item, index) => (
                                   <Checkbox
                                       key={index}
                                       label={item.name}
                                       onCheck={() => {
-                                          this.updateCheck(item.id);
+                                          debugger;
+                                          this.props.updateCheck(item.id);
                                       }}
                                   />
-                              ))
-                            : this.state.searchArr.map((item, index) => (
-                                  <Checkbox
-                                      key={index}
-                                      label={item.name}
-                                      onCheck={() => {
-                                          this.updateCheck(item.id);
-                                      }}
-                                  />
-                              ))}
-                        {this.state.isVisibleBnt ? (
+                              )) */}
+                        {/* :  */}
+                        {this.props.searchArr.map((item, index) => (
+                            <Checkbox
+                                key={index}
+                                label={item.name}
+                                onCheck={() => {
+                                    this.props.updateCheck(item.id);
+                                }}
+                            />
+                        ))}
+                        {this.props.isVisibleBnt ? (
                             <button
                                 onClick={() => {
-                                    this.saveData();
+                                    this.props.saveData();
                                 }}
                             >
-                                Save {this.state.valueInput}
+                                Save {this.props.valueInput}
                             </button>
                         ) : (
                             false

@@ -81,7 +81,8 @@ export const handleFailedNoteCreation = () => {
 
 export const createNoteRequest = (
     note: NoteType,
-    activeHashtagId: number
+    allHashtags: HashtagType[],
+    hashtagsToAdd: HashtagType[]
 ) => dispatch => {
     dispatch({ type: CREATE_NEW_NOTE });
 
