@@ -120,7 +120,7 @@ export class EditNote extends React.Component<Props, State> {
         // }
 
         if (
-            props.editedNote.hashtags.length &&
+            props.allHashtags.length &&
             !this.state.mockData.length &&
             !this.state.searchArr.length &&
             !this.state.wasAutocompleteInitialized
@@ -182,10 +182,10 @@ export class EditNote extends React.Component<Props, State> {
     };
 
     saveData = () => {
-        let rand = 0 + Math.random() * (1000 + 1 - 0);
-        rand = Math.floor(rand);
+        // let rand = 0 + Math.random() * (1000 + 1 - 0);
+        // rand = Math.floor(rand);
 
-        let obj = { name: this.state.valueInput, id: rand };
+        let obj = { name: this.state.valueInput };
         let arr = this.state.mockData.slice();
         let data = arr.concat(obj);
 
@@ -276,15 +276,30 @@ export class EditNote extends React.Component<Props, State> {
     // };
 
     setInitialAutocomplete = props => {
-        const hashtagsInAutocomplete = props.allHashtags.filter(
-            hashtag => !find(props.editedNote.hashtags, hashtag)
-        );
+        /*
+            TODO: editedNote.name is used to check if editedNote data has already resolved.
+            Later it needs to be refactored to some flag like isLoaded.
+         */
+        if (this.props.routeParams.noteId) {
+            if (this.props.editedNote.name) {
+                debugger;
+                const hashtagsInAutocomplete = props.allHashtags.filter(
+                    hashtag => !find(props.editedNote.hashtags, hashtag)
+                );
 
-        this.setState({
-            mockData: props.editedNote.hashtags,
-            searchArr: hashtagsInAutocomplete,
-            wasAutocompleteInitialized: true,
-        });
+                this.setState({
+                    mockData: props.editedNote.hashtags,
+                    searchArr: hashtagsInAutocomplete,
+                    wasAutocompleteInitialized: true,
+                });
+            }
+        } else {
+            this.setState({
+                mockData: [],
+                searchArr: props.allHashtags,
+                wasAutocompleteInitialized: true,
+            });
+        }
     };
 
     setAutocompleteOpen = () => {
