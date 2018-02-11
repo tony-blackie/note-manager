@@ -6,16 +6,28 @@ import { createStructuredSelector } from 'reselect';
 import axios from 'axios';
 import * as format from 'date-fns/format';
 import * as parse from 'date-fns/parse';
-import { RaisedButton, Paper, TextField, Subheader, AppBar, Divider } from 'material-ui';
+import {
+    RaisedButton,
+    Paper,
+    TextField,
+    Subheader,
+    AppBar,
+    Divider,
+} from 'material-ui';
+import Chip from 'material-ui/Chip';
+import { find } from 'lodash';
 
 import {
     selectIsNoteCreationMode,
-    selectEditedNote,
+    selectNoteWithHashtags,
     selectErrorMessage,
+    // selectEditTags,
 } from './selectors';
-import { selectActiveFolderId } from '../App/selectors';
-import { NoteType } from '../../generic/types';
+import { selectHashtags } from '../App/selectors';
+import { NoteType, HashtagType } from '../../generic/types';
 import { goToRoot } from '../../generic/actions';
+
+import EditTags from './components/EditTags';
 
 import {
     CreateNoteRequestFn,
@@ -23,35 +35,51 @@ import {
     ChangeTextFieldValueFn,
     FetchNoteFn,
     EditNoteState,
-    EditedNote
+    EditedNote,
+    EditedTags,
 } from './types';
 
 import {
-  editNoteRequest,
-  createNoteRequest,
-  changeTextFieldValue,
-  changeNoteName,
-  fetchNote,
-  clearNoteData,
-  handleClearErrorMessage
- } from './actions/EditNote.actions';
- import utils from '../../utils';
+    editNoteRequest,
+    createNoteRequest,
+    changeTextFieldValue,
+    changeNoteName,
+    fetchNote,
+    clearNoteData,
+    handleClearErrorMessage,
+} from './actions/EditNote.actions';
 
- const { setDefaultAuthHeader } = utils;
+import utils from '../../utils';
 
- interface RouteParams {
-     noteId: string;
- }
+import { getAllHashtags } from '../App/actions/AppComponent.actions';
 
- interface OwnProps {
-     routeParams: RouteParams
- }
+const { setDefaultAuthHeader } = utils;
+
+interface RouteParams {
+    noteId: string;
+}
+
+interface OwnProps {
+    routeParams: RouteParams;
+}
 
 interface MappedProps {
     name: string;
-    editedNote: EditedNote;
-    activeFolderId: number | null;
+    editedNote: EditedNote<HashtagType>;
+    activeHashtagId: number | null;
     errorMessage: string;
+    allHashtags: HashtagType[];
+}
+
+interface State {
+    isOpen: boolean;
+    mockData: any;
+    searchArr: any;
+    valueInput: string;
+    isVisibleBnt: boolean;
+    trySearch: boolean;
+    wereHashtagsInitialized: boolean;
+    wasAutocompleteInitialized: boolean;
 }
 
 interface MappedActions {
@@ -63,11 +91,34 @@ interface MappedActions {
     clearNoteData: () => void;
     handleClearErrorMessage: () => void;
     goToRoot: () => void;
+    getAllHashtags: () => void;
 }
 
 type Props = OwnProps & MappedActions & MappedProps;
 
-export class EditNote extends React.Component<Props> {
+export class EditNote extends React.Component<Props, State> {
+    state: State = {
+        isOpen: null,
+        searchArr: [],
+        mockData: [],
+        valueInput: '',
+        isVisibleBnt: false,
+        trySearch: false,
+        wereHashtagsInitialized: false,
+        wasAutocompleteInitialized: false,
+    };
+
+    componentWillReceiveProps(props) {
+        if (
+            props.allHashtags.length &&
+            !this.state.mockData.length &&
+            !this.state.searchArr.length &&
+            !this.state.wasAutocompleteInitialized
+        ) {
+            this.setInitialAutocomplete(props);
+        }
+    }
+
     componentDidMount() {
         setDefaultAuthHeader();
 
@@ -77,40 +128,168 @@ export class EditNote extends React.Component<Props> {
             this.props.clearNoteData();
         }
 
-        this.props.handleClearErrorMessage();
+        this.props.getAllHashtags();
 
+        this.props.handleClearErrorMessage();
     }
 
     handleSaveClick = () => {
-        const { routeParams, activeFolderId } = this.props;
-        const { name, textFieldValue, folderId } = this.props.editedNote;
+        const { routeParams, activeHashtagId } = this.props;
+        const { name, textFieldValue, hashtags } = this.props.editedNote;
 
         if (!routeParams.noteId) {
-            this.props.createNoteRequest({
-                name,
-                text: textFieldValue,
-            }, activeFolderId);
+            this.props.createNoteRequest(
+                {
+                    name,
+                    text: textFieldValue,
+                },
+                this.state.mockData.concat(this.state.searchArr),
+                this.state.mockData
+            );
         } else {
-            this.props.editNoteRequest({
-                id: routeParams.noteId,
-                name,
-                text: textFieldValue,
-                parent: folderId
+            this.props.editNoteRequest(
+                {
+                    id: routeParams.noteId,
+                    name,
+                    text: textFieldValue,
+                },
+                this.state.mockData.concat(this.state.searchArr),
+                this.state.mockData
+            );
+        }
+    };
+
+    handleTextFieldChange = event => {
+        this.props.changeTextFieldValue(event.target.value);
+    };
+
+    handleNameChange = event => {
+        this.props.changeNoteName(event.target.value);
+    };
+
+    closeState = () => {
+        this.setState({ isOpen: false });
+    };
+
+    saveData = () => {
+        // let rand = 0 + Math.random() * (1000 + 1 - 0);
+        // rand = Math.floor(rand);
+
+        let obj = { name: this.state.valueInput };
+        let arr = this.state.mockData.slice();
+        let data = arr.concat(obj);
+
+        if (this.state.valueInput.length !== 0) {
+            this.setState({
+                isOpen: false,
+                mockData: data,
+                searchArr: [],
+                valueInput: '',
+                isVisibleBnt: false,
+                trySearch: false,
             });
         }
-    }
+    };
 
-    handleTextFieldChange = (event) => {
-        this.props.changeTextFieldValue(event.target.value);
-    }
+    handleInputChange = event => {
+        console.log(event.target.value);
+        let text = event.target.value.trim();
+        let arr = this.state.searchArr.slice();
 
-    handleNameChange = (event) => {
-        this.props.changeNoteName(event.target.value);
-    }
+        let flterArr = arr.filter(item => {
+            return (
+                item.name.toLowerCase().substr(0, text.length) ===
+                text.toLowerCase()
+            );
+        });
+
+        //let finArr = searchArr.concat(flterArr);
+
+        if (flterArr.length === 0 && text.length !== 0) {
+            this.setState({
+                searchArr: flterArr,
+                valueInput: text,
+                isVisibleBnt: true,
+                trySearch: true,
+            });
+        } else {
+            this.setState({
+                searchArr: flterArr,
+                valueInput: text,
+                isVisibleBnt: true,
+            });
+        }
+    };
+
+    updateCheck = id => {
+        let data = this.state.searchArr.slice();
+        const itemForAdd = data.map(item => item.id).indexOf(id);
+        let item = data.slice(itemForAdd, itemForAdd + 1);
+
+        let mock = this.state.mockData.slice() || [];
+        mock = mock.concat(item);
+        data.splice(itemForAdd, 1);
+
+        this.setState({
+            isOpen: false,
+            // startData: data,
+            mockData: mock,
+            searchArr: data,
+            valueInput: '',
+            isVisibleBnt: false,
+            trySearch: false,
+        });
+    };
+
+    handleRequestDelete = id => {
+        let chipData = this.state.mockData.slice();
+        const chipToDelete = chipData.map(chip => chip.id).indexOf(id);
+
+        let mock = this.state.searchArr.slice();
+        let item = chipData.slice(chipToDelete, chipToDelete + 1);
+        mock = mock.concat(item);
+        chipData.splice(chipToDelete, 1);
+
+        this.setState({
+            mockData: chipData,
+            searchArr: mock,
+        });
+    };
+
+    setInitialAutocomplete = props => {
+        /*
+            TODO: editedNote.name is used to check if editedNote data has already resolved.
+            Later it needs to be refactored to some flag like isLoaded.
+         */
+        if (props.routeParams.noteId) {
+            if (props.editedNote.name && props.allHashtags.length) {
+                const hashtagsInAutocomplete = props.allHashtags.filter(
+                    hashtag => !find(props.editedNote.hashtags, hashtag)
+                );
+
+                this.setState({
+                    mockData: props.editedNote.hashtags,
+                    searchArr: hashtagsInAutocomplete,
+                    wasAutocompleteInitialized: true,
+                });
+            }
+        } else {
+            this.setState({
+                mockData: [],
+                searchArr: props.allHashtags,
+                wasAutocompleteInitialized: true,
+            });
+        }
+    };
+
+    setAutocompleteOpen = () => {
+        this.setState({ isOpen: true });
+    };
 
     render() {
-        const { errorMessage, editedNote } = this.props;
+        const { errorMessage, editedNote, allHashtags } = this.props;
         const { textFieldValue, textFieldPlaceholder, name, date } = editedNote;
+        const hashtagsInNote = editedNote.hashtags;
 
         const parsedDate = date ? format(parse(date), 'DD/MM/YY') : null;
 
@@ -123,43 +302,67 @@ export class EditNote extends React.Component<Props> {
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
-            backgroundColor: '#fff9c4'
+            backgroundColor: '#fff9c4',
         };
 
         const leftButtonStyles = {
-            margin: '15px 0 15px 0'
+            margin: '15px 0 15px 0',
         };
 
         const rightButtonStyles = {
-            margin: '15px 0 15px 15px'
+            margin: '15px 0 15px 15px',
         };
 
         const subheaderStyles = {
-            paddingLeft: 0
+            paddingLeft: 0,
         };
 
         const headerInputStyles = {
             cursor: 'default',
             maxWidth: '90%',
-            textOverflow: 'ellipsis'
+            textOverflow: 'ellipsis',
         };
 
         const textareaStyles = {
-            width: '100%'
+            width: '100%',
         };
 
         const titleStyles = {
-            cursor: 'pointer'
+            cursor: 'pointer',
         };
 
+        const chipStyles = {
+            chip: {
+                margin: 4,
+            },
+            wrapper: {
+                display: 'flex',
+            },
+        };
+
+        const {
+            isOpen,
+            // startData,
+            mockData,
+            searchArr,
+            valueInput,
+            isVisibleBnt,
+            trySearch,
+            wereHashtagsInitialized,
+            wasAutocompleteInitialized,
+        } = this.state;
+
         return (
-            <div>
+            <div
+                onClick={() =>
+                    this.state.isOpen ? this.setState({ isOpen: false }) : ''
+                }
+            >
                 <AppBar
                     title="Notes &#x3b2;eta"
                     iconClassNameRight="muidocs-icon-navigation-expand-more"
                     zDepth={2}
-                >
-                </AppBar>
+                />
                 <div>
                     <div>{errorMessage}</div>
                     <Paper zDepth={2} style={wrapperStyles}>
@@ -173,14 +376,47 @@ export class EditNote extends React.Component<Props> {
                                 underlineShow={false}
                                 inputStyle={headerInputStyles}
                             />
-                            <Divider/>
+                            <Divider />
                             <textarea
                                 className="edit-note__textarea"
                                 value={textFieldValue}
                                 onChange={this.handleTextFieldChange}
                             />
                         </form>
-                        <div className="edit-note__creation-date">Created on: {parsedDate}</div>
+                        <div className="edit-note__creation-date">
+                            Created on: {parsedDate}
+                        </div>
+                        <div>
+                            <EditTags
+                                hashtagsInNote={hashtagsInNote}
+                                allHashtags={allHashtags}
+                                isOpen={isOpen}
+                                // startData={startData}
+                                mockData={mockData}
+                                searchArr={searchArr}
+                                valueInput={valueInput}
+                                isVisibleBnt={isVisibleBnt}
+                                trySearch={trySearch}
+                                wereHashtagsInitialized={
+                                    wereHashtagsInitialized
+                                }
+                                wasAutocompleteInitialized={
+                                    wasAutocompleteInitialized
+                                }
+                                // setInitialAllHashtags={
+                                //     this.setInitialAllHashtags
+                                // }
+                                setInitialAutocomplete={
+                                    this.setInitialAutocomplete
+                                }
+                                handleRequestDelete={this.handleRequestDelete}
+                                updateCheck={this.updateCheck}
+                                handleInputChange={this.handleInputChange}
+                                saveData={this.saveData}
+                                closeState={this.closeState}
+                                setAutocompleteOpen={this.setAutocompleteOpen}
+                            />
+                        </div>
                     </Paper>
                     <nav className="edit-note__nav">
                         <Link to="/">
@@ -204,21 +440,31 @@ export class EditNote extends React.Component<Props> {
     }
 }
 
-export const mapStateToProps = (state: EditNoteState) => createStructuredSelector({
-    isNoteCreationMode: selectIsNoteCreationMode,
-    editedNote: selectEditedNote,
-    activeFolderId: selectActiveFolderId,
-    errorMessage: selectErrorMessage
-});
+export const mapStateToProps = (state: EditNoteState) =>
+    createStructuredSelector({
+        isNoteCreationMode: selectIsNoteCreationMode,
+        editedNote: selectNoteWithHashtags,
+        errorMessage: selectErrorMessage,
+        // editedTags: selectEditTags,
+        allHashtags: selectHashtags,
+    });
 
-export const mapDispatchToProps = dispatch => bindActionCreators({
-    editNoteRequest,
-    createNoteRequest,
-    changeTextFieldValue,
-    changeNoteName,
-    fetchNote,
-    clearNoteData,
-    handleClearErrorMessage,
-}, dispatch);
+export const mapDispatchToProps = dispatch =>
+    bindActionCreators(
+        {
+            editNoteRequest,
+            createNoteRequest,
+            changeTextFieldValue,
+            changeNoteName,
+            fetchNote,
+            clearNoteData,
+            handleClearErrorMessage,
+            getAllHashtags,
+        },
+        dispatch
+    );
 
-export default connect<MappedProps, MappedActions, {}>(mapStateToProps, mapDispatchToProps)(EditNote);
+export default connect<MappedProps, MappedActions, {}>(
+    mapStateToProps,
+    mapDispatchToProps
+)(EditNote);

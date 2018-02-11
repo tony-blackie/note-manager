@@ -1,16 +1,21 @@
-import { FolderType, NoteType, TypedAction, TypedActionNoPayload } from '../../generic/types';
+import {
+    HashtagType,
+    NoteType,
+    TypedAction,
+    TypedActionNoPayload,
+} from '../../generic/types';
 
-export interface EditedNote {
+export interface EditedNote<Hashtag> {
     id?: number | null;
     name: string;
     textFieldValue: string;
     textFieldPlaceholder: string;
-    folderId: number | null;
+    hashtags: Hashtag[];
     date: string;
 }
 
 export interface EditNoteState {
-    editedNote: EditedNote;
+    editedNote: EditedNote<HashtagType | number>;
     isNoteCreationMode: boolean;
     errorMessage: string;
 }
@@ -20,6 +25,10 @@ export interface TypedAction {
     payload?: any;
 }
 
+export interface EditedTags {
+    listTags: any;
+}
+
 interface NoteRequestBody {
     id?: string;
     name: string;
@@ -27,9 +36,17 @@ interface NoteRequestBody {
     parent?: number | null;
 }
 
-export type CreateNoteRequestFn = (note: NoteRequestBody, activeFolderId: number) => void;
+export type CreateNoteRequestFn = (
+    note: NoteRequestBody,
+    allHashtags: HashtagType[],
+    hashtagsToAdd: HashtagType[]
+) => void;
 
-export type EditNoteRequestFn = (note: NoteRequestBody) => void;
+export type EditNoteRequestFn = (
+    note: NoteRequestBody,
+    allHashtags: HashtagType[],
+    hashtagsToAdd: HashtagType[]
+) => void;
 
 export type ChangeTextFieldValueFn = (value: string) => void;
 

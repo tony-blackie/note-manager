@@ -1,18 +1,24 @@
-import { FolderType, FolderTypeAPI, NoteType, TypedAction, TypedActionNoPayload } from '../../generic/types';
-import { HandleSuccessfulFolderEditPayload } from '../EditFolder/types';
+import {
+    HashtagType,
+    HashtagTypeAPI,
+    NoteType,
+    TypedAction,
+    TypedActionNoPayload,
+} from '../../generic/types';
+import { HandleSuccessfulHashtagEditPayload } from '../EditHashtag/types';
 
 export interface AppComponentState {
-    folders: FolderType[] | null;
+    hashtags: HashtagType[] | null;
     notes: NoteType[];
-    activeFolderId: number | null;
+    activeHashtagId: number | null;
     notesQuery: string;
 }
 
-export interface MakeFolderActivePayload {
+export interface MakeHashtagActivePayload {
     id: number;
 }
 
-export interface MakeFolderInactivePayload {
+export interface MakeHashtagInactivePayload {
     id: number;
 }
 
@@ -28,23 +34,23 @@ export interface HandleSuccessfulDeleteNotePayload {
     id: number;
 }
 
-export interface HandleSuccessfulGetAllFoldersPayload {
-    folders: FolderTypeAPI[];
+export interface HandleSuccessfulGetAllHashtagsPayload {
+    hashtags: HashtagTypeAPI[];
 }
 
 export interface HandleFailedDeleteNotePayload {
     error: any;
 }
 
-export interface HandleFailedGetAllFoldersPayload {
+export interface HandleFailedGetAllHashtagsPayload {
     error: any;
 }
 
-export interface HandleSuccessfulDeleteFolderPayload {
+export interface HandleSuccessfulDeleteHashtagPayload {
     id: number;
 }
 
-export interface HandleFailedDeleteFolderPayload {
+export interface HandleFailedDeleteHashtagPayload {
     error: any;
 }
 
@@ -52,68 +58,90 @@ export interface UpdateNoteFilterQueryPayload {
     query: string;
 }
 
-export type ReducerAction =
-MakeFolderActivePayload &
-HandleFailedDeleteFolderPayload &
-HandleFailedDeleteNotePayload &
-HandleFailedGetAllFoldersPayload &
-HandleFailedGetAllNotesPayload &
-HandleSuccessfulDeleteFolderPayload &
-HandleSuccessfulDeleteNotePayload &
-HandleSuccessfulGetAllFoldersPayload &
-HandleSuccessfulGetAllNotesPayload &
-HandleSuccessfulFolderEditPayload &
-UpdateNoteFilterQueryPayload
+export type ReducerAction = MakeHashtagActivePayload &
+    HandleFailedDeleteHashtagPayload &
+    HandleFailedDeleteNotePayload &
+    HandleFailedGetAllHashtagsPayload &
+    HandleFailedGetAllNotesPayload &
+    HandleSuccessfulDeleteHashtagPayload &
+    HandleSuccessfulDeleteNotePayload &
+    HandleSuccessfulGetAllHashtagsPayload &
+    HandleSuccessfulGetAllNotesPayload &
+    HandleSuccessfulHashtagEditPayload &
+    UpdateNoteFilterQueryPayload;
 
-export type GoToNoteEditFn = (id: number) => (dispatch: (obj: any) => void) => void;
+export type GoToNoteEditFn = (
+    id: number
+) => (dispatch: (obj: any) => void) => void;
 
-export type MakeFolderActiveFn = (id: number) =>
-    (dispatch: (obj: TypedAction<MakeFolderActivePayload>) => void) => void;
+export type MakeHashtagActiveFn = (
+    id: number
+) => (dispatch: (obj: TypedAction<MakeHashtagActivePayload>) => void) => void;
 
-export type MakeFolderInactiveFn = (id: number) =>
-    (dispatch: (obj: TypedAction<MakeFolderInactivePayload>) => void) => void;
+export type MakeHashtagInactiveFn = (
+    id: number
+) => (dispatch: (obj: TypedAction<MakeHashtagInactivePayload>) => void) => void;
 
-export type GoToEditFolderFn = (id: number) => (dispatch: (obj: TypedAction<any>) => void) => void;
+export type GoToEditHashtagFn = (
+    id: number
+) => (dispatch: (obj: TypedAction<any>) => void) => void;
 
-export type RemoveFolderFn = (id: number) => (dispatch: (obj: TypedAction<any>) => void) => void;
+export type RemoveHashtagFn = (
+    id: number
+) => (dispatch: (obj: TypedAction<any>) => void) => void;
 
-export type GoToFolderCreationFn = () => (dispatch: (obj: TypedAction<any>) => void) => void;
+export type GoToHashtagCreationFn = () => (
+    dispatch: (obj: TypedAction<any>) => void
+) => void;
 
 export type GoToNoteCreationFn = () => (dispatch: (obj: any) => void) => void;
 
-export type GetAllFoldersFn = () => (dispatch: (obj: TypedAction<any>) => void) => void;
+export type GetAllHashtagsFn = () => (
+    dispatch: (obj: TypedAction<any>) => void
+) => void;
 
-export type HandleSuccessfulGetAllNotesFn = (response: NoteType[]) =>
-    TypedAction<HandleSuccessfulGetAllNotesPayload>;
+export type HandleSuccessfulGetAllNotesFn = (
+    response: NoteType[]
+) => TypedAction<HandleSuccessfulGetAllNotesPayload>;
 
-export type HandleFailedGetAllNotesFn = (error: any) =>
-    TypedAction<HandleFailedGetAllNotesPayload>;
+export type HandleFailedGetAllNotesFn = (
+    error: any
+) => TypedAction<HandleFailedGetAllNotesPayload>;
 
 export type RequestAllNotesFn = () => TypedActionNoPayload;
 
 export type GetAllNotesFn = () => (dispatch: (callback: any) => void) => void;
 
-export type HandleSuccessfulDeleteNoteFn = (id: number) =>
-    TypedAction<HandleSuccessfulDeleteNotePayload>;
+export type HandleSuccessfulDeleteNoteFn = (
+    id: number
+) => TypedAction<HandleSuccessfulDeleteNotePayload>;
 
-export type HandleFailedDeleteNoteFn = (error: any) =>
-    TypedAction<HandleFailedDeleteNotePayload>;
+export type HandleFailedDeleteNoteFn = (
+    error: any
+) => TypedAction<HandleFailedDeleteNotePayload>;
 
-export type RemoveNoteFn = (id: number) => (dispatch: (callback: any) => void) => void;
+export type RemoveNoteFn = (
+    id: number
+) => (dispatch: (callback: any) => void) => void;
 
-export type HandleSuccessfulGetAllFoldersFn = (response: FolderTypeAPI[]) =>
-    TypedAction<HandleSuccessfulGetAllFoldersPayload>;
+export type HandleSuccessfulGetAllHashtagsFn = (
+    response: HashtagTypeAPI[]
+) => TypedAction<HandleSuccessfulGetAllHashtagsPayload>;
 
-export type HandleFailedGetAllFoldersFn = (error: any) =>
-    TypedAction<HandleFailedGetAllFoldersPayload>;
+export type HandleFailedGetAllHashtagsFn = (
+    error: any
+) => TypedAction<HandleFailedGetAllHashtagsPayload>;
 
-export type HandleSuccessfulDeleteFolderFn = (id: number) =>
-    TypedAction<HandleSuccessfulDeleteFolderPayload>;
+export type HandleSuccessfulDeleteHashtagFn = (
+    id: number
+) => TypedAction<HandleSuccessfulDeleteHashtagPayload>;
 
-export type HandleFailedDeleteFolderFn = (error: any) =>
-    TypedAction<HandleFailedDeleteFolderPayload>;
+export type HandleFailedDeleteHashtagFn = (
+    error: any
+) => TypedAction<HandleFailedDeleteHashtagPayload>;
 
-export type UpdateNoteFilterQueryFn = (query: string) =>
-    TypedAction<UpdateNoteFilterQueryPayload>;
+export type UpdateNoteFilterQueryFn = (
+    query: string
+) => TypedAction<UpdateNoteFilterQueryPayload>;
 
-export type CreateInitialFolderFn = () => Promise<any>;
+export type CreateInitialHashtagFn = () => Promise<any>;

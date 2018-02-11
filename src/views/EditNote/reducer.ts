@@ -1,36 +1,37 @@
 import {
-  EDIT_EXISTING_NOTE,
-  EDIT_EXISTING_NOTE_SUCCESS,
-  CREATE_NEW_NOTE,
-  CREATE_NEW_NOTE_SUCCESS,
-  CHANGE_TEXT_FIELD_VALUE,
-  CHANGE_NOTE_NAME,
-  GET_NOTE_SUCCESS,
-  GET_NOTE_FAIL,
-  CLEAR_NOTE_DATA,
-  CREATE_NEW_NOTE_FAIL,
-  CLEAR_ERROR_MESSAGE
+    EDIT_EXISTING_NOTE,
+    EDIT_EXISTING_NOTE_SUCCESS,
+    CREATE_NEW_NOTE,
+    CREATE_NEW_NOTE_SUCCESS,
+    CHANGE_TEXT_FIELD_VALUE,
+    CHANGE_NOTE_NAME,
+    GET_NOTE_SUCCESS,
+    GET_NOTE_FAIL,
+    CLEAR_NOTE_DATA,
+    CREATE_NEW_NOTE_FAIL,
+    CLEAR_ERROR_MESSAGE,
 } from './constants';
 import { EditNoteState, TypedAction } from './types';
 import { NoteType } from '../../generic/types';
 
-const editNoteReducer = (state: EditNoteState = {
-    editedNote: {
-        id: null,
-        name: '',
-        textFieldValue: '',
-        textFieldPlaceholder: '',
-        folderId: null,
-        date: ''
+const editNoteReducer = (
+    state: EditNoteState = {
+        editedNote: {
+            id: null,
+            name: '',
+            textFieldValue: '',
+            textFieldPlaceholder: '',
+            hashtags: [],
+            date: '',
+        },
+        isNoteCreationMode: false,
+        errorMessage: '',
     },
-    isNoteCreationMode: false,
-    errorMessage: ''
-}, action: TypedAction) => {
-    let newFoldersArray,
-        clickedFolder,
-        clickedFolderIndex;
+    action: TypedAction
+) => {
+    let newHashtagsArray, clickedHashtag, clickedHashtagIndex;
 
-    switch(action.type) {
+    switch (action.type) {
         case EDIT_EXISTING_NOTE: {
             return state;
         }
@@ -44,8 +45,8 @@ const editNoteReducer = (state: EditNoteState = {
                 ...state,
                 editedNote: {
                     ...state.editedNote,
-                    textFieldValue: action.payload.textFieldValue
-                }
+                    textFieldValue: action.payload.textFieldValue,
+                },
             };
         }
 
@@ -54,13 +55,14 @@ const editNoteReducer = (state: EditNoteState = {
                 ...state,
                 editedNote: {
                     ...state.editedNote,
-                    name: action.payload.name
-                }
+                    name: action.payload.name,
+                },
             };
         }
 
         case GET_NOTE_SUCCESS: {
-            const { name, id, text, parent, date } = action.payload.note as NoteType;
+            const { name, id, text, hashtags, date } = action.payload
+                .note as NoteType;
 
             return {
                 ...state,
@@ -69,9 +71,9 @@ const editNoteReducer = (state: EditNoteState = {
                     name,
                     id,
                     textFieldValue: text,
-                    folderId: parent,
-                    date
-                }
+                    hashtags,
+                    date,
+                },
             };
         }
 
@@ -82,22 +84,22 @@ const editNoteReducer = (state: EditNoteState = {
                     id: null,
                     name: '',
                     textFieldValue: '',
-                    folderId: null
-                }
+                    hashtags: [],
+                },
             };
         }
 
         case CREATE_NEW_NOTE_FAIL: {
             return {
                 ...state,
-                errorMessage: 'sorry, try later :('
+                errorMessage: 'sorry, try later :(',
             };
         }
 
         case CLEAR_ERROR_MESSAGE: {
             return {
                 ...state,
-                errorMessage: ''
+                errorMessage: '',
             };
         }
 

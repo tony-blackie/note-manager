@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import { includes } from 'lodash';
 
-import { Store, FolderType } from '../../generic/types';
+import { Store, HashtagType } from '../../generic/types';
 import utils from '../../utils';
 
 const { truncateText } = utils;
@@ -10,7 +10,7 @@ export const selectAppView = (state: Store) => state.app;
 
 export const selectQuery = createSelector(
     selectAppView,
-    (appView) => appView.notesQuery
+    appView => appView.notesQuery
 );
 
 export const selectNotes = createSelector(
@@ -18,14 +18,14 @@ export const selectNotes = createSelector(
     appView => appView.notes
 );
 
-export const selectFolders = createSelector(
+export const selectHashtags = createSelector(
     selectAppView,
-    appView => appView.folders
+    appView => appView.hashtags
 );
 
-export const selectActiveFolderId = createSelector(
+export const selectActiveHashtagId = createSelector(
     selectAppView,
-    appView => appView.activeFolderId
+    appView => appView.activeHashtagId
 );
 
 export const selectNotesByQuery = createSelector(
@@ -38,16 +38,14 @@ export const selectNotesByQuery = createSelector(
             const lowerCaseName = note.name.toLowerCase();
             const lowerCaseText = note.text.toLowerCase();
 
-            return includes(lowerCaseName, lowerCaseQuery) || includes(lowerCaseText, lowerCaseQuery);
+            return (
+                includes(lowerCaseName, lowerCaseQuery) ||
+                includes(lowerCaseText, lowerCaseQuery)
+            );
         });
 
         return filteredNotes;
     }
-);
-
-export const isAnyFolderActive = createSelector(
-    selectFolders,
-    (folders: FolderType[]): boolean => folders.some(folder => folder.isActive)
 );
 
 export const selectTruncatedNotes = createSelector(
@@ -56,7 +54,7 @@ export const selectTruncatedNotes = createSelector(
         const truncatedNotes = notes.map(note => {
             return {
                 ...note,
-                text: truncateText(note.text)
+                text: truncateText(note.text),
             };
         });
 

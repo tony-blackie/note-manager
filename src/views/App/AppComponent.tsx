@@ -5,20 +5,19 @@ import { createStructuredSelector } from 'reselect';
 import axios from 'axios';
 import { hashHistory } from 'react-router';
 import { Paper, AppBar } from 'material-ui';
-import { grey300, TextField, IconButton,  } from 'material-ui';
+import { grey300, TextField, IconButton } from 'material-ui';
 
 import ControlPanel from './components/ControlPanel';
-import FolderTree from './components/FolderTree';
+// import FolderTree from "./components/FolderTree";
 import NotePanel from './components/NotePanel';
-import Folder from './components/Folder';
+// import Folder from "./components/Folder";
 import CustomIconMenu from './components/CustomIconMenu';
 import {
     selectNotesByQuery,
-    selectFolders,
-    selectActiveFolderId,
+    selectHashtags,
+    selectActiveHashtagId,
     selectQuery,
-    isAnyFolderActive,
-    selectTruncatedNotes
+    selectTruncatedNotes,
 } from './selectors';
 import utils from '../../utils';
 import { updateNoteFilterQuery } from './actions/AppComponent.actions';
@@ -26,56 +25,56 @@ import { updateNoteFilterQuery } from './actions/AppComponent.actions';
 const { setDefaultAuthHeader, getToken } = utils;
 
 import {
-  getAllNotes,
-  goToNoteCreation,
-  goToNoteEdit,
-  removeNote,
-  makeFolderActive,
-  makeFolderInactive,
-  getAllFolders,
-  removeFolder,
-  goToEditFolder,
-  goToFolderCreation,
-  createInitialFolder
+    getAllNotes,
+    goToNoteCreation,
+    goToNoteEdit,
+    removeNote,
+    makeHashtagActive,
+    makeHashtagInactive,
+    getAllHashtags,
+    removeHashtag,
+    goToEditHashtag,
+    goToHashtagCreation,
+    createInitialHashtag,
 } from './actions/AppComponent.actions';
 
 import {
     GetAllNotesFn,
-    GetAllFoldersFn,
+    GetAllHashtagsFn,
     GoToNoteEditFn,
-    GoToEditFolderFn,
-    MakeFolderActiveFn,
-    MakeFolderInactiveFn,
+    GoToEditHashtagFn,
+    MakeHashtagActiveFn,
+    MakeHashtagInactiveFn,
     GoToNoteCreationFn,
-    GoToFolderCreationFn,
-    RemoveFolderFn,
+    GoToHashtagCreationFn,
+    RemoveHashtagFn,
     RemoveNoteFn,
-    CreateInitialFolderFn,
-    UpdateNoteFilterQueryFn
+    CreateInitialHashtagFn,
+    UpdateNoteFilterQueryFn,
 } from './types';
-import { FolderType, NoteType } from '../../generic/types';
+import { HashtagType, NoteType } from '../../generic/types';
 
 interface MappedProps {
     filteredNotes: NoteType[];
-    folders: FolderType[];
-    activeFolderId: number;
+    hashtags: HashtagType[];
+    activeHashtagId: number;
     searchQuery: string;
-    isAnyFolderActive: boolean;
+    isAnyHashtagActive: boolean;
     truncatedNotes: NoteType[];
 }
 
 interface MappedActions {
     getAllNotes: GetAllNotesFn;
-    getAllFolders: GetAllFoldersFn;
+    getAllHashtags: GetAllHashtagsFn;
     goToNoteEdit: GoToNoteEditFn;
-    goToEditFolder: GoToEditFolderFn;
-    makeFolderActive: MakeFolderActiveFn;
-    makeFolderInactive: MakeFolderInactiveFn;
+    goToEditHashtag: GoToEditHashtagFn;
+    makeHashtagActive: MakeHashtagActiveFn;
+    makeHashtagInactive: MakeHashtagInactiveFn;
     goToNoteCreation: GoToNoteCreationFn;
-    goToFolderCreation: GoToFolderCreationFn;
-    removeFolder: RemoveFolderFn;
+    goToHashtagCreation: GoToHashtagCreationFn;
+    removeHashtag: RemoveHashtagFn;
     removeNote: RemoveNoteFn;
-    createInitialFolder: CreateInitialFolderFn;
+    createInitialHashtag: CreateInitialHashtagFn;
     updateNoteFilterQuery: UpdateNoteFilterQueryFn;
 }
 
@@ -98,41 +97,41 @@ export class App extends React.Component<Props> {
         setDefaultAuthHeader();
 
         this.props.getAllNotes();
-        this.props.getAllFolders();
+        this.props.getAllHashtags();
     }
 
     updateNoteFilterQuery = (event: Event) => {
         const text = event.target.value;
 
         this.props.updateNoteFilterQuery(text);
-    }
+    };
 
     render() {
         const {
             goToNoteCreation,
-            removeFolder,
-            activeFolderId,
-            goToEditFolder,
-            goToFolderCreation,
-            folders,
-            makeFolderActive,
-            makeFolderInactive,
+            removeHashtag,
+            activeHashtagId,
+            goToEditHashtag,
+            goToHashtagCreation,
+            hashtags,
+            makeHashtagActive,
+            makeHashtagInactive,
             goToNoteEdit,
             removeNote,
             filteredNotes,
-            isAnyFolderActive,
-            truncatedNotes
+            isAnyHashtagActive,
+            truncatedNotes,
         } = this.props;
 
         const wrapperStyles = {
             padding: 20,
             margin: '20px auto',
-            maxWidth: 300
+            maxWidth: 300,
         };
 
         const menuStyles = {
             width: '100%',
-            backgroundColor: grey300
+            backgroundColor: grey300,
         };
 
         return (
@@ -156,27 +155,27 @@ export class App extends React.Component<Props> {
                     />
                     <ControlPanel
                         goToNoteCreation={goToNoteCreation}
-                        removeFolder={removeFolder}
-                        activeFolderId={activeFolderId}
-                        goToEditFolder={goToEditFolder}
-                        goToFolderCreation={goToFolderCreation}
-                        isAnyFolderActive={isAnyFolderActive}
+                        removeHashtag={removeHashtag}
+                        activeHashtagId={activeHashtagId}
+                        goToEditHashtag={goToEditHashtag}
+                        goToHashtagCreation={goToHashtagCreation}
+                        isAnyHashtagActive={isAnyHashtagActive}
                     />
                 </AppBar>
                 <div className="content-wrapper">
-                    <Paper zDepth={2} style={wrapperStyles}>
-                        <FolderTree
-                        folders={folders}
-                        makeFolderActive={makeFolderActive}
-                        makeFolderInactive={makeFolderInactive}
-                        />
-                    </Paper>
+                    {/* <Paper zDepth={2} style={wrapperStyles}> */}
+                    {/* <FolderTree
+              folders={folders}
+              makeFolderActive={makeFolderActive}
+              makeFolderInactive={makeFolderInactive} */}
+                    {/* /> */}
+                    {/* </Paper> */}
                     <NotePanel
                         notes={truncatedNotes}
                         goToNoteEdit={goToNoteEdit}
                         removeNote={removeNote}
-                        activeFolderId={activeFolderId}
-                        folders={folders}
+                        activeHashtagId={activeHashtagId}
+                        hashtags={hashtags}
                     />
                 </div>
             </div>
@@ -184,28 +183,35 @@ export class App extends React.Component<Props> {
     }
 }
 
-export const mapStateToProps = state => createStructuredSelector({
-    filteredNotes: selectNotesByQuery,
-    truncatedNotes: selectTruncatedNotes,
-    folders: selectFolders,
-    activeFolderId: selectActiveFolderId,
-    searchQuery: selectQuery,
-    isAnyFolderActive: isAnyFolderActive
-});
+export const mapStateToProps = state =>
+    createStructuredSelector({
+        filteredNotes: selectNotesByQuery,
+        truncatedNotes: selectTruncatedNotes,
+        hashtags: selectHashtags,
+        activeHashtagId: selectActiveHashtagId,
+        searchQuery: selectQuery,
+    });
 
-export const mapDispatchToProps = dispatch => bindActionCreators({
-    getAllNotes,
-    goToNoteCreation,
-    goToNoteEdit,
-    removeNote,
-    makeFolderActive,
-    makeFolderInactive,
-    getAllFolders,
-    removeFolder,
-    goToEditFolder,
-    goToFolderCreation,
-    createInitialFolder,
-    updateNoteFilterQuery
-}, dispatch);
+export const mapDispatchToProps = dispatch =>
+    bindActionCreators(
+        {
+            getAllNotes,
+            goToNoteCreation,
+            goToNoteEdit,
+            removeNote,
+            makeHashtagActive,
+            makeHashtagInactive,
+            getAllHashtags,
+            removeHashtag,
+            goToEditHashtag,
+            goToHashtagCreation,
+            createInitialHashtag,
+            updateNoteFilterQuery,
+        },
+        dispatch
+    );
 
-export default connect<MappedProps, MappedActions, {}>(mapStateToProps, mapDispatchToProps)(App);
+export default connect<MappedProps, MappedActions, {}>(
+    mapStateToProps,
+    mapDispatchToProps
+)(App);

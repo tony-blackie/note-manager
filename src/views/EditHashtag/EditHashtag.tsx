@@ -7,23 +7,23 @@ import axios from 'axios';
 import { Paper, AppBar, TextField, RaisedButton, Subheader } from 'material-ui';
 
 import {
-    GetFolderFn,
-    CreateNewFolderFn,
-    EditFolderFn,
-    HandleFolderNameChangeFn,
-    HandleFailedFolderCreationFn,
-    HandleClearFailedFolderCreationFn,
+    GetHashtagFn,
+    CreateNewHashtagFn,
+    EditHashtagFn,
+    HandleHashtagNameChangeFn,
+    HandleFailedHashtagCreationFn,
+    HandleClearFailedHashtagCreationFn,
 } from './types';
-import { FolderType } from '../../generic/types';
+import { HashtagType } from '../../generic/types';
 import {
-    getFolder,
-    handleFolderNameChange,
-    editFolder,
-    createNewFolder,
-    handleFailedFolderCreation,
-} from './actions/EditFolder.actions';
-import { selectFolder, selectErrorMessage } from './selectors';
-import { selectActiveFolderId } from '../App/selectors';
+    getHashtag,
+    handleHashtagNameChange,
+    editHashtag,
+    createNewHashtag,
+    handleFailedHashtagCreation,
+} from './actions/EditHashtag.actions';
+import { selectHashtag, selectErrorMessage } from './selectors';
+import { selectActiveHashtagId } from '../App/selectors';
 import utils from '../../utils';
 
 const { setDefaultAuthHeader } = utils;
@@ -37,23 +37,23 @@ interface OwnProps {
 }
 
 interface MappedProps {
-    folder: FolderType;
+    folder: HashtagType;
     errorMessage: string;
-    activeFolderId: number;
+    activeHashtagId: number;
 }
 
 interface MappedActions {
-    getFolder: GetFolderFn;
-    createNewFolder: CreateNewFolderFn;
-    editFolder: EditFolderFn;
-    handleFolderNameChange: HandleFolderNameChangeFn;
-    handleFailedFolderCreation: HandleFailedFolderCreationFn;
-    handleClearFailedFolderCreation: HandleClearFailedFolderCreationFn;
+    getHashtag: GetHashtagFn;
+    createNewHashtag: CreateNewHashtagFn;
+    editHashtag: EditHashtagFn;
+    handleHashtagNameChange: HandleHashtagNameChangeFn;
+    handleFailedHashtagCreation: HandleFailedHashtagCreationFn;
+    handleClearFailedHashtagCreation: HandleClearFailedHashtagCreationFn;
 }
 
 type Props = OwnProps & MappedProps & MappedActions;
 
-export class EditFolder extends React.Component<Props> {
+export class EditHashtag extends React.Component<Props> {
     componentDidMount() {
         setDefaultAuthHeader();
 
@@ -62,20 +62,20 @@ export class EditFolder extends React.Component<Props> {
         if (this.props.routeParams.id) {
             const numericId = parseInt(id, 10);
 
-            this.props.getFolder(numericId);
+            this.props.getHashtag(numericId);
         }
     }
 
-    handleFolderSave = event => {
+    handleHashtagSave = event => {
         event.preventDefault();
 
-        const { routeParams, folder, activeFolderId } = this.props;
+        const { routeParams, folder, activeHashtagId } = this.props;
         const { name } = folder;
 
         if (!routeParams.id) {
-            this.props.createNewFolder(name, activeFolderId);
+            this.props.createNewHashtag(name, activeHashtagId);
         } else {
-            this.props.editFolder({
+            this.props.editHashtag({
                 ...folder,
                 id: parseInt(routeParams.id, 10),
             });
@@ -83,7 +83,7 @@ export class EditFolder extends React.Component<Props> {
     };
 
     handleNameChange = event => {
-        this.props.handleFolderNameChange(event.target.value);
+        this.props.handleHashtagNameChange(event.target.value);
     };
 
     render() {
@@ -125,7 +125,7 @@ export class EditFolder extends React.Component<Props> {
                 <div>
                     <Paper zDepth={2} style={wrapperStyles}>
                         <Subheader style={subheaderStyle}>
-                            Folder name:
+                            Hashtag name:
                         </Subheader>
                         <form className="edit-note__form">
                             <div>{errorMessage}</div>
@@ -151,7 +151,7 @@ export class EditFolder extends React.Component<Props> {
                             primary={true}
                             style={rightButtonStyles}
                             className="edit-note__save-button"
-                            onClick={this.handleFolderSave}
+                            onClick={this.handleHashtagSave}
                         />
                     </nav>
                 </div>
@@ -162,19 +162,19 @@ export class EditFolder extends React.Component<Props> {
 
 export const mapStateToProps = state =>
     createStructuredSelector({
-        folder: selectFolder,
-        activeFolderId: selectActiveFolderId,
+        folder: selectHashtag,
+        activeHashtagId: selectActiveHashtagId,
         errorMessage: selectErrorMessage,
     });
 
 export const mapDispatchToProps = dispatch =>
     bindActionCreators(
         {
-            getFolder,
-            handleFolderNameChange,
-            editFolder,
-            createNewFolder,
-            handleFailedFolderCreation,
+            getHashtag,
+            handleHashtagNameChange,
+            editHashtag,
+            createNewHashtag,
+            handleFailedHashtagCreation,
         },
         dispatch
     );
@@ -182,4 +182,4 @@ export const mapDispatchToProps = dispatch =>
 export default connect<MappedProps, MappedActions, OwnProps>(
     mapStateToProps,
     mapDispatchToProps
-)(EditFolder);
+)(EditHashtag);
