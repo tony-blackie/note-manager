@@ -38,11 +38,15 @@ interface NoteRequestBody {
 
 export type CreateNoteRequestFn = (
     note: NoteRequestBody,
-    allHashtags: HashtagType[];
-    hashtagsToAdd: HashtagType[];
+    allHashtags: HashtagType[],
+    hashtagsToAdd: HashtagType[]
 ) => void;
 
-export type EditNoteRequestFn = (note: NoteRequestBody) => void;
+export type EditNoteRequestFn = (
+    note: NoteRequestBody,
+    allHashtags: HashtagType[],
+    hashtagsToAdd: HashtagType[]
+) => void;
 
 export type ChangeTextFieldValueFn = (value: string) => void;
 

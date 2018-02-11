@@ -148,21 +148,24 @@ export class EditNote extends React.Component<Props, State> {
         const { name, textFieldValue, hashtags } = this.props.editedNote;
 
         if (!routeParams.noteId) {
-            // this.props.createNoteRequest(
-            //     {
-            //         name,
-            //         text: textFieldValue,
-            //     },
-            //     this.state.mockData.concat(this.state.searchArr),
-            //     this.state.mockData
-            // );
+            this.props.createNoteRequest(
+                {
+                    name,
+                    text: textFieldValue,
+                },
+                this.state.mockData.concat(this.state.searchArr),
+                this.state.mockData
+            );
         } else {
-            // this.props.editNoteRequest({
-            //     id: routeParams.noteId,
-            //     name,
-            //     text: textFieldValue,
-            //     hashtags: [],
-            // });
+            this.props.editNoteRequest(
+                {
+                    id: routeParams.noteId,
+                    name,
+                    text: textFieldValue,
+                },
+                this.state.mockData.concat(this.state.searchArr),
+                this.state.mockData
+            );
         }
     };
 
