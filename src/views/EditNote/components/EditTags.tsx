@@ -5,6 +5,7 @@ import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import Chip from 'material-ui/Chip';
 import Checkbox from 'material-ui/Checkbox';
+import { find } from 'lodash';
 
 import { HashtagType } from '../../../generic/types';
 
@@ -20,14 +21,15 @@ interface State {
 
 interface OwnProps {
     allHashtags: HashtagType[];
+    hashtagsInNote: HashtagType[];
 }
 
-let mock: HashtagType[] = [
-    { id: 1, name: 'initial' },
-    { id: 2, name: 'chloe' },
-    { id: 13, name: 'rachel' },
-    { id: 14, name: 'max' },
-];
+// let mock: HashtagType[] = [
+//     { id: 1, name: 'initial' },
+//     { id: 2, name: 'chloe' },
+//     { id: 13, name: 'rachel' },
+//     { id: 14, name: 'max' },
+// ];
 
 const styles = {
     chip: {
@@ -43,7 +45,7 @@ export default class EditTags extends React.Component<OwnProps, State> {
         super(props);
         this.state = {
             isOpen: null,
-            startData: mock,
+            startData: [],
             searchArr: [],
             mockData: [],
             valueInput: '',
@@ -52,15 +54,36 @@ export default class EditTags extends React.Component<OwnProps, State> {
         };
     }
 
+    componentWillReceiveProps(props) {
+        if (props.allHashtags.length && !this.state.startData.length) {
+            this.setState({ startData: props.allHashtags });
+        }
+
+        if (
+            props.hashtagsInNote.length &&
+            !this.state.mockData.length &&
+            !this.state.searchArr.length
+        ) {
+            const hashtagsInAutocomplete = props.allHashtags.filter(
+                hashtag => !find(props.hashtagsInNote, hashtag)
+            );
+
+            this.setState({
+                mockData: props.hashtagsInNote,
+                searchArr: hashtagsInAutocomplete,
+            });
+        }
+    }
+
     closeState() {
         this.setState({ isOpen: false });
     }
 
     saveData() {
-        var rand = 0 + Math.random() * (1000 + 1 - 0);
+        let rand = 0 + Math.random() * (1000 + 1 - 0);
         rand = Math.floor(rand);
 
-        var obj = { name: this.state.valueInput, id: rand };
+        let obj = { name: this.state.valueInput, id: rand };
         let arr = this.state.mockData.slice();
         let data = arr.concat(obj);
 
@@ -139,8 +162,28 @@ export default class EditTags extends React.Component<OwnProps, State> {
     }
 
     render() {
+        const chipStyles = {
+            chip: {
+                margin: 4,
+            },
+            wrapper: {
+                display: 'flex',
+            },
+        };
+
         return (
             <div>
+                {/* <div style={chipStyles.wrapper}>
+                    {this.state.mockData.map((item, index) => (
+                        <Chip
+                            key={item.id}
+                            style={chipStyles.chip}
+                            onRequestDelete={() => {}}
+                        >
+                            {item.name}
+                        </Chip>
+                    ))}
+                </div> */}
                 <div style={styles.wrapper}>
                     {this.state.mockData.map((item, index) => (
                         <Chip

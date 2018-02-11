@@ -67,7 +67,7 @@ interface MappedProps {
     editedNote: EditedNote<HashtagType>;
     activeHashtagId: number | null;
     errorMessage: string;
-    hashtags: HashtagType[];
+    allHashtags: HashtagType[];
 }
 
 interface MappedActions {
@@ -129,9 +129,8 @@ export class EditNote extends React.Component<Props> {
     };
 
     render() {
-        const { errorMessage, editedNote } = this.props;
+        const { errorMessage, editedNote, allHashtags } = this.props;
         const { textFieldValue, textFieldPlaceholder, name, date } = editedNote;
-        const allHashtags = this.props.hashtags;
         const hashtagsInNote = editedNote.hashtags;
 
         const parsedDate = date ? format(parse(date), 'DD/MM/YY') : null;
@@ -213,19 +212,11 @@ export class EditNote extends React.Component<Props> {
                         <div className="edit-note__creation-date">
                             Created on: {parsedDate}
                         </div>
-                        <div style={chipStyles.wrapper}>
-                            {hashtagsInNote.map((item, index) => (
-                                <Chip
-                                    key={item.id}
-                                    style={chipStyles.chip}
-                                    onRequestDelete={() => {}}
-                                >
-                                    {item.name}
-                                </Chip>
-                            ))}
-                        </div>
                         <div>
-                            <EditTags allHashtags={allHashtags} />
+                            <EditTags
+                                hashtagsInNote={hashtagsInNote}
+                                allHashtags={allHashtags}
+                            />
                         </div>
                     </Paper>
                     <nav className="edit-note__nav">
