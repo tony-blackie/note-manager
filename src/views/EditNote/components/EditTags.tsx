@@ -98,7 +98,6 @@ export default class EditTags extends React.Component<OwnProps, State> {
                             key={item.id}
                             style={styles.chip}
                             onRequestDelete={() => {
-                                debugger;
                                 this.props.handleRequestDelete(item.id);
                             }}
                         >
@@ -135,7 +134,6 @@ export default class EditTags extends React.Component<OwnProps, State> {
                                       key={index}
                                       label={item.name}
                                       onCheck={() => {
-                                          debugger;
                                           this.props.updateCheck(item.id);
                                       }}
                                   />

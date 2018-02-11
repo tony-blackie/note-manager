@@ -73,7 +73,6 @@ interface MappedProps {
 
 interface State {
     isOpen: boolean;
-    // startData: any;
     mockData: any;
     searchArr: any;
     valueInput: string;
@@ -100,7 +99,6 @@ type Props = OwnProps & MappedActions & MappedProps;
 export class EditNote extends React.Component<Props, State> {
     state: State = {
         isOpen: null,
-        // startData: [],
         searchArr: [],
         mockData: [],
         valueInput: '',
@@ -111,14 +109,6 @@ export class EditNote extends React.Component<Props, State> {
     };
 
     componentWillReceiveProps(props) {
-        // if (
-        //     props.allHashtags.length &&
-        //     !this.state.searchArr.length &&
-        //     !this.state.wereHashtagsInitialized
-        // ) {
-        //     this.setInitialAllHashtags(props);
-        // }
-
         if (
             props.allHashtags.length &&
             !this.state.mockData.length &&
@@ -232,7 +222,6 @@ export class EditNote extends React.Component<Props, State> {
     };
 
     updateCheck = id => {
-        debugger;
         let data = this.state.searchArr.slice();
         const itemForAdd = data.map(item => item.id).indexOf(id);
         let item = data.slice(itemForAdd, itemForAdd + 1);
@@ -253,7 +242,6 @@ export class EditNote extends React.Component<Props, State> {
     };
 
     handleRequestDelete = id => {
-        debugger;
         let chipData = this.state.mockData.slice();
         const chipToDelete = chipData.map(chip => chip.id).indexOf(id);
 
@@ -268,21 +256,13 @@ export class EditNote extends React.Component<Props, State> {
         });
     };
 
-    // setInitialAllHashtags = props => {
-    //     this.setState({
-    //         startData: props.allHashtags,
-    //         wereHashtagsInitialized: true,
-    //     });
-    // };
-
     setInitialAutocomplete = props => {
         /*
             TODO: editedNote.name is used to check if editedNote data has already resolved.
             Later it needs to be refactored to some flag like isLoaded.
          */
-        if (this.props.routeParams.noteId) {
-            if (this.props.editedNote.name) {
-                debugger;
+        if (props.routeParams.noteId) {
+            if (props.editedNote.name && props.allHashtags.length) {
                 const hashtagsInAutocomplete = props.allHashtags.filter(
                     hashtag => !find(props.editedNote.hashtags, hashtag)
                 );
